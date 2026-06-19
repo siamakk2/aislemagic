@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AisleMagic — Sign In</title>
+<link rel="icon" href="/public/favicon.svg" type="image/svg+xml"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#131313;--bg2:#0e0e0e;--card:#1c1b1b;--surf:#20201f;--hi:#2a2a2a;
+  --bdr:#2a2a2a;--warm:#594139;--tx:#e5e2e1;--mut:#a98a80;--dim:#594139;
+  --or:#ff6b35;--ordm:#5f1900;--orl:#ffb59d;--rbg:#93000a;--rtx:#ffdad6;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+
+/* NAV */
+.nav{padding:18px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdr);}
+.logo{font-size:20px;font-weight:800;color:var(--or);}
+.nav-home{font-size:13px;font-weight:600;color:var(--mut);cursor:pointer;transition:color .2s;}
+.nav-home:hover{color:var(--tx);}
+
+/* MAIN */
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:24px;padding:40px 36px;width:100%;max-width:420px;}
+.card-logo{font-size:18px;font-weight:800;color:var(--or);margin-bottom:6px;}
+.card-title{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px;}
+.card-sub{font-size:14px;color:var(--mut);margin-bottom:28px;}
+
+/* TABS */
+.tabs{display:flex;background:var(--surf);border-radius:12px;padding:4px;gap:4px;margin-bottom:28px;}
+.tab{flex:1;padding:9px;border-radius:9px;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .18s;}
+.tab.on{background:var(--or);color:#fff;}
+.tab.off{background:transparent;color:var(--mut);}
+
+/* FORM */
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--mut);margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase;}
+.field input{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:13px 14px;font-size:15px;color:var(--tx);font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;}
+.field input:focus{border-color:var(--or);}
+.field input::placeholder{color:var(--dim);}
+.forgot{font-size:12px;font-weight:600;color:var(--or);cursor:pointer;float:right;margin-top:6px;}
+.submit{width:100%;background:var(--or);border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;margin-top:20px;transition:opacity .2s;}
+.submit:hover{opacity:.88;}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--dim);font-size:12px;font-weight:600;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--bdr);}
+.social-btn{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:13px;font-size:14px;font-weight:700;color:var(--tx);cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;transition:background .2s;}
+.social-btn:hover{background:var(--hi);}
+.terms{font-size:11px;color:var(--dim);text-align:center;margin-top:18px;line-height:1.6;}
+.terms a{color:var(--mut);}
+.error-box{background:var(--rbg);border-radius:10px;padding:11px 14px;font-size:13px;color:var(--rtx);margin-bottom:14px;display:none;}
+.success-box{background:#1a3a1a;border-radius:10px;padding:11px 14px;font-size:13px;color:#7ecf7e;margin-bottom:14px;display:none;}
+
+/* FOOTER */
+footer{padding:24px 40px;border-top:1px solid var(--bdr);text-align:center;font-size:12px;color:var(--dim);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">AisleMagic</div>
+  <a href="/" class="nav-home">← Back to Home</a>
+</nav>
+
+<main class="main">
+  <div class="card">
+    <div class="card-logo">AisleMagic</div>
+    <div class="card-title" id="card-title">Welcome back</div>
+    <div class="card-sub" id="card-sub">Sign in to your shopping account</div>
+
+    <div class="tabs">
+      <button class="tab on" id="tab-signin" onclick="switchTab('signin')" type="button">Sign In</button>
+      <button class="tab off" id="tab-signup" onclick="switchTab('signup')" type="button">Create Account</button>
+    </div>
+
+    <div class="error-box" id="err-box"></div>
+    <div class="success-box" id="suc-box"></div>
+
+    <!-- SIGN IN FORM -->
+    <div id="form-signin">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="si-email" placeholder="your@email.com" autocomplete="email"/>
+      </div>
+      <div class="field">
+        <label>Password <span class="forgot" onclick="forgotPassword()">Forgot password?</span></label>
+        <input type="password" id="si-pass" placeholder="••••••••" autocomplete="current-password"/>
+      </div>
+      <button class="submit" onclick="doSignIn()" type="button">Sign In →</button>
+      <div class="divider">or</div>
+      <button class="social-btn" onclick="demoLogin()" type="button">
+        <span>🛒</span> Continue as Guest (Demo)
+      </button>
+      <button class="social-btn" type="button" onclick="showErr('Google sign-in coming soon!')">
+        <span>🔵</span> Continue with Google
+      </button>
+      <button class="social-btn" type="button" onclick="showErr('Apple sign-in coming soon!')">
+        <span>🍎</span> Continue with Apple
+      </button>
+    </div>
+
+    <!-- CREATE ACCOUNT FORM -->
+    <div id="form-signup" style="display:none;">
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" id="su-name" placeholder="Sarah Kalhor" autocomplete="name"/>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="su-email" placeholder="your@email.com" autocomplete="email"/>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="su-pass" placeholder="Min. 8 characters" autocomplete="new-password"/>
+      </div>
+      <div class="field">
+        <label>Preferred Whole Foods</label>
+        <select id="su-store" style="width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:13px 14px;font-size:14px;color:var(--tx);font-family:'Inter',sans-serif;outline:none;appearance:none;">
+          <option value="napa">Napa Bel Aire Plaza (Trancas St, 94558) ⭐</option>
+          <option value="santa">Santa Rosa (Third St)</option>
+          <option value="novato">Novato (Redwood Blvd)</option>
+          <option value="sanraf">San Rafael (Third St)</option>
+          <option value="mill">Mill Valley (Camino Alto)</option>
+          <option value="sf1">San Francisco (California St)</option>
+          <option value="sf2">San Francisco (4th Street)</option>
+          <option value="oak">Oakland Rockridge</option>
+          <option value="berk">Berkeley (Telegraph Ave)</option>
+        </select>
+      </div>
+      <button class="submit" onclick="doSignUp()" type="button">Create Account →</button>
+      <div class="divider">or</div>
+      <button class="social-btn" type="button" onclick="showErr('Google sign-in coming soon!')">
+        <span>🔵</span> Continue with Google
+      </button>
+      <button class="social-btn" type="button" onclick="showErr('Apple sign-in coming soon!')">
+        <span>🍎</span> Continue with Apple
+      </button>
+      <div class="terms">By creating an account you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</div>
+    </div>
+
+  </div>
+</main>
+
+<footer>© 2024 AisleMagic Technology. All rights reserved.</footer>
+
+<script>
+function switchTab(t){
+  document.getElementById('tab-signin').className='tab '+(t==='signin'?'on':'off');
+  document.getElementById('tab-signup').className='tab '+(t==='signup'?'on':'off');
+  document.getElementById('form-signin').style.display=t==='signin'?'block':'none';
+  document.getElementById('form-signup').style.display=t==='signup'?'block':'none';
+  document.getElementById('card-title').textContent=t==='signin'?'Welcome back':'Create your account';
+  document.getElementById('card-sub').textContent=t==='signin'?'Sign in to your shopping account':'Start shopping smarter at Whole Foods';
+  clearMsgs();
+}
+
+function showErr(msg){
+  const e=document.getElementById('err-box');
+  e.textContent=msg; e.style.display='block';
+  document.getElementById('suc-box').style.display='none';
+}
+function showSuc(msg){
+  const e=document.getElementById('suc-box');
+  e.textContent=msg; e.style.display='block';
+  document.getElementById('err-box').style.display='none';
+}
+function clearMsgs(){
+  document.getElementById('err-box').style.display='none';
+  document.getElementById('suc-box').style.display='none';
+}
+
+function doSignIn(){
+  const email=document.getElementById('si-email').value.trim();
+  const pass=document.getElementById('si-pass').value;
+  if(!email){ showErr('Please enter your email address.'); return; }
+  if(!pass){ showErr('Please enter your password.'); return; }
+  if(!email.includes('@')){ showErr('Please enter a valid email address.'); return; }
+  // Simulate login — replace with real auth later
+  showSuc('✓ Signing you in…');
+  setTimeout(()=>{ window.location.href='app/'; }, 1200);
+}
+
+function doSignUp(){
+  const name=document.getElementById('su-name').value.trim();
+  const email=document.getElementById('su-email').value.trim();
+  const pass=document.getElementById('su-pass').value;
+  if(!name){ showErr('Please enter your full name.'); return; }
+  if(!email||!email.includes('@')){ showErr('Please enter a valid email address.'); return; }
+  if(!pass||pass.length<8){ showErr('Password must be at least 8 characters.'); return; }
+  showSuc('✓ Account created! Taking you to the app…');
+  setTimeout(()=>{ window.location.href='app/'; }, 1400);
+}
+
+function demoLogin(){
+  showSuc('✓ Loading demo…');
+  setTimeout(()=>{ window.location.href='app/'; }, 800);
+}
+
+function forgotPassword(){
+  const email=document.getElementById('si-email').value.trim();
+  if(!email){ showErr('Enter your email above first, then click Forgot password.'); return; }
+  showSuc('✓ Password reset link sent to '+email);
+}
+
+// Enter key support
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'){
+    const tab=document.getElementById('tab-signin').classList.contains('on')?'signin':'signup';
+    if(tab==='signin') doSignIn(); else doSignUp();
+  }
+});
+</script>
+</body>
+</html>
