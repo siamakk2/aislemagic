@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<title>AisleMagic</title>
+<title>AisleBird</title>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="AisleMagic"/>
+<meta name="apple-mobile-web-app-title" content="AisleBird"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
-  --bg:#131313;--bg2:#0e0e0e;--card:#1c1b1b;--surf:#20201f;--hi:#2a2a2a;
-  --bdr:#2a2a2a;--warm:#594139;--tx:#e5e2e1;--mut:#a98a80;--dim:#594139;
-  --or:#ff6b35;--ordm:#5f1900;--orl:#ffb59d;
-  --rbg:#93000a;--rtx:#ffdad6;--gbg:#1a3a1a;--gtx:#7ecf7e;
+  --bg:#0a0a0a;--bg2:#131313;--card:#1a1a1a;--surf:#202020;--hi:#2a2a2a;
+  --bdr:#333333;--warm:#594139;--tx:#ffffff;--mut:#d0d0d0;--dim:#7a7a7a;
+  --or:#ff6b35;--ordm:#ff8c5a;--orl:#ffb59d;
+  --rbg:#c82333;--rtx:#ffdad6;--gbg:#7cb342;--gtx:#ffffff;
 }
-html,body{height:100%;overflow:hidden;background:#000;}
+html,body{height:100%;overflow:hidden;background:#0a0a0a;}
 body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;}
-.app{width:100%;max-width:430px;height:100vh;display:flex;flex-direction:column;background:var(--bg);overflow:hidden;position:relative;}
+.app{width:100%;max-width:100%;height:100vh;display:flex;flex-direction:column;background:var(--bg);overflow:hidden;position:relative;}
 
 /* NAV */
 .nav{background:var(--bg2);padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--bdr);flex-shrink:0;}
@@ -41,7 +41,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .ssort-ico{width:28px;height:28px;border-radius:7px;background:var(--ordm);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
 .ssort-title{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--orl);text-transform:uppercase;margin-left:8px;}
 .ssort-sub{font-size:10px;color:var(--mut);margin-top:1px;margin-left:8px;}
-.ssort-reset{background:var(--ordm);border:none;border-radius:999px;padding:4px 11px;font-size:11px;font-weight:700;color:var(--or);cursor:pointer;font-family:'Inter',sans-serif;}
+.ssort-reset{background:var(--or);border:none;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:800;color:#ffffff;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 2px 8px rgba(255,107,53,0.3);}
 .chips{display:flex;align-items:center;overflow-x:auto;padding-bottom:2px;}
 .chips::-webkit-scrollbar{height:0;}
 .chip-wrap{display:flex;align-items:center;flex-shrink:0;}
@@ -242,6 +242,27 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .bt-pill span{color:#fff;font-size:10px;font-weight:800;}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--gbg);border:1px solid var(--gtx);border-radius:999px;padding:10px 20px;font-size:13px;font-weight:700;color:var(--gtx);z-index:999;white-space:nowrap;font-family:'Inter',sans-serif;pointer-events:none;opacity:0;transition:opacity .2s;}
 .toast.show{opacity:1;}
+
+/* RESPONSIVE - Desktop expansion */
+@media (min-width: 600px) {
+  .app {
+    max-width: 100%;
+    padding: 0;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* MOBILE - Keep compact on small screens */
+@media (max-width: 599px) {
+  .app {
+    max-width: 100%;
+    width: 100vw;
+  }
+}
+
 </style>
 </head>
 <body>
