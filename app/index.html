@@ -1616,6 +1616,8 @@ document.getElementById('sp-search').addEventListener('input', function(){
 /* ═══════════════════════════════════════
    INIT
 ═══════════════════════════════════════ */
+mergeStdCats(curChain);
+selCat=curChain.cats[0].id;
 buildCatGrid();
 renderChips();
 renderList();
