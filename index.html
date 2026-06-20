@@ -3,38 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AisleBird - Stop wandering. Get organized. Shop smart. Voice-powered shopping for every store, every list, every life.">
-  <title>AisleBird — Smart Shopping, Voice-Guided</title>
+  <meta name="description" content="AisleBird - Stop wandering aimlessly. Get guided. Shop smarter with voice-powered intelligence.">
+  <title>AisleBird — Your Shopping Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     :root {
-      --cream: #f9f7f4;
-      --warm-gray: #8b8680;
-      --dark: #2a2824;
+      --dark: #3a3430;
+      --cream: #faf8f5;
       --accent: #e8762f;
       --accent-light: #f5a75d;
-      --border: #e8e5e0;
+      --accent-muted: #d96b1f;
+      --sage: #8ba88f;
+      --gray-light: #e8e5e0;
+      --gray-mid: #d4cac0;
     }
     
     html { scroll-behavior: smooth; }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    body {
+      font-family: 'Inter', sans-serif;
       color: var(--dark);
       background: var(--cream);
       line-height: 1.6;
     }
     
+    /* NAVIGATION */
     .nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 40px;
+      padding: 24px 40px;
       background: white;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--gray-light);
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
     
     .nav-logo {
@@ -43,25 +49,31 @@
       gap: 12px;
       text-decoration: none;
       color: var(--dark);
-      font-weight: 700;
-      font-size: 20px;
     }
     
     .nav-logo-bird {
-      width: 32px;
-      height: 32px;
-      background: var(--accent);
-      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 16px;
+      font-size: 28px;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(232, 118, 47, 0.2);
+    }
+    
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
     
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 40px;
       list-style: none;
     }
     
@@ -69,220 +81,318 @@
       text-decoration: none;
       color: var(--dark);
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       transition: color 0.2s;
     }
     
     .nav-links a:hover { color: var(--accent); }
     
-    .btn {
-      padding: 10px 20px;
+    .nav-cta {
+      padding: 10px 24px;
+      background: var(--accent);
+      color: white;
       border: none;
       border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
-      font-family: inherit;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+    }
+    
+    .nav-cta:hover {
+      background: var(--accent-muted);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(232, 118, 47, 0.25);
+    }
+    
+    /* HERO */
+    .hero {
+      padding: 80px 40px;
+      background: linear-gradient(135deg, var(--cream) 0%, #fcfbf9 100%);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+    
+    .hero-content h1 .lost {
+      color: var(--dark);
+      display: block;
+      font-weight: 700;
+    }
+    
+    .hero-content h1 .found {
+      color: var(--accent);
+      display: block;
+    }
+    
+    .hero-subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 32px;
+      line-height: 1.8;
+      max-width: 500px;
+    }
+    
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      align-items: center;
     }
     
     .btn-primary {
+      padding: 16px 32px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .btn-primary:hover {
+      background: var(--accent-muted);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(232, 118, 47, 0.3);
+    }
+    
+    .btn-secondary {
+      padding: 16px 32px;
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .btn-secondary:hover {
       background: var(--accent);
       color: white;
     }
     
-    .btn-primary:hover {
-      background: #d16a24;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(232, 118, 47, 0.2);
-    }
-    
-    .hero {
-      padding: 80px 40px;
-      text-align: center;
-      background: linear-gradient(135deg, var(--cream) 0%, #faf8f5 100%);
-    }
-    
-    .hero-title {
-      font-size: 56px;
-      font-weight: 800;
-      margin-bottom: 16px;
-      color: var(--dark);
-      line-height: 1.2;
-    }
-    
-    .hero-title .accent { color: var(--accent); }
-    
-    .hero-subtitle {
-      font-size: 20px;
-      color: var(--warm-gray);
-      max-width: 600px;
-      margin: 0 auto 32px;
-    }
-    
-    .hero-cta {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      margin-bottom: 60px;
-    }
-    
     .hero-visual {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 40px;
-      background: white;
-      border-radius: 16px;
-      border: 1px solid var(--border);
+      position: relative;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
-    .bird-icon {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 20px;
+    .bird-hero {
+      font-size: 280px;
+      line-height: 1;
+      animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 20px 40px rgba(232, 118, 47, 0.15));
     }
     
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    /* SECTION */
     .section {
-      padding: 80px 40px;
+      padding: 100px 40px;
       max-width: 1200px;
       margin: 0 auto;
     }
     
     .section-title {
-      font-size: 36px;
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
       font-weight: 800;
-      margin-bottom: 48px;
+      margin-bottom: 60px;
       text-align: center;
-      color: var(--dark);
+      letter-spacing: -0.5px;
     }
     
+    /* PROBLEM SECTION */
     .problem-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 32px;
       margin-bottom: 60px;
     }
     
     .problem-card {
-      padding: 32px;
+      padding: 40px;
       background: white;
-      border-radius: 12px;
-      border-left: 4px solid var(--accent);
+      border-radius: 16px;
+      border: 1px solid var(--gray-light);
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .problem-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    }
+    
+    .problem-card-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
     }
     
     .problem-card h3 {
-      font-size: 18px;
+      font-size: 20px;
+      font-weight: 700;
       margin-bottom: 12px;
       color: var(--dark);
     }
     
     .problem-card p {
-      font-size: 14px;
-      color: var(--warm-gray);
+      font-size: 15px;
+      color: #777;
+      line-height: 1.8;
     }
     
+    /* FEATURES SECTION */
     .features {
       background: white;
-      padding: 80px 40px;
+      padding: 100px 40px;
+    }
+    
+    .features-intro {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 80px;
+    }
+    
+    .features-intro p {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 24px;
     }
     
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 40px;
       max-width: 1200px;
       margin: 0 auto;
     }
     
-    .feature-item {
+    .feature {
       text-align: center;
     }
     
     .feature-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 20px;
-      background: var(--accent);
-      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+      background: linear-gradient(135deg, #fef3e9 0%, #fde9d6 100%);
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 32px;
+      font-size: 40px;
     }
     
-    .feature-item h3 {
+    .feature h3 {
       font-size: 18px;
+      font-weight: 700;
       margin-bottom: 12px;
       color: var(--dark);
     }
     
-    .feature-item p {
+    .feature p {
       font-size: 14px;
-      color: var(--warm-gray);
+      color: #777;
+      line-height: 1.8;
     }
     
+    /* STORY SECTION */
     .story {
-      padding: 80px 40px;
-      max-width: 800px;
-      margin: 0 auto;
+      padding: 100px 40px;
+      background: linear-gradient(135deg, #f9f5f0 0%, var(--cream) 100%);
     }
     
     .story-content {
+      max-width: 800px;
+      margin: 0 auto;
       background: white;
-      padding: 40px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      padding: 60px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.05);
     }
     
     .story-content h2 {
-      font-size: 28px;
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 800;
       margin-bottom: 24px;
       color: var(--dark);
+      letter-spacing: -0.5px;
     }
     
     .story-content p {
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--warm-gray);
+      font-size: 16px;
+      line-height: 1.9;
+      color: #666;
       margin-bottom: 20px;
     }
     
+    .story-highlight {
+      font-weight: 700;
+      color: var(--accent);
+    }
+    
+    /* PRICING */
     .pricing {
-      padding: 80px 40px;
-      background: linear-gradient(135deg, var(--cream) 0%, #faf8f5 100%);
+      padding: 100px 40px;
+      background: white;
     }
     
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
-      max-width: 1000px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      max-width: 900px;
       margin: 0 auto;
     }
     
     .pricing-card {
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      padding: 48px;
+      background: linear-gradient(135deg, var(--cream) 0%, #fcfbf9 100%);
+      border-radius: 20px;
+      border: 2px solid var(--gray-light);
       text-align: center;
       transition: all 0.3s;
     }
     
     .pricing-card:hover {
       border-color: var(--accent);
-      box-shadow: 0 12px 32px rgba(232, 118, 47, 0.1);
+      box-shadow: 0 20px 50px rgba(232, 118, 47, 0.1);
     }
     
     .pricing-card h3 {
-      font-size: 20px;
-      margin-bottom: 12px;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
       color: var(--dark);
     }
     
     .price {
-      font-size: 48px;
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
       font-weight: 800;
       color: var(--accent);
       margin: 20px 0;
@@ -290,50 +400,75 @@
     
     .price-period {
       font-size: 14px;
-      color: var(--warm-gray);
-      margin-bottom: 24px;
+      color: #999;
+      margin-bottom: 32px;
     }
     
     .pricing-list {
       text-align: left;
-      margin-bottom: 32px;
+      margin-bottom: 40px;
       font-size: 14px;
-      color: var(--warm-gray);
+      color: #777;
     }
     
     .pricing-list li {
       list-style: none;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--gray-light);
     }
     
     .pricing-list li:before {
       content: "✓ ";
-      color: var(--accent);
-      font-weight: 700;
-      margin-right: 8px;
+      color: var(--sage);
+      font-weight: 800;
+      margin-right: 10px;
     }
     
+    .pricing-card .btn-primary {
+      width: 100%;
+    }
+    
+    /* CTA SECTION */
     .cta-section {
-      padding: 80px 40px;
-      background: var(--accent);
+      padding: 100px 40px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
       color: white;
       text-align: center;
+      border-radius: 20px;
+      margin: 0 40px 80px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .cta-section h2 {
-      font-size: 36px;
-      margin-bottom: 16px;
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
     }
     
     .cta-section p {
       font-size: 18px;
-      margin-bottom: 32px;
+      margin-bottom: 40px;
       opacity: 0.95;
     }
     
+    .cta-section .btn-primary {
+      background: white;
+      color: var(--accent);
+      padding: 16px 40px;
+      font-size: 16px;
+    }
+    
+    .cta-section .btn-primary:hover {
+      background: #f5f5f5;
+    }
+    
+    /* FOOTER */
     .footer {
-      padding: 40px;
+      padding: 60px 40px;
       background: var(--dark);
       color: white;
       text-align: center;
@@ -341,205 +476,209 @@
     }
     
     .footer-links {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       display: flex;
-      gap: 24px;
+      gap: 32px;
       justify-content: center;
     }
     
     .footer-links a {
       color: white;
       text-decoration: none;
-      opacity: 0.8;
+      opacity: 0.7;
       transition: opacity 0.2s;
     }
     
     .footer-links a:hover { opacity: 1; }
     
-    @media (max-width: 768px) {
-      .nav {
-        flex-direction: column;
-        gap: 16px;
-        padding: 16px;
-      }
-      
-      .nav-links {
-        gap: 16px;
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .hero-title {
-        font-size: 36px;
-      }
-      
-      .section { padding: 60px 20px; }
-      
-      .hero {
-        padding: 60px 20px;
-      }
+    .footer-credit {
+      opacity: 0.6;
+      font-size: 13px;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { height: 350px; }
+      .bird-hero { font-size: 200px; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero-content h1 { font-size: 36px; }
+      .section-title { font-size: 32px; }
     }
   </style>
 </head>
 <body>
   
-  <!-- Navigation -->
+  <!-- NAVIGATION -->
   <nav class="nav">
     <a href="#" class="nav-logo">
       <div class="nav-logo-bird">🐦</div>
-      <span>AisleBird</span>
+      <div class="nav-logo-text">AisleBird</div>
     </a>
     <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#story">Our Story</a></li>
+      <li><a href="#features">How it works</a></li>
+      <li><a href="#story">Our story</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="/app" class="btn btn-primary">Open App</a></li>
     </ul>
+    <button class="nav-cta" onclick="window.location.href='/app'">Open App</button>
   </nav>
   
-  <!-- Hero -->
+  <!-- HERO -->
   <section class="hero">
-    <h1 class="hero-title">Stop wandering.<br>Get <span class="accent">organized</span>.</h1>
-    <p class="hero-subtitle">
-      AisleBird guides you through every store, every list, with your voice. 
-      Built for people who just want to shop smarter and faster.
-    </p>
-    <div class="hero-cta">
-      <button class="btn btn-primary" onclick="window.location.href='/app'">Start Free</button>
-      <button class="btn" style="border: 2px solid var(--accent); color: var(--accent);" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'});">Learn More</button>
+    <div class="hero-content">
+      <h1>
+        <span class="lost">Stop wandering.</span>
+        <span class="found">Start flying.</span>
+      </h1>
+      <p class="hero-subtitle">
+        You're not an aisle bird anymore. With AisleBird, every shopping trip is guided, organized, and fast. 
+        Voice-powered intelligence that knows every store.
+      </p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="window.location.href='/app'">Get Started Free</button>
+        <button class="btn-secondary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'});">Learn More</button>
+      </div>
     </div>
     <div class="hero-visual">
-      <div style="font-size: 80px; text-align: center;">🐦</div>
-      <p style="color: var(--warm-gray); margin-top: 16px;">From lost to guided in one tap</p>
+      <div class="bird-hero">🐦</div>
     </div>
   </section>
   
-  <!-- The Problem -->
+  <!-- THE PROBLEM -->
   <section class="section">
-    <h2 class="section-title">Stop Being an Aisle Bird</h2>
+    <h2 class="section-title">The Aisle Bird Problem</h2>
     <div class="problem-grid">
       <div class="problem-card">
-        <h3>⏰ Lost Time</h3>
-        <p>You wander aimlessly, lingering in aisles, forgetting where things are. Shopping takes forever.</p>
+        <div class="problem-card-icon">⏰</div>
+        <h3>Lost in Time</h3>
+        <p>Wandering aimlessly, lingering too long, forgetting where things are. Shopping takes forever.</p>
       </div>
       <div class="problem-card">
-        <h3>🤔 Mental Load</h3>
-        <p>Juggling a list in your head, remembering where the milk is, which aisle has what. It's exhausting.</p>
+        <div class="problem-card-icon">🤯</div>
+        <h3>Mental Overload</h3>
+        <p>Juggling lists in your head, remembering aisles, tracking quantities. It's exhausting.</p>
       </div>
       <div class="problem-card">
-        <h3>🛒 Wrong Store</h3>
-        <p>You shop at grocery stores, hardware stores, pharmacies — but your app only knows one. Until now.</p>
+        <div class="problem-card-icon">🛒</div>
+        <h3>Every Store, Every Time</h3>
+        <p>Groceries, hardware, pharmacy — every place has a different layout. No single app helps.</p>
       </div>
     </div>
   </section>
   
-  <!-- Features -->
+  <!-- FEATURES -->
   <section class="features" id="features">
-    <h2 class="section-title">How AisleBird Works</h2>
+    <h2 class="section-title">How AisleBird Guides You</h2>
+    <div class="features-intro">
+      <p>Stop circling aimlessly. AisleBird knows every aisle in every store. Just tell it what you need, and it guides you through efficiently — so you spend less time shopping and more time living.</p>
+    </div>
     <div class="features-grid">
-      <div class="feature-item">
+      <div class="feature">
         <div class="feature-icon">🎤</div>
-        <h3>Voice Shopping</h3>
-        <p>Just say what you need. "Add organic bananas" or "Two cartons of almond milk." Your mic does the work.</p>
+        <h3>Talk to Shop</h3>
+        <p>Say what you need. "Milk" or "organic bananas." Your voice does the thinking.</p>
       </div>
-      <div class="feature-item">
+      <div class="feature">
         <div class="feature-icon">🗺️</div>
-        <h3>Smart Organization</h3>
-        <p>Items sorted by aisle. Every store. Grocery, hardware, pharmacy — AisleBird knows them all.</p>
+        <h3>Smart Routes</h3>
+        <p>Items organized by aisle. Every store. Whole Foods, Target, Costco, CVS — all covered.</p>
       </div>
-      <div class="feature-item">
+      <div class="feature">
         <div class="feature-icon">⚡</div>
-        <h3>Fast & Simple</h3>
-        <p>No wandering. No confusion. In and out with everything you need. Save time, save stress.</p>
+        <h3>Shop Faster</h3>
+        <p>No wandering. No confusion. Clear direction from entry to checkout.</p>
       </div>
-      <div class="feature-item">
-        <div class="feature-icon">📍</div>
-        <h3>California + Counting</h3>
-        <p>Shop at 119+ verified store locations across California. More coming. Your favorite store is there.</p>
-      </div>
-      <div class="feature-item">
+      <div class="feature">
         <div class="feature-icon">✅</div>
-        <h3>Check As You Go</h3>
-        <p>Found an item? Check it off. Watch your progress. Never lose track of what's left.</p>
+        <h3>Check as You Go</h3>
+        <p>Found it? Check it off. Watch your progress. Never lose track.</p>
       </div>
-      <div class="feature-item">
+      <div class="feature">
+        <div class="feature-icon">📍</div>
+        <h3>119+ California Stores</h3>
+        <p>Your favorite stores are already mapped. More locations coming every week.</p>
+      </div>
+      <div class="feature">
         <div class="feature-icon">💾</div>
-        <h3>Your Lists, Saved</h3>
-        <p>Import from your phone notes, save lists for later, reuse them. Your shopping, organized forever.</p>
+        <h3>Reusable Lists</h3>
+        <p>Save your shopping lists. Reuse them anytime. Build your perfect routine.</p>
       </div>
     </div>
   </section>
   
-  <!-- Our Story -->
-  <section class="section" id="story">
-    <h2 class="section-title">Built With Love</h2>
+  <!-- OUR STORY -->
+  <section class="story" id="story">
+    <h2 class="section-title">Why AisleBird Exists</h2>
     <div class="story-content">
-      <h2>Why We Built AisleBird</h2>
+      <h2>Built with precision for people who demand it.</h2>
       <p>
-        AisleBird was built by a developer for his wife, Jennifer Law — someone who demands precision in everything she does. 
-        She wanted shopping to be simpler, faster, and less mentally exhausting. So we built an app that sets you free from 
-        wandering, from confusion, from wasted time.
+        AisleBird was born from a simple frustration: shopping is confusing, time-consuming, and mentally exhausting. 
+        A developer built it for his wife, <span class="story-highlight">Jennifer Law</span> — someone who demands precision in everything she does. 
+        She designed every detail, making sure nothing was left to chance.
       </p>
       <p>
-        Jennifer designed it. She made sure every detail is intentional. That's why it works. That's why people love it. 
-        It's not just an app — it's a tool built with the same care you'd want when you're shopping for your family.
+        What started as one person's solution became something thousands of people across California now rely on. 
+        Because you shouldn't have to wander. You shouldn't have to think. You should just shop, check off your list, and get on with your life.
       </p>
       <p>
-        What started as one person's solution has become something thousands use across California. 
-        Because wandering aimlessly through stores? That's for birds. Let AisleBird guide you.
+        <span class="story-highlight">That's the AisleBird promise.</span>
       </p>
     </div>
   </section>
   
-  <!-- Pricing -->
+  <!-- PRICING -->
   <section class="pricing" id="pricing">
     <h2 class="section-title">Simple Pricing</h2>
     <div class="pricing-grid">
       <div class="pricing-card">
-        <h3>Try AisleBird</h3>
-        <div class="price">Free</div>
+        <h3>Free</h3>
+        <div class="price">$0</div>
         <p class="price-period">Forever</p>
         <ul class="pricing-list">
           <li>Full app access</li>
-          <li>All 119+ stores</li>
+          <li>119+ stores</li>
           <li>Voice shopping</li>
           <li>Unlimited lists</li>
         </ul>
-        <button class="btn btn-primary" onclick="window.location.href='/app'" style="width: 100%;">Start Now</button>
+        <button class="btn-primary" onclick="window.location.href='/app'">Start Free</button>
       </div>
       
       <div class="pricing-card">
-        <h3>Pro (Coming Soon)</h3>
+        <h3>Pro (Coming)</h3>
         <div class="price">$3.99</div>
         <p class="price-period">/ month</p>
         <ul class="pricing-list">
           <li>Everything in Free</li>
           <li>Sync across devices</li>
-          <li>Advanced analytics</li>
+          <li>Smart analytics</li>
           <li>Priority support</li>
         </ul>
-        <button class="btn" style="width: 100%; color: var(--accent); border: 2px solid var(--accent); background: transparent;">Coming Soon</button>
+        <button class="btn-primary" style="opacity: 0.6; cursor: not-allowed;">Coming Soon</button>
       </div>
     </div>
   </section>
   
   <!-- CTA -->
   <section class="cta-section">
-    <h2>Ready to Stop Being an Aisle Bird?</h2>
-    <p>Free forever. No credit card. Just smarter shopping.</p>
-    <button class="btn btn-primary" onclick="window.location.href='/app'" style="background: white; color: var(--accent); padding: 12px 32px; font-size: 16px;">Download AisleBird</button>
+    <h2>Stop Being an Aisle Bird</h2>
+    <p>Get guided. Get organized. Get out. Free forever.</p>
+    <button class="btn-primary" onclick="window.location.href='/app'">Open AisleBird Now</button>
   </section>
   
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-links">
-      <a href="#features">Features</a>
+      <a href="#features">How it works</a>
       <a href="#pricing">Pricing</a>
       <a href="#">Privacy</a>
       <a href="#">Terms</a>
-      <a href="https://github.com/siamakk2/aislebird">GitHub</a>
+      <a href="https://github.com/siamakk2/aislemagic">GitHub</a>
     </div>
-    <p>© 2026 AisleBird. Built with precision for people who just want to shop smarter.</p>
+    <p class="footer-credit">© 2026 AisleBird. Designed with precision by Jennifer Law. Built by someone who loves her.</p>
   </footer>
 
 </body>
