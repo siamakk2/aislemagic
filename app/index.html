@@ -1297,11 +1297,45 @@ function buildCatGrid(){
     })(c);
   });
 }
+/* Auto-detect a generic category from the item name */
+var CAT_KEYWORDS=[
+  ['dairy',    ['milk','cheese','butter','yogurt','yoghurt','cream','egg','eggs','paneer','cheddar','mozzarella','parmesan','cottage','feta','half and half']],
+  ['produce',  ['apple','banana','orange','lettuce','spinach','tomato','potato','onion','garlic','carrot','broccoli','cucumber','pepper','avocado','berry','berries','strawberr','blueberr','grape','lemon','lime','kale','celery','mushroom','cilantro','parsley','ginger','salad','greens','herb','squash','zucchini','corn','cauliflower','cabbage','melon','peach','pear','mango','spinach']],
+  ['meat',     ['chicken','beef','pork','turkey','salmon','fish','tuna','shrimp','bacon','sausage','ham','steak','lamb','fillet','filet','cod','tilapia','crab','lobster','ground']],
+  ['frozen',   ['ice cream','frozen','popsicle','edamame','frozen pizza','gelato']],
+  ['bakery',   ['bread','bagel','loaf','croissant','muffin','cake','donut','doughnut','tortilla','bun','roll','pita','baguette','sourdough','pastry']],
+  ['bulk',     ['oats','almond','nuts','rice','beans','lentil','quinoa','granola','flour','grain','seed','trail mix','cashew','walnut','pecan']],
+  ['pantry',   ['oil','olive oil','vinegar','pasta','sauce','canned','soup','cereal','peanut butter','almond butter','honey','sugar','salt','spice','ketchup','mustard','mayo','broth','jam','jelly','syrup','tea','coffee','flour']],
+  ['snacks',   ['chips','cracker','chocolate','candy','cookie','popcorn','pretzel','snack','bar','nuts']],
+  ['wine',     ['wine','beer','vodka','whiskey','champagne','rose','rosé','ipa','tequila','liquor']],
+  ['prepared', ['rotisserie','deli','sushi','prepared','sandwich','hot bar']]
+];
+function guessCat(name){
+  var n=name.toLowerCase();
+  var generic=null;
+  for(var i=0;i<CAT_KEYWORDS.length;i++){
+    var kws=CAT_KEYWORDS[i][1];
+    for(var j=0;j<kws.length;j++){ if(n.indexOf(kws[j])>=0){ generic=CAT_KEYWORDS[i][0]; break; } }
+    if(generic) break;
+  }
+  if(!generic) return selCat; // unknown (e.g. dog food, paper towels) -> current default aisle
+  // map the generic category to one this store actually has
+  var ids=curChain.cats.map(function(c){ return c.id; });
+  if(ids.indexOf(generic)>=0) return generic;
+  var fb={bulk:['pantry'],pantry:['bulk'],snacks:['pantry','bulk'],wine:['pantry'],prepared:['meat'],frozen:['produce'],bakery:['bulk']};
+  if(fb[generic]){ for(var k=0;k<fb[generic].length;k++){ if(ids.indexOf(fb[generic][k])>=0) return fb[generic][k]; } }
+  return selCat;
+}
 function submitAdd(){
   var inp=document.getElementById('add-inp'), v=inp.value.trim(); if(!v) return;
-  items.push({id:nid++,name:cap(v),cat:selCat,qty:1,checked:false,tag:null,tc:''});
+  // split on commas so "milk, olive oil, ice cream" becomes separate items
+  var parts=v.split(',').map(function(s){ return s.trim(); }).filter(function(s){ return s.length>0; });
+  if(parts.length===0) return;
+  parts.forEach(function(p){
+    items.push({id:nid++,name:cap(p),cat:guessCat(p),qty:1,checked:false,tag:null,tc:''});
+  });
   inp.value=''; closeOv('ov-add'); renderList(); renderQuickAdd();
-  showToast('✓ Item added!');
+  showToast(parts.length===1?'✓ Item added!':'✓ '+parts.length+' items added!');
 }
 
 /* ═══════════════════════════════════════
