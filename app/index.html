@@ -927,14 +927,81 @@ function getCat(id){
   for(var i=0;i<cats.length;i++) if(cats[i].id===id) return cats[i];
   return cats[0];
 }
+/* ─── Standard departments every store gets (auto-merged on load) ─── */
+var STD_CATS=[
+  {id:'produce',   label:'Produce',            emoji:'🥦',aisle:'Produce'},
+  {id:'bakery',    label:'Bakery',             emoji:'🍞',aisle:'Bakery'},
+  {id:'meat',      label:'Meat & Fish',        emoji:'🥩',aisle:'Meat & Seafood'},
+  {id:'dairy',     label:'Dairy & Eggs',       emoji:'🧀',aisle:'Dairy'},
+  {id:'frozen',    label:'Frozen',             emoji:'❄️',aisle:'Frozen'},
+  {id:'bulk',      label:'Bulk Foods',         emoji:'🌾',aisle:'Bulk'},
+  {id:'pantry',    label:'Pantry',             emoji:'🥫',aisle:'Pantry'},
+  {id:'condiments',label:'Condiments & Sauces',emoji:'🫙',aisle:'Condiments'},
+  {id:'snacks',    label:'Snacks',             emoji:'🍿',aisle:'Snacks'},
+  {id:'beverages', label:'Beverages',          emoji:'🥤',aisle:'Beverages'},
+  {id:'wine',      label:'Wine & Beer',        emoji:'🍷',aisle:'Wine & Beer'},
+  {id:'prepared',  label:'Prepared & Deli',    emoji:'🍱',aisle:'Deli'},
+  {id:'health',    label:'Health & Beauty',    emoji:'💊',aisle:'Health & Beauty'},
+  {id:'household', label:'Household',          emoji:'🧻',aisle:'Household'},
+  {id:'pet',       label:'Pet',                emoji:'🐾',aisle:'Pet'},
+  {id:'other',     label:'Other',              emoji:'🛒',aisle:'Other'}
+];
+function mergeStdCats(chain){
+  var have={}; chain.cats.forEach(function(c){ have[c.id]=true; });
+  STD_CATS.forEach(function(c){ if(!have[c.id]){ chain.cats.push(c); have[c.id]=true; } });
+}
+
+/* ─── Multi-word phrases checked first (most specific) ─── */
+var GCAT_PHRASES=[
+  ['pet',       ['dog food','cat food','dog treat','cat treat','cat litter','kitty litter','pet food','bird seed']],
+  ['household', ['toilet paper','paper towel','paper towels','trash bag','trash bags','garbage bag','garbage bags','dish soap','dishwasher','laundry detergent','aluminum foil','plastic wrap','light bulb','light bulbs','ziploc','sandwich bags','paper plates','trash bags']],
+  ['health',    ['body wash','hand soap','pain reliever','cough syrup','first aid','cotton balls','hand sanitizer','baby wipes','toilet bowl']],
+  ['condiments',['soy sauce','hot sauce','bbq sauce','barbecue sauce','tomato sauce','pasta sauce','salad dressing','ranch dressing','fish sauce','marinara sauce']],
+  ['pantry',    ['olive oil','coconut oil','vegetable oil','canola oil','cooking oil','peanut butter','almond butter','maple syrup','tomato paste']],
+  ['frozen',    ['ice cream','frozen pizza','frozen']],
+  ['wine',      ['red wine','white wine','sparkling wine']],
+  ['beverages', ['sparkling water','orange juice','apple juice','coconut water','energy drink']],
+  ['bulk',      ['trail mix']],
+  ['snacks',    ['granola bar','protein bar','potato chips']],
+  ['prepared',  ['rotisserie chicken','hot bar']]
+];
+/* ─── Whole-word keywords, first matching category wins ─── */
+var GCAT_WORDS=[
+  ['pet',       ['dog','cat','kibble','litter','leash']],
+  ['household', ['detergent','bleach','sponge','sponges','napkins','tissues','tissue','candles','batteries','foil','broom','mop','trash','garbage']],
+  ['health',    ['vitamin','vitamins','supplement','supplements','medicine','ibuprofen','tylenol','advil','aspirin','bandaid','bandages','shampoo','conditioner','soap','toothpaste','toothbrush','deodorant','lotion','sunscreen','makeup','razor','razors','floss']],
+  ['wine',      ['wine','beer','champagne','prosecco','vodka','whiskey','whisky','tequila','rum','gin','liquor','ale','ipa','rose','rosé','cider','sake','bourbon','merlot','chardonnay','cabernet']],
+  ['condiments',['ketchup','catsup','mustard','mayo','mayonnaise','dressing','salsa','sauce','relish','vinegar','sriracha','jam','jelly','marmalade','pickles','pickle','preserves']],
+  ['beverages', ['water','juice','soda','coffee','tea','lemonade','kombucha','cola','seltzer','gatorade']],
+  ['dairy',     ['milk','cheese','butter','yogurt','yoghurt','cream','egg','eggs','paneer','cheddar','mozzarella','parmesan','feta','ricotta','brie','gouda','creamer']],
+  ['meat',      ['chicken','beef','pork','turkey','salmon','fish','tuna','shrimp','bacon','sausage','ham','steak','lamb','fillet','filet','cod','tilapia','crab','lobster','meat','ribs','brisket','ground','veal','scallops','prawns']],
+  ['produce',   ['apple','apples','banana','bananas','orange','oranges','lettuce','spinach','tomato','tomatoes','potato','potatoes','onion','onions','garlic','carrot','carrots','broccoli','cucumber','pepper','peppers','avocado','avocados','berry','berries','strawberry','strawberries','blueberry','blueberries','grape','grapes','lemon','lemons','lime','limes','kale','celery','mushroom','mushrooms','cilantro','parsley','ginger','salad','greens','herb','herbs','squash','zucchini','corn','cauliflower','cabbage','melon','peach','peaches','pear','pears','mango','mangoes','asparagus','beet','beets','radish','scallion','scallions','leek','leeks']],
+  ['bakery',    ['bread','bagel','bagels','loaf','croissant','croissants','muffin','muffins','cake','cakes','donut','donuts','doughnut','tortilla','tortillas','bun','buns','roll','rolls','pita','baguette','sourdough','pastry','pastries','cupcake','cupcakes','pie']],
+  ['frozen',    ['popsicle','popsicles','edamame','gelato','sorbet']],
+  ['bulk',      ['oats','almonds','nuts','rice','beans','lentils','quinoa','granola','flour','grains','seeds','cashews','walnuts','pecans','oatmeal','barley','couscous','raisins']],
+  ['snacks',    ['chips','crackers','chocolate','candy','cookies','cookie','popcorn','pretzels','pretzel','snacks','gum','jerky']],
+  ['pantry',    ['oil','oils','pasta','noodles','cereal','soup','broth','stock','canned','sugar','salt','honey','syrup','spices','spice','ramen','yeast','cornstarch','breadcrumbs','rice']],
+  ['prepared',  ['sushi','rotisserie','deli','sandwich','sandwiches']]
+];
 function guessCat(text){
-  var lo=text.toLowerCase();
-  var cats=curChain.cats.map(function(c){ return c.id; });
-  for(var i=0;i<cats.length;i++){
-    var id=cats[i];
-    if(KW[id]) for(var j=0;j<KW[id].length;j++) if(lo.indexOf(KW[id][j])!==-1) return id;
+  var n=(text||'').toLowerCase().trim();
+  var ids=curChain.cats.map(function(c){ return c.id; });
+  var hit=null;
+  // 1) multi-word phrases first
+  for(var p=0;p<GCAT_PHRASES.length && !hit;p++){
+    var phr=GCAT_PHRASES[p][1];
+    for(var q=0;q<phr.length;q++){ if(n.indexOf(phr[q])!==-1){ hit=GCAT_PHRASES[p][0]; break; } }
   }
-  return cats[0];
+  // 2) whole-word match (so "champagne" never matches "ham", "toilet" never matches "oil")
+  if(!hit){
+    var words=n.split(/[^a-zà-ÿ]+/).filter(Boolean);
+    for(var w=0;w<GCAT_WORDS.length && !hit;w++){
+      var set=GCAT_WORDS[w][1];
+      for(var x=0;x<words.length && !hit;x++){ if(set.indexOf(words[x])!==-1) hit=GCAT_WORDS[w][0]; }
+    }
+  }
+  if(!hit) hit='other';
+  return ids.indexOf(hit)!==-1 ? hit : 'other';
 }
 function parseQty(text){
   var wm={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8};
@@ -990,6 +1057,7 @@ function goVoice(){
 function applyStore(store){
   curStore=store;
   curChain=CHAINS[store.chain];
+  mergeStdCats(curChain);
   aisleIdx=0;
   selCat=curChain.cats[0].id;
   document.getElementById('store-icon').textContent=curChain.icon;
@@ -1302,35 +1370,6 @@ function buildCatGrid(){
       el.appendChild(b);
     })(c);
   });
-}
-/* Auto-detect a generic category from the item name */
-var CAT_KEYWORDS=[
-  ['dairy',    ['milk','cheese','butter','yogurt','yoghurt','cream','egg','eggs','paneer','cheddar','mozzarella','parmesan','cottage','feta','half and half']],
-  ['produce',  ['apple','banana','orange','lettuce','spinach','tomato','potato','onion','garlic','carrot','broccoli','cucumber','pepper','avocado','berry','berries','strawberr','blueberr','grape','lemon','lime','kale','celery','mushroom','cilantro','parsley','ginger','salad','greens','herb','squash','zucchini','corn','cauliflower','cabbage','melon','peach','pear','mango','spinach']],
-  ['meat',     ['chicken','beef','pork','turkey','salmon','fish','tuna','shrimp','bacon','sausage','ham','steak','lamb','fillet','filet','cod','tilapia','crab','lobster','ground']],
-  ['frozen',   ['ice cream','frozen','popsicle','edamame','frozen pizza','gelato']],
-  ['bakery',   ['bread','bagel','loaf','croissant','muffin','cake','donut','doughnut','tortilla','bun','roll','pita','baguette','sourdough','pastry']],
-  ['bulk',     ['oats','almond','nuts','rice','beans','lentil','quinoa','granola','flour','grain','seed','trail mix','cashew','walnut','pecan']],
-  ['pantry',   ['oil','olive oil','vinegar','pasta','sauce','canned','soup','cereal','peanut butter','almond butter','honey','sugar','salt','spice','ketchup','mustard','mayo','broth','jam','jelly','syrup','tea','coffee','flour']],
-  ['snacks',   ['chips','cracker','chocolate','candy','cookie','popcorn','pretzel','snack','bar','nuts']],
-  ['wine',     ['wine','beer','vodka','whiskey','champagne','rose','rosé','ipa','tequila','liquor']],
-  ['prepared', ['rotisserie','deli','sushi','prepared','sandwich','hot bar']]
-];
-function guessCat(name){
-  var n=name.toLowerCase();
-  var generic=null;
-  for(var i=0;i<CAT_KEYWORDS.length;i++){
-    var kws=CAT_KEYWORDS[i][1];
-    for(var j=0;j<kws.length;j++){ if(n.indexOf(kws[j])>=0){ generic=CAT_KEYWORDS[i][0]; break; } }
-    if(generic) break;
-  }
-  if(!generic) return selCat; // unknown (e.g. dog food, paper towels) -> current default aisle
-  // map the generic category to one this store actually has
-  var ids=curChain.cats.map(function(c){ return c.id; });
-  if(ids.indexOf(generic)>=0) return generic;
-  var fb={bulk:['pantry'],pantry:['bulk'],snacks:['pantry','bulk'],wine:['pantry'],prepared:['meat'],frozen:['produce'],bakery:['bulk']};
-  if(fb[generic]){ for(var k=0;k<fb[generic].length;k++){ if(ids.indexOf(fb[generic][k])>=0) return fb[generic][k]; } }
-  return selCat;
 }
 function addItemsFromText(v){
   v=(v||'').trim(); if(!v) return 0;
