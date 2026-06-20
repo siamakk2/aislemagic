@@ -645,7 +645,7 @@ var CHAIN_CONFIG = {
     ],
     voiceTips: ['🪵 "Two by four lumber"','🎨 "White paint"','💡 "LED light bulbs"','🌱 "Garden hose"','🔩 "Wood screws"'],
   },
-  'TractorSupply': {
+  'Tractor Supply': {
     icon: '🚜',
     color: '#1a1500',
     cats: [
@@ -1410,78 +1410,54 @@ function startListening(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){
     document.getElementById('v-err').style.display='block';
-    document.getElementById('v-err').textContent='⚠️ Voice needs Safari on iPhone or Chrome on Android/desktop.';
+    document.getElementById('v-err').textContent='⚠️ Voice needs Safari on iPhone or Chrome on desktop.';
     return;
   }
-  document.getElementById('v-state').textContent='Requesting mic…';
+  isListening=true;
+  document.getElementById('orb').textContent='⏹';
+  document.getElementById('orb').classList.add('go');
+  document.getElementById('orb-ring').classList.add('go');
+  document.getElementById('v-state').textContent='Starting mic…';
   document.getElementById('v-err').style.display='none';
-
-  function doStart(){
-    isListening=true;
-    document.getElementById('orb').textContent='⏹';
-    document.getElementById('orb').classList.add('go');
-    document.getElementById('orb-ring').classList.add('go');
-    document.getElementById('v-state').textContent='Starting mic…';
-    recog=new SR();
-    recog.continuous=true;
-    recog.interimResults=true;
-    recog.lang='en-US';
-    recog.onstart=function(){
-      document.getElementById('v-state').textContent='🔴 Listening…';
-      document.getElementById('v-sub').textContent='Say what you need to buy';
-      startWave();
-    };
-    recog.onresult=function(e){
-      var interim='',final='';
-      for(var i=e.resultIndex;i<e.results.length;i++){
-        if(e.results[i].isFinal) final+=e.results[i][0].transcript;
-        else interim+=e.results[i][0].transcript;
-      }
-      if(interim) document.getElementById('v-state').textContent='"'+interim+'"';
-      if(final.trim()){ document.getElementById('v-state').textContent='"'+final.trim()+'"'; addVoiceItem(final.trim()); }
-    };
-    recog.onerror=function(e){
-      var err=document.getElementById('v-err');
-      if(e.error==='not-allowed'){
-        err.innerHTML='🔒 Microphone blocked.<br><br><b>iPhone Safari:</b> Settings → Safari → Microphone → Allow<br><br><b>Chrome desktop:</b> Click 🔒 in address bar → Site settings → Microphone → Allow<br><br>Then tap the mic again.';
-        err.style.display='block'; stopListening();
-      } else if(e.error==='no-speech'){
-        document.getElementById('v-state').textContent='No speech — try speaking louder';
-      } else if(e.error==='aborted'){
-        return;
-      } else {
-        err.textContent='⚠️ Mic error: '+e.error+'. Please try again.';
-        err.style.display='block'; stopListening();
-      }
-    };
-    recog.onend=function(){ if(isListening){ try{ recog.start(); }catch(ex){} } else { stopWave(); } };
-    try{ recog.start(); }
-    catch(e){
-      document.getElementById('v-err').textContent='Could not start mic. Try reloading.';
-      document.getElementById('v-err').style.display='block';
-      isListening=false;
+  recog=new SR();
+  recog.continuous=true;
+  recog.interimResults=true;
+  recog.lang='en-US';
+  recog.onstart=function(){
+    document.getElementById('v-state').textContent='🔴 Listening…';
+    document.getElementById('v-sub').textContent='Say what you need to buy';
+    startWave();
+  };
+  recog.onresult=function(e){
+    var interim='',final='';
+    for(var i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal) final+=e.results[i][0].transcript;
+      else interim+=e.results[i][0].transcript;
     }
-  }
-
-  // Request permission explicitly first — works on both Chrome and Safari
-  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
-    navigator.mediaDevices.getUserMedia({audio:true})
-      .then(function(stream){
-        stream.getTracks().forEach(function(t){ t.stop(); });
-        doStart();
-      })
-      .catch(function(err){
-        var errEl=document.getElementById('v-err');
-        if(err.name==='NotAllowedError'||err.name==='PermissionDeniedError'){
-          errEl.innerHTML='🔒 Microphone blocked.<br><br><b>iPhone Safari:</b> Settings app → Safari → Microphone → Allow<br><br><b>Chrome desktop:</b> Click 🔒 in address bar → Site settings → Microphone → Allow<br><br>Then tap the mic again.';
-        } else {
-          errEl.textContent='⚠️ Mic error: '+err.name+'. Please try again.';
-        }
-        errEl.style.display='block';
-        document.getElementById('v-state').textContent='Tap the mic to start';
-      });
-  } else {
-    doStart();
+    if(interim) document.getElementById('v-state').textContent='"'+interim+'"';
+    if(final.trim()){ document.getElementById('v-state').textContent='"'+final.trim()+'"'; addVoiceItem(final.trim()); }
+  };
+  recog.onerror=function(e){
+    var err=document.getElementById('v-err');
+    if(e.error==='not-allowed'){
+      err.innerHTML='🔒 Mic blocked.<br><br><b>iPhone Safari:</b> Settings → Safari → Microphone → Allow<br><br><b>Chrome:</b> Click 🔒 address bar → Site settings → Mic → Allow<br><br>Then tap mic again.';
+    } else if(e.error==='no-speech'){
+      document.getElementById('v-state').textContent='No speech — speak louder';
+      return;
+    } else if(e.error==='aborted'){
+      return;
+    } else {
+      err.textContent='⚠️ Mic error: '+e.error;
+    }
+    err.style.display='block';
+    stopListening();
+  };
+  recog.onend=function(){ if(isListening){ try{ recog.start(); }catch(ex){} } else { stopWave(); } };
+  try{ recog.start(); }
+  catch(e){
+    document.getElementById('v-err').textContent='Could not start mic. Try reloading.';
+    document.getElementById('v-err').style.display='block';
+    isListening=false;
   }
 }
 function stopListening(){
