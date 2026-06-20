@@ -1,502 +1,546 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AisleMagic — Precision Grocery Engineering</title>
-  <meta name="description" content="Transform chaotic grocery runs into a streamlined, tactile ritual of efficiency. Built for Whole Foods shoppers who value organized control." />
-  <link rel="icon" href="/public/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AisleBird - Stop wandering. Get organized. Shop smart. Voice-powered shopping for every store, every list, every life.">
+  <title>AisleBird — Smart Shopping, Voice-Guided</title>
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     :root {
-      --bg: #131313;
-      --bg-low: #0e0e0e;
-      --bg-card: #1c1b1b;
-      --bg-surface: #20201f;
-      --bg-high: #2a2a2a;
-      --border: #2a2a2a;
-      --border-warm: #594139;
-      --text: #e5e2e1;
-      --text-muted: #a98a80;
-      --text-dim: #594139;
-      --orange: #ff6b35;
-      --orange-dim: #5f1900;
-      --orange-light: #ffb59d;
-      --radius-sm: 8px;
-      --radius: 12px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-      --radius-full: 9999px;
+      --cream: #f9f7f4;
+      --warm-gray: #8b8680;
+      --dark: #2a2824;
+      --accent: #e8762f;
+      --accent-light: #f5a75d;
+      --border: #e8e5e0;
     }
+    
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-
-    /* NAV */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(13,13,13,0.92);
-      backdrop-filter: blur(12px);
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--dark);
+      background: var(--cream);
+      line-height: 1.6;
+    }
+    
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: white;
       border-bottom: 1px solid var(--border);
-      padding: 0 40px;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .nav-logo { font-size: 20px; font-weight: 800; color: var(--orange); letter-spacing: -0.02em; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-muted); transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-actions { display: flex; gap: 10px; align-items: center; }
-    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 9px 20px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s; }
-    .btn-ghost:hover { background: var(--bg-high); }
-    .btn-primary { background: var(--orange); color: #fff; border: none; border-radius: var(--radius-full); padding: 10px 22px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: opacity 0.2s, transform 0.1s; }
-    .btn-primary:hover { opacity: 0.88; transform: scale(1.02); }
-    .btn-primary:active { transform: scale(0.97); }
-
-    /* HERO */
+    
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 20px;
+    }
+    
+    .nav-logo-bird {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover { color: var(--accent); }
+    
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #d16a24;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(232, 118, 47, 0.2);
+    }
+    
     .hero {
-      max-width: 1100px; margin: 0 auto;
-      padding: 100px 40px 80px;
-      display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: center;
+      padding: 80px 40px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--cream) 0%, #faf8f5 100%);
     }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--bg-surface); border: 1px solid var(--border-warm);
-      border-radius: var(--radius-full); padding: 6px 14px;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.07em;
-      color: var(--orange-light); text-transform: uppercase;
+    
+    .hero-title {
+      font-size: 56px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--dark);
+      line-height: 1.2;
+    }
+    
+    .hero-title .accent { color: var(--accent); }
+    
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--warm-gray);
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+    
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 60px;
+    }
+    
+    .hero-visual {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px;
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    
+    .bird-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+    }
+    
+    .section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 48px;
+      text-align: center;
+      color: var(--dark);
+    }
+    
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-bottom: 60px;
+    }
+    
+    .problem-card {
+      padding: 32px;
+      background: white;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+    }
+    
+    .problem-card h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+    
+    .problem-card p {
+      font-size: 14px;
+      color: var(--warm-gray);
+    }
+    
+    .features {
+      background: white;
+      padding: 80px 40px;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .feature-item {
+      text-align: center;
+    }
+    
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 32px;
+    }
+    
+    .feature-item h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+    
+    .feature-item p {
+      font-size: 14px;
+      color: var(--warm-gray);
+    }
+    
+    .story {
+      padding: 80px 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .story-content {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    
+    .story-content h2 {
+      font-size: 28px;
+      margin-bottom: 24px;
+      color: var(--dark);
+    }
+    
+    .story-content p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--warm-gray);
+      margin-bottom: 20px;
+    }
+    
+    .pricing {
+      padding: 80px 40px;
+      background: linear-gradient(135deg, var(--cream) 0%, #faf8f5 100%);
+    }
+    
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .pricing-card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .pricing-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 12px 32px rgba(232, 118, 47, 0.1);
+    }
+    
+    .pricing-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+    
+    .price {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 20px 0;
+    }
+    
+    .price-period {
+      font-size: 14px;
+      color: var(--warm-gray);
       margin-bottom: 24px;
     }
-    .hero h1 {
-      font-size: clamp(36px, 5vw, 56px); font-weight: 800;
-      line-height: 1.05; letter-spacing: -0.03em;
-      margin-bottom: 22px;
+    
+    .pricing-list {
+      text-align: left;
+      margin-bottom: 32px;
+      font-size: 14px;
+      color: var(--warm-gray);
     }
-    .hero h1 span { color: var(--orange); }
-    .hero-sub { font-size: 17px; color: var(--text-muted); line-height: 1.7; max-width: 460px; margin-bottom: 36px; }
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
-    .hero-btns .btn-primary { font-size: 15px; padding: 13px 28px; }
-    .hero-btns .btn-ghost { font-size: 15px; padding: 13px 28px; }
-    .hero-stats { display: flex; gap: 36px; }
-    .stat-val { font-size: 28px; font-weight: 800; color: var(--orange); }
-    .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; font-weight: 500; }
-
-    /* PHONE MOCKUP */
-    .phone-wrap { display: flex; justify-content: center; }
-    .phone {
-      background: var(--bg-card); border: 1px solid #353535;
-      border-radius: 36px; width: 260px; padding: 18px 14px 26px;
+    
+    .pricing-list li {
+      list-style: none;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
     }
-    .phone-notch { width: 72px; height: 8px; background: var(--bg-low); border-radius: var(--radius-full); margin: 0 auto 14px; }
-    .phone-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-    .phone-logo { font-size: 13px; font-weight: 800; color: var(--orange); }
-    .phone-mic-btn { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-surface); border: 1px solid var(--border-warm); display: flex; align-items: center; justify-content: center; font-size: 13px; }
-    .sort-bar-mini { background: var(--bg-surface); border: 1px solid var(--border-warm); border-radius: 10px; padding: 8px 10px; margin-bottom: 10px; font-size: 10px; font-weight: 700; color: var(--orange-light); }
-    .prog-mini { height: 3px; background: var(--bg-high); border-radius: 2px; margin-bottom: 10px; overflow: hidden; }
-    .prog-mini-fill { height: 100%; width: 43%; background: var(--orange); border-radius: 2px; }
-    .sec-lbl-mini { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 5px; padding: 0 2px; }
-    .item-mini {
-      background: var(--bg-surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 9px 10px; margin-bottom: 6px;
-      display: flex; align-items: center; gap: 9px;
+    
+    .pricing-list li:before {
+      content: "✓ ";
+      color: var(--accent);
+      font-weight: 700;
+      margin-right: 8px;
     }
-    .cb-mini { width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--border-warm); flex-shrink: 0; }
-    .cb-mini.on { background: var(--orange); border-color: var(--orange); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 800; }
-    .item-mini-name { font-size: 11px; font-weight: 700; flex: 1; }
-    .item-mini-qty { background: var(--bg-high); border-radius: 4px; padding: 2px 6px; font-size: 9px; font-weight: 700; color: var(--orange-light); }
-    .tag-mini-red { background: #93000a; color: #ffdad6; border-radius: 4px; padding: 2px 5px; font-size: 9px; font-weight: 700; }
-    .fab-mini { width: 36px; height: 36px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; font-weight: 300; margin: 10px auto 0; }
-
-    /* DIVIDER */
-    .divider { border: none; border-top: 1px solid var(--border); margin: 0 40px; }
-
-    /* SECTIONS */
-    .section { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
-    .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--orange); text-transform: uppercase; margin-bottom: 12px; }
-    .section-title { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
-    .section-sub { font-size: 16px; color: var(--text-muted); line-height: 1.7; max-width: 540px; }
-    .section-center { text-align: center; }
-    .section-center .section-sub { margin: 0 auto; }
-
-    /* FEATURES GRID */
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
-    .feat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 26px 22px; transition: border-color 0.2s; }
-    .feat-card:hover { border-color: var(--border-warm); }
-    .feat-icon { width: 44px; height: 44px; border-radius: var(--radius); background: var(--bg-surface); border: 1px solid var(--border-warm); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
-    .feat-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-    .feat-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
-
-    /* WF AISLE STRIP */
-    .aisle-strip { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; margin-top: 36px; }
-    .aisle-strip::-webkit-scrollbar { height: 0; }
-    .aisle-chip { flex-shrink: 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 10px 18px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-    .aisle-chip span { font-size: 16px; }
-
-    /* STEPS */
-    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
-    .step { text-align: center; padding: 28px 18px; }
-    .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--orange); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--orange); margin: 0 auto 18px; }
-    .step-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-    .step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
-    .step-connector { display: none; }
-
-    /* TESTIMONIAL */
-    .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
-    .tcard { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; }
-    .tcard-stars { color: var(--orange); font-size: 13px; margin-bottom: 12px; }
-    .tcard-text { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px; font-style: italic; }
-    .tcard-author { font-size: 12px; font-weight: 700; color: var(--text); }
-    .tcard-role { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
-
-    /* CTA BLOCK */
-    .cta-block { background: var(--bg-card); border-top: 1px solid var(--border); padding: 90px 40px; text-align: center; }
-    .cta-block h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
-    .cta-block h2 span { color: var(--orange); }
-    .cta-block p { font-size: 16px; color: var(--text-muted); margin-bottom: 36px; }
-    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .cta-btns .btn-primary { font-size: 15px; padding: 14px 32px; }
-    .cta-btns .btn-ghost { font-size: 15px; padding: 14px 32px; }
-    .press-strip { display: flex; gap: 32px; justify-content: center; margin-top: 44px; opacity: 0.3; flex-wrap: wrap; }
-    .press-strip span { font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
-
-    /* FOOTER */
-    .footer-inner { max-width: 1100px; margin: 0 auto; padding: 48px 40px 28px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
-    .footer-logo { font-size: 18px; font-weight: 800; color: var(--orange); margin-bottom: 10px; }
-    .footer-tagline { font-size: 13px; color: var(--text-muted); line-height: 1.65; max-width: 190px; }
-    .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 14px; }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-links a { font-size: 13px; color: var(--text-muted); transition: color 0.2s; }
-    .footer-links a:hover { color: var(--orange-light); }
-    .newsletter-input-wrap { display: flex; gap: 8px; }
-    .newsletter-input { flex: 1; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 12px; font-size: 13px; color: var(--text); font-family: 'Inter', sans-serif; outline: none; }
-    .newsletter-input:focus { border-color: var(--orange); }
-    .newsletter-btn { background: var(--orange); border: none; border-radius: var(--radius-sm); padding: 9px 14px; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; }
-    .footer-bottom { border-top: 1px solid var(--border); padding: 18px 40px; max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-dim); }
-    .footer-bottom-links { display: flex; gap: 20px; }
-    .footer-bottom-links a { color: var(--text-dim); transition: color 0.2s; }
-    .footer-bottom-links a:hover { color: var(--text-muted); }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      nav { padding: 0 20px; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 60px 20px 40px; }
-      .phone-wrap { display: none; }
-      .hero-stats { gap: 24px; }
-      .features-grid, .steps-grid, .testimonials { grid-template-columns: 1fr; }
+    
+    .cta-section {
+      padding: 80px 40px;
+      background: var(--accent);
+      color: white;
+      text-align: center;
+    }
+    
+    .cta-section h2 {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+    
+    .cta-section p {
+      font-size: 18px;
+      margin-bottom: 32px;
+      opacity: 0.95;
+    }
+    
+    .footer {
+      padding: 40px;
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      font-size: 14px;
+    }
+    
+    .footer-links {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+    
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    
+    .footer-links a:hover { opacity: 1; }
+    
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+      }
+      
+      .nav-links {
+        gap: 16px;
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .hero-title {
+        font-size: 36px;
+      }
+      
       .section { padding: 60px 20px; }
-      .divider { margin: 0 20px; }
-      .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px; padding: 40px 20px 24px; }
-      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; padding: 18px 20px; }
-      .cta-block { padding: 60px 20px; }
+      
+      .hero {
+        padding: 60px 20px;
+      }
     }
   </style>
 </head>
 <body>
-
-<nav>
-  <div class="nav-logo">AisleMagic</div>
-  <ul class="nav-links">
-    <li><a href="#features">Features</a></li>
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="app/">Open App</a></li>
-  </ul>
-  <div class="nav-actions">
-    <button class="btn-ghost" onclick="window.location.href='signin.html'">Sign In</button>
-    <button class="btn-primary" onclick="window.location.href='signin.html'">Get Started Free</button>
-  </div>
-</nav>
-
-<main>
+  
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-bird">🐦</div>
+      <span>AisleBird</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="/app" class="btn btn-primary">Open App</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Hero -->
   <section class="hero">
-    <div>
-      <div class="hero-badge">⚡ Next-Gen Shopping</div>
-      <h1>Precision <span>Grocery</span><br>Engineering.</h1>
-      <p class="hero-sub">Transform chaotic Whole Foods runs into a streamlined, tactile ritual of efficiency. Built for shoppers who value organized control.</p>
-      <div class="hero-btns">
-        <button class="btn-primary" onclick="window.location.href='signin.html'">Open App →</button>
-        <button class="btn-ghost" onclick="openDemo()">Watch Demo</button>
-      </div>
-      <div class="hero-stats">
-        <div><div class="stat-val">500K+</div><div class="stat-lbl">Active Shoppers</div></div>
-        <div><div class="stat-val">15 min</div><div class="stat-lbl">Saved Per Trip</div></div>
-        <div><div class="stat-val">4.9 ★</div><div class="stat-lbl">App Store Rating</div></div>
-      </div>
+    <h1 class="hero-title">Stop wandering.<br>Get <span class="accent">organized</span>.</h1>
+    <p class="hero-subtitle">
+      AisleBird guides you through every store, every list, with your voice. 
+      Built for people who just want to shop smarter and faster.
+    </p>
+    <div class="hero-cta">
+      <button class="btn btn-primary" onclick="window.location.href='/app'">Start Free</button>
+      <button class="btn" style="border: 2px solid var(--accent); color: var(--accent);">Learn More</button>
     </div>
-    <div class="phone-wrap">
-      <div class="phone">
-        <div class="phone-notch"></div>
-        <div class="phone-header">
-          <div class="phone-logo">AisleMagic</div>
-          <div class="phone-mic-btn">🎤</div>
-        </div>
-        <div class="sort-bar-mini">↕ SMART SORT — PRODUCE → BULK → DAIRY</div>
-        <div class="prog-mini"><div class="prog-mini-fill"></div></div>
-        <div class="sec-lbl-mini">🥦 Produce — Aisle 1</div>
-        <div class="item-mini">
-          <div class="cb-mini on">✓</div>
-          <div class="item-mini-name">Organic Avocados</div>
-          <div class="item-mini-qty">x3</div>
-        </div>
-        <div class="item-mini">
-          <div class="cb-mini"></div>
-          <div class="item-mini-name">Baby Spinach 5oz</div>
-          <div class="item-mini-qty">x1</div>
-        </div>
-        <div class="sec-lbl-mini" style="margin-top:8px;">🧀 Dairy — Aisle 3</div>
-        <div class="item-mini">
-          <div class="cb-mini"></div>
-          <div class="item-mini-name">Organic Whole Milk</div>
-          <span class="tag-mini-red">LOW STOCK</span>
-        </div>
-        <div class="fab-mini">+</div>
+    <div class="hero-visual">
+      <div style="font-size: 80px; text-align: center;">🐦</div>
+      <p style="color: var(--warm-gray); margin-top: 16px;">From lost to guided in one tap</p>
+    </div>
+  </section>
+  
+  <!-- The Problem -->
+  <section class="section">
+    <h2 class="section-title">Stop Being an Aisle Bird</h2>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <h3>⏰ Lost Time</h3>
+        <p>You wander aimlessly, lingering in aisles, forgetting where things are. Shopping takes forever.</p>
+      </div>
+      <div class="problem-card">
+        <h3>🤔 Mental Load</h3>
+        <p>Juggling a list in your head, remembering where the milk is, which aisle has what. It's exhausting.</p>
+      </div>
+      <div class="problem-card">
+        <h3>🛒 Wrong Store</h3>
+        <p>You shop at grocery stores, hardware stores, pharmacies — but your app only knows one. Until now.</p>
       </div>
     </div>
   </section>
-
-  <hr class="divider" />
-
-  <section class="section" id="features">
-    <div class="section-eyebrow">Why AisleMagic</div>
-    <h2 class="section-title">Engineered for the Aisle.</h2>
-    <p class="section-sub">Built with digital hardware principles so your focus stays on the fresh produce — not the screen.</p>
-
+  
+  <!-- Features -->
+  <section class="features" id="features">
+    <h2 class="section-title">How AisleBird Works</h2>
     <div class="features-grid">
-      <div class="feat-card">
-        <div class="feat-icon">🎤</div>
-        <div class="feat-title">Voice-Activated Lists</div>
-        <div class="feat-desc">Speak naturally. Just say "Add two organic avocados" and the app categorizes it instantly. No typing, ever.</div>
+      <div class="feature-item">
+        <div class="feature-icon">🎤</div>
+        <h3>Voice Shopping</h3>
+        <p>Just say what you need. "Add organic bananas" or "Two cartons of almond milk." Your mic does the work.</p>
       </div>
-      <div class="feat-card">
-        <div class="feat-icon">📍</div>
-        <div class="feat-title">Location-Based Sort</div>
-        <div class="feat-desc">Your list auto-reorders by store aisle as you walk. Mapped specifically for Whole Foods layouts.</div>
+      <div class="feature-item">
+        <div class="feature-icon">🗺️</div>
+        <h3>Smart Organization</h3>
+        <p>Items sorted by aisle. Every store. Grocery, hardware, pharmacy — AisleBird knows them all.</p>
       </div>
-      <div class="feat-card">
-        <div class="feat-icon">⚙️</div>
-        <div class="feat-title">Tactile Interaction</div>
-        <div class="feat-desc">Large check zones, inner-bevel buttons, and quantity steppers designed for one-handed use while pushing a cart.</div>
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast & Simple</h3>
+        <p>No wandering. No confusion. In and out with everything you need. Save time, save stress.</p>
       </div>
-      <div class="feat-card">
-        <div class="feat-icon">⚠️</div>
-        <div class="feat-title">Low Stock Alerts</div>
-        <div class="feat-desc">Know before you arrive. Real-time shelf alerts for your most-bought Whole Foods items.</div>
+      <div class="feature-item">
+        <div class="feature-icon">📍</div>
+        <h3>California + Counting</h3>
+        <p>Shop at 119+ verified store locations across California. More coming. Your favorite store is there.</p>
       </div>
-      <div class="feat-card">
-        <div class="feat-icon">🌿</div>
-        <div class="feat-title">365 Brand Aware</div>
-        <div class="feat-desc">Recognizes and tags Whole Foods 365 brand items automatically, tracking your organic preferences over time.</div>
+      <div class="feature-item">
+        <div class="feature-icon">✅</div>
+        <h3>Check As You Go</h3>
+        <p>Found an item? Check it off. Watch your progress. Never lose track of what's left.</p>
       </div>
-      <div class="feat-card">
-        <div class="feat-icon">📊</div>
-        <div class="feat-title">Trip History</div>
-        <div class="feat-desc">Remembers what you buy. One tap to reload last week's list. Frequently bought items surface automatically.</div>
-      </div>
-    </div>
-
-    <div style="margin-top: 48px;">
-      <div class="section-eyebrow" style="margin-bottom:16px;">Mapped for Whole Foods</div>
-      <div class="aisle-strip">
-        <div class="aisle-chip"><span>🥦</span> Produce · Aisle 1</div>
-        <div class="aisle-chip"><span>🌾</span> Bulk Foods · Aisle 2</div>
-        <div class="aisle-chip"><span>🧀</span> Dairy · Aisle 3</div>
-        <div class="aisle-chip"><span>🍞</span> Bakery · Aisle 4</div>
-        <div class="aisle-chip"><span>🥩</span> Meat & Fish · Aisle 5</div>
-        <div class="aisle-chip"><span>🍱</span> Hot Bar · Prepared</div>
-        <div class="aisle-chip"><span>💊</span> Wellness · Aisle 7</div>
-        <div class="aisle-chip"><span>❄️</span> Frozen · Aisle 8</div>
+      <div class="feature-item">
+        <div class="feature-icon">💾</div>
+        <h3>Your Lists, Saved</h3>
+        <p>Import from your phone notes, save lists for later, reuse them. Your shopping, organized forever.</p>
       </div>
     </div>
   </section>
-
-  <hr class="divider" />
-
-  <section class="section section-center" id="how">
-    <div class="section-eyebrow">How It Works</div>
-    <h2 class="section-title">From List to Cart in 3 Steps.</h2>
-    <p class="section-sub">Set up once. Shop smarter forever.</p>
-    <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-title">Build Your List</div>
-        <div class="step-desc">Type, voice-dictate, or import from a recipe. AisleMagic categorizes everything instantly by Whole Foods section.</div>
+  
+  <!-- Our Story -->
+  <section class="section" id="story">
+    <h2 class="section-title">Built With Love</h2>
+    <div class="story-content">
+      <h2>Why We Built AisleBird</h2>
+      <p>
+        AisleBird was built by a developer for his wife, Jennifer Law — someone who demands precision in everything she does. 
+        She wanted shopping to be simpler, faster, and less mentally exhausting. So we built an app that sets you free from 
+        wandering, from confusion, from wasted time.
+      </p>
+      <p>
+        Jennifer designed it. She made sure every detail is intentional. That's why it works. That's why people love it. 
+        It's not just an app — it's a tool built with the same care you'd want when you're shopping for your family.
+      </p>
+      <p>
+        What started as one person's solution has become something thousands use across California. 
+        Because wandering aimlessly through stores? That's for birds. Let AisleBird guide you.
+      </p>
+    </div>
+  </section>
+  
+  <!-- Pricing -->
+  <section class="pricing" id="pricing">
+    <h2 class="section-title">Simple Pricing</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Try AisleBird</h3>
+        <div class="price">Free</div>
+        <p class="price-period">Forever</p>
+        <ul class="pricing-list">
+          <li>Full app access</li>
+          <li>All 119+ stores</li>
+          <li>Voice shopping</li>
+          <li>Unlimited lists</li>
+        </ul>
+        <button class="btn btn-primary" onclick="window.location.href='/app'" style="width: 100%;">Start Now</button>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-title">Enter Store Mode</div>
-        <div class="step-desc">GPS kicks in as you arrive. Your list reorders by aisle. One-handed, glanceable — designed for motion.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-title">Check &amp; Go</div>
-        <div class="step-desc">Tap to check off items. Adjust quantities on the fly. Review your cart summary before checkout. Done.</div>
+      
+      <div class="pricing-card">
+        <h3>Pro (Coming Soon)</h3>
+        <div class="price">$3.99</div>
+        <p class="price-period">/ month</p>
+        <ul class="pricing-list">
+          <li>Everything in Free</li>
+          <li>Sync across devices</li>
+          <li>Advanced analytics</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="btn" style="width: 100%; color: var(--accent); border: 2px solid var(--accent); background: transparent;">Coming Soon</button>
       </div>
     </div>
   </section>
-
-  <hr class="divider" />
-
-  <section class="section" id="reviews">
-    <div class="section-eyebrow">Reviews</div>
-    <h2 class="section-title">Shoppers Love It.</h2>
-    <p class="section-sub">Real feedback from people who've upgraded their grocery routine.</p>
-    <div class="testimonials">
-      <div class="tcard">
-        <div class="tcard-stars">★★★★★</div>
-        <div class="tcard-text">"I go to Whole Foods three times a week. AisleMagic cut my average trip from 45 minutes down to 28. The aisle sorting is genuinely magic."</div>
-        <div class="tcard-author">Sarah K.</div>
-        <div class="tcard-role">Whole Foods regular · San Jose, CA</div>
-      </div>
-      <div class="tcard">
-        <div class="tcard-stars">★★★★★</div>
-        <div class="tcard-text">"My husband built this for me and I use it every single day. The voice mode while I'm driving to the store is a game changer."</div>
-        <div class="tcard-author">Maria L.</div>
-        <div class="tcard-role">Home chef · San Francisco, CA</div>
-      </div>
-      <div class="tcard">
-        <div class="tcard-stars">★★★★★</div>
-        <div class="tcard-text">"The low-stock alerts alone are worth it. No more getting to the dairy aisle and finding the organic milk is sold out."</div>
-        <div class="tcard-author">James T.</div>
-        <div class="tcard-role">Organic food enthusiast · Palo Alto, CA</div>
-      </div>
-    </div>
+  
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to Stop Being an Aisle Bird?</h2>
+    <p>Free forever. No credit card. Just smarter shopping.</p>
+    <button class="btn btn-primary" onclick="window.location.href='/app'" style="background: white; color: var(--accent); padding: 12px 32px; font-size: 16px;">Download AisleBird</button>
   </section>
-
-  <div class="cta-block">
-    <div class="hero-badge" style="margin: 0 auto 24px; display:inline-flex;">🎁 Free Forever Plan Available</div>
-    <h2>Ready to <span>Upgrade</span><br>Your Routine?</h2>
-    <p>Join 500,000+ shoppers who've turned their grocery trip into an optimized lifestyle choice.</p>
-    <div class="cta-btns">
-      <button class="btn-primary" onclick="window.location.href='signin.html'">Open the App →</button>
-      <button class="btn-ghost">Download for iOS</button>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="https://github.com/siamakk2/aislebird">GitHub</a>
     </div>
-    <div class="press-strip">
-      <span>NY Times</span>
-      <span>Forbes</span>
-      <span>Wired</span>
-      <span>TechCrunch</span>
-      <span>Product Hunt</span>
-    </div>
-  </div>
-</main>
-
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-logo">AisleMagic</div>
-      <div class="footer-tagline">Elevating the grocery experience through high-contrast design and tactile digital solutions.</div>
-    </div>
-    <div>
-      <div class="footer-col-title">Product</div>
-      <ul class="footer-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="app/">Store Mode</a></li>
-        <li><a href="#">Integrations</a></li>
-        <li><a href="#">Enterprise</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Company</div>
-      <ul class="footer-links">
-        <li><a href="#">About</a></li>
-        <li><a href="#">Engineering</a></li>
-        <li><a href="#">Privacy</a></li>
-        <li><a href="#">Press Kit</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Newsletter</div>
-      <div class="newsletter-input-wrap">
-        <input class="newsletter-input" type="email" placeholder="your@email.com" />
-        <button class="newsletter-btn">→</button>
-      </div>
-      <div style="font-size:12px;color:var(--text-dim);margin-top:8px;">Weekly tips for smarter shopping.</div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2024 AisleMagic Technology. All rights reserved.</span>
-    <div class="footer-bottom-links">
-      <a href="#">Twitter</a>
-      <a href="#">Instagram</a>
-      <a href="#">LinkedIn</a>
-    </div>
-  </div>
-</footer>
+    <p>© 2026 AisleBird. Built with precision for people who just want to shop smarter.</p>
+  </footer>
 
 </body>
 </html>
-
-<!-- DEMO MODAL -->
-<div id="demo-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;align-items:center;justify-content:center;padding:20px;font-family:'Inter',sans-serif;">
-  <div style="background:#1c1b1b;border:1px solid #2a2a2a;border-radius:24px;width:100%;max-width:560px;overflow:hidden;">
-    <div style="padding:20px 24px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #2a2a2a;">
-      <div>
-        <div style="font-size:18px;font-weight:800;color:#e5e2e1;">AisleMagic Demo</div>
-        <div style="font-size:13px;color:#a98a80;margin-top:2px;">See how it works in 60 seconds</div>
-      </div>
-      <button onclick="closeDemo()" style="width:32px;height:32px;border-radius:50%;background:#2a2a2a;border:none;color:#e5e2e1;font-size:18px;cursor:pointer;">✕</button>
-    </div>
-    <div style="padding:24px;" id="demo-body"></div>
-    <div style="padding:0 24px 16px;display:flex;gap:10px;">
-      <button onclick="prevStep()" id="demo-prev" style="flex:1;background:#20201f;border:1px solid #2a2a2a;border-radius:12px;padding:12px;font-size:14px;font-weight:700;color:#e5e2e1;cursor:pointer;font-family:'Inter',sans-serif;">← Back</button>
-      <button onclick="nextStep()" id="demo-next" style="flex:2;background:#ff6b35;border:none;border-radius:12px;padding:12px;font-size:14px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;">Next →</button>
-    </div>
-    <div style="display:flex;gap:6px;justify-content:center;padding-bottom:20px;" id="demo-dots"></div>
-  </div>
-</div>
-
-<script>
-var DEMO_STEPS=[
-  {emoji:'🛒',title:'Your Whole Foods Shopping List',desc:'AisleMagic organizes everything by aisle — Produce first, then Bulk Foods, Dairy, Bakery, and more. No more backtracking through the store.',preview:'<div style="background:#131313;border-radius:14px;padding:14px;"><div style="font-size:10px;font-weight:700;color:#a98a80;letter-spacing:.1em;margin-bottom:8px;">🥦 PRODUCE — AISLE 1</div><div style="background:#1c1b1b;border-radius:10px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;"><div style="width:22px;height:22px;border-radius:6px;background:#ff6b35;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;">✓</div><span style="font-size:13px;font-weight:700;text-decoration:line-through;opacity:.5;color:#594139;">Organic Avocados</span><span style="margin-left:auto;font-size:10px;font-weight:700;background:#1a3a1a;color:#7ecf7e;border-radius:4px;padding:2px 6px;">x3</span></div><div style="background:#1c1b1b;border-radius:10px;padding:10px 12px;margin-bottom:6px;border:1px solid rgba(255,107,53,.4);display:flex;align-items:center;gap:10px;"><div style="width:22px;height:22px;border-radius:6px;border:2px solid #594139;background:#131313;"></div><span style="font-size:13px;font-weight:700;">Baby Spinach 5oz</span></div><div style="font-size:10px;font-weight:700;color:#a98a80;letter-spacing:.1em;margin:10px 0 8px;">🧀 DAIRY — AISLE 3</div><div style="background:#1c1b1b;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;"><div style="width:22px;height:22px;border-radius:6px;border:2px solid #594139;background:#131313;"></div><span style="font-size:13px;font-weight:700;">Organic Whole Milk</span><span style="margin-left:auto;font-size:10px;font-weight:700;background:#93000a;color:#ffdad6;border-radius:4px;padding:2px 6px;">LOW STOCK</span></div></div>'},
-  {emoji:'🎤',title:'Voice — Just Say It',desc:'Tap the orange mic and speak naturally. Say "Add two cartons of almond milk" — it figures out the category, quantity, and aisle automatically.',preview:'<div style="background:#131313;border-radius:14px;padding:20px;text-align:center;"><div style="width:80px;height:80px;border-radius:50%;background:#ff6b35;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;">🎤</div><div style="font-size:16px;font-weight:700;font-style:italic;margin-bottom:8px;color:#e5e2e1;">"Add organic bananas"</div><div style="font-size:13px;color:#a98a80;margin-bottom:16px;">Listening…</div><div style="background:#1c1b1b;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:9px;text-align:left;"><div style="width:8px;height:8px;border-radius:50%;background:#ff6b35;"></div><div><div style="font-size:13px;font-weight:700;color:#e5e2e1;">Organic Bananas</div><div style="font-size:11px;color:#a98a80;">Produce · Qty 1</div></div><div style="margin-left:auto;font-size:11px;font-weight:800;color:#ff6b35;">✓ Added</div></div></div>'},
-  {emoji:'⇅',title:'Smart Sort — Follow Your Aisle',desc:'Tap whichever aisle you are currently walking through. Your list instantly reorders so that aisle appears first. Never walk back and forth again.',preview:'<div style="background:#131313;border-radius:14px;padding:14px;"><div style="font-size:10px;font-weight:700;color:#ffb59d;letter-spacing:.07em;margin-bottom:8px;">⇅ SMART SORT — TAP YOUR AISLE</div><div style="display:flex;align-items:center;gap:4px;overflow-x:auto;margin-bottom:12px;flex-wrap:wrap;gap:6px;"><span style="background:#1a3a1a;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:700;color:#7ecf7e;white-space:nowrap;">✓ 🥦 Produce</span><span style="color:#594139;font-size:11px;">→</span><span style="background:#ff6b35;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap;">🌾 Bulk ← HERE</span><span style="color:#594139;font-size:11px;">→</span><span style="background:#2a2a2a;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:700;color:#a98a80;white-space:nowrap;">🧀 Dairy</span></div><div style="font-size:10px;font-weight:700;color:#ff6b35;letter-spacing:.1em;margin-bottom:6px;">🌾 BULK FOODS — AISLE 2 ← YOU ARE HERE</div><div style="background:#1c1b1b;border-radius:10px;padding:10px 12px;margin-bottom:6px;border:1px solid rgba(255,107,53,.4);"><div style="font-size:13px;font-weight:700;color:#e5e2e1;">365 Rolled Oats</div></div><div style="background:#1c1b1b;border-radius:10px;padding:10px 12px;"><div style="font-size:13px;font-weight:700;color:#e5e2e1;">Raw Almonds</div></div></div>'},
-  {emoji:'✕',title:'Check Off and Clear Cart',desc:'Tap the checkbox when an item goes in your cart. Tap the X button to remove it entirely. One tap clears all checked items when you are done.',preview:'<div style="background:#131313;border-radius:14px;padding:14px;"><div style="background:#1c1b1b;border-radius:10px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;opacity:.45;"><div style="width:22px;height:22px;border-radius:6px;background:#ff6b35;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;">✓</div><span style="font-size:13px;font-weight:700;text-decoration:line-through;color:#594139;">Sourdough Loaf</span><button style="margin-left:auto;width:24px;height:24px;border-radius:6px;background:rgba(147,0,10,.3);border:1px solid rgba(147,0,10,.5);color:#ffdad6;font-size:13px;cursor:pointer;">✕</button></div><div style="background:#1c1b1b;border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;"><div style="width:22px;height:22px;border-radius:6px;border:2px solid #594139;background:#131313;"></div><span style="font-size:13px;font-weight:700;color:#e5e2e1;">Wild Salmon Fillet</span><div style="margin-left:auto;display:flex;align-items:center;gap:5px;"><button style="width:26px;height:26px;border-radius:7px;background:#2a2a2a;border:none;color:#e5e2e1;font-size:16px;font-weight:700;">−</button><span style="font-size:13px;font-weight:800;color:#e5e2e1;min-width:18px;text-align:center;">2</span><button style="width:26px;height:26px;border-radius:7px;background:#ff6b35;border:none;color:#fff;font-size:16px;font-weight:700;">+</button></div><button style="width:24px;height:24px;border-radius:6px;background:rgba(147,0,10,.3);border:1px solid rgba(147,0,10,.5);color:#ffdad6;font-size:13px;">✕</button></div><div style="background:#1a3a1a;border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;"><span style="font-size:13px;font-weight:700;color:#7ecf7e;">🛒 5 items in cart</span><span style="font-size:12px;font-weight:700;color:#7ecf7e;">Show ▼</span></div></div>'},
-  {emoji:'📍',title:'9 Whole Foods Locations in NorCal',desc:'Your default is Whole Foods Napa Bel Aire Plaza. Tap Store in the bottom nav to instantly switch to any Northern California Whole Foods location.',preview:'<div style="background:#131313;border-radius:14px;padding:14px;"><div style="background:#5f1900;border:1px solid #ff6b35;border-radius:10px;padding:11px 13px;margin-bottom:8px;"><div style="font-size:13px;font-weight:700;color:#e5e2e1;">🏪 Napa Bel Aire Plaza</div><div style="font-size:11px;color:#ffb59d;margin-top:2px;">3886 Bel Aire Plaza, Trancas St · 94558</div><div style="font-size:11px;font-weight:700;color:#ff6b35;margin-top:3px;">⭐ Default Store</div></div><div style="background:#1c1b1b;border-radius:10px;padding:11px 13px;margin-bottom:8px;"><div style="font-size:13px;font-weight:700;color:#e5e2e1;">🏪 Santa Rosa</div><div style="font-size:11px;color:#a98a80;margin-top:2px;">1019 Third St · 32 mi</div></div><div style="background:#1c1b1b;border-radius:10px;padding:11px 13px;"><div style="font-size:13px;font-weight:700;color:#e5e2e1;">🏪 Mill Valley</div><div style="font-size:11px;color:#a98a80;margin-top:2px;">4 Camino Alto · 48 mi</div></div></div>'},
-];
-var demoStep=0;
-
-function openDemo(){
-  demoStep=0;
-  document.getElementById('demo-overlay').style.display='flex';
-  renderDemoStep();
-}
-function closeDemo(){
-  document.getElementById('demo-overlay').style.display='none';
-}
-function nextStep(){
-  if(demoStep>=DEMO_STEPS.length-1){
-    closeDemo();
-    window.location.href='signin.html';
-  } else {
-    demoStep++;
-    renderDemoStep();
-  }
-}
-function prevStep(){
-  if(demoStep>0){ demoStep--; renderDemoStep(); }
-}
-function renderDemoStep(){
-  var s=DEMO_STEPS[demoStep];
-  document.getElementById('demo-body').innerHTML=
-    '<div style="text-align:center;margin-bottom:14px;font-size:36px;">'+s.emoji+'</div>'+
-    '<div style="font-size:18px;font-weight:800;color:#e5e2e1;margin-bottom:8px;font-family:Inter,sans-serif;">'+s.title+'</div>'+
-    '<div style="font-size:13px;color:#a98a80;margin-bottom:18px;line-height:1.6;font-family:Inter,sans-serif;">'+s.desc+'</div>'+
-    s.preview;
-  document.getElementById('demo-next').textContent=demoStep===DEMO_STEPS.length-1?'Get Started Free →':'Next →';
-  document.getElementById('demo-prev').style.opacity=demoStep===0?'0.3':'1';
-  var dots=document.getElementById('demo-dots'); dots.innerHTML='';
-  DEMO_STEPS.forEach(function(_,i){
-    var d=document.createElement('div');
-    d.style.cssText='width:'+(i===demoStep?'20px':'8px')+';height:8px;border-radius:999px;background:'+(i===demoStep?'#ff6b35':'#2a2a2a')+';transition:all .2s;';
-    dots.appendChild(d);
-  });
-}
-document.getElementById('demo-overlay').addEventListener('click',function(e){
-  if(e.target===this) closeDemo();
-});
-</script>
