@@ -1534,7 +1534,7 @@ function renderSettings(){
     var d=document.createElement('div'); d.className='srow';
     if(r.tog){
       var on=r.on; d.innerHTML='<span class="srow-lbl">'+r.label+'</span><button type="button" class="tog'+(on?'':' off')+'"></button>';
-      d.querySelector('.tog').addEventListener('click', function(){ on=!on; this.classList.toggle('off',!on); });
+      var tog=d.querySelector('.tog'); if(tog) tog.addEventListener('click', function(){ on=!on; this.classList.toggle('off',!on); });
     } else {
       d.innerHTML='<span class="srow-lbl">'+r.label+'</span><span class="srow-val">'+(r.val||'')+(r.sub?'<br><span style="font-size:11px;color:var(--mut);">'+r.sub+'</span>':'')+'</span>';
       if(r.action){ d.style.cursor='pointer'; d.addEventListener('click',r.action); }
