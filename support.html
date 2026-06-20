@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AisleBird Support & Help Center">
+  <title>Support & Help — AisleBird</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #131313;
+      --card: #1a1a1a;
+      --surf: #202020;
+      --text: #f5f5f5;
+      --text-muted: #a8a8a8;
+      --accent: #ff6b35;
+      --border: #2a2a2a;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    nav a { color: var(--accent); text-decoration: none; }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.5rem;
+    }
+    
+    h3 {
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+    
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+    }
+    
+    ul, ol {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .section {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+    
+    .faq-item {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    
+    .faq-item h4 {
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .faq-item p {
+      margin: 0;
+      display: none;
+    }
+    
+    .faq-item.open p {
+      display: block;
+    }
+    
+    .contact-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .contact-card {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    
+    .contact-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-card h3 {
+      margin-top: 0;
+    }
+    
+    .contact-card p {
+      margin: 0;
+    }
+    
+    .contact-card a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+    
+    strong { color: var(--accent); }
+    
+    code {
+      background: var(--bg2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      color: #ffb59d;
+    }
+    
+    .step {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent);
+      margin: 1rem 0;
+    }
+    
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.2rem; }
+      .container { padding: 1.5rem; }
+      .contact-options { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <nav>
+    <a href="/">← Back to AisleBird</a>
+  </nav>
+  
+  <div class="container">
+    <h1>🆘 Support & Help Center</h1>
+    
+    <p style="font-size: 1.1rem; color: var(--text); margin-bottom: 2rem;">
+      Welcome to AisleBird Support. Find answers, troubleshoot issues, or contact us directly.
+    </p>
+    
+    <!-- QUICK CONTACT -->
+    <h2>Get Help Fast</h2>
+    <div class="contact-options">
+      <div class="contact-card">
+        <div class="icon">📧</div>
+        <h3>Email Support</h3>
+        <p><a href="mailto:support@aislebird.com">support@aislebird.com</a></p>
+        <p style="font-size: 0.9rem; margin-top: 1rem;">Response time: 24-48 hours</p>
+      </div>
+      
+      <div class="contact-card">
+        <div class="icon">🐛</div>
+        <h3>Report a Bug</h3>
+        <p><a href="mailto:support@aislebird.com?subject=Bug%20Report">Report Bug</a></p>
+        <p style="font-size: 0.9rem; margin-top: 1rem;">Include steps to reproduce</p>
+      </div>
+      
+      <div class="contact-card">
+        <div class="icon">💡</div>
+        <h3>Feature Request</h3>
+        <p><a href="mailto:support@aislebird.com?subject=Feature%20Request">Suggest Feature</a></p>
+        <p style="font-size: 0.9rem; margin-top: 1rem;">We'd love to hear your ideas</p>
+      </div>
+    </div>
+    
+    <!-- FAQ -->
+    <h2>Frequently Asked Questions</h2>
+    
+    <div class="faq-item">
+      <h4>❓ How does voice recognition work?</h4>
+      <p>
+        AisleBird uses your device's built-in speech recognition to convert what you say into text. 
+        Say "milk" and we'll add it to your list and show you which aisle it's in. Your voice data is 
+        processed in real-time and not permanently stored on our servers.
+      </p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>❓ Why aren't all stores in my area available?</h4>
+      <p>
+        We're currently mapping 119+ California retail locations (groceries, hardware, pharmacy, retail). 
+        We're expanding weekly. If you'd like us to add a specific store, email us at support@aislebird.com 
+        with the store location and chain name.
+      </p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>❓ Is my voice data private?</h4>
+      <p>
+        Yes. Your voice is processed locally on your device and converted to text in real-time. We do not 
+        permanently store audio recordings. See our <a href="/privacy.html" style="color: var(--accent);">Privacy Policy</a> 
+        for details on how we handle your data.
+      </p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>❓ The app won't recognize my voice. What do I do?</h4>
+      <p>
+        <strong>Check these first:</strong><br>
+        • Make sure your device microphone is working<br>
+        • Speak clearly and at normal volume<br>
+        • Check that microphone permissions are enabled for AisleBird<br>
+        • Try reloading the app<br><br>
+        <strong>If still not working:</strong><br>
+        <strong>iPhone Safari:</strong> Tap the 🔒 lock icon → Website Settings → Microphone → Allow<br>
+        <strong>Chrome/Firefox:</strong> Click the 🔒 → Site settings → Microphone → Allow<br><br>
+        Still having issues? Email us at support@aislebird.com
+      </p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>❓ Can I use AisleBird offline?</h4>
+      <p>
+        AisleBird requires an internet connection for voice recognition and store data. We're working on 
+        offline capabilities for the future. For now, make sure you have a stable connection.
+      </p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>❓ How do I delete my account and data?</h4>
+      <p>
+        You have the right to request account deletion and data removal under California law. 
+        Email <a href="mailto:privacy@aislebird.com" style="color: var(--accent);">privacy@aislebird.com</a> with your request. 
+        We'll respond within 45 days. See our <a href="/privacy.html" style="color: var(--accent);">Privacy Policy</a> for more details.
+      </p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>❓ Is there a Pro version coming?</h4>
+      <p>
+        Yes! We're building a Pro tier ($3.99/month) with cross-device sync, smart analytics, and priority support. 
+        Sign up for updates at https://aislebird.com
+      </p>
+    </div>
+    
+    <div class="faq-item">
+      <h4>❓ Can I use AisleBird on my iPhone/Android?</h4>
+      <p>
+        AisleBird currently works on all browsers (Safari, Chrome, Firefox, Edge). We're building native iOS and Android apps 
+        using Capacitor. Subscribe to updates for launch announcements.
+      </p>
+    </div>
+    
+    <!-- TROUBLESHOOTING -->
+    <h2>Troubleshooting</h2>
+    
+    <h3>Microphone Not Working</h3>
+    <div class="step">
+      <strong>1. Check Browser Permissions</strong><br>
+      Make sure your browser has permission to access your microphone. Look for a 🔒 icon in the address bar.
+    </div>
+    <div class="step">
+      <strong>2. Reload the Page</strong><br>
+      Refresh the page (F5 or Cmd+R) and try again.
+    </div>
+    <div class="step">
+      <strong>3. Restart Your Device</strong><br>
+      Sometimes a device restart fixes microphone issues.
+    </div>
+    <div class="step">
+      <strong>4. Try a Different Browser</strong><br>
+      If it works in another browser, there may be a browser-specific issue.
+    </div>
+    <div class="step">
+      <strong>5. Contact Support</strong><br>
+      Still stuck? Email us at <a href="mailto:support@aislebird.com" style="color: var(--accent);">support@aislebird.com</a> 
+      with details about your device and browser.
+    </div>
+    
+    <h3>Store Data Not Showing</h3>
+    <div class="step">
+      <strong>1. Select a Store</strong><br>
+      Tap the store selector at the top to choose a location. We have 119+ stores mapped.
+    </div>
+    <div class="step">
+      <strong>2. Check Internet Connection</strong><br>
+      Make sure you have a stable internet connection.
+    </div>
+    <div class="step">
+      <strong>3. Clear Browser Cache</strong><br>
+      Clear your browser cache and cookies, then reload the app.
+    </div>
+    
+    <!-- LEGAL -->
+    <h2>Legal & Privacy</h2>
+    
+    <div class="section">
+      <h3>Important Documents</h3>
+      <ul>
+        <li><a href="/privacy.html" style="color: var(--accent);">Privacy Policy</a> — How we handle your data (California CCPA)</li>
+        <li><a href="/terms.html" style="color: var(--accent);">Terms of Service</a> — Usage rights and limitations</li>
+        <li><a href="/story.html" style="color: var(--accent);">Our Story</a> — Background on AisleBird</li>
+      </ul>
+    </div>
+    
+    <!-- COMPANY INFO -->
+    <h2>About Us</h2>
+    
+    <div class="section">
+      <h3>Company Information</h3>
+      <p><strong>Business Name:</strong> Siamak Kalhor Consulting LLC</p>
+      <p><strong>Location:</strong> San Jose, California, United States</p>
+      <p><strong>Product:</strong> AisleBird — AI-powered shopping intelligence</p>
+      
+      <h3 style="margin-top: 2rem;">Contact Information</h3>
+      <p><strong>General Support:</strong> <a href="mailto:support@aislebird.com" style="color: var(--accent);">support@aislebird.com</a></p>
+      <p><strong>Privacy Requests:</strong> <a href="mailto:privacy@aislebird.com" style="color: var(--accent);">privacy@aislebird.com</a></p>
+      <p><strong>Business Inquiries:</strong> <a href="mailto:business@aislebird.com" style="color: var(--accent);">business@aislebird.com</a></p>
+      <p><strong>GitHub:</strong> <a href="https://github.com/siamakk2/aislemagic" style="color: var(--accent);">github.com/siamakk2/aislemagic</a></p>
+    </div>
+    
+    <!-- RESPONSE TIMES -->
+    <h2>Support Response Times</h2>
+    
+    <div class="section">
+      <ul>
+        <li><strong>General Support:</strong> 24-48 hours</li>
+        <li><strong>Bug Reports:</strong> 24-48 hours</li>
+        <li><strong>Privacy/Legal Requests:</strong> 45 days (as required by California law)</li>
+        <li><strong>Feature Requests:</strong> We review all requests and respond when implemented</li>
+      </ul>
+    </div>
+    
+    <hr style="border: none; border-top: 1px solid var(--border); margin: 3rem 0;">
+    
+    <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+      <strong>Siamak Kalhor Consulting LLC</strong><br>
+      San Jose, California<br>
+      Thank you for using AisleBird! 🐦
+    </p>
+  </div>
+</body>
+</html>
