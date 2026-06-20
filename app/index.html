@@ -176,7 +176,10 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .sp-search:focus{border-color:var(--or);}
 
 /* Chain selector — big tappable icons in a row */
-.chain-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:0 14px 10px;border-bottom:1px solid var(--bdr);flex-shrink:0;min-width:0;}
+.chain-row-wrap{display:flex;align-items:center;border-bottom:1px solid var(--bdr);flex-shrink:0;position:relative;}
+.chain-arrow{width:32px;height:60px;flex-shrink:0;background:var(--card);border:none;color:var(--or);font-size:28px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;z-index:5;padding:0;}
+.chain-arrow:active{background:var(--surf);}
+.chain-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:0 4px 10px;flex:1;min-width:0;scroll-behavior:smooth;}
 .chain-row::-webkit-scrollbar{height:4px;}
 .chain-row::-webkit-scrollbar-thumb{background:var(--warm);border-radius:2px;}
 .chain-row::-webkit-scrollbar{height:0;}
@@ -351,7 +354,11 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
       </div>
       <input class="sp-search" id="sp-search" type="search" placeholder="🔍 Search by city, name, or chain…" autocomplete="off"/>
     </div>
-    <div class="chain-row" id="chain-row"></div>
+    <div class="chain-row-wrap">
+      <button class="chain-arrow chain-arrow-left" id="chain-arrow-left" type="button">‹</button>
+      <div class="chain-row" id="chain-row"></div>
+      <button class="chain-arrow chain-arrow-right" id="chain-arrow-right" type="button">›</button>
+    </div>
     <div class="sp-list" id="sp-list"></div>
   </div>
 </div>
@@ -1485,6 +1492,8 @@ document.getElementById('imp-ta').addEventListener('input', previewImport);
 document.getElementById('imp-submit-btn').addEventListener('click', doImport);
 document.getElementById('imp-cancel-btn').addEventListener('click', function(){ closeOv('ov-import'); });
 document.getElementById('orb').addEventListener('click', function(){ if(isListening) stopListening(); else startListening(); });
+document.getElementById('chain-arrow-left').addEventListener('click', function(){ document.getElementById('chain-row').scrollBy({left:-150,behavior:'smooth'}); });
+document.getElementById('chain-arrow-right').addEventListener('click', function(){ document.getElementById('chain-row').scrollBy({left:150,behavior:'smooth'}); });
 document.getElementById('v-back-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
 document.getElementById('v-done-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
 
