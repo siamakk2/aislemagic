@@ -8,7 +8,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="AisleMagic"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
@@ -23,10 +24,12 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 
 /* NAV */
 .nav{background:var(--bg2);padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--bdr);flex-shrink:0;}
-.logo{font-size:19px;font-weight:800;color:var(--or);flex-shrink:0;}
-.store-btn{flex:1;min-width:0;display:flex;align-items:center;gap:6px;background:var(--surf);border:1px solid var(--warm);border-radius:999px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--orl);cursor:pointer;font-family:'Inter',sans-serif;}
-.store-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
-.mic-btn{width:40px;height:40px;border-radius:50%;background:var(--or);border:none;font-size:18px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.logo{font-size:19px;font-weight:800;color:var(--or);flex-shrink:0;letter-spacing:-.02em;}
+.store-btn{flex:1;min-width:0;display:flex;align-items:center;gap:5px;background:var(--surf);border:1px solid var(--warm);border-radius:999px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--orl);cursor:pointer;font-family:'Inter',sans-serif;}
+.store-btn-icon{font-size:14px;flex-shrink:0;}
+.store-btn-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;}
+.store-btn-arrow{font-size:10px;flex-shrink:0;opacity:.6;}
+.mic-btn{width:40px;height:40px;border-radius:50%;background:var(--or);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:18px;}
 
 /* SCREENS */
 .scr{display:none;flex:1;flex-direction:column;overflow:hidden;}
@@ -38,11 +41,11 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .ssort{margin:10px 12px 0;background:var(--surf);border:1px solid var(--warm);border-radius:14px;padding:11px 13px;}
 .ssort-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
 .ssort-left{display:flex;align-items:center;gap:8px;}
-.ssort-ico{width:28px;height:28px;border-radius:7px;background:var(--ordm);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
-.ssort-title{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--orl);text-transform:uppercase;margin-left:8px;}
-.ssort-sub{font-size:10px;color:var(--mut);margin-top:1px;margin-left:8px;}
+.ssort-ico{width:28px;height:28px;border-radius:7px;background:var(--ordm);display:flex;align-items:center;justify-content:center;font-size:13px;}
+.ssort-title{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--orl);text-transform:uppercase;}
+.ssort-sub{font-size:10px;color:var(--mut);margin-top:1px;}
 .ssort-reset{background:var(--ordm);border:none;border-radius:999px;padding:4px 11px;font-size:11px;font-weight:700;color:var(--or);cursor:pointer;font-family:'Inter',sans-serif;}
-.chips{display:flex;align-items:center;overflow-x:auto;padding-bottom:2px;}
+.chips{display:flex;align-items:center;overflow-x:auto;padding-bottom:2px;gap:0;}
 .chips::-webkit-scrollbar{height:0;}
 .chip-wrap{display:flex;align-items:center;flex-shrink:0;}
 .chip{background:var(--hi);border:1px solid var(--bdr);border-radius:999px;padding:5px 11px;font-size:11px;font-weight:700;color:var(--mut);cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;}
@@ -56,10 +59,10 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .prog-bar{height:5px;background:var(--hi);border-radius:3px;overflow:hidden;}
 .prog-fill{height:100%;background:var(--or);border-radius:3px;transition:width .3s;}
 
-/* SECTION */
+/* SECTION HEADER */
 .sec{padding:13px 14px 5px;font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;display:flex;align-items:center;gap:6px;}
 .sec.here{color:var(--or);}
-.here-dot{width:7px;height:7px;border-radius:50%;background:var(--or);}
+.here-dot{width:7px;height:7px;border-radius:50%;background:var(--or);flex-shrink:0;}
 
 /* ITEM CARD */
 .ic{margin:0 12px 7px;background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:12px;display:flex;align-items:center;gap:9px;}
@@ -70,12 +73,13 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .ib{flex:1;min-width:0;}
 .iname{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .itag{display:inline-block;border-radius:5px;padding:2px 6px;font-size:10px;font-weight:700;margin-top:4px;}
-.t-gr{background:var(--gbg);color:var(--gtx);}
 .t-or{background:var(--ordm);color:var(--orl);}
 .t-rd{background:var(--rbg);color:var(--rtx);}
+.t-gr{background:var(--gbg);color:var(--gtx);}
 .t-gy{background:var(--hi);color:#c6c6c7;}
 .qc{display:flex;align-items:center;gap:5px;flex-shrink:0;}
 .qb{width:30px;height:30px;border-radius:8px;border:none;cursor:pointer;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;}
+.qb:active{opacity:.6;}
 .qm{background:var(--hi);color:var(--tx);}
 .qp{background:var(--or);color:#fff;}
 .qnum{font-size:14px;font-weight:800;min-width:20px;text-align:center;}
@@ -93,57 +97,57 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .empty-icon{font-size:54px;margin-bottom:14px;}
 .empty-title{font-size:18px;font-weight:800;margin-bottom:8px;}
 .empty-sub{font-size:14px;color:var(--mut);line-height:1.6;margin-bottom:22px;max-width:260px;}
-.empty-btns{display:flex;flex-direction:column;gap:9px;width:100%;}
-.btn-or{background:var(--or);border:none;border-radius:999px;padding:13px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;width:100%;}
-.btn-gy{background:var(--surf);border:1px solid var(--bdr);border-radius:999px;padding:11px;font-size:14px;font-weight:700;color:var(--tx);cursor:pointer;font-family:'Inter',sans-serif;width:100%;}
-.btn-lnk{background:none;border:none;font-size:13px;font-weight:700;color:var(--mut);cursor:pointer;font-family:'Inter',sans-serif;padding:6px;}
+.empty-btns{display:flex;flex-direction:column;align-items:center;gap:9px;width:100%;}
+.btn-orange{background:var(--or);border:none;border-radius:999px;padding:13px 28px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;width:100%;}
+.btn-gray{background:var(--surf);border:1px solid var(--bdr);border-radius:999px;padding:11px 24px;font-size:14px;font-weight:700;color:var(--tx);cursor:pointer;font-family:'Inter',sans-serif;width:100%;}
+.btn-ghost-sm{background:none;border:none;font-size:13px;font-weight:700;color:var(--mut);cursor:pointer;font-family:'Inter',sans-serif;padding:6px;}
 
 /* QUICK ADD */
-.qa-section{padding:0 12px;}
-.qa-label{font-size:11px;font-weight:700;letter-spacing:.07em;color:var(--mut);text-transform:uppercase;margin:16px 0 9px;}
+.qa-wrap{padding:0 12px;}
+.qa-label{font-size:11px;font-weight:700;letter-spacing:.07em;color:var(--mut);text-transform:uppercase;margin-bottom:9px;margin-top:16px;}
 .qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .qa-card{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:10px 11px;display:flex;align-items:center;gap:8px;cursor:pointer;}
 .qa-card:active{opacity:.7;}
 .qa-card.added{border-color:var(--or);background:var(--ordm);}
 .qa-em{font-size:18px;flex-shrink:0;}
-.qa-info{flex:1;min-width:0;}
+.qa-text{flex:1;min-width:0;}
 .qa-name{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .qa-cat{font-size:10px;color:var(--mut);margin-top:1px;}
-.qa-plus{width:22px;height:22px;border-radius:6px;background:var(--or);border:none;color:#fff;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;}
+.qa-add{width:22px;height:22px;border-radius:6px;background:var(--or);border:none;color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;font-family:'Inter',sans-serif;}
 
 /* FAB */
 .fab-row{padding:8px 12px 4px;display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-shrink:0;}
-.imp-btn{height:44px;border-radius:999px;background:var(--surf);border:1px solid var(--bdr);padding:0 15px;font-size:12px;font-weight:700;color:var(--mut);cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;}
-.fab{width:54px;height:54px;border-radius:50%;background:var(--or);border:none;color:#fff;font-size:28px;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.import-btn{height:44px;border-radius:999px;background:var(--surf);border:1px solid var(--bdr);padding:0 15px;font-size:12px;font-weight:700;color:var(--mut);cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.fab{width:54px;height:54px;border-radius:50%;background:var(--or);border:none;color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
 .fab:active{transform:scale(.9);}
 
 /* VOICE */
 .v-back{padding:10px 14px 0;font-size:13px;font-weight:700;color:var(--mut);cursor:pointer;background:none;border:none;text-align:left;font-family:'Inter',sans-serif;flex-shrink:0;}
-.v-body{flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 20px;overflow-y:auto;}
+.v-body{flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 20px 0;overflow-y:auto;}
 .v-body::-webkit-scrollbar{width:0;}
-.orb-wrap{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
+.orb-wrap{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:20px;flex-shrink:0;}
 .orb-ring{position:absolute;width:128px;height:128px;border-radius:50%;border:2px solid var(--or);opacity:0;}
 .orb-ring.go{animation:rexp 1.3s ease-out infinite;}
 @keyframes rexp{0%{transform:scale(.8);opacity:.6;}100%{transform:scale(1.45);opacity:0;}}
-.orb{width:108px;height:108px;border-radius:50%;background:var(--or);border:none;font-size:42px;cursor:pointer;-webkit-appearance:none;display:flex;align-items:center;justify-content:center;}
+.orb{width:108px;height:108px;border-radius:50%;background:var(--or);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:42px;-webkit-appearance:none;}
 .orb:active{transform:scale(.93);}
-.orb.go{animation:opls 1.3s ease-in-out infinite;}
-@keyframes opls{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
+.orb.go{animation:opulse 1.3s ease-in-out infinite;}
+@keyframes opulse{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
 .v-state{font-size:16px;font-weight:700;text-align:center;color:var(--tx);min-height:22px;padding:0 10px;}
 .v-sub{font-size:13px;color:var(--mut);text-align:center;margin-top:5px;}
-.wave{display:flex;gap:5px;align-items:center;margin:14px 0;height:24px;}
+.wave{display:flex;gap:5px;align-items:center;margin:14px 0;height:24px;flex-shrink:0;}
 .wb{width:26px;height:4px;background:var(--or);border-radius:2px;transition:height .12s;}
-.v-err{width:100%;background:var(--rbg);border-radius:12px;padding:13px;font-size:13px;color:var(--rtx);line-height:1.7;display:none;margin-bottom:12px;}
+.v-err{width:100%;background:var(--rbg);border-radius:12px;padding:13px;font-size:13px;color:var(--rtx);text-align:center;line-height:1.7;display:none;margin-bottom:12px;}
 .v-tips{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:13px;margin-bottom:14px;}
-.v-tips-t{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--mut);text-transform:uppercase;margin-bottom:8px;}
-.v-tip{font-size:13px;color:var(--tx);padding:3px 0;}
+.v-tips-title{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--mut);text-transform:uppercase;margin-bottom:9px;}
+.v-tip{font-size:13px;color:var(--tx);padding:4px 0;}
 .v-added{width:100%;display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
 .va{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:9px;}
 .va-dot{width:8px;height:8px;border-radius:50%;background:var(--or);flex-shrink:0;}
 .va-name{font-size:13px;font-weight:700;}
 .va-meta{font-size:11px;color:var(--mut);margin-top:1px;}
 .va-ok{margin-left:auto;font-size:11px;font-weight:800;color:var(--or);}
-.v-done{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:999px;padding:13px;font-size:14px;font-weight:700;color:var(--tx);cursor:pointer;font-family:'Inter',sans-serif;}
+.v-done{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:999px;padding:13px;font-size:14px;font-weight:700;color:var(--tx);cursor:pointer;font-family:'Inter',sans-serif;margin-bottom:20px;flex-shrink:0;}
 
 /* SETTINGS */
 .set-body{padding:14px;}
@@ -156,51 +160,48 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .tog.off{background:var(--hi);}
 .tog.off::after{left:3px;}
 
-/* ═══════════════════════════
-   STORE PICKER — NEW DESIGN
-   Top row: chain icon buttons
-   Below: scrollable store list
-═══════════════════════════ */
-.sp-panel{background:var(--card);border-radius:24px 24px 0 0;width:100%;height:90vh;display:flex;flex-direction:column;border-top:1px solid var(--bdr);animation:sup .22s ease;}
-@keyframes sup{from{transform:translateY(100%);}to{transform:translateY(0);}}
-
-/* handle + title + close */
-.sp-top{padding:14px 14px 0;flex-shrink:0;}
-.sp-handle{width:36px;height:4px;background:var(--hi);border-radius:2px;margin:0 auto 12px;}
-.sp-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.sp-title{font-size:17px;font-weight:800;}
-.sp-close{background:var(--hi);border:none;border-radius:999px;padding:7px 16px;font-size:13px;font-weight:700;color:var(--tx);cursor:pointer;font-family:'Inter',sans-serif;}
-
-/* Search bar */
-.sp-search{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:11px 13px;font-size:14px;color:var(--tx);font-family:'Inter',sans-serif;outline:none;margin-bottom:12px;display:block;}
-.sp-search:focus{border-color:var(--or);}
-
-/* Chain selector — big tappable icons in a row */
-.chain-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;border-bottom:1px solid var(--bdr);margin:0 -14px;padding-left:14px;padding-right:14px;}
-.chain-row::-webkit-scrollbar{height:0;}
-.chain-pill{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:14px;border:1.5px solid var(--bdr);cursor:pointer;background:var(--surf);flex-shrink:0;min-width:70px;font-family:'Inter',sans-serif;}
-.chain-pill.on{border-color:var(--or);background:var(--ordm);}
-.chain-pill-icon{font-size:24px;}
-.chain-pill-name{font-size:10px;font-weight:700;color:var(--mut);white-space:nowrap;}
-.chain-pill.on .chain-pill-name{color:var(--orl);}
-
-/* Store list */
-.sp-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 14px 40px;}
-.sp-list::-webkit-scrollbar{width:0;}
-.sp-region-hdr{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--dim);text-transform:uppercase;padding:10px 0 6px;}
-.sp-row{background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:13px 14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:11px;}
-.sp-row:active{transform:scale(.98);}
-.sp-row.sel{border-color:var(--or);background:var(--ordm);}
-.sp-row-icon{font-size:22px;flex-shrink:0;}
-.sp-row-info{flex:1;min-width:0;}
-.sp-row-name{font-size:13px;font-weight:700;color:var(--tx);}
-.sp-row-addr{font-size:11px;color:var(--mut);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.sp-row-badge{font-size:10px;font-weight:700;color:var(--or);background:var(--ordm);border-radius:999px;padding:3px 8px;flex-shrink:0;white-space:nowrap;}
-.sp-no-results{text-align:center;padding:32px 20px;color:var(--dim);font-size:14px;}
-
-/* OVERLAYS */
+/* ══════════════════════════════
+   STORE PICKER OVERLAY
+══════════════════════════════ */
 .ov{display:none;position:absolute;inset:0;background:rgba(0,0,0,.8);z-index:400;align-items:flex-end;}
 .ov.on{display:flex;}
+
+/* Store picker specific */
+.sp-panel{background:var(--card);border-radius:24px 24px 0 0;width:100%;height:88vh;display:flex;flex-direction:column;border-top:1px solid var(--bdr);animation:sup .22s ease;}
+@keyframes sup{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.sp-header{padding:14px 14px 0;flex-shrink:0;}
+.sp-handle{width:36px;height:4px;background:var(--hi);border-radius:2px;margin:0 auto 14px;}
+.sp-title{font-size:17px;font-weight:800;margin-bottom:12px;}
+
+/* Chain tab bar */
+.chain-tabs{display:flex;gap:0;overflow-x:auto;border-bottom:1px solid var(--bdr);margin:0 -14px;padding:0 14px;flex-shrink:0;}
+.chain-tabs::-webkit-scrollbar{height:0;}
+.chain-tab{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 12px 12px;cursor:pointer;border:none;background:none;font-family:'Inter',sans-serif;flex-shrink:0;border-bottom:3px solid transparent;margin-bottom:-1px;transition:all .15s;min-width:70px;}
+.chain-tab-icon{font-size:24px;}
+.chain-tab-name{font-size:9px;font-weight:700;color:var(--mut);white-space:nowrap;text-align:center;}
+.chain-tab.on .chain-tab-name{color:var(--or);}
+.chain-tab.on{border-bottom-color:var(--or);background:rgba(255,107,53,.06);}
+
+/* Store list inside picker */
+.sp-stores{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 14px 40px;}
+.sp-stores::-webkit-scrollbar{width:0;}
+
+/* Region header */
+.sp-region{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--dim);text-transform:uppercase;padding:12px 0 6px;}
+.sp-region:first-child{padding-top:4px;}
+
+/* Store row */
+.sp-row{background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:13px 14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .15s;}
+.sp-row:active{transform:scale(.98);}
+.sp-row.sel{border-color:var(--or);background:var(--ordm);}
+.sp-row-icon{font-size:24px;flex-shrink:0;}
+.sp-row-body{flex:1;min-width:0;}
+.sp-row-name{font-size:14px;font-weight:700;color:var(--tx);}
+.sp-row-addr{font-size:11px;color:var(--mut);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sp-row-badge{font-size:11px;font-weight:700;color:var(--or);background:var(--ordm);border-radius:999px;padding:3px 8px;flex-shrink:0;}
+.sp-row.sel .sp-row-badge{background:rgba(255,107,53,.3);}
+
+/* Generic sheet for add/import */
 .sheet{background:var(--card);border-radius:24px 24px 0 0;width:100%;padding:14px 14px 44px;border-top:1px solid var(--bdr);animation:sup .22s ease;max-height:88vh;overflow-y:auto;}
 .sheet::-webkit-scrollbar{width:0;}
 .sh-handle{width:36px;height:4px;background:var(--hi);border-radius:2px;margin:0 auto 14px;}
@@ -208,17 +209,18 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .add-inp{width:100%;background:var(--bg);border:1px solid var(--bdr);border-radius:11px;padding:13px;font-size:15px;color:var(--tx);font-family:'Inter',sans-serif;outline:none;margin-bottom:11px;}
 .add-inp:focus{border-color:var(--or);}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px;}
-.cat-btn{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:10px 11px;font-size:12px;font-weight:700;color:var(--mut);cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;}
+.cat-btn{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:10px 11px;font-size:12px;font-weight:700;color:var(--mut);cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;text-align:left;}
 .cat-btn.sel{background:var(--ordm);border-color:var(--or);color:var(--orl);}
-.sub-btn{width:100%;background:var(--or);border:none;border-radius:11px;padding:14px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;}
+.submit-btn{width:100%;background:var(--or);border:none;border-radius:11px;padding:14px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;}
 .imp-step{display:flex;align-items:flex-start;gap:11px;background:var(--surf);border-radius:11px;padding:11px 12px;margin-bottom:8px;}
 .imp-num{width:24px;height:24px;border-radius:50%;background:var(--or);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .imp-text{font-size:13px;color:var(--tx);line-height:1.55;}
 .imp-text b{color:var(--orl);}
 .imp-ta{width:100%;background:var(--bg);border:1.5px solid var(--bdr);border-radius:12px;padding:13px;font-size:14px;color:var(--tx);font-family:'Inter',sans-serif;outline:none;resize:none;height:130px;line-height:1.6;margin:12px 0 10px;}
 .imp-ta:focus{border-color:var(--or);}
+.imp-ta::placeholder{color:var(--dim);font-size:13px;}
 .imp-preview{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:12px;margin-bottom:10px;display:none;}
-.imp-prev-title{font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;margin-bottom:8px;}
+.imp-prev-title{font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
 .imp-prev-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--bdr);}
 .imp-prev-item:last-child{border-bottom:none;}
 .imp-submit{width:100%;background:var(--or);border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;margin-bottom:8px;}
@@ -235,6 +237,8 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .bt-pill{background:var(--or);border-radius:20px;padding:6px 13px;display:flex;flex-direction:column;align-items:center;gap:2px;}
 .bt-pill svg{stroke:#fff;width:20px;height:20px;}
 .bt-pill span{color:#fff;font-size:10px;font-weight:800;}
+
+/* TOAST */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--gbg);border:1px solid var(--gtx);border-radius:999px;padding:10px 20px;font-size:13px;font-weight:700;color:var(--gtx);z-index:999;white-space:nowrap;font-family:'Inter',sans-serif;pointer-events:none;opacity:0;transition:opacity .2s;}
 .toast.show{opacity:1;}
 </style>
@@ -246,14 +250,14 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 <div class="nav">
   <div class="logo">AisleMagic</div>
   <button class="store-btn" id="store-btn" type="button">
-    <span id="store-icon">🌿</span>
-    <span class="store-name" id="store-name">Whole Foods · Napa</span>
-    <span style="opacity:.5;font-size:10px;flex-shrink:0;">▼</span>
+    <span class="store-btn-icon" id="store-icon">🌿</span>
+    <span class="store-btn-text" id="store-name">Whole Foods · Napa</span>
+    <span class="store-btn-arrow">▼</span>
   </button>
-  <button class="mic-btn" id="mic-btn" type="button">🎤</button>
+  <button class="mic-btn" id="mic-nav-btn" type="button">🎤</button>
 </div>
 
-<!-- LIST -->
+<!-- LIST SCREEN -->
 <div class="scr on" id="s-list">
   <div class="scroll">
     <div class="ssort">
@@ -262,7 +266,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
           <div class="ssort-ico">⇅</div>
           <div>
             <div class="ssort-title">Smart Sort</div>
-            <div class="ssort-sub">Tap the aisle you are in now</div>
+            <div class="ssort-sub" id="ssort-sub">Tap the aisle you are in now</div>
           </div>
         </div>
         <button class="ssort-reset" id="reset-btn" type="button">Reset</button>
@@ -270,21 +274,24 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
       <div class="chips" id="chips"></div>
     </div>
     <div class="prog">
-      <div class="prog-row"><span id="prog-txt">0 of 0 items</span><span id="prog-pct">0%</span></div>
+      <div class="prog-row">
+        <span id="prog-txt">0 of 0 items</span>
+        <span id="prog-pct">0%</span>
+      </div>
       <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
     </div>
     <div id="list-body"></div>
     <div id="qa-wrap"></div>
   </div>
   <div class="fab-row">
-    <button class="imp-btn" id="imp-open-btn" type="button">📋 Import Notes</button>
-    <button class="fab" id="add-btn" type="button">+</button>
+    <button class="import-btn" id="import-open-btn" type="button">📋 Import from Notes</button>
+    <button class="fab" id="add-open-btn" type="button">+</button>
   </div>
 </div>
 
-<!-- VOICE -->
+<!-- VOICE SCREEN -->
 <div class="scr" id="s-voice">
-  <button class="v-back" id="v-back-btn" type="button">← Back to List</button>
+  <button class="v-back" id="voice-back-btn" type="button">← Back to List</button>
   <div class="v-body">
     <div class="orb-wrap">
       <div class="orb-ring" id="orb-ring"></div>
@@ -295,19 +302,25 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
     <div class="wave"><div class="wb" id="w1"></div><div class="wb" id="w2"></div><div class="wb" id="w3"></div><div class="wb" id="w4"></div><div class="wb" id="w5"></div></div>
     <div class="v-err" id="v-err"></div>
     <div class="v-tips">
-      <div class="v-tips-t">What to say</div>
-      <div class="v-tip">🥦 "Add organic bananas"</div>
-      <div class="v-tip">🧀 "Two cartons of almond milk"</div>
-      <div class="v-tip">🍞 "Get sourdough bread"</div>
-      <div class="v-tip">❌ "Remove milk" — removes from list</div>
-      <div class="v-tip">✓ "Got the eggs" — checks off</div>
+      <div class="v-tips-title">Adding items</div>
+      <div class="v-tip" id="v-tip1">🥦 &nbsp;"Add organic bananas"</div>
+      <div class="v-tip" id="v-tip2">🧀 &nbsp;"Two cartons of almond milk"</div>
+      <div class="v-tip" id="v-tip3">🍞 &nbsp;"Get sourdough bread"</div>
+      <div class="v-tips-title" style="margin-top:10px;">Removing items</div>
+      <div class="v-tip">❌ &nbsp;"Remove milk"</div>
+      <div class="v-tip">🗑 &nbsp;"Delete salmon"</div>
+      <div class="v-tip">✕ &nbsp;"Take off bread"</div>
+      <div class="v-tips-title" style="margin-top:10px;">Checking off items</div>
+      <div class="v-tip">✓ &nbsp;"Check off eggs"</div>
+      <div class="v-tip">✓ &nbsp;"Got the bananas"</div>
+      <div class="v-tip">✓ &nbsp;"Found the yogurt"</div>
     </div>
     <div class="v-added" id="v-added"></div>
-    <button class="v-done" id="v-done-btn" type="button">✓ Done — View My List</button>
+    <button class="v-done" id="voice-done-btn" type="button">✓ Done — View My List</button>
   </div>
 </div>
 
-<!-- SETTINGS -->
+<!-- SETTINGS SCREEN -->
 <div class="scr" id="s-settings">
   <div class="scroll"><div class="set-body"><div class="set-title">Settings</div><div id="set-rows"></div></div></div>
 </div>
@@ -341,27 +354,26 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 <!-- STORE PICKER OVERLAY -->
 <div class="ov" id="ov-store">
   <div class="sp-panel">
-    <div class="sp-top">
+    <div class="sp-header">
       <div class="sp-handle"></div>
-      <div class="sp-title-row">
-        <div class="sp-title">Choose Your Store</div>
-        <button class="sp-close" id="sp-close-btn" type="button">✕ Close</button>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div class="sp-title" style="margin-bottom:0;">Choose Your Store</div>
+        <button type="button" onclick="closeOv('ov-store')" style="background:var(--hi);border:none;border-radius:999px;padding:7px 16px;font-size:13px;font-weight:700;color:var(--tx);cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:5px;">✕ Close</button>
       </div>
-      <input class="sp-search" id="sp-search" type="search" placeholder="🔍 Search by city, name, or chain…" autocomplete="off"/>
-      <div class="chain-row" id="chain-row"></div>
+      <div class="chain-tabs" id="chain-tabs"></div>
     </div>
-    <div class="sp-list" id="sp-list"></div>
+    <div class="sp-stores" id="sp-stores"></div>
   </div>
 </div>
 
-<!-- ADD OVERLAY -->
+<!-- ADD ITEM OVERLAY -->
 <div class="ov" id="ov-add">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-title">Add Item</div>
     <input class="add-inp" id="add-inp" placeholder="e.g. Organic milk, salmon, sourdough…" autocomplete="off"/>
     <div class="cat-grid" id="cat-grid"></div>
-    <button class="sub-btn" id="add-submit-btn" type="button">Add to List</button>
+    <button class="submit-btn" id="add-submit-btn" type="button">Add to List</button>
   </div>
 </div>
 
@@ -372,7 +384,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
     <div class="sh-title">📋 Import from iPhone Notes</div>
     <div class="imp-step"><div class="imp-num">1</div><div class="imp-text">Open <b>Notes app</b> → find your shopping list</div></div>
     <div class="imp-step"><div class="imp-num">2</div><div class="imp-text">Hold finger on text → <b>Select All</b> → <b>Copy</b></div></div>
-    <div class="imp-step"><div class="imp-num">3</div><div class="imp-text">Come back here → tap box below → <b>Paste</b></div></div>
+    <div class="imp-step"><div class="imp-num">3</div><div class="imp-text">Come back here → tap the box below → <b>Paste</b></div></div>
     <div class="imp-step"><div class="imp-num">4</div><div class="imp-text">Tap <b>Import</b> — sorted by aisle automatically ✨</div></div>
     <textarea class="imp-ta" id="imp-ta" placeholder="Paste your Notes list here...&#10;&#10;Example:&#10;Bananas&#10;Almond milk&#10;Sourdough bread&#10;Salmon"></textarea>
     <div class="imp-preview" id="imp-preview">
@@ -388,518 +400,574 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 </div>
 
 <script>
-/* ═══════════════════════════════════════
-   CHAIN CONFIGS — categories & quick add
-═══════════════════════════════════════ */
-var CHAINS = {
+/* ════════════════════════════════
+   STORE CONFIG — each chain has its
+   own categories and quick-add items
+════════════════════════════════ */
+var CHAIN_CONFIG = {
   'Whole Foods': {
-    icon:'🌿',
-    cats:[
-      {id:'produce',  label:'Produce',     emoji:'🥦',aisle:'Aisle 1'},
-      {id:'bulk',     label:'Bulk Foods',  emoji:'🌾',aisle:'Aisle 2'},
-      {id:'dairy',    label:'Dairy',       emoji:'🧀',aisle:'Aisle 3'},
-      {id:'bakery',   label:'Bakery',      emoji:'🍞',aisle:'Aisle 4'},
-      {id:'meat',     label:'Meat & Fish', emoji:'🥩',aisle:'Aisle 5'},
-      {id:'prepared', label:'Prepared',    emoji:'🍱',aisle:'Hot Bar'},
-      {id:'wellness', label:'Wellness',    emoji:'💊',aisle:'Aisle 7'},
-      {id:'frozen',   label:'Frozen',      emoji:'❄️', aisle:'Aisle 8'}
+    icon: '🌿',
+    shortName: 'Whole Foods',
+    color: '#1a3a1a',
+    cats: [
+      {id:'produce',  label:'Produce',     emoji:'🥦', aisle:'Aisle 1'},
+      {id:'bulk',     label:'Bulk Foods',  emoji:'🌾', aisle:'Aisle 2'},
+      {id:'dairy',    label:'Dairy',       emoji:'🧀', aisle:'Aisle 3'},
+      {id:'bakery',   label:'Bakery',      emoji:'🍞', aisle:'Aisle 4'},
+      {id:'meat',     label:'Meat & Fish', emoji:'🥩', aisle:'Aisle 5'},
+      {id:'prepared', label:'Prepared',    emoji:'🍱', aisle:'Hot Bar'},
+      {id:'wellness', label:'Wellness',    emoji:'💊', aisle:'Aisle 7'},
+      {id:'frozen',   label:'Frozen',      emoji:'❄️',  aisle:'Aisle 8'},
     ],
-    quickAdd:[
-      {name:'Organic Bananas',      cat:'produce', emoji:'🍌'},
-      {name:'Organic Avocados',     cat:'produce', emoji:'🥑'},
-      {name:'Baby Spinach',         cat:'produce', emoji:'🥬'},
-      {name:'Organic Strawberries', cat:'produce', emoji:'🍓'},
-      {name:'Almond Milk',          cat:'dairy',   emoji:'🥛'},
-      {name:'Organic Whole Milk',   cat:'dairy',   emoji:'🍼'},
-      {name:'Greek Yogurt',         cat:'dairy',   emoji:'🧁'},
-      {name:'Free Range Eggs',      cat:'dairy',   emoji:'🥚'},
-      {name:'Sourdough Loaf',       cat:'bakery',  emoji:'🍞'},
-      {name:'Wild Salmon Fillet',   cat:'meat',    emoji:'🐟'},
-      {name:'Organic Chicken',      cat:'meat',    emoji:'🍗'},
-      {name:'365 Rolled Oats',      cat:'bulk',    emoji:'🌾'},
-      {name:'Raw Almonds',          cat:'bulk',    emoji:'🌰'},
-      {name:'Rotisserie Chicken',   cat:'prepared',emoji:'🍱'},
-      {name:'Frozen Edamame',       cat:'frozen',  emoji:'💚'},
-      {name:'Goat Cheese',          cat:'dairy',   emoji:'🧀'}
-    ]
+    quickAdd: [
+      {name:'Organic Bananas',     cat:'produce', emoji:'🍌'},
+      {name:'Organic Avocados',    cat:'produce', emoji:'🥑'},
+      {name:'Baby Spinach',        cat:'produce', emoji:'🥬'},
+      {name:'Organic Strawberries',cat:'produce', emoji:'🍓'},
+      {name:'Almond Milk',         cat:'dairy',   emoji:'🥛'},
+      {name:'Organic Whole Milk',  cat:'dairy',   emoji:'🍼'},
+      {name:'Greek Yogurt',        cat:'dairy',   emoji:'🧁'},
+      {name:'Free Range Eggs',     cat:'dairy',   emoji:'🥚'},
+      {name:'Sourdough Loaf',      cat:'bakery',  emoji:'🍞'},
+      {name:'Wild Salmon Fillet',  cat:'meat',    emoji:'🐟'},
+      {name:'Organic Chicken',     cat:'meat',    emoji:'🍗'},
+      {name:'365 Rolled Oats',     cat:'bulk',    emoji:'🌾'},
+      {name:'Raw Almonds',         cat:'bulk',    emoji:'🌰'},
+      {name:'Rotisserie Chicken',  cat:'prepared',emoji:'🍱'},
+      {name:'Frozen Edamame',      cat:'frozen',  emoji:'💚'},
+      {name:'Goat Cheese',         cat:'dairy',   emoji:'🧀'},
+    ],
+    voiceTips: ['🥦 "Add organic bananas"','🧀 "Two cartons of almond milk"','🍞 "Sourdough bread"','🥩 "Wild salmon fillets"','🌾 "Bulk granola"'],
   },
-  "Trader Joe's":{
-    icon:'🛵',
-    cats:[
-      {id:'produce',  label:'Produce',      emoji:'🥦',aisle:'Aisle 1'},
-      {id:'dairy',    label:'Dairy & Eggs', emoji:'🥚',aisle:'Aisle 2'},
-      {id:'frozen',   label:'Frozen',       emoji:'❄️', aisle:'Aisle 3'},
-      {id:'snacks',   label:'Snacks',       emoji:'🍿',aisle:'Aisle 4'},
-      {id:'bakery',   label:'Bakery',       emoji:'🍞',aisle:'Aisle 5'},
-      {id:'wine',     label:'Wine & Beer',  emoji:'🍷',aisle:'Aisle 6'},
-      {id:'pantry',   label:'Pantry',       emoji:'🫙',aisle:'Aisle 7'},
-      {id:'prepared', label:'Prepared',     emoji:'🍱',aisle:'Deli'}
+  "Trader Joe's": {
+    shortName: "TJ's",
+    icon: '🛵',
+    color: '#1a1a3a',
+    cats: [
+      {id:'produce',  label:'Produce',       emoji:'🥦', aisle:'Aisle 1'},
+      {id:'dairy',    label:'Dairy & Eggs',  emoji:'🥚', aisle:'Aisle 2'},
+      {id:'frozen',   label:'Frozen',        emoji:'❄️',  aisle:'Aisle 3'},
+      {id:'snacks',   label:'Snacks',        emoji:'🍿', aisle:'Aisle 4'},
+      {id:'bakery',   label:'Bakery',        emoji:'🍞', aisle:'Aisle 5'},
+      {id:'wine',     label:'Wine & Beer',   emoji:'🍷', aisle:'Aisle 6'},
+      {id:'pantry',   label:'Pantry',        emoji:'🫙', aisle:'Aisle 7'},
+      {id:'prepared', label:'Prepared',      emoji:'🍱', aisle:'Deli'},
     ],
-    quickAdd:[
-      {name:'Bananas',                cat:'produce', emoji:'🍌'},
-      {name:'Avocados',               cat:'produce', emoji:'🥑'},
-      {name:'Mandarin Oranges',       cat:'produce', emoji:'🍊'},
-      {name:'Cauliflower Rice',       cat:'frozen',  emoji:'🥦'},
-      {name:'Mandarin Orange Chicken',cat:'frozen',  emoji:'🍊'},
-      {name:'Everything Bagels',      cat:'bakery',  emoji:'🥯'},
-      {name:'Pita Chips',             cat:'snacks',  emoji:'🍿'},
-      {name:'Dark Chocolate',         cat:'snacks',  emoji:'🍫'},
-      {name:'Almond Butter',          cat:'pantry',  emoji:'🥜'},
-      {name:'Kerrygold Butter',       cat:'dairy',   emoji:'🧈'},
-      {name:'Unexpected Cheddar',     cat:'dairy',   emoji:'🧀'},
-      {name:'Two Buck Chuck Wine',    cat:'wine',    emoji:'🍷'},
-      {name:'Palak Paneer',           cat:'prepared',emoji:'🍱'},
-      {name:'Spinach Artichoke Dip',  cat:'frozen',  emoji:'🫙'}
-    ]
+    quickAdd: [
+      {name:'Bananas',              cat:'produce', emoji:'🍌'},
+      {name:'Avocados',             cat:'produce', emoji:'🥑'},
+      {name:'Mandarin Oranges',     cat:'produce', emoji:'🍊'},
+      {name:'Cauliflower Rice',     cat:'frozen',  emoji:'🥦'},
+      {name:'Mandarin Orange Chicken',cat:'frozen',emoji:'🍊'},
+      {name:'Spinach Artichoke Dip',cat:'frozen',  emoji:'🫙'},
+      {name:'Everything Bagels',    cat:'bakery',  emoji:'🥯'},
+      {name:'Sourdough Bread',      cat:'bakery',  emoji:'🍞'},
+      {name:'Pita Chips',           cat:'snacks',  emoji:'🍿'},
+      {name:'Dark Chocolate',       cat:'snacks',  emoji:'🍫'},
+      {name:'Almond Butter',        cat:'pantry',  emoji:'🥜'},
+      {name:'Coconut Milk',         cat:'pantry',  emoji:'🥥'},
+      {name:'Two Buck Chuck',       cat:'wine',    emoji:'🍷'},
+      {name:'Kerrygold Butter',     cat:'dairy',   emoji:'🧈'},
+      {name:'Unexpected Cheddar',   cat:'dairy',   emoji:'🧀'},
+      {name:'Palak Paneer',         cat:'prepared',emoji:'🍱'},
+    ],
+    voiceTips: ['🍌 "Add bananas"','🥦 "Cauliflower rice"','🥯 "Everything bagels"','🍫 "Dark chocolate"','🍷 "Two buck chuck"'],
   },
-  'Target':{
-    icon:'🎯',
-    cats:[
-      {id:'grocery',    label:'Grocery',     emoji:'🛒',aisle:'Grocery'},
-      {id:'produce',    label:'Produce',     emoji:'🥦',aisle:'Fresh'},
-      {id:'frozen',     label:'Frozen',      emoji:'❄️', aisle:'Frozen'},
-      {id:'pharmacy',   label:'Pharmacy',    emoji:'💊',aisle:'Pharmacy'},
-      {id:'beauty',     label:'Beauty',      emoji:'💄',aisle:'Beauty'},
-      {id:'home',       label:'Home',        emoji:'🏡',aisle:'Home'},
-      {id:'clothing',   label:'Clothing',    emoji:'👗',aisle:'Clothing'},
-      {id:'electronics',label:'Electronics', emoji:'📱',aisle:'Electronics'}
+  "Trader Joe's": {
+    icon: '🛵',
+    shortName: "TJ's",
+    color: '#1a1a3a',
+    cats: [
+      {id:'produce',  label:'Produce',      emoji:'🥦', aisle:'Aisle 1'},
+      {id:'dairy',    label:'Dairy & Eggs', emoji:'🥚', aisle:'Aisle 2'},
+      {id:'frozen',   label:'Frozen',       emoji:'❄️',  aisle:'Aisle 3'},
+      {id:'snacks',   label:'Snacks',       emoji:'🍿', aisle:'Aisle 4'},
+      {id:'bakery',   label:'Bakery',       emoji:'🍞', aisle:'Aisle 5'},
+      {id:'wine',     label:'Wine & Beer',  emoji:'🍷', aisle:'Aisle 6'},
+      {id:'pantry',   label:'Pantry',       emoji:'🫙', aisle:'Aisle 7'},
+      {id:'prepared', label:'Prepared',     emoji:'🍱', aisle:'Deli'}
     ],
-    quickAdd:[
-      {name:'Bananas',           cat:'produce',    emoji:'🍌'},
-      {name:'Whole Milk',        cat:'grocery',    emoji:'🥛'},
-      {name:'Eggs',              cat:'grocery',    emoji:'🥚'},
-      {name:'Bread',             cat:'grocery',    emoji:'🍞'},
-      {name:'Frozen Pizza',      cat:'frozen',     emoji:'🍕'},
-      {name:'Ice Cream',         cat:'frozen',     emoji:'🍦'},
-      {name:'Laundry Detergent', cat:'home',       emoji:'🧺'},
-      {name:'Paper Towels',      cat:'home',       emoji:'🪣'},
-      {name:'Shampoo',           cat:'beauty',     emoji:'🧴'},
-      {name:'Toothpaste',        cat:'pharmacy',   emoji:'🦷'},
-      {name:'Vitamins',          cat:'pharmacy',   emoji:'💊'},
-      {name:'Phone Charger',     cat:'electronics',emoji:'🔌'}
-    ]
+    quickAdd: [
+      {name:'Bananas',                 cat:'produce', emoji:'🍌'},
+      {name:'Avocados',                cat:'produce', emoji:'🥑'},
+      {name:'Mandarin Orange Chicken', cat:'frozen',  emoji:'🍊'},
+      {name:'Cauliflower Rice',        cat:'frozen',  emoji:'🥦'},
+      {name:'Everything Bagels',       cat:'bakery',  emoji:'🥯'},
+      {name:'Pita Chips',              cat:'snacks',  emoji:'🍿'},
+      {name:'Unexpected Cheddar',      cat:'dairy',   emoji:'🧀'},
+      {name:'Almond Butter',           cat:'pantry',  emoji:'🥜'},
+      {name:'Two Buck Chuck',          cat:'wine',    emoji:'🍷'},
+      {name:'Palak Paneer',            cat:'prepared',emoji:'🍱'}
+    ],
+    voiceTips: ['🍌 "Bananas"','🥑 "Avocados"','🍊 "Orange chicken"','🥯 "Everything bagels"']
   },
-  'Walmart':{
-    icon:'🛒',
-    cats:[
-      {id:'grocery',    label:'Grocery',     emoji:'🛒',aisle:'Grocery'},
-      {id:'produce',    label:'Produce',     emoji:'🥦',aisle:'Fresh'},
-      {id:'frozen',     label:'Frozen',      emoji:'❄️', aisle:'Frozen'},
-      {id:'pharmacy',   label:'Pharmacy',    emoji:'💊',aisle:'Pharmacy'},
-      {id:'home',       label:'Home',        emoji:'🏡',aisle:'Home'},
-      {id:'auto',       label:'Auto',        emoji:'🚗',aisle:'Auto'},
-      {id:'clothing',   label:'Clothing',    emoji:'👕',aisle:'Clothing'},
-      {id:'electronics',label:'Electronics', emoji:'📺',aisle:'Electronics'}
+  'Target': {
+    icon: '🎯',
+    color: '#3a1a1a',
+    cats: [
+      {id:'grocery',  label:'Grocery',       emoji:'🛒', aisle:'Grocery'},
+      {id:'produce',  label:'Produce',       emoji:'🥦', aisle:'Fresh'},
+      {id:'frozen',   label:'Frozen',        emoji:'❄️',  aisle:'Frozen'},
+      {id:'pharmacy', label:'Pharmacy',      emoji:'💊', aisle:'Pharmacy'},
+      {id:'beauty',   label:'Beauty',        emoji:'💄', aisle:'Beauty'},
+      {id:'home',     label:'Home & Garden', emoji:'🏡', aisle:'Home'},
+      {id:'clothing', label:'Clothing',      emoji:'👗', aisle:'Clothing'},
+      {id:'electronics',label:'Electronics', emoji:'📱', aisle:'Electronics'},
     ],
-    quickAdd:[
-      {name:'Milk',           cat:'grocery', emoji:'🥛'},
-      {name:'Eggs',           cat:'grocery', emoji:'🥚'},
-      {name:'Bread',          cat:'grocery', emoji:'🍞'},
-      {name:'Butter',         cat:'grocery', emoji:'🧈'},
-      {name:'Chicken Breast', cat:'grocery', emoji:'🍗'},
-      {name:'Bananas',        cat:'produce', emoji:'🍌'},
-      {name:'Frozen Burritos',cat:'frozen',  emoji:'🌯'},
-      {name:'Dish Soap',      cat:'home',    emoji:'🧼'},
-      {name:'Trash Bags',     cat:'home',    emoji:'🗑️'},
-      {name:'Tylenol',        cat:'pharmacy',emoji:'💊'}
-    ]
+    quickAdd: [
+      {name:'Bananas',              cat:'produce',  emoji:'🍌'},
+      {name:'Whole Milk',           cat:'grocery',  emoji:'🥛'},
+      {name:'Eggs',                 cat:'grocery',  emoji:'🥚'},
+      {name:'Bread',                cat:'grocery',  emoji:'🍞'},
+      {name:'Frozen Pizza',         cat:'frozen',   emoji:'🍕'},
+      {name:'Ice Cream',            cat:'frozen',   emoji:'🍦'},
+      {name:'Laundry Detergent',    cat:'home',     emoji:'🧺'},
+      {name:'Paper Towels',         cat:'home',     emoji:'🪣'},
+      {name:'Shampoo',              cat:'beauty',   emoji:'🧴'},
+      {name:'Toothpaste',           cat:'pharmacy', emoji:'🦷'},
+      {name:'Vitamins',             cat:'pharmacy', emoji:'💊'},
+      {name:'Phone Charger',        cat:'electronics',emoji:'🔌'},
+    ],
+    voiceTips: ['🛒 "Add whole milk"','🍕 "Frozen pizza"','🧺 "Laundry detergent"','💊 "Vitamins"','🍌 "Bananas"'],
   },
-  'CVS':{
-    icon:'💊',
-    cats:[
-      {id:'pharmacy',label:'Pharmacy',emoji:'💊',aisle:'Pharmacy'},
-      {id:'beauty',  label:'Beauty',  emoji:'💄',aisle:'Beauty'},
-      {id:'health',  label:'Health',  emoji:'🏥',aisle:'Health'},
-      {id:'snacks',  label:'Snacks',  emoji:'🍬',aisle:'Snacks'},
-      {id:'baby',    label:'Baby',    emoji:'👶',aisle:'Baby'},
-      {id:'photo',   label:'Photo',   emoji:'📷',aisle:'Photo'}
+  'Walmart': {
+    icon: '🛒',
+    color: '#1a2a3a',
+    cats: [
+      {id:'grocery',  label:'Grocery',       emoji:'🛒', aisle:'Grocery'},
+      {id:'produce',  label:'Produce',       emoji:'🥦', aisle:'Fresh'},
+      {id:'frozen',   label:'Frozen',        emoji:'❄️',  aisle:'Frozen'},
+      {id:'pharmacy', label:'Pharmacy',      emoji:'💊', aisle:'Pharmacy'},
+      {id:'home',     label:'Home',          emoji:'🏡', aisle:'Home'},
+      {id:'auto',     label:'Auto',          emoji:'🚗', aisle:'Auto'},
+      {id:'clothing', label:'Clothing',      emoji:'👕', aisle:'Clothing'},
+      {id:'electronics',label:'Electronics', emoji:'📺', aisle:'Electronics'},
     ],
-    quickAdd:[
-      {name:'Advil',        cat:'pharmacy',emoji:'💊'},
-      {name:'Tylenol',      cat:'pharmacy',emoji:'💊'},
-      {name:'Bandages',     cat:'health',  emoji:'🩹'},
-      {name:'Sunscreen',    cat:'beauty',  emoji:'☀️'},
-      {name:'Shampoo',      cat:'beauty',  emoji:'🧴'},
-      {name:'Toothpaste',   cat:'health',  emoji:'🦷'},
-      {name:'Vitamin C',    cat:'health',  emoji:'🍊'},
-      {name:'Melatonin',    cat:'health',  emoji:'😴'},
-      {name:'Baby Wipes',   cat:'baby',    emoji:'🧻'},
-      {name:'Diapers',      cat:'baby',    emoji:'👶'}
-    ]
+    quickAdd: [
+      {name:'Milk',                 cat:'grocery',  emoji:'🥛'},
+      {name:'Eggs',                 cat:'grocery',  emoji:'🥚'},
+      {name:'Bread',                cat:'grocery',  emoji:'🍞'},
+      {name:'Butter',               cat:'grocery',  emoji:'🧈'},
+      {name:'Chicken Breast',       cat:'grocery',  emoji:'🍗'},
+      {name:'Bananas',              cat:'produce',  emoji:'🍌'},
+      {name:'Apples',               cat:'produce',  emoji:'🍎'},
+      {name:'Frozen Burritos',      cat:'frozen',   emoji:'🌯'},
+      {name:'Dish Soap',            cat:'home',     emoji:'🧼'},
+      {name:'Trash Bags',           cat:'home',     emoji:'🗑️'},
+      {name:'Tylenol',              cat:'pharmacy', emoji:'💊'},
+      {name:'Motor Oil',            cat:'auto',     emoji:'🚗'},
+    ],
+    voiceTips: ['🥛 "Add milk"','🍗 "Chicken breast"','🧼 "Dish soap"','💊 "Tylenol"','🍎 "Bag of apples"'],
   },
-  'Walgreens':{
-    icon:'💜',
-    cats:[
-      {id:'pharmacy',label:'Pharmacy',emoji:'💊',aisle:'Pharmacy'},
-      {id:'health',  label:'Health',  emoji:'🏥',aisle:'Health'},
-      {id:'beauty',  label:'Beauty',  emoji:'💄',aisle:'Beauty'},
-      {id:'snacks',  label:'Snacks',  emoji:'🍬',aisle:'Snacks'},
-      {id:'baby',    label:'Baby',    emoji:'👶',aisle:'Baby'},
-      {id:'photo',   label:'Photo',   emoji:'📷',aisle:'Photo'}
+  'CVS': {
+    icon: '💊',
+    color: '#2a1a1a',
+    cats: [
+      {id:'pharmacy', label:'Pharmacy',      emoji:'💊', aisle:'Pharmacy'},
+      {id:'beauty',   label:'Beauty',        emoji:'💄', aisle:'Beauty'},
+      {id:'health',   label:'Health',        emoji:'🏥', aisle:'Health'},
+      {id:'snacks',   label:'Snacks',        emoji:'🍬', aisle:'Snacks'},
+      {id:'baby',     label:'Baby',          emoji:'👶', aisle:'Baby'},
+      {id:'photo',    label:'Photo',         emoji:'📷', aisle:'Photo'},
     ],
-    quickAdd:[
-      {name:'Advil',        cat:'pharmacy',emoji:'💊'},
-      {name:'Zyrtec',       cat:'pharmacy',emoji:'💊'},
-      {name:'Bandages',     cat:'health',  emoji:'🩹'},
-      {name:'Sunscreen',    cat:'beauty',  emoji:'☀️'},
-      {name:'Toothpaste',   cat:'health',  emoji:'🦷'},
-      {name:'Melatonin',    cat:'health',  emoji:'😴'},
-      {name:'Baby Wipes',   cat:'baby',    emoji:'🧻'}
-    ]
+    quickAdd: [
+      {name:'Advil',                cat:'pharmacy', emoji:'💊'},
+      {name:'Tylenol',              cat:'pharmacy', emoji:'💊'},
+      {name:'Bandages',             cat:'health',   emoji:'🩹'},
+      {name:'Sunscreen SPF 50',     cat:'beauty',   emoji:'☀️'},
+      {name:'Shampoo',              cat:'beauty',   emoji:'🧴'},
+      {name:'Toothpaste',           cat:'health',   emoji:'🦷'},
+      {name:'Vitamins C',           cat:'health',   emoji:'🍊'},
+      {name:'Melatonin',            cat:'health',   emoji:'😴'},
+      {name:'Candy',                cat:'snacks',   emoji:'🍬'},
+      {name:'Water Bottle',         cat:'snacks',   emoji:'💧'},
+      {name:'Diapers',              cat:'baby',     emoji:'👶'},
+      {name:'Baby Wipes',           cat:'baby',     emoji:'🧻'},
+    ],
+    voiceTips: ['💊 "Add Advil"','🩹 "Bandages"','🧴 "Sunscreen"','🦷 "Toothpaste"','😴 "Melatonin"'],
   },
-  'Costco':{
-    icon:'🏭',
-    cats:[
-      {id:'grocery',    label:'Grocery',       emoji:'🛒',aisle:'Grocery'},
-      {id:'produce',    label:'Fresh & Deli',  emoji:'🥦',aisle:'Fresh'},
-      {id:'bakery',     label:'Bakery',        emoji:'🍞',aisle:'Bakery'},
-      {id:'meat',       label:'Meat & Seafood',emoji:'🥩',aisle:'Meat'},
-      {id:'frozen',     label:'Frozen',        emoji:'❄️', aisle:'Frozen'},
-      {id:'pharmacy',   label:'Pharmacy',      emoji:'💊',aisle:'Pharmacy'},
-      {id:'electronics',label:'Electronics',   emoji:'📺',aisle:'Electronics'},
-      {id:'home',       label:'Home & Garden', emoji:'🏡',aisle:'Home'}
+  'Walgreens': {
+    icon: '💜',
+    color: '#1a002a',
+    cats: [
+      {id:'pharmacy', label:'Pharmacy',    emoji:'💊', aisle:'Pharmacy'},
+      {id:'health',   label:'Health',      emoji:'🏥', aisle:'Health'},
+      {id:'beauty',   label:'Beauty',      emoji:'💄', aisle:'Beauty'},
+      {id:'snacks',   label:'Snacks',      emoji:'🍬', aisle:'Snacks'},
+      {id:'baby',     label:'Baby',        emoji:'👶', aisle:'Baby'},
+      {id:'photo',    label:'Photo',       emoji:'📷', aisle:'Photo'},
     ],
-    quickAdd:[
-      {name:'Kirkland Olive Oil',    cat:'grocery', emoji:'🫒'},
-      {name:'Rotisserie Chicken',    cat:'meat',    emoji:'🍗'},
-      {name:'Organic Spinach 2.5lb', cat:'produce', emoji:'🥬'},
-      {name:'Avocados 6-pack',       cat:'produce', emoji:'🥑'},
-      {name:'Salmon Fillet 3lb',     cat:'meat',    emoji:'🐟'},
-      {name:'Kirkland Eggs 24ct',    cat:'grocery', emoji:'🥚'},
-      {name:'Almond Milk 6-pack',    cat:'grocery', emoji:'🥛'},
-      {name:'Frozen Shrimp 2lb',     cat:'frozen',  emoji:'🦐'},
-      {name:'Muffins 12ct',          cat:'bakery',  emoji:'🧁'},
-      {name:'Paper Towels 12-roll',  cat:'home',    emoji:'🪣'},
-      {name:'Tide Pods 150ct',       cat:'home',    emoji:'🧺'}
-    ]
+    quickAdd: [
+      {name:'Advil',             cat:'pharmacy', emoji:'💊'},
+      {name:'Tylenol',           cat:'pharmacy', emoji:'💊'},
+      {name:'Zyrtec Allergy',    cat:'pharmacy', emoji:'💊'},
+      {name:'Bandages',          cat:'health',   emoji:'🩹'},
+      {name:'Thermometer',       cat:'health',   emoji:'🌡️'},
+      {name:'Sunscreen SPF 50',  cat:'beauty',   emoji:'☀️'},
+      {name:'Shampoo',           cat:'beauty',   emoji:'🧴'},
+      {name:'Toothpaste',        cat:'health',   emoji:'🦷'},
+      {name:'Melatonin',         cat:'health',   emoji:'😴'},
+      {name:'Vitamins C',        cat:'health',   emoji:'🍊'},
+      {name:'Candy',             cat:'snacks',   emoji:'🍬'},
+      {name:'Baby Wipes',        cat:'baby',     emoji:'🧻'},
+    ],
+    voiceTips: ['💊 "Add Advil"','🩹 "Bandages"','🧴 "Sunscreen"','🦷 "Toothpaste"','😴 "Melatonin"'],
   },
-  'Home Depot':{
-    icon:'🔨',
-    cats:[
-      {id:'lumber',   label:'Lumber',     emoji:'🪵',aisle:'Lumber'},
-      {id:'tools',    label:'Tools',      emoji:'🔧',aisle:'Tools'},
-      {id:'paint',    label:'Paint',      emoji:'🎨',aisle:'Paint'},
-      {id:'plumbing', label:'Plumbing',   emoji:'🚿',aisle:'Plumbing'},
-      {id:'electric', label:'Electrical', emoji:'⚡',aisle:'Electrical'},
-      {id:'garden',   label:'Garden',     emoji:'🌱',aisle:'Garden'},
-      {id:'flooring', label:'Flooring',   emoji:'🏠',aisle:'Flooring'},
-      {id:'hardware', label:'Hardware',   emoji:'🔩',aisle:'Hardware'}
+  'Costco': {
+    icon: '🏭',
+    color: '#002a1a',
+    cats: [
+      {id:'grocery',   label:'Grocery',      emoji:'🛒', aisle:'Grocery'},
+      {id:'produce',   label:'Fresh & Deli',  emoji:'🥦', aisle:'Fresh'},
+      {id:'bakery',    label:'Bakery',        emoji:'🍞', aisle:'Bakery'},
+      {id:'meat',      label:'Meat & Seafood',emoji:'🥩', aisle:'Meat'},
+      {id:'frozen',    label:'Frozen',        emoji:'❄️',  aisle:'Frozen'},
+      {id:'pharmacy',  label:'Pharmacy',      emoji:'💊', aisle:'Pharmacy'},
+      {id:'electronics',label:'Electronics', emoji:'📺', aisle:'Electronics'},
+      {id:'home',      label:'Home & Garden', emoji:'🏡', aisle:'Home'},
     ],
-    quickAdd:[
-      {name:'2x4 Stud 8ft',        cat:'lumber',   emoji:'🪵'},
-      {name:'LED Light Bulbs',      cat:'electric', emoji:'💡'},
-      {name:'Paint Roller Kit',     cat:'paint',    emoji:'🎨'},
-      {name:'Garden Hose',          cat:'garden',   emoji:'🌱'},
-      {name:'Wood Screws',          cat:'hardware', emoji:'🔩'},
-      {name:'Drill Bits',           cat:'tools',    emoji:'🔧'}
-    ]
+    quickAdd: [
+      {name:'Kirkland Olive Oil',    cat:'grocery',   emoji:'🫒'},
+      {name:'Rotisserie Chicken',    cat:'meat',      emoji:'🍗'},
+      {name:'Organic Spinach 2.5lb', cat:'produce',   emoji:'🥬'},
+      {name:'Avocados 6-pack',       cat:'produce',   emoji:'🥑'},
+      {name:'Salmon Fillet 3lb',     cat:'meat',      emoji:'🐟'},
+      {name:'Kirkland Eggs 24ct',    cat:'grocery',   emoji:'🥚'},
+      {name:'Almond Milk 6-pack',    cat:'grocery',   emoji:'🥛'},
+      {name:'Kirkland Greek Yogurt', cat:'grocery',   emoji:'🧁'},
+      {name:'Frozen Shrimp 2lb',     cat:'frozen',    emoji:'🦐'},
+      {name:'Muffins 12ct',          cat:'bakery',    emoji:'🧁'},
+      {name:'Paper Towels 12-roll',  cat:'home',      emoji:'🪣'},
+      {name:'Tide Pods 150ct',       cat:'home',      emoji:'🧺'},
+    ],
+    voiceTips: ['🍗 "Rotisserie chicken"','🥑 "Avocado pack"','🐟 "Salmon fillet"','🥬 "Organic spinach"','🧺 "Tide pods"'],
   },
-  "Lowe's":{
-    icon:'🔵',
-    cats:[
-      {id:'lumber',   label:'Lumber',     emoji:'🪵',aisle:'Lumber'},
-      {id:'tools',    label:'Tools',      emoji:'🔧',aisle:'Tools'},
-      {id:'paint',    label:'Paint',      emoji:'🎨',aisle:'Paint'},
-      {id:'plumbing', label:'Plumbing',   emoji:'🚿',aisle:'Plumbing'},
-      {id:'electric', label:'Electrical', emoji:'⚡',aisle:'Electrical'},
-      {id:'garden',   label:'Garden',     emoji:'🌱',aisle:'Garden'},
-      {id:'flooring', label:'Flooring',   emoji:'🏠',aisle:'Flooring'},
-      {id:'hardware', label:'Hardware',   emoji:'🔩',aisle:'Hardware'}
+  "Lowes": {
+    icon: '🔵',
+    shortName: "Lowe's",
+    displayName: "Lowe's",
+    color: '#00112a',
+    cats: [
+      {id:'lumber',    label:'Lumber',        emoji:'🪵', aisle:'Lumber'},
+      {id:'tools',     label:'Tools',         emoji:'🔧', aisle:'Tools'},
+      {id:'paint',     label:'Paint',         emoji:'🎨', aisle:'Paint'},
+      {id:'plumbing',  label:'Plumbing',      emoji:'🚿', aisle:'Plumbing'},
+      {id:'electric',  label:'Electrical',    emoji:'⚡', aisle:'Electrical'},
+      {id:'garden',    label:'Garden',        emoji:'🌱', aisle:'Garden'},
+      {id:'flooring',  label:'Flooring',      emoji:'🏠', aisle:'Flooring'},
+      {id:'hardware',  label:'Hardware',      emoji:'🔩', aisle:'Hardware'},
     ],
-    quickAdd:[
+    quickAdd: [
       {name:'2x4 Lumber 8ft',      cat:'lumber',   emoji:'🪵'},
-      {name:'White Interior Paint', cat:'paint',    emoji:'🎨'},
-      {name:'LED Bulbs 4-pack',     cat:'electric', emoji:'💡'},
-      {name:'Garden Hose 50ft',     cat:'garden',   emoji:'🌱'},
-      {name:'Wood Screws 1lb',      cat:'hardware', emoji:'🔩'},
-      {name:'Drill Bits Set',       cat:'tools',    emoji:'🔧'}
-    ]
-  },
-  'Tractor Supply':{
-    icon:'🚜',
-    cats:[
-      {id:'petfood',  label:'Pet Food',      emoji:'🐾',aisle:'Pet'},
-      {id:'livestock',label:'Livestock Feed', emoji:'🐄',aisle:'Feed'},
-      {id:'poultry',  label:'Poultry',       emoji:'🐓',aisle:'Poultry'},
-      {id:'equine',   label:'Equine',        emoji:'🐴',aisle:'Equine'},
-      {id:'seed',     label:'Seeds & Plants',emoji:'🌱',aisle:'Garden'},
-      {id:'clothing', label:'Workwear',      emoji:'👢',aisle:'Clothing'},
-      {id:'tools',    label:'Farm Tools',    emoji:'🔧',aisle:'Tools'},
-      {id:'fencing',  label:'Fencing',       emoji:'🪟',aisle:'Fencing'}
+      {name:'Plywood 4x8 Sheet',   cat:'lumber',   emoji:'🪵'},
+      {name:'Paint Roller Kit',    cat:'paint',    emoji:'🎨'},
+      {name:'White Interior Paint',cat:'paint',    emoji:'🖌️'},
+      {name:'PVC Pipe',            cat:'plumbing', emoji:'🚿'},
+      {name:'LED Light Bulbs 4pk', cat:'electric', emoji:'💡'},
+      {name:'Extension Cord 25ft', cat:'electric', emoji:'🔌'},
+      {name:'Garden Hose 50ft',    cat:'garden',   emoji:'🌱'},
+      {name:'Mulch 2cu ft',        cat:'garden',   emoji:'🌿'},
+      {name:'Wood Screws 1lb',     cat:'hardware', emoji:'🔩'},
+      {name:'Drill Bits Set',      cat:'tools',    emoji:'🔧'},
+      {name:'Measuring Tape',      cat:'tools',    emoji:'📏'},
     ],
-    quickAdd:[
-      {name:'Dog Food 40lb',     cat:'petfood',  emoji:'🐶'},
-      {name:'Cat Food 20lb',     cat:'petfood',  emoji:'🐱'},
-      {name:'Chicken Feed 50lb', cat:'poultry',  emoji:'🐓'},
-      {name:'Garden Seeds',      cat:'seed',     emoji:'🌱'},
-      {name:'Work Gloves',       cat:'clothing', emoji:'🧤'},
-      {name:'Muck Boots',        cat:'clothing', emoji:'👢'},
-      {name:'Horse Feed 50lb',   cat:'equine',   emoji:'🐴'},
-      {name:'Shovel',            cat:'tools',    emoji:'⛏️'}
-    ]
+    voiceTips: ['🪵 "Two by four lumber"','🎨 "White paint"','💡 "LED light bulbs"','🌱 "Garden hose"','🔩 "Wood screws"'],
   },
-  "Friedman's":{
-    icon:'🪚',
-    cats:[
-      {id:'lumber',   label:'Lumber',      emoji:'🪵',aisle:'Lumber'},
-      {id:'tools',    label:'Tools',       emoji:'🔧',aisle:'Tools'},
-      {id:'paint',    label:'Paint',       emoji:'🎨',aisle:'Paint'},
-      {id:'plumbing', label:'Plumbing',    emoji:'🚿',aisle:'Plumbing'},
-      {id:'electric', label:'Electrical',  emoji:'⚡',aisle:'Electrical'},
-      {id:'garden',   label:'Garden',      emoji:'🌱',aisle:'Garden'},
-      {id:'hardware', label:'Hardware',    emoji:'🔩',aisle:'Hardware'},
-      {id:'rental',   label:'Tool Rental', emoji:'🏗️',aisle:'Rental'}
+  'Tractor Supply': {
+    icon: '🚜',
+    color: '#1a1500',
+    cats: [
+      {id:'livestock', label:'Livestock Feed', emoji:'🐄', aisle:'Feed'},
+      {id:'petfood',   label:'Pet Food',       emoji:'🐾', aisle:'Pet'},
+      {id:'tools',     label:'Farm Tools',     emoji:'🔧', aisle:'Tools'},
+      {id:'seed',      label:'Seeds & Plants', emoji:'🌱', aisle:'Garden'},
+      {id:'clothing',  label:'Workwear',       emoji:'👢', aisle:'Clothing'},
+      {id:'fencing',   label:'Fencing',        emoji:'🪟', aisle:'Fencing'},
+      {id:'poultry',   label:'Poultry',        emoji:'🐓', aisle:'Poultry'},
+      {id:'equine',    label:'Equine',         emoji:'🐴', aisle:'Equine'},
     ],
-    quickAdd:[
-      {name:'2x4 Stud 8ft',    cat:'lumber',   emoji:'🪵'},
-      {name:'Paint Brushes',   cat:'paint',    emoji:'🎨'},
-      {name:'PVC Fittings',    cat:'plumbing', emoji:'🚿'},
-      {name:'Concrete Mix',    cat:'hardware', emoji:'🏗️'},
-      {name:'Lag Screws',      cat:'hardware', emoji:'🔩'}
-    ]
-  }
+    quickAdd: [
+      {name:'Dog Food 40lb',        cat:'petfood',  emoji:'🐶'},
+      {name:'Cat Food 20lb',        cat:'petfood',  emoji:'🐱'},
+      {name:'Chicken Feed 50lb',    cat:'poultry',  emoji:'🐓'},
+      {name:'Scratch Grains',       cat:'poultry',  emoji:'🌾'},
+      {name:'Garden Seeds',         cat:'seed',     emoji:'🌱'},
+      {name:'Fertilizer 40lb',      cat:'seed',     emoji:'🌿'},
+      {name:'Work Gloves',          cat:'clothing', emoji:'🧤'},
+      {name:'Muck Boots',           cat:'clothing', emoji:'👢'},
+      {name:'T-Posts 6ft',          cat:'fencing',  emoji:'🪟'},
+      {name:'Horse Feed 50lb',      cat:'equine',   emoji:'🐴'},
+      {name:'Fly Spray',            cat:'equine',   emoji:'🐴'},
+      {name:'Shovel',               cat:'tools',    emoji:'⛏️'},
+    ],
+    voiceTips: ['🐶 "Dog food"','🐓 "Chicken feed"','🌱 "Garden seeds"','🐴 "Horse feed"','👢 "Work boots"'],
+  },
+  'Friedmans': {
+    icon: '🪚',
+    displayName: "Friedmans",
+    color: '#1a0a00',
+    cats: [
+      {id:'lumber',    label:'Lumber',        emoji:'🪵', aisle:'Lumber'},
+      {id:'tools',     label:'Tools',         emoji:'🔧', aisle:'Tools'},
+      {id:'paint',     label:'Paint',         emoji:'🎨', aisle:'Paint'},
+      {id:'plumbing',  label:'Plumbing',      emoji:'🚿', aisle:'Plumbing'},
+      {id:'electric',  label:'Electrical',    emoji:'⚡', aisle:'Electrical'},
+      {id:'garden',    label:'Garden',        emoji:'🌱', aisle:'Garden'},
+      {id:'hardware',  label:'Hardware',      emoji:'🔩', aisle:'Hardware'},
+      {id:'rental',    label:'Tool Rental',   emoji:'🏗️', aisle:'Rental'},
+    ],
+    quickAdd: [
+      {name:'2x4 Stud 8ft',        cat:'lumber',   emoji:'🪵'},
+      {name:'OSB Sheet',           cat:'lumber',   emoji:'🪵'},
+      {name:'Hammer',              cat:'tools',    emoji:'🔨'},
+      {name:'Paint Brush Set',     cat:'paint',    emoji:'🎨'},
+      {name:'PVC Fittings',        cat:'plumbing', emoji:'🚿'},
+      {name:'Wire Nuts',           cat:'electric', emoji:'⚡'},
+      {name:'Garden Gloves',       cat:'garden',   emoji:'🌿'},
+      {name:'Concrete Mix 60lb',   cat:'hardware', emoji:'🏗️'},
+      {name:'Lag Screws',          cat:'hardware', emoji:'🔩'},
+      {name:'Tool Rental - Tile Saw',cat:'rental', emoji:'🏗️'},
+    ],
+    voiceTips: ['🪵 "Two by four stud"','🎨 "Paint brushes"','🚿 "PVC fittings"','⚡ "Wire nuts"','🔩 "Lag screws"'],
+  },
+  'Home Depot': {
+    shortName: 'Home Depot',
+    icon: '🔨',
+    color: '#3a2a1a',
+    cats: [
+      {id:'lumber',   label:'Lumber',        emoji:'🪵', aisle:'Lumber'},
+      {id:'tools',    label:'Tools',         emoji:'🔧', aisle:'Tools'},
+      {id:'paint',    label:'Paint',         emoji:'🎨', aisle:'Paint'},
+      {id:'plumbing', label:'Plumbing',      emoji:'🚿', aisle:'Plumbing'},
+      {id:'electric', label:'Electrical',    emoji:'⚡', aisle:'Electrical'},
+      {id:'garden',   label:'Garden',        emoji:'🌱', aisle:'Garden'},
+      {id:'flooring', label:'Flooring',      emoji:'🏠', aisle:'Flooring'},
+      {id:'hardware', label:'Hardware',      emoji:'🔩', aisle:'Hardware'},
+    ],
+    quickAdd: [
+      {name:'2x4 Lumber',           cat:'lumber',   emoji:'🪵'},
+      {name:'Plywood Sheet',        cat:'lumber',   emoji:'🪵'},
+      {name:'Hammer',               cat:'tools',    emoji:'🔨'},
+      {name:'Drill Bits',           cat:'tools',    emoji:'🔧'},
+      {name:'Paint Roller',         cat:'paint',    emoji:'🎨'},
+      {name:'White Interior Paint', cat:'paint',    emoji:'🖌️'},
+      {name:'PVC Pipe',             cat:'plumbing', emoji:'🚿'},
+      {name:'Light Bulbs LED',      cat:'electric', emoji:'💡'},
+      {name:'Extension Cord',       cat:'electric', emoji:'🔌'},
+      {name:'Garden Hose',          cat:'garden',   emoji:'🌱'},
+      {name:'Potting Soil',         cat:'garden',   emoji:'🌱'},
+      {name:'Wood Screws',          cat:'hardware', emoji:'🔩'},
+    ],
+    voiceTips: ['🪵 "Two by four lumber"','🔧 "Drill bits"','🎨 "White paint"','💡 "LED light bulbs"','🌱 "Potting soil"'],
+  },
 };
 
-/* ═══════════════════════════════════════
-   VERIFIED STORES — Northern California
-   Addresses verified June 2026
-═══════════════════════════════════════ */
+/* ════════════════════════════════
+   STORE LIST
+════════════════════════════════ */
 var STORES = [
-  /* ── WHOLE FOODS ── verified addresses */
-  {id:'wf-napa',   chain:'Whole Foods',  region:'Napa Valley',    name:'Napa Bel Aire Plaza',  addr:'3682 Bel Aire Plaza, Napa, CA 94558',          badge:'⭐ Default'},
-  {id:'wf-santa1', chain:'Whole Foods',  region:'Wine Country',   name:'Santa Rosa',           addr:'1019 Third St, Santa Rosa, CA 95404',           badge:'32 mi'},
-  {id:'wf-pet',    chain:'Whole Foods',  region:'Wine Country',   name:'Petaluma',             addr:'189 N McDowell Blvd, Petaluma, CA 94954',       badge:'38 mi'},
-  {id:'wf-novato', chain:'Whole Foods',  region:'North Bay',      name:'Novato',               addr:'7514 Redwood Blvd, Novato, CA 94945',           badge:'35 mi'},
-  {id:'wf-sanraf', chain:'Whole Foods',  region:'North Bay',      name:'San Rafael',           addr:'340 Third St, San Rafael, CA 94901',            badge:'43 mi'},
-  {id:'wf-mill',   chain:'Whole Foods',  region:'North Bay',      name:'Mill Valley',          addr:'4 Camino Alto, Mill Valley, CA 94941',          badge:'48 mi'},
-  {id:'wf-sf1',    chain:'Whole Foods',  region:'San Francisco',  name:'SF Pacific Heights',   addr:'1765 California St, San Francisco, CA 94109',   badge:'58 mi'},
-  {id:'wf-sf2',    chain:'Whole Foods',  region:'San Francisco',  name:'SF SoMa',              addr:'399 Fourth St, San Francisco, CA 94107',        badge:'60 mi'},
-  {id:'wf-sf3',    chain:'Whole Foods',  region:'San Francisco',  name:'SF Upper Market',      addr:'2001 Market St, San Francisco, CA 94114',       badge:'60 mi'},
-  {id:'wf-sf4',    chain:'Whole Foods',  region:'San Francisco',  name:'SF Haight',            addr:'690 Stanyan St, San Francisco, CA 94117',       badge:'61 mi'},
-  {id:'wf-sf5',    chain:'Whole Foods',  region:'San Francisco',  name:'SF Nob Hill',          addr:'1101 California St, San Francisco, CA 94108',   badge:'59 mi'},
-  {id:'wf-oak1',   chain:'Whole Foods',  region:'East Bay',       name:'Oakland Rockridge',    addr:'4800 Shattuck Ave, Oakland, CA 94609',          badge:'65 mi'},
-  {id:'wf-berk1',  chain:'Whole Foods',  region:'East Bay',       name:'Berkeley Telegraph',   addr:'3000 Telegraph Ave, Berkeley, CA 94705',        badge:'67 mi'},
-  {id:'wf-berk2',  chain:'Whole Foods',  region:'East Bay',       name:'Berkeley Gilman',      addr:'1025 Gilman St, Berkeley, CA 94710',            badge:'66 mi'},
-  {id:'wf-wal',    chain:'Whole Foods',  region:'East Bay',       name:'Walnut Creek',         addr:'1333 S California Blvd, Walnut Creek, CA 94596',badge:'70 mi'},
-  {id:'wf-frm',    chain:'Whole Foods',  region:'East Bay',       name:'Fremont',              addr:'39324 Cedar Blvd, Fremont, CA 94538',           badge:'72 mi'},
-  {id:'wf-mtnv',   chain:'Whole Foods',  region:'Silicon Valley', name:'Mountain View',        addr:'2550 W El Camino Real, Mountain View, CA 94040',badge:'80 mi'},
-  {id:'wf-sun',    chain:'Whole Foods',  region:'Silicon Valley', name:'Sunnyvale',            addr:'801 E El Camino Real, Sunnyvale, CA 94087',     badge:'82 mi'},
-  {id:'wf-sj1',    chain:'Whole Foods',  region:'Silicon Valley', name:'San Jose Almaden',     addr:'5111 Cherry Ave, San Jose, CA 95118',           badge:'88 mi'},
-  {id:'wf-sac1',   chain:'Whole Foods',  region:'Sacramento',     name:'Sacramento Arden',     addr:'4315 Arden Way, Sacramento, CA 95864',          badge:'60 mi'},
-  {id:'wf-ros',    chain:'Whole Foods',  region:'Sacramento',     name:'Roseville',            addr:'1001 Galleria Blvd, Roseville, CA 95678',       badge:'75 mi'},
-  {id:'wf-la1',    chain:'Whole Foods',  region:'Los Angeles',    name:'LA Westwood',          addr:'1050 Gayley Ave, Los Angeles, CA 90024',        badge:'400 mi'},
-  {id:'wf-la2',    chain:'Whole Foods',  region:'Los Angeles',    name:'LA Silver Lake',       addr:'2520 Glendale Blvd, Los Angeles, CA 90039',     badge:'400 mi'},
-  {id:'wf-sm',     chain:'Whole Foods',  region:'Los Angeles',    name:'Santa Monica',         addr:'2201 Wilshire Blvd, Santa Monica, CA 90403',    badge:'405 mi'},
-  {id:'wf-sd1',    chain:'Whole Foods',  region:'San Diego',      name:'La Jolla',             addr:'8825 Villa La Jolla Dr, La Jolla, CA 92037',    badge:'560 mi'},
-  {id:'wf-sd2',    chain:'Whole Foods',  region:'San Diego',      name:'San Diego Hillcrest',  addr:'711 University Ave, San Diego, CA 92103',       badge:'560 mi'},
+  /* WHOLE FOODS */
+  {id:'wf-napa',   chain:'Whole Foods', region:'Wine Country',   name:'Napa Bel Aire Plaza',    addr:'3886 Bel Aire Plaza, Trancas St', city:'Napa, CA 94558',          badge:'⭐ Default'},
+  {id:'wf-santa',  chain:'Whole Foods', region:'Wine Country',   name:'Santa Rosa',             addr:'1019 Third St',                  city:'Santa Rosa, CA 95404',    badge:'32 mi'},
+  {id:'wf-pet',    chain:'Whole Foods', region:'Wine Country',   name:'Petaluma',               addr:'189 N McDowell Blvd',            city:'Petaluma, CA 94954',      badge:'38 mi'},
+  {id:'wf-novato', chain:'Whole Foods', region:'North Bay',      name:'Novato',                 addr:'7514 Redwood Blvd',              city:'Novato, CA 94945',        badge:'35 mi'},
+  {id:'wf-sanraf', chain:'Whole Foods', region:'North Bay',      name:'San Rafael',             addr:'340 Third St',                   city:'San Rafael, CA 94901',    badge:'43 mi'},
+  {id:'wf-mill',   chain:'Whole Foods', region:'North Bay',      name:'Mill Valley',            addr:'4 Camino Alto',                  city:'Mill Valley, CA 94941',   badge:'48 mi'},
+  {id:'wf-sf1',    chain:'Whole Foods', region:'San Francisco',  name:'SF California St',       addr:'1765 California St',             city:'San Francisco, CA 94109', badge:'58 mi'},
+  {id:'wf-sf2',    chain:'Whole Foods', region:'San Francisco',  name:'SF 4th Street',          addr:'399 Fourth St',                  city:'San Francisco, CA 94107', badge:'60 mi'},
+  {id:'wf-oak',    chain:'Whole Foods', region:'East Bay',       name:'Oakland Rockridge',      addr:'4800 Shattuck Ave',              city:'Oakland, CA 94609',       badge:'65 mi'},
+  {id:'wf-berk',   chain:'Whole Foods', region:'East Bay',       name:'Berkeley',               addr:'3000 Telegraph Ave',             city:'Berkeley, CA 94705',      badge:'67 mi'},
+  {id:'wf-mtnv',   chain:'Whole Foods', region:'Silicon Valley', name:'Mountain View',          addr:'2550 W El Camino Real',          city:'Mountain View, CA 94040', badge:'80 mi'},
+  {id:'wf-sj',     chain:'Whole Foods', region:'Silicon Valley', name:'San Jose',               addr:'5111 Cherry Ave',                city:'San Jose, CA 95118',      badge:'88 mi'},
+  {id:'wf-sac',    chain:'Whole Foods', region:'Sacramento',     name:'Sacramento',             addr:'4315 Arden Way',                 city:'Sacramento, CA 95864',    badge:'60 mi'},
+  {id:'wf-la1',    chain:'Whole Foods', region:'Los Angeles',    name:'LA Westwood',            addr:'1050 Gayley Ave',                city:'Los Angeles, CA 90024',   badge:'400 mi'},
+  {id:'wf-sm',     chain:'Whole Foods', region:'Los Angeles',    name:'Santa Monica',           addr:'2201 Wilshire Blvd',             city:'Santa Monica, CA 90403',  badge:'405 mi'},
+  {id:'wf-sd',     chain:'Whole Foods', region:'San Diego',      name:'San Diego La Jolla',     addr:'8825 Villa La Jolla Dr',         city:'La Jolla, CA 92037',      badge:'560 mi'},
+  /* TRADER JOE'S */
+  {id:'tj-napa',   chain:"Trader Joe's",region:'Wine Country',   name:'Napa',                   addr:'3654 Bel Aire Plaza',            city:'Napa, CA 94558',          badge:'0.2 mi'},
+  {id:'tj-fairf',  chain:"Trader Joe's",region:'Wine Country',   name:'Fairfield',              addr:'1350 Gateway Blvd',              city:'Fairfield, CA 94533',     badge:'18 mi'},
+  {id:'tj-vale',   chain:"Trader Joe's",region:'North Bay',      name:'Vallejo',                addr:'3250 Auto Mall Pkwy',            city:'Vallejo, CA 94591',       badge:'20 mi'},
+  {id:'tj-santa',  chain:"Trader Joe's",region:'Wine Country',   name:'Santa Rosa',             addr:'3225 Cleveland Ave',             city:'Santa Rosa, CA 95403',    badge:'32 mi'},
+  {id:'tj-pet',    chain:"Trader Joe's",region:'Wine Country',   name:'Petaluma',               addr:'169 N McDowell Blvd',            city:'Petaluma, CA 94954',      badge:'38 mi'},
+  {id:'tj-sanraf', chain:"Trader Joe's",region:'North Bay',      name:'San Rafael',             addr:'717 Third St',                   city:'San Rafael, CA 94901',    badge:'43 mi'},
+  {id:'tj-sf1',    chain:"Trader Joe's",region:'San Francisco',  name:'SF Marina',              addr:'3 Masonic Ave',                  city:'San Francisco, CA 94117', badge:'58 mi'},
+  {id:'tj-oak',    chain:"Trader Joe's",region:'East Bay',       name:'Oakland / Emeryville',   addr:'5733 Christie Ave',              city:'Emeryville, CA 94608',    badge:'64 mi'},
+  {id:'tj-berk',   chain:"Trader Joe's",region:'East Bay',       name:'Berkeley',               addr:'1885 University Ave',            city:'Berkeley, CA 94703',      badge:'66 mi'},
+  {id:'tj-mtnv',   chain:"Trader Joe's",region:'Silicon Valley', name:'Mountain View',          addr:'590 Showers Dr',                 city:'Mountain View, CA 94040', badge:'80 mi'},
+  {id:'tj-sac',    chain:"Trader Joe's",region:'Sacramento',     name:'Sacramento',             addr:'5000 Folsom Blvd',               city:'Sacramento, CA 95819',    badge:'62 mi'},
+  {id:'tj-la',     chain:"Trader Joe's",region:'Los Angeles',    name:'LA Silver Lake',         addr:'2738 Hyperion Ave',              city:'Los Angeles, CA 90027',   badge:'400 mi'},
+  {id:'tj-sd',     chain:"Trader Joe's",region:'San Diego',      name:'San Diego',              addr:'1072 Garnet Ave',                city:'San Diego, CA 92109',     badge:'560 mi'},
+  /* TARGET */
+  {id:'tgt-napa',  chain:'Target',      region:'Wine Country',   name:'Napa',                   addr:'3400 Broadway St',               city:'Napa, CA 94558',          badge:'1 mi'},
+  {id:'tgt-fairf', chain:'Target',      region:'Wine Country',   name:'Fairfield',              addr:'1350 Travis Blvd',               city:'Fairfield, CA 94533',     badge:'18 mi'},
+  {id:'tgt-vale',  chain:'Target',      region:'North Bay',      name:'Vallejo',                addr:'3600 Sonoma Blvd',               city:'Vallejo, CA 94590',       badge:'20 mi'},
+  {id:'tgt-santa', chain:'Target',      region:'Wine Country',   name:'Santa Rosa',             addr:'1275 N McDowell Blvd',           city:'Santa Rosa, CA 95403',    badge:'32 mi'},
+  {id:'tgt-sf',    chain:'Target',      region:'San Francisco',  name:'SF Metreon',             addr:'789 Mission St',                 city:'San Francisco, CA 94103', badge:'58 mi'},
+  {id:'tgt-oak',   chain:'Target',      region:'East Bay',       name:'Oakland',                addr:'8400 Edgewater Dr',              city:'Oakland, CA 94621',       badge:'65 mi'},
+  {id:'tgt-mtnv',  chain:'Target',      region:'Silicon Valley', name:'Mountain View',          addr:'600 Showers Dr',                 city:'Mountain View, CA 94040', badge:'80 mi'},
+  {id:'tgt-sj',    chain:'Target',      region:'Silicon Valley', name:'San Jose',               addr:'5100 Stevens Creek Blvd',        city:'San Jose, CA 95129',      badge:'88 mi'},
+  {id:'tgt-sac',   chain:'Target',      region:'Sacramento',     name:'Sacramento',             addr:'2600 Fulton Ave',                city:'Sacramento, CA 95821',    badge:'62 mi'},
+  {id:'tgt-la',    chain:'Target',      region:'Los Angeles',    name:'LA Hollywood',           addr:'5500 Sunset Blvd',               city:'Los Angeles, CA 90028',   badge:'400 mi'},
+  {id:'tgt-sd',    chain:'Target',      region:'San Diego',      name:'San Diego Mission Valley',addr:'1288 Camino Del Rio N',         city:'San Diego, CA 92108',     badge:'560 mi'},
+  /* WALMART */
+  {id:'wm-napa',   chain:'Walmart',     region:'Wine Country',   name:'Napa',                   addr:'3000 Imola Ave',                 city:'Napa, CA 94559',          badge:'2 mi'},
+  {id:'wm-fairf',  chain:'Walmart',     region:'Wine Country',   name:'Fairfield',              addr:'1460 Oliver Rd',                 city:'Fairfield, CA 94534',     badge:'18 mi'},
+  {id:'wm-vale',   chain:'Walmart',     region:'North Bay',      name:'Vallejo',                addr:'400 Lemon St',                   city:'Vallejo, CA 94590',       badge:'20 mi'},
+  {id:'wm-santa',  chain:'Walmart',     region:'Wine Country',   name:'Santa Rosa',             addr:'1275 N McDowell Blvd',           city:'Santa Rosa, CA 95403',    badge:'32 mi'},
+  {id:'wm-oak',    chain:'Walmart',     region:'East Bay',       name:'Oakland',                addr:'8400 Edgewater Dr',              city:'Oakland, CA 94621',       badge:'65 mi'},
+  {id:'wm-sj',     chain:'Walmart',     region:'Silicon Valley', name:'San Jose',               addr:'777 Story Rd',                   city:'San Jose, CA 95122',      badge:'88 mi'},
+  {id:'wm-sac',    chain:'Walmart',     region:'Sacramento',     name:'Sacramento',             addr:'8915 Gerber Rd',                 city:'Sacramento, CA 95828',    badge:'65 mi'},
+  {id:'wm-la',     chain:'Walmart',     region:'Los Angeles',    name:'Los Angeles',            addr:'3600 W Martin Luther King Jr Blvd',city:'Los Angeles, CA 90008', badge:'400 mi'},
+  {id:'wm-sd',     chain:'Walmart',     region:'San Diego',      name:'San Diego',              addr:'3382 Murphy Canyon Rd',          city:'San Diego, CA 92123',     badge:'560 mi'},
+  /* CVS */
+  {id:'cvs-napa1', chain:'CVS',         region:'Wine Country',   name:'Napa — Trancas St',      addr:'3654 Trancas St',                city:'Napa, CA 94558',          badge:'0.1 mi'},
+  {id:'cvs-napa2', chain:'CVS',         region:'Wine Country',   name:'Napa — Jefferson St',    addr:'1100 Jefferson St',              city:'Napa, CA 94559',          badge:'2 mi'},
+  {id:'cvs-fairf', chain:'CVS',         region:'Wine Country',   name:'Fairfield',              addr:'2175 Cadenasso Dr',              city:'Fairfield, CA 94533',     badge:'18 mi'},
+  {id:'cvs-vale',  chain:'CVS',         region:'North Bay',      name:'Vallejo',                addr:'3435 Sonoma Blvd',               city:'Vallejo, CA 94590',       badge:'20 mi'},
+  {id:'cvs-santa', chain:'CVS',         region:'Wine Country',   name:'Santa Rosa',             addr:'1450 Farmers Lane',              city:'Santa Rosa, CA 95405',    badge:'32 mi'},
+  {id:'cvs-sanraf',chain:'CVS',         region:'North Bay',      name:'San Rafael',             addr:'615 Third St',                   city:'San Rafael, CA 94901',    badge:'43 mi'},
+  {id:'cvs-sf',    chain:'CVS',         region:'San Francisco',  name:'SF Union Square',        addr:'801 Market St',                  city:'San Francisco, CA 94103', badge:'58 mi'},
+  {id:'cvs-oak',   chain:'CVS',         region:'East Bay',       name:'Oakland',                addr:'3801 MacArthur Blvd',            city:'Oakland, CA 94619',       badge:'65 mi'},
+  {id:'cvs-sj',    chain:'CVS',         region:'Silicon Valley', name:'San Jose',               addr:'1600 Saratoga Ave',              city:'San Jose, CA 95129',      badge:'88 mi'},
+  {id:'cvs-sac',   chain:'CVS',         region:'Sacramento',     name:'Sacramento',             addr:'1901 L St',                      city:'Sacramento, CA 95811',    badge:'62 mi'},
+  {id:'cvs-la',    chain:'CVS',         region:'Los Angeles',    name:'LA Hollywood',           addr:'6535 Hollywood Blvd',            city:'Los Angeles, CA 90028',   badge:'400 mi'},
+  {id:'cvs-sd',    chain:'CVS',         region:'San Diego',      name:'San Diego',              addr:'325 W Washington St',            city:'San Diego, CA 92103',     badge:'560 mi'},
+  /* HOME DEPOT */
+  {id:'hd-napa',   chain:'Home Depot',  region:'Wine Country',   name:'Napa',                   addr:'3000 Imola Ave',                 city:'Napa, CA 94559',          badge:'2 mi'},
+  {id:'hd-fairf',  chain:'Home Depot',  region:'Wine Country',   name:'Fairfield',              addr:'1452 Holiday Lane',              city:'Fairfield, CA 94533',     badge:'18 mi'},
+  {id:'hd-vale',   chain:'Home Depot',  region:'North Bay',      name:'Vallejo',                addr:'3600 Sonoma Blvd',               city:'Vallejo, CA 94590',       badge:'20 mi'},
+  {id:'hd-santa',  chain:'Home Depot',  region:'Wine Country',   name:'Santa Rosa',             addr:'1975 Santa Rosa Ave',            city:'Santa Rosa, CA 95407',    badge:'32 mi'},
+  {id:'hd-sanraf', chain:'Home Depot',  region:'North Bay',      name:'San Rafael',             addr:'125 Shoreline Pkwy',             city:'San Rafael, CA 94901',    badge:'43 mi'},
+  {id:'hd-sf',     chain:'Home Depot',  region:'San Francisco',  name:'SF Potrero Hill',        addr:'2300 16th St',                   city:'San Francisco, CA 94103', badge:'60 mi'},
+  {id:'hd-oak',    chain:'Home Depot',  region:'East Bay',       name:'Oakland',                addr:'3838 Telegraph Ave',             city:'Oakland, CA 94609',       badge:'65 mi'},
+  {id:'hd-berk',   chain:'Home Depot',  region:'East Bay',       name:'Berkeley',               addr:'2700 Fifth St',                  city:'Berkeley, CA 94710',      badge:'66 mi'},
+  {id:'hd-mtnv',   chain:'Home Depot',  region:'Silicon Valley', name:'Mountain View',          addr:'600 Showers Dr',                 city:'Mountain View, CA 94040', badge:'80 mi'},
+  {id:'hd-sj1',    chain:'Home Depot',  region:'Silicon Valley', name:'San Jose Stevens Creek', addr:'5100 Stevens Creek Blvd',        city:'San Jose, CA 95129',      badge:'88 mi'},
+  {id:'hd-sac',    chain:'Home Depot',  region:'Sacramento',     name:'Sacramento',             addr:'2000 Arden Way',                 city:'Sacramento, CA 95825',    badge:'63 mi'},
+  {id:'hd-la',     chain:'Home Depot',  region:'Los Angeles',    name:'LA Hollywood',           addr:'5600 W Sunset Blvd',             city:'Los Angeles, CA 90028',   badge:'400 mi'},
+  {id:'hd-sd',     chain:'Home Depot',  region:'San Diego',      name:'San Diego',              addr:'1555 Camino De La Reina',        city:'San Diego, CA 92108',     badge:'560 mi'},
 
-  /* ── TRADER JOE'S ── verified addresses */
-  {id:'tj-napa',   chain:"Trader Joe's", region:'Napa Valley',    name:'Napa',                 addr:'3654 Bel Aire Plaza, Napa, CA 94558',           badge:'0.2 mi'},
-  {id:'tj-fair',   chain:"Trader Joe's", region:'Wine Country',   name:'Fairfield',            addr:'1350 Gateway Blvd, Fairfield, CA 94533',        badge:'18 mi'},
-  {id:'tj-vale',   chain:"Trader Joe's", region:'Napa Valley',    name:'Vallejo',              addr:'3250 Auto Mall Pkwy, Vallejo, CA 94591',        badge:'20 mi'},
-  {id:'tj-santa',  chain:"Trader Joe's", region:'Wine Country',   name:'Santa Rosa',           addr:'3225 Cleveland Ave, Santa Rosa, CA 95403',      badge:'32 mi'},
-  {id:'tj-pet',    chain:"Trader Joe's", region:'Wine Country',   name:'Petaluma',             addr:'169 N McDowell Blvd, Petaluma, CA 94954',       badge:'38 mi'},
-  {id:'tj-sanraf', chain:"Trader Joe's", region:'North Bay',      name:'San Rafael',           addr:'717 Third St, San Rafael, CA 94901',            badge:'43 mi'},
-  {id:'tj-sf1',    chain:"Trader Joe's", region:'San Francisco',  name:'SF Marina',            addr:'3 Masonic Ave, San Francisco, CA 94117',        badge:'58 mi'},
-  {id:'tj-sf2',    chain:"Trader Joe's", region:'San Francisco',  name:'SF SoMa',              addr:'720 Malcolm X Blvd, San Francisco, CA 94103',   badge:'59 mi'},
-  {id:'tj-emery',  chain:"Trader Joe's", region:'East Bay',       name:'Emeryville',           addr:'5733 Christie Ave, Emeryville, CA 94608',       badge:'64 mi'},
-  {id:'tj-berk',   chain:"Trader Joe's", region:'East Bay',       name:'Berkeley',             addr:'1885 University Ave, Berkeley, CA 94703',       badge:'66 mi'},
-  {id:'tj-wal',    chain:"Trader Joe's", region:'East Bay',       name:'Walnut Creek',         addr:'1372 S California Blvd, Walnut Creek, CA 94596',badge:'70 mi'},
-  {id:'tj-mtnv',   chain:"Trader Joe's", region:'Silicon Valley', name:'Mountain View',        addr:'590 Showers Dr, Mountain View, CA 94040',       badge:'80 mi'},
-  {id:'tj-sun',    chain:"Trader Joe's", region:'Silicon Valley', name:'Sunnyvale',            addr:'727 Sunnyvale Saratoga Rd, Sunnyvale, CA 94087', badge:'82 mi'},
-  {id:'tj-sac',    chain:"Trader Joe's", region:'Sacramento',     name:'Sacramento',           addr:'5000 Folsom Blvd, Sacramento, CA 95819',        badge:'62 mi'},
-  {id:'tj-la1',    chain:"Trader Joe's", region:'Los Angeles',    name:'LA Silver Lake',       addr:'2738 Hyperion Ave, Los Angeles, CA 90027',      badge:'400 mi'},
-  {id:'tj-sm',     chain:"Trader Joe's", region:'Los Angeles',    name:'Santa Monica',         addr:'1415 Montana Ave, Santa Monica, CA 90403',      badge:'405 mi'},
-  {id:'tj-sd',     chain:"Trader Joe's", region:'San Diego',      name:'San Diego Pacific Beach',addr:'1072 Garnet Ave, San Diego, CA 92109',        badge:'560 mi'},
-
-  /* ── TARGET ── */
-  {id:'tgt-napa1', chain:'Target',       region:'Napa Valley',    name:'Napa Bel Aire',        addr:'4000 Bel Aire Plaza, Napa, CA 94558',           badge:'0.1 mi'},
-  {id:'tgt-napa2', chain:'Target',       region:'Napa Valley',    name:'Napa Soscol',          addr:'205 Soscol Ave, Napa, CA 94559',                badge:'2 mi'},
-  {id:'tgt-fair',  chain:'Target',       region:'Wine Country',   name:'Fairfield',            addr:'1350 Travis Blvd, Fairfield, CA 94533',         badge:'18 mi'},
-  {id:'tgt-vale',  chain:'Target',       region:'Napa Valley',    name:'Vallejo',              addr:'3600 Sonoma Blvd, Vallejo, CA 94590',           badge:'20 mi'},
-  {id:'tgt-santa', chain:'Target',       region:'Wine Country',   name:'Santa Rosa',           addr:'1275 N McDowell Blvd, Santa Rosa, CA 95403',    badge:'32 mi'},
-  {id:'tgt-pet',   chain:'Target',       region:'Wine Country',   name:'Petaluma',             addr:'401 Kenilworth Dr, Petaluma, CA 94952',         badge:'38 mi'},
-  {id:'tgt-sf1',   chain:'Target',       region:'San Francisco',  name:'SF Metreon',           addr:'789 Mission St, San Francisco, CA 94103',       badge:'58 mi'},
-  {id:'tgt-sf2',   chain:'Target',       region:'San Francisco',  name:'SF Masonic',           addr:'789 Masonic Ave, San Francisco, CA 94117',      badge:'59 mi'},
-  {id:'tgt-oak',   chain:'Target',       region:'East Bay',       name:'Oakland',              addr:'8400 Edgewater Dr, Oakland, CA 94621',          badge:'65 mi'},
-  {id:'tgt-berk',  chain:'Target',       region:'East Bay',       name:'Berkeley',             addr:'2455 Telegraph Ave, Berkeley, CA 94704',        badge:'66 mi'},
-  {id:'tgt-mtnv',  chain:'Target',       region:'Silicon Valley', name:'Mountain View',        addr:'600 Showers Dr, Mountain View, CA 94040',       badge:'80 mi'},
-  {id:'tgt-sj',    chain:'Target',       region:'Silicon Valley', name:'San Jose Stevens Creek',addr:'5100 Stevens Creek Blvd, San Jose, CA 95129',  badge:'88 mi'},
-  {id:'tgt-sac',   chain:'Target',       region:'Sacramento',     name:'Sacramento',           addr:'2600 Fulton Ave, Sacramento, CA 95821',         badge:'62 mi'},
-  {id:'tgt-la',    chain:'Target',       region:'Los Angeles',    name:'LA Hollywood',         addr:'5500 Sunset Blvd, Los Angeles, CA 90028',       badge:'400 mi'},
-  {id:'tgt-sd',    chain:'Target',       region:'San Diego',      name:'San Diego Mission Valley',addr:'1288 Camino Del Rio N, San Diego, CA 92108', badge:'560 mi'},
-
-  /* ── WALMART ── */
-  {id:'wm-napa',   chain:'Walmart',      region:'Napa Valley',    name:'Napa',                 addr:'3000 Imola Ave, Napa, CA 94559',                badge:'2 mi'},
-  {id:'wm-fair',   chain:'Walmart',      region:'Wine Country',   name:'Fairfield',            addr:'1460 Oliver Rd, Fairfield, CA 94534',           badge:'18 mi'},
-  {id:'wm-vale',   chain:'Walmart',      region:'Napa Valley',    name:'Vallejo',              addr:'400 Lemon St, Vallejo, CA 94590',               badge:'20 mi'},
-  {id:'wm-santa',  chain:'Walmart',      region:'Wine Country',   name:'Santa Rosa',           addr:'1275 N McDowell Blvd, Santa Rosa, CA 95403',    badge:'32 mi'},
-  {id:'wm-oak',    chain:'Walmart',      region:'East Bay',       name:'Oakland',              addr:'8400 Edgewater Dr, Oakland, CA 94621',          badge:'65 mi'},
-  {id:'wm-sj',     chain:'Walmart',      region:'Silicon Valley', name:'San Jose',             addr:'777 Story Rd, San Jose, CA 95122',              badge:'88 mi'},
-  {id:'wm-sac',    chain:'Walmart',      region:'Sacramento',     name:'Sacramento',           addr:'8915 Gerber Rd, Sacramento, CA 95828',          badge:'65 mi'},
-  {id:'wm-la',     chain:'Walmart',      region:'Los Angeles',    name:'Los Angeles',          addr:'3600 W Martin Luther King Jr Blvd, LA, CA 90008',badge:'400 mi'},
-  {id:'wm-sd',     chain:'Walmart',      region:'San Diego',      name:'San Diego',            addr:'3382 Murphy Canyon Rd, San Diego, CA 92123',    badge:'560 mi'},
-
-  /* ── CVS ── verified Napa addresses */
-  {id:'cvs-napa1', chain:'CVS',          region:'Napa Valley',    name:'Napa Trancas St',      addr:'1558 Trancas St, Napa, CA 94558',               badge:'0.5 mi'},
-  {id:'cvs-napa2', chain:'CVS',          region:'Napa Valley',    name:'Napa Trancas (West)',  addr:'675 Trancas St, Napa, CA 94558',                badge:'1 mi'},
-  {id:'cvs-napa3', chain:'CVS',          region:'Napa Valley',    name:'Napa S Coombs',        addr:'291 S Coombs St, Napa, CA 94559',               badge:'2 mi'},
-  {id:'cvs-fair',  chain:'CVS',          region:'Wine Country',   name:'Fairfield',            addr:'2175 Cadenasso Dr, Fairfield, CA 94533',        badge:'18 mi'},
-  {id:'cvs-vale',  chain:'CVS',          region:'Napa Valley',    name:'Vallejo',              addr:'3435 Sonoma Blvd, Vallejo, CA 94590',           badge:'20 mi'},
-  {id:'cvs-santa', chain:'CVS',          region:'Wine Country',   name:'Santa Rosa',           addr:'1450 Farmers Lane, Santa Rosa, CA 95405',       badge:'32 mi'},
-  {id:'cvs-sanraf',chain:'CVS',          region:'North Bay',      name:'San Rafael',           addr:'615 Third St, San Rafael, CA 94901',            badge:'43 mi'},
-  {id:'cvs-sf1',   chain:'CVS',          region:'San Francisco',  name:'SF Union Square',      addr:'801 Market St, San Francisco, CA 94103',        badge:'58 mi'},
-  {id:'cvs-sf2',   chain:'CVS',          region:'San Francisco',  name:'SF Castro',            addr:'2300 Market St, San Francisco, CA 94114',       badge:'59 mi'},
-  {id:'cvs-oak',   chain:'CVS',          region:'East Bay',       name:'Oakland',              addr:'3801 MacArthur Blvd, Oakland, CA 94619',        badge:'65 mi'},
-  {id:'cvs-berk',  chain:'CVS',          region:'East Bay',       name:'Berkeley',             addr:'2960 Telegraph Ave, Berkeley, CA 94705',        badge:'66 mi'},
-  {id:'cvs-sj',    chain:'CVS',          region:'Silicon Valley', name:'San Jose',             addr:'1600 Saratoga Ave, San Jose, CA 95129',         badge:'88 mi'},
-  {id:'cvs-sac',   chain:'CVS',          region:'Sacramento',     name:'Sacramento',           addr:'1901 L St, Sacramento, CA 95811',               badge:'62 mi'},
-  {id:'cvs-la',    chain:'CVS',          region:'Los Angeles',    name:'LA Hollywood',         addr:'6535 Hollywood Blvd, Los Angeles, CA 90028',    badge:'400 mi'},
-  {id:'cvs-sd',    chain:'CVS',          region:'San Diego',      name:'San Diego',            addr:'325 W Washington St, San Diego, CA 92103',      badge:'560 mi'},
-
-  /* ── WALGREENS ── verified Napa address */
-  {id:'wg-napa',   chain:'Walgreens',    region:'Napa Valley',    name:'Napa Trancas St',      addr:'1685 Trancas St, Napa, CA 94558',               badge:'0.5 mi'},
-  {id:'wg-napa2',  chain:'Walgreens',    region:'Napa Valley',    name:'Napa Jefferson St',    addr:'2250 Jefferson St, Napa, CA 94559',             badge:'2 mi'},
-  {id:'wg-fair',   chain:'Walgreens',    region:'Wine Country',   name:'Fairfield',            addr:'1451 Travis Blvd, Fairfield, CA 94533',         badge:'18 mi'},
-  {id:'wg-vale',   chain:'Walgreens',    region:'Napa Valley',    name:'Vallejo',              addr:'3250 Magazine St, Vallejo, CA 94590',           badge:'20 mi'},
-  {id:'wg-santa',  chain:'Walgreens',    region:'Wine Country',   name:'Santa Rosa',           addr:'2345 Mendocino Ave, Santa Rosa, CA 95403',      badge:'32 mi'},
-  {id:'wg-sanraf', chain:'Walgreens',    region:'North Bay',      name:'San Rafael',           addr:'835 Third St, San Rafael, CA 94901',            badge:'43 mi'},
-  {id:'wg-sf',     chain:'Walgreens',    region:'San Francisco',  name:'SF Castro',            addr:'498 Castro St, San Francisco, CA 94114',        badge:'58 mi'},
-  {id:'wg-oak',    chain:'Walgreens',    region:'East Bay',       name:'Oakland',              addr:'3600 Telegraph Ave, Oakland, CA 94609',         badge:'65 mi'},
-  {id:'wg-sj',     chain:'Walgreens',    region:'Silicon Valley', name:'San Jose',             addr:'1875 Curtner Ave, San Jose, CA 95124',          badge:'88 mi'},
-  {id:'wg-sac',    chain:'Walgreens',    region:'Sacramento',     name:'Sacramento',           addr:'2000 L St, Sacramento, CA 95816',               badge:'62 mi'},
-  {id:'wg-la',     chain:'Walgreens',    region:'Los Angeles',    name:'Los Angeles',          addr:'7620 Sunset Blvd, Los Angeles, CA 90046',       badge:'400 mi'},
-  {id:'wg-sd',     chain:'Walgreens',    region:'San Diego',      name:'San Diego',            addr:'1201 Third Ave, San Diego, CA 92101',           badge:'560 mi'},
-
-  /* ── COSTCO ── verified address */
-  {id:'co-napa',   chain:'Costco',       region:'Napa Valley',    name:'Napa',                 addr:'280 Riversound Way, Napa, CA 94558',            badge:'3 mi'},
-  {id:'co-fair',   chain:'Costco',       region:'Wine Country',   name:'Fairfield',            addr:'5101 Business Center Dr, Fairfield, CA 94533',  badge:'18 mi'},
-  {id:'co-vale',   chain:'Costco',       region:'Napa Valley',    name:'Vallejo',              addr:'198 Plaza Dr, Vallejo, CA 94591',               badge:'20 mi'},
-  {id:'co-santa',  chain:'Costco',       region:'Wine Country',   name:'Santa Rosa',           addr:'1900 Santa Rosa Ave, Santa Rosa, CA 95407',     badge:'32 mi'},
-  {id:'co-novato', chain:'Costco',       region:'North Bay',      name:'Novato',               addr:'1 Costco Dr, Novato, CA 94949',                 badge:'35 mi'},
-  {id:'co-sf',     chain:'Costco',       region:'San Francisco',  name:'SF SoMa',              addr:'450 10th St, San Francisco, CA 94103',          badge:'58 mi'},
-  {id:'co-emery',  chain:'Costco',       region:'East Bay',       name:'Emeryville',           addr:'6600 Shellmound St, Emeryville, CA 94608',      badge:'64 mi'},
-  {id:'co-mtnv',   chain:'Costco',       region:'Silicon Valley', name:'Mountain View',        addr:'1000 N Rengstorff Ave, Mountain View, CA 94043',badge:'80 mi'},
-  {id:'co-sj',     chain:'Costco',       region:'Silicon Valley', name:'San Jose / Santa Clara',addr:'150 Lawrence Expy, Santa Clara, CA 95051',     badge:'88 mi'},
-  {id:'co-sac',    chain:'Costco',       region:'Sacramento',     name:'Sacramento',           addr:'2631 Fuller Ave, Sacramento, CA 95821',         badge:'62 mi'},
-  {id:'co-la',     chain:'Costco',       region:'Los Angeles',    name:'Burbank',              addr:'1051 W Burbank Blvd, Burbank, CA 91506',        badge:'400 mi'},
-  {id:'co-sd',     chain:'Costco',       region:'San Diego',      name:'San Diego Morena',     addr:'4605 Morena Blvd, San Diego, CA 92117',         badge:'560 mi'},
-
-  /* ── HOME DEPOT ── */
-  {id:'hd-napa',   chain:'Home Depot',   region:'Napa Valley',    name:'Napa',                 addr:'3000 Imola Ave, Napa, CA 94559',                badge:'2 mi'},
-  {id:'hd-fair',   chain:'Home Depot',   region:'Wine Country',   name:'Fairfield',            addr:'1452 Holiday Lane, Fairfield, CA 94533',        badge:'18 mi'},
-  {id:'hd-vale',   chain:'Home Depot',   region:'Napa Valley',    name:'Vallejo',              addr:'3600 Sonoma Blvd, Vallejo, CA 94590',           badge:'20 mi'},
-  {id:'hd-santa',  chain:'Home Depot',   region:'Wine Country',   name:'Santa Rosa',           addr:'1975 Santa Rosa Ave, Santa Rosa, CA 95407',     badge:'32 mi'},
-  {id:'hd-sanraf', chain:'Home Depot',   region:'North Bay',      name:'San Rafael',           addr:'125 Shoreline Pkwy, San Rafael, CA 94901',      badge:'43 mi'},
-  {id:'hd-sf',     chain:'Home Depot',   region:'San Francisco',  name:'SF Potrero Hill',      addr:'2300 16th St, San Francisco, CA 94103',         badge:'60 mi'},
-  {id:'hd-oak',    chain:'Home Depot',   region:'East Bay',       name:'Oakland',              addr:'3838 Telegraph Ave, Oakland, CA 94609',         badge:'65 mi'},
-  {id:'hd-berk',   chain:'Home Depot',   region:'East Bay',       name:'Berkeley',             addr:'2700 Fifth St, Berkeley, CA 94710',             badge:'66 mi'},
-  {id:'hd-mtnv',   chain:'Home Depot',   region:'Silicon Valley', name:'Mountain View',        addr:'600 Showers Dr, Mountain View, CA 94040',       badge:'80 mi'},
-  {id:'hd-sj',     chain:'Home Depot',   region:'Silicon Valley', name:'San Jose Stevens Creek',addr:'5100 Stevens Creek Blvd, San Jose, CA 95129',  badge:'88 mi'},
-  {id:'hd-sac',    chain:'Home Depot',   region:'Sacramento',     name:'Sacramento',           addr:'2000 Arden Way, Sacramento, CA 95825',          badge:'63 mi'},
-  {id:'hd-la',     chain:'Home Depot',   region:'Los Angeles',    name:'Los Angeles Hollywood',addr:'5600 W Sunset Blvd, Los Angeles, CA 90028',     badge:'400 mi'},
-  {id:'hd-sd',     chain:'Home Depot',   region:'San Diego',      name:'San Diego Mission Valley',addr:'1555 Camino De La Reina, San Diego, CA 92108',badge:'560 mi'},
-
-  /* ── LOWE'S ── */
-  {id:'lw-napa',   chain:"Lowe's",       region:'Napa Valley',    name:'Napa',                 addr:'3500 Bel Aire Plaza, Napa, CA 94558',           badge:'0.5 mi'},
-  {id:'lw-fair',   chain:"Lowe's",       region:'Wine Country',   name:'Fairfield',            addr:'2200 Cadenasso Dr, Fairfield, CA 94533',        badge:'18 mi'},
-  {id:'lw-vale',   chain:"Lowe's",       region:'Napa Valley',    name:'Vallejo',              addr:'3450 Sonoma Blvd, Vallejo, CA 94590',           badge:'20 mi'},
-  {id:'lw-santa',  chain:"Lowe's",       region:'Wine Country',   name:'Santa Rosa',           addr:'2145 Armory Dr, Santa Rosa, CA 95401',          badge:'32 mi'},
-  {id:'lw-pet',    chain:"Lowe's",       region:'Wine Country',   name:'Petaluma',             addr:'900 N McDowell Blvd, Petaluma, CA 94954',       badge:'38 mi'},
-  {id:'lw-oak',    chain:"Lowe's",       region:'East Bay',       name:'Oakland',              addr:'8600 Edgewater Dr, Oakland, CA 94621',          badge:'65 mi'},
-  {id:'lw-sj',     chain:"Lowe's",       region:'Silicon Valley', name:'San Jose',             addr:'5288 Prospect Rd, San Jose, CA 95129',          badge:'88 mi'},
-  {id:'lw-sac',    chain:"Lowe's",       region:'Sacramento',     name:'Sacramento',           addr:'2000 Arden Way, Sacramento, CA 95825',          badge:'63 mi'},
-  {id:'lw-la',     chain:"Lowe's",       region:'Los Angeles',    name:'Los Angeles',          addr:'11525 Pico Blvd, Los Angeles, CA 90064',        badge:'400 mi'},
-  {id:'lw-sd',     chain:"Lowe's",       region:'San Diego',      name:'San Diego',            addr:'8550 Rio San Diego Dr, San Diego, CA 92108',    badge:'560 mi'},
-
-  /* ── TRACTOR SUPPLY ── */
-  {id:'ts-napa',   chain:'Tractor Supply',region:'Napa Valley',   name:'Napa',                 addr:'3300 Beard Rd, Napa, CA 94558',                 badge:'4 mi'},
-  {id:'ts-fair',   chain:'Tractor Supply',region:'Wine Country',  name:'Fairfield',            addr:'1200 Travis Blvd, Fairfield, CA 94533',         badge:'18 mi'},
-  {id:'ts-santa',  chain:'Tractor Supply',region:'Wine Country',  name:'Santa Rosa',           addr:'2615 Santa Rosa Ave, Santa Rosa, CA 95407',     badge:'32 mi'},
-  {id:'ts-pet',    chain:'Tractor Supply',region:'Wine Country',  name:'Petaluma',             addr:'1400 N McDowell Blvd, Petaluma, CA 94954',      badge:'38 mi'},
-  {id:'ts-ukiah',  chain:'Tractor Supply',region:'North Bay',     name:'Ukiah',                addr:'1155 Airport Park Blvd, Ukiah, CA 95482',       badge:'58 mi'},
-  {id:'ts-sac',    chain:'Tractor Supply',region:'Sacramento',    name:'Sacramento',           addr:'7929 Greenback Lane, Citrus Heights, CA 95610', badge:'68 mi'},
-
-  /* ── FRIEDMAN'S ── */
-  {id:'fr-santa',  chain:"Friedman's",   region:'Wine Country',   name:'Santa Rosa',           addr:'420 W Santa Rosa Ave, Santa Rosa, CA 95401',    badge:'32 mi'},
-  {id:'fr-pet',    chain:"Friedman's",   region:'Wine Country',   name:'Petaluma',             addr:'1 Friedman Dr, Petaluma, CA 94952',             badge:'38 mi'},
-  {id:'fr-ukiah',  chain:"Friedman's",   region:'North Bay',      name:'Ukiah',                addr:'301 E Perkins St, Ukiah, CA 95482',             badge:'58 mi'}
+  /* WALGREENS */
+  {id:'wg-napa',   chain:'Walgreens', region:'Wine Country',   name:'Napa — Trancas St',      addr:'3654 Trancas St',              city:'Napa, CA 94558',          badge:'0.1 mi'},
+  {id:'wg-napa2',  chain:'Walgreens', region:'Wine Country',   name:'Napa — Jefferson St',    addr:'2250 Jefferson St',            city:'Napa, CA 94559',          badge:'2 mi'},
+  {id:'wg-fairf',  chain:'Walgreens', region:'Wine Country',   name:'Fairfield',              addr:'1451 Travis Blvd',             city:'Fairfield, CA 94533',     badge:'18 mi'},
+  {id:'wg-vale',   chain:'Walgreens', region:'North Bay',      name:'Vallejo',                addr:'3250 Magazine St',             city:'Vallejo, CA 94590',       badge:'20 mi'},
+  {id:'wg-santa',  chain:'Walgreens', region:'Wine Country',   name:'Santa Rosa',             addr:'2345 Mendocino Ave',           city:'Santa Rosa, CA 95403',    badge:'32 mi'},
+  {id:'wg-sanraf', chain:'Walgreens', region:'North Bay',      name:'San Rafael',             addr:'835 Third St',                 city:'San Rafael, CA 94901',    badge:'43 mi'},
+  {id:'wg-sf',     chain:'Walgreens', region:'San Francisco',  name:'SF Castro',              addr:'498 Castro St',                city:'San Francisco, CA 94114', badge:'58 mi'},
+  {id:'wg-oak',    chain:'Walgreens', region:'East Bay',       name:'Oakland',                addr:'3600 Telegraph Ave',           city:'Oakland, CA 94609',       badge:'65 mi'},
+  {id:'wg-sj',     chain:'Walgreens', region:'Silicon Valley', name:'San Jose',               addr:'1875 Curtner Ave',             city:'San Jose, CA 95124',      badge:'88 mi'},
+  {id:'wg-sac',    chain:'Walgreens', region:'Sacramento',     name:'Sacramento',             addr:'2000 L St',                    city:'Sacramento, CA 95816',    badge:'62 mi'},
+  {id:'wg-la',     chain:'Walgreens', region:'Los Angeles',    name:'Los Angeles',            addr:'7620 Sunset Blvd',             city:'Los Angeles, CA 90046',   badge:'400 mi'},
+  {id:'wg-sd',     chain:'Walgreens', region:'San Diego',      name:'San Diego',              addr:'1201 Third Ave',               city:'San Diego, CA 92101',     badge:'560 mi'},
+  /* COSTCO */
+  {id:'co-napa',   chain:'Costco',    region:'Wine Country',   name:'Napa',                   addr:'104 Sheehy Ct',                city:'Napa, CA 94559',          badge:'3 mi'},
+  {id:'co-fairf',  chain:'Costco',    region:'Wine Country',   name:'Fairfield',              addr:'1150 Gateway Blvd',            city:'Fairfield, CA 94533',     badge:'18 mi'},
+  {id:'co-vale',   chain:'Costco',    region:'North Bay',      name:'Vallejo',                addr:'900 Sereno Dr',                city:'Vallejo, CA 94589',       badge:'20 mi'},
+  {id:'co-santa',  chain:'Costco',    region:'Wine Country',   name:'Santa Rosa',             addr:'1900 Santa Rosa Ave',          city:'Santa Rosa, CA 95407',    badge:'32 mi'},
+  {id:'co-novato', chain:'Costco',    region:'North Bay',      name:'Novato',                 addr:'1 Costco Dr',                  city:'Novato, CA 94949',        badge:'35 mi'},
+  {id:'co-sf',     chain:'Costco',    region:'San Francisco',  name:'SF SoMa',                addr:'450 10th St',                  city:'San Francisco, CA 94103', badge:'58 mi'},
+  {id:'co-oak',    chain:'Costco',    region:'East Bay',       name:'Oakland',                addr:'6600 Shellmound St',           city:'Emeryville, CA 94608',    badge:'64 mi'},
+  {id:'co-mtnv',   chain:'Costco',    region:'Silicon Valley', name:'Mountain View',          addr:'1000 N Rengstorff Ave',        city:'Mountain View, CA 94043', badge:'80 mi'},
+  {id:'co-sj',     chain:'Costco',    region:'Silicon Valley', name:'San Jose',               addr:'150 Lawrence Expy',            city:'Santa Clara, CA 95051',   badge:'88 mi'},
+  {id:'co-sac',    chain:'Costco',    region:'Sacramento',     name:'Sacramento',             addr:'2631 Fuller Ave',              city:'Sacramento, CA 95821',    badge:'62 mi'},
+  {id:'co-la',     chain:'Costco',    region:'Los Angeles',    name:'LA Burbank',             addr:'1051 W Burbank Blvd',          city:'Burbank, CA 91506',       badge:'400 mi'},
+  {id:'co-sd',     chain:'Costco',    region:'San Diego',      name:'San Diego Morena',       addr:'4605 Morena Blvd',             city:'San Diego, CA 92117',     badge:'560 mi'},
+  /* LOWES */
+  {id:'lw-napa',   chain:'Lowes',    region:'Wine Country',   name:'Napa',                   addr:'3500 Bel Aire Plaza',          city:'Napa, CA 94558',          badge:'0.5 mi'},
+  {id:'lw-fairf',  chain:'Lowes',    region:'Wine Country',   name:'Fairfield',              addr:'2200 Cadenasso Dr',            city:'Fairfield, CA 94533',     badge:'18 mi'},
+  {id:'lw-vale',   chain:'Lowes',    region:'North Bay',      name:'Vallejo',                addr:'3450 Sonoma Blvd',             city:'Vallejo, CA 94590',       badge:'20 mi'},
+  {id:'lw-santa',  chain:'Lowes',    region:'Wine Country',   name:'Santa Rosa',             addr:'2145 Armory Dr',               city:'Santa Rosa, CA 95401',    badge:'32 mi'},
+  {id:'lw-pet',    chain:'Lowes',    region:'Wine Country',   name:'Petaluma',               addr:'900 North McDowell Blvd',      city:'Petaluma, CA 94954',      badge:'38 mi'},
+  {id:'lw-sf',     chain:'Lowes',    region:'San Francisco',  name:'SF Colma',               addr:'1275 El Camino Real',          city:'Colma, CA 94014',         badge:'62 mi'},
+  {id:'lw-oak',    chain:'Lowes',    region:'East Bay',       name:'Oakland',                addr:'8600 Edgewater Dr',            city:'Oakland, CA 94621',       badge:'65 mi'},
+  {id:'lw-sj',     chain:'Lowes',    region:'Silicon Valley', name:'San Jose',               addr:'5288 Prospect Rd',             city:'San Jose, CA 95129',      badge:'88 mi'},
+  {id:'lw-sac',    chain:'Lowes',    region:'Sacramento',     name:'Sacramento',             addr:'2000 Arden Way',               city:'Sacramento, CA 95825',    badge:'63 mi'},
+  {id:'lw-la',     chain:'Lowes',    region:'Los Angeles',    name:'Los Angeles',            addr:'11525 Pico Blvd',              city:'Los Angeles, CA 90064',   badge:'400 mi'},
+  {id:'lw-sd',     chain:'Lowes',    region:'San Diego',      name:'San Diego',              addr:'8550 Rio San Diego Dr',        city:'San Diego, CA 92108',     badge:'560 mi'},
+  /* TRACTOR SUPPLY */
+  {id:'ts-napa',   chain:'Tractor Supply', region:'Wine Country', name:'Napa',               addr:'3300 Beard Rd',                city:'Napa, CA 94558',          badge:'4 mi'},
+  {id:'ts-fairf',  chain:'Tractor Supply', region:'Wine Country', name:'Fairfield',          addr:'1200 Travis Blvd',             city:'Fairfield, CA 94533',     badge:'18 mi'},
+  {id:'ts-ukiah',  chain:'Tractor Supply', region:'North Bay',    name:'Ukiah',              addr:'1155 Airport Park Blvd',       city:'Ukiah, CA 95482',         badge:'58 mi'},
+  {id:'ts-santa',  chain:'Tractor Supply', region:'Wine Country', name:'Santa Rosa',         addr:'2615 Santa Rosa Ave',          city:'Santa Rosa, CA 95407',    badge:'32 mi'},
+  {id:'ts-pet',    chain:'Tractor Supply', region:'Wine Country', name:'Petaluma',           addr:'1400 N McDowell Blvd',         city:'Petaluma, CA 94954',      badge:'38 mi'},
+  {id:'ts-sac',    chain:'Tractor Supply', region:'Sacramento',   name:'Sacramento',         addr:'7929 Greenback Lane',          city:'Citrus Heights, CA 95610',badge:'68 mi'},
+  {id:'ts-stock',  chain:'Tractor Supply', region:'Sacramento',   name:'Stockton',           addr:'5757 Pacific Ave',             city:'Stockton, CA 95207',      badge:'80 mi'},
+  /* FRIEDMANS */
+  {id:'fr-santa',  chain:'Friedmans',     region:'Wine Country', name:'Santa Rosa',         addr:'420 W Santa Rosa Ave',         city:'Santa Rosa, CA 95401',    badge:'32 mi'},
+  {id:'fr-pet',    chain:'Friedmans',     region:'Wine Country', name:'Petaluma',           addr:'1 Friedman Dr',                city:'Petaluma, CA 94952',      badge:'38 mi'},
+  {id:'fr-ukiah',  chain:'Friedmans',     region:'North Bay',    name:'Ukiah',              addr:'301 E Perkins St',             city:'Ukiah, CA 95482',         badge:'58 mi'},
 ];
 
-/* ═══════════════════════════════════════
-   KEYWORD MAP
-═══════════════════════════════════════ */
+/* ════════════════════════════════
+   STATE
+════════════════════════════════ */
+var items        = [];
+var nid          = 1;
+var curStore     = STORES[0];
+var curChainCfg  = CHAIN_CONFIG['Whole Foods'];
+var aisleIdx     = 0;
+var selCat       = 'produce';
+var showCart     = false;
+var isListening  = false;
+var recog        = null;
+var waveTimer    = null;
+var activeChain  = 'Whole Foods'; // which tab is open in store picker
+
+/* ════════════════════════════════
+   KEYWORD MAP (all categories)
+════════════════════════════════ */
 var KW = {
-  produce:  ['apple','banana','avocado','spinach','kale','lettuce','tomato','lemon','lime','berry','strawberry','blueberry','raspberry','grape','orange','mango','peach','pear','broccoli','carrot','celery','cucumber','pepper','garlic','onion','herb','cilantro','basil','parsley','arugula','mushroom','zucchini','squash','melon','pineapple','beet','asparagus','cabbage','ginger','vegetable','fruit','greens','salad','radish','chard'],
+  produce:  ['apple','banana','avocado','spinach','kale','lettuce','tomato','lemon','lime','berry','strawberry','blueberry','raspberry','grape','orange','mango','peach','pear','broccoli','carrot','celery','cucumber','pepper','garlic','onion','herb','cilantro','basil','parsley','arugula','mushroom','zucchini','squash','melon','pineapple','beet','asparagus','cabbage','ginger','vegetable','fruit','greens','salad'],
   bulk:     ['oat','oats','granola','almond','cashew','walnut','pecan','pistachio','seed','quinoa','flour','sugar','honey','dried','trail','bulk','grain','lentil','bean','chickpea','muesli','raisin','date','coconut','nut','nuts'],
-  dairy:    ['milk','cheese','yogurt','butter','cream','egg','eggs','kefir','ricotta','mozzarella','cheddar','brie','almond milk','oat milk','soy milk','heavy cream','parmesan','feta','goat cheese','ghee','kerrygold','dairy'],
+  dairy:    ['milk','cheese','yogurt','butter','cream','egg','eggs','kefir','sour cream','ricotta','mozzarella','cheddar','brie','almond milk','oat milk','soy milk','half and half','heavy cream','parmesan','feta','goat cheese','ghee','dairy','kerrygold'],
   bakery:   ['bread','sourdough','baguette','muffin','croissant','bagel','cake','pie','cookie','pastry','roll','loaf','toast','pita','tortilla','brioche','pretzel','focaccia'],
-  meat:     ['chicken','beef','salmon','fish','tuna','shrimp','turkey','pork','lamb','steak','sausage','bacon','prosciutto','salami','meat','seafood','fillet','ground','scallop','crab','lobster','halibut','cod'],
-  prepared: ['soup','sushi','pizza','burrito','bowl','hot bar','prepared','deli','hummus','olive','guacamole','pesto','sauce','rotisserie','sandwich','wrap','curry','lasagna','palak paneer'],
-  wellness: ['vitamin','supplement','probiotic','protein','collagen','magnesium','zinc','omega','fish oil','herbal','melatonin','elderberry'],
-  frozen:   ['frozen','ice cream','gelato','sorbet','waffle','edamame','frozen peas','frozen corn','frozen berry','frozen meal','frozen fish','cauliflower rice','orange chicken'],
-  snacks:   ['chips','popcorn','crackers','dark chocolate','candy','pita chips','trail mix','granola bar'],
-  wine:     ['wine','beer','champagne','prosecco','rose','chardonnay','cabernet','pinot','sauvignon','sake','cider'],
-  pantry:   ['pasta','olive oil','coconut milk','almond butter','peanut butter','jam','syrup','vinegar','soy sauce','broth','stock','canned'],
-  pharmacy: ['prescription','bandage','sunscreen','nyquil','antacid','allergy','antihistamine','zyrtec','tylenol','advil','ibuprofen'],
-  beauty:   ['shampoo','conditioner','lotion','moisturizer','makeup','lipstick','mascara','foundation','concealer','serum','face wash'],
-  health:   ['thermometer','vitamin c','melatonin','first aid','eye drops','toothpaste'],
-  home:     ['detergent','paper towel','toilet paper','trash bag','dish soap','sponge','bleach','cleaner','candle','lightbulb','tide'],
-  grocery:  ['milk','egg','bread','cereal','snack','drink','beverage','butter'],
+  meat:     ['chicken','beef','salmon','fish','tuna','shrimp','turkey','pork','lamb','steak','sausage','bacon','prosciutto','salami','meat','seafood','fillet','ground','scallop','crab','lobster','halibut','cod','mahi'],
+  prepared: ['soup','sushi','pizza','burrito','bowl','hot bar','prepared','deli','hummus','olive','guacamole','pesto','sauce','rotisserie','sandwich','wrap','curry','lasagna','palak paneer','tikka','pad thai'],
+  wellness: ['vitamin','supplement','probiotic','protein','collagen','magnesium','zinc','omega','fish oil','herbal','wellness','melatonin','elderberry','advil','tylenol','ibuprofen','acetaminophen'],
+  frozen:   ['frozen','ice cream','gelato','sorbet','waffle','edamame','frozen peas','frozen corn','frozen berry','frozen meal','frozen fish','cauliflower rice','orange chicken','pot pie','burrito frozen'],
+  snacks:   ['chips','popcorn','crackers','pretzels','trail mix','granola bar','chocolate','candy','cookies','nuts snack','dark chocolate','pita chips'],
+  wine:     ['wine','beer','champagne','prosecco','rosé','rose','chardonnay','cabernet','pinot','sauvignon','two buck chuck','sake','cider','spirits'],
+  pantry:   ['pasta','sauce jar','canned','olive oil','coconut milk','almond butter','peanut butter','jam','honey jar','syrup','vinegar','soy sauce','broth','stock'],
+  pharmacy: ['prescription','advil','tylenol','bandage','band-aid','sunscreen','nyquil','dayquil','antacid','allergy','antihistamine','diapers','baby wipes'],
+  beauty:   ['shampoo','conditioner','lotion','moisturizer','sunscreen','makeup','lipstick','mascara','foundation','concealer','toner','serum','face wash'],
+  home:     ['detergent','paper towel','toilet paper','trash bag','dish soap','sponge','bleach','cleaner','windex','mop','broom','vacuum','candle','lightbulb','light bulb'],
+  clothing: ['shirt','pants','jeans','dress','shoes','socks','underwear','jacket','sweater','hoodie'],
+  electronics:['phone','charger','cable','headphones','battery','speaker','laptop','tablet'],
   auto:     ['motor oil','wiper','tire','air freshener','car wash','antifreeze'],
-  garden:   ['soil','fertilizer','seeds','plant','pot','hose','sprinkler','mulch'],
-  tools:    ['hammer','screwdriver','drill','saw','wrench','pliers','tape measure'],
+  garden:   ['soil','fertilizer','seeds','plant','pot','hose','sprinkler','mulch','weed'],
+  tools:    ['hammer','screwdriver','drill','saw','wrench','pliers','tape measure','level'],
   paint:    ['paint','primer','brush','roller','tray','sandpaper','caulk','stain'],
-  lumber:   ['lumber','wood','plywood','osb','board','beam','post','stud'],
-  plumbing: ['pipe','faucet','valve','toilet','sink','drain','shower','pvc'],
-  electric: ['wire','outlet','switch','breaker','led','bulb','extension cord'],
-  flooring: ['tile','hardwood','laminate','vinyl','carpet','grout'],
-  hardware: ['screw','bolt','nail','anchor','bracket','hinge','lock','concrete'],
+  lumber:   ['lumber','wood','plywood','osb','board','beam','post','molding'],
+  plumbing: ['pipe','faucet','valve','toilet','sink','drain','caulk plumbing','shower','pvc'],
+  electric: ['wire','outlet','switch','breaker','conduit','led','bulb','panel'],
+  flooring: ['tile','hardwood','laminate','vinyl','carpet','grout','underlayment'],
+  hardware: ['screw','bolt','nail','anchor','bracket','hinge','lock','chain'],
+  health:   ['thermometer','blood pressure','glucose','inhaler','crutches','first aid','eye drops','ear drops'],
   baby:     ['diaper','formula','baby food','wipes','bottle','pacifier','baby lotion'],
-  petfood:  ['dog food','cat food','pet','kibble','treat','litter'],
-  livestock:['livestock','hay','cattle','goat feed'],
-  poultry:  ['chicken feed','scratch','chick','layer pellet'],
-  equine:   ['horse','saddle','bridle','horseshoe'],
-  fencing:  ['fence','post','wire fence','t-post','barbed'],
-  clothing: ['shirt','pants','jeans','dress','shoes','socks','jacket','boots','gloves'],
-  electronics:['phone','charger','cable','headphones','battery','speaker','laptop'],
-  rental:   ['rent','rental','tool rental']
+  photo:    ['photo print','film','frame','album','passport photo'],
+  grocery:  ['grocery','food','snack','drink','beverage','cereal','soup can'],
 };
 
-/* ═══════════════════════════════════════
-   STATE
-═══════════════════════════════════════ */
-var items       = [];
-var nid         = 1;
-var curStore    = STORES[0];
-var curChain    = CHAINS['Whole Foods'];
-var aisleIdx    = 0;
-var selCat      = 'produce';
-var showCart    = false;
-var isListening = false;
-var recog       = null;
-var waveTimer   = null;
-var activeChain = 'Whole Foods';
-var searchQuery = '';
-
-/* ═══════════════════════════════════════
-   HELPERS
-═══════════════════════════════════════ */
-function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : s; }
-function getCat(id){
-  var cats=curChain.cats;
-  for(var i=0;i<cats.length;i++) if(cats[i].id===id) return cats[i];
-  return cats[0];
-}
 function guessCat(text){
-  var lo=text.toLowerCase();
-  var cats=curChain.cats.map(function(c){ return c.id; });
-  for(var i=0;i<cats.length;i++){
-    var id=cats[i];
-    if(KW[id]) for(var j=0;j<KW[id].length;j++) if(lo.indexOf(KW[id][j])!==-1) return id;
+  var lo = text.toLowerCase();
+  // First try current store's categories
+  var storeCats = curChainCfg.cats.map(function(c){ return c.id; });
+  for(var i=0; i<storeCats.length; i++){
+    var c = storeCats[i];
+    if(KW[c]){
+      for(var j=0; j<KW[c].length; j++){
+        if(lo.indexOf(KW[c][j]) !== -1) return c;
+      }
+    }
   }
-  return cats[0];
+  return storeCats[0]; // default to first category of current store
 }
+
+/* ════════════════════════════════
+   HELPERS
+════════════════════════════════ */
+function cap(s){ return s ? s.charAt(0).toUpperCase()+s.slice(1) : s; }
 function parseQty(text){
   var wm={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8};
   var lo=text.toLowerCase(); var keys=Object.keys(wm);
@@ -908,10 +976,15 @@ function parseQty(text){
 }
 function cleanName(text){
   return text
-    .replace(/^(please\s+)?(add|get|buy|pick up|i need|we need|can you add|put)\s+/i,'')
+    .replace(/^(please\s+)?(add|get|buy|pick up|i need|we need|can you add|put|include)\s+/i,'')
     .replace(/\b(one|two|three|four|five|six|seven|eight|\d+)\s+/i,'')
-    .replace(/\b(cartons?|bottles?|bags?|boxes?|cans?|jars?|packs?|pounds?|lbs?|oz|ounces?|pieces?|loaves?|gallons?)\s*(of\s*)?/i,'')
+    .replace(/\b(cartons?|bottles?|bags?|boxes?|cans?|jars?|packs?|pounds?|lbs?|oz|ounces?|pieces?|loaves?|bunches?|gallons?)\s*(of\s*)?/i,'')
     .replace(/\bof\b/gi,'').trim();
+}
+function getCat(id){
+  var cats=curChainCfg.cats;
+  for(var i=0;i<cats.length;i++) if(cats[i].id===id) return cats[i];
+  return cats[0];
 }
 function showToast(msg){
   var t=document.getElementById('toast');
@@ -919,15 +992,49 @@ function showToast(msg){
   setTimeout(function(){ t.classList.remove('show'); },2500);
 }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
+   APPLY STORE — updates all UI
+   when a new store is selected
+════════════════════════════════ */
+function applyStore(store){
+  curStore    = store;
+  curChainCfg = CHAIN_CONFIG[store.chain];
+  aisleIdx    = 0;
+  selCat      = curChainCfg.cats[0].id;
+
+  // Update nav
+  document.getElementById('store-icon').textContent = curChainCfg.icon;
+  document.getElementById('store-name').textContent = store.chain+' · '+store.name;
+
+  // Update smart sort subtitle
+  document.getElementById('ssort-sub').textContent = 'Tap the aisle or section you are in';
+
+  // Update voice tips
+  var tips = curChainCfg.voiceTips;
+  for(var i=1;i<=5;i++){
+    var el=document.getElementById('v-tip'+i);
+    if(el) el.textContent = tips[i-1]||'';
+  }
+
+  // Rebuild everything
+  buildCatGrid();
+  renderChips();
+  renderList();
+  renderQuickAdd();
+  renderSettings();
+  closeOv('ov-store');
+  showToast('✓ '+store.chain+' '+store.name+' selected');
+}
+
+/* ════════════════════════════════
    OVERLAYS
-═══════════════════════════════════════ */
+════════════════════════════════ */
 function openOv(id){ document.getElementById(id).classList.add('on'); }
 function closeOv(id){ document.getElementById(id).classList.remove('on'); }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    TABS
-═══════════════════════════════════════ */
+════════════════════════════════ */
 function goTab(tab){
   ['list','voice','settings'].forEach(function(s){
     document.getElementById('s-'+s).classList.toggle('on',s===tab);
@@ -948,144 +1055,93 @@ function goVoice(){
   });
 }
 
-/* ═══════════════════════════════════════
-   APPLY STORE
-═══════════════════════════════════════ */
-function applyStore(store){
-  curStore=store;
-  curChain=CHAINS[store.chain];
-  aisleIdx=0;
-  selCat=curChain.cats[0].id;
-  document.getElementById('store-icon').textContent=curChain.icon;
-  document.getElementById('store-name').textContent=store.chain+' · '+store.name;
-  buildCatGrid();
-  renderChips();
-  renderList();
-  renderSettings();
-  closeOv('ov-store');
-  showToast('✓ '+store.chain+' '+store.name);
-}
+/* ════════════════════════════════
+   STORE PICKER — TABBED UI
+════════════════════════════════ */
+function renderStorePicker(){
+  var chains = Object.keys(CHAIN_CONFIG);
 
-/* ═══════════════════════════════════════
-   STORE PICKER — NEW UI
-   Top: search bar
-   Middle: chain pills (horizontal scroll)
-   Bottom: store list (scrollable)
-═══════════════════════════════════════ */
-function openStorePicker(){
-  activeChain=curStore.chain;
-  searchQuery='';
-  document.getElementById('sp-search').value='';
-  renderChainPills();
-  renderStoreList();
-  openOv('ov-store');
-}
-
-function renderChainPills(){
-  var el=document.getElementById('chain-row');
-  el.innerHTML='';
-  var chains=Object.keys(CHAINS);
-  chains.forEach(function(key){
-    (function(k){
-      var cfg=CHAINS[k];
-      var pill=document.createElement('button');
-      pill.type='button';
-      pill.className='chain-pill'+(k===activeChain?' on':'');
-      pill.innerHTML='<span class="chain-pill-icon">'+cfg.icon+'</span><span class="chain-pill-name">'+k+'</span>';
-      pill.addEventListener('click',function(){
-        activeChain=k;
-        searchQuery='';
-        document.getElementById('sp-search').value='';
-        renderChainPills();
-        renderStoreList();
-      });
-      el.appendChild(pill);
-    })(key);
-  });
-}
-
-function renderStoreList(){
-  var el=document.getElementById('sp-list');
-  el.innerHTML='';
-  var q=searchQuery.toLowerCase().trim();
-
-  /* Filter stores */
-  var filtered=STORES.filter(function(s){
-    var chainMatch = !q && s.chain===activeChain;
-    var searchMatch = q && (
-      s.chain.toLowerCase().indexOf(q)!==-1 ||
-      s.name.toLowerCase().indexOf(q)!==-1 ||
-      s.addr.toLowerCase().indexOf(q)!==-1 ||
-      s.region.toLowerCase().indexOf(q)!==-1
-    );
-    return chainMatch || searchMatch;
+  // Build chain tab bar
+  var tabBar = document.getElementById('chain-tabs');
+  tabBar.innerHTML = '';
+  chains.forEach(function(chain){
+    var cfg = CHAIN_CONFIG[chain];
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chain-tab' + (chain===activeChain?' on':'');
+    var shortName = cfg.shortName || chain;
+    btn.innerHTML = '<span class="chain-tab-icon">'+cfg.icon+'</span><span class="chain-tab-name">'+shortName+'</span>';
+    btn.addEventListener('click', function(){
+      activeChain = chain;
+      renderStorePicker();
+    });
+    tabBar.appendChild(btn);
   });
 
-  if(!filtered.length){
-    el.innerHTML='<div class="sp-no-results">No stores found for "'+searchQuery+'"</div>';
-    return;
-  }
+  // Build store list for active chain
+  var storesEl = document.getElementById('sp-stores');
+  storesEl.innerHTML = '';
+  var chainStores = STORES.filter(function(s){ return s.chain===activeChain; });
+  var cfg = CHAIN_CONFIG[activeChain];
 
-  /* Group by region */
-  var regions=[];
-  var seenR={};
-  filtered.forEach(function(s){
-    if(!seenR[s.region]){ regions.push(s.region); seenR[s.region]=true; }
-  });
+  // Group by region
+  var regions = [];
+  var seenR = {};
+  chainStores.forEach(function(s){ if(!seenR[s.region]){ regions.push(s.region); seenR[s.region]=true; } });
 
   regions.forEach(function(region){
-    var rStores=filtered.filter(function(s){ return s.region===region; });
-    var rh=document.createElement('div'); rh.className='sp-region-hdr';
-    rh.textContent=(q?'':'📍 ')+region;
-    el.appendChild(rh);
+    var regionStores = chainStores.filter(function(s){ return s.region===region; });
+    var rHdr = document.createElement('div');
+    rHdr.className = 'sp-region';
+    rHdr.textContent = '📍 '+region;
+    storesEl.appendChild(rHdr);
 
-    rStores.forEach(function(s){
+    regionStores.forEach(function(s){
       (function(store){
-        var cfg=CHAINS[store.chain]||{icon:'🏪'};
-        var d=document.createElement('div');
-        d.className='sp-row'+(store.id===curStore.id?' sel':'');
-        d.innerHTML=
+        var d = document.createElement('div');
+        d.className = 'sp-row' + (store.id===curStore.id?' sel':'');
+        d.innerHTML =
           '<div class="sp-row-icon">'+cfg.icon+'</div>'+
-          '<div class="sp-row-info">'+
+          '<div class="sp-row-body">'+
             '<div class="sp-row-name">'+store.name+'</div>'+
-            '<div class="sp-row-addr">'+store.addr+'</div>'+
+            '<div class="sp-row-addr">'+store.addr+', '+store.city+'</div>'+
           '</div>'+
           '<div class="sp-row-badge">'+store.badge+'</div>';
-        d.addEventListener('click',function(){ applyStore(store); });
-        el.appendChild(d);
+        d.addEventListener('click', function(){ applyStore(store); });
+        storesEl.appendChild(d);
       })(s);
     });
   });
 }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    SMART SORT CHIPS
-═══════════════════════════════════════ */
+════════════════════════════════ */
 function renderChips(){
-  var el=document.getElementById('chips'); if(!el) return;
+  var el = document.getElementById('chips');
+  if(!el) return;
   el.innerHTML='';
-  curChain.cats.forEach(function(c,i){
+  var cats = curChainCfg.cats;
+  cats.forEach(function(c, i){
     (function(idx){
-      var wrap=document.createElement('div'); wrap.className='chip-wrap';
-      var btn=document.createElement('button'); btn.type='button';
+      var wrap = document.createElement('div'); wrap.className='chip-wrap';
+      var btn  = document.createElement('button');
+      btn.type='button';
       btn.className='chip'+(idx<aisleIdx?' done':idx===aisleIdx?' here':'');
       btn.textContent=c.emoji+' '+c.label;
-      btn.addEventListener('click',function(){ aisleIdx=idx; renderChips(); renderList(); });
+      btn.addEventListener('click', function(){ aisleIdx=idx; renderChips(); renderList(); });
       wrap.appendChild(btn);
-      if(idx<curChain.cats.length-1){
-        var arr=document.createElement('span'); arr.className='chip-arrow'; arr.textContent='→';
-        wrap.appendChild(arr);
-      }
+      if(idx<cats.length-1){ var arr=document.createElement('span'); arr.className='chip-arrow'; arr.textContent='→'; wrap.appendChild(arr); }
       el.appendChild(wrap);
     })(i);
   });
 }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    PROGRESS
-═══════════════════════════════════════ */
+════════════════════════════════ */
 function updateProg(){
-  var t=items.length,d=0;
+  var t=items.length, d=0;
   for(var i=0;i<items.length;i++) if(items[i].checked) d++;
   var p=t?Math.round(d/t*100):0;
   document.getElementById('prog-txt').textContent=d+' of '+t+' items';
@@ -1093,11 +1149,12 @@ function updateProg(){
   document.getElementById('prog-fill').style.width=p+'%';
 }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    RENDER LIST
-═══════════════════════════════════════ */
+════════════════════════════════ */
 function renderList(){
-  var body=document.getElementById('list-body'); if(!body) return;
+  var body=document.getElementById('list-body');
+  if(!body) return;
   body.innerHTML='';
   var unchecked=items.filter(function(i){ return !i.checked; });
   var checked=items.filter(function(i){ return i.checked; });
@@ -1105,26 +1162,25 @@ function renderList(){
   if(items.length===0){
     body.innerHTML=
       '<div class="empty">'+
-        '<div class="empty-icon">'+curChain.icon+'</div>'+
+        '<div class="empty-icon">'+curChainCfg.icon+'</div>'+
         '<div class="empty-title">Your list is empty</div>'+
-        '<div class="empty-sub">Add items by voice, quick add, or import from Notes!</div>'+
+        '<div class="empty-sub">Add items below, use your voice, or import your Notes list!</div>'+
         '<div class="empty-btns">'+
-          '<button class="btn-or" id="ev-btn" type="button">🎤 Add by Voice</button>'+
-          '<button class="btn-gy" id="et-btn" type="button">+ Type an Item</button>'+
-          '<button class="btn-lnk" id="ei-btn" type="button">📋 Import from iPhone Notes</button>'+
+          '<button class="btn-orange" id="ev-btn" type="button">🎤 Add by Voice</button>'+
+          '<button class="btn-gray"   id="et-btn" type="button">+ Type an Item</button>'+
+          '<button class="btn-ghost-sm" id="ei-btn" type="button">📋 Import from iPhone Notes</button>'+
         '</div>'+
       '</div>';
-    document.getElementById('ev-btn').addEventListener('click',goVoice);
-    document.getElementById('et-btn').addEventListener('click',function(){ openOv('ov-add'); });
-    document.getElementById('ei-btn').addEventListener('click',function(){ openOv('ov-import'); });
+    document.getElementById('ev-btn').addEventListener('click', goVoice);
+    document.getElementById('et-btn').addEventListener('click', function(){ openOv('ov-add'); });
+    document.getElementById('ei-btn').addEventListener('click', function(){ openOv('ov-import'); });
     renderQuickAdd(); updateProg(); return;
   }
 
-  var cats=curChain.cats;
+  var cats=curChainCfg.cats;
   var order=cats.slice(aisleIdx).concat(cats.slice(0,aisleIdx)).map(function(c){ return c.id; });
   var sorted=unchecked.slice().sort(function(a,b){ return order.indexOf(a.cat)-order.indexOf(b.cat); });
   var lastCat=null;
-
   sorted.forEach(function(it){
     if(it.cat!==lastCat){
       lastCat=it.cat;
@@ -1132,9 +1188,7 @@ function renderList(){
       var cat=cats[ci]||cats[0];
       var sh=document.createElement('div');
       sh.className='sec'+(ci===aisleIdx?' here':'');
-      sh.innerHTML=(ci===aisleIdx?'<div class="here-dot"></div>':'')+
-        cat.emoji+' '+cat.label.toUpperCase()+' — '+cat.aisle+
-        (ci===aisleIdx?' &nbsp;← YOU ARE HERE':'');
+      sh.innerHTML=(ci===aisleIdx?'<div class="here-dot"></div>':'')+cat.emoji+' '+cat.label.toUpperCase()+' — '+cat.aisle+(ci===aisleIdx?' &nbsp;← YOU ARE HERE':'');
       body.appendChild(sh);
     }
     body.appendChild(makeCard(it));
@@ -1142,64 +1196,49 @@ function renderList(){
 
   if(checked.length){
     var bar=document.createElement('div'); bar.className='cart-bar';
-    bar.innerHTML='<span class="cart-lbl">🛒 '+checked.length+' item'+(checked.length>1?'s':'')+' in cart</span>'+
-                  '<span class="cart-tog">'+(showCart?'Hide ▲':'Show ▼')+'</span>';
-    bar.addEventListener('click',function(){ showCart=!showCart; renderList(); });
+    bar.innerHTML='<span class="cart-lbl">🛒 '+checked.length+' item'+(checked.length>1?'s':'')+' in cart</span><span class="cart-tog">'+(showCart?'Hide ▲':'Show ▼')+'</span>';
+    bar.addEventListener('click', function(){ showCart=!showCart; renderList(); });
     body.appendChild(bar);
     if(showCart){
       checked.forEach(function(it){ body.appendChild(makeCard(it)); });
       var clr=document.createElement('div'); clr.className='clear-btn';
       clr.textContent='🗑 Remove all checked items';
-      clr.addEventListener('click',function(){
-        items=items.filter(function(i){ return !i.checked; });
-        showCart=false; renderList(); renderQuickAdd();
-      });
+      clr.addEventListener('click', function(){ items=items.filter(function(i){ return !i.checked; }); showCart=false; renderList(); renderQuickAdd(); });
       body.appendChild(clr);
     }
   }
-
   if(unchecked.length===0&&checked.length>0){
-    var te=document.createElement('div'); te.className='trip-end';
-    te.textContent='🧾 End of your trip — great shopping!';
-    body.appendChild(te);
+    var te=document.createElement('div'); te.className='trip-end'; te.textContent='🧾 End of your trip'; body.appendChild(te);
   }
-
-  renderQuickAdd();
-  updateProg();
+  renderQuickAdd(); updateProg();
 }
 
 function makeCard(it){
   var d=document.createElement('div'); d.className='ic'+(it.checked?' done':'');
-  var cb=document.createElement('div'); cb.className='cb'+(it.checked?' on':'');
-  cb.textContent=it.checked?'✓':'';
-  cb.addEventListener('click',function(){ doCheck(it.id); });
+  var cb=document.createElement('div'); cb.className='cb'+(it.checked?' on':''); cb.textContent=it.checked?'✓':'';
+  cb.addEventListener('click', function(){ doCheck(it.id); });
   var ib=document.createElement('div'); ib.className='ib';
-  var nm=document.createElement('div'); nm.className='iname'; nm.textContent=it.name;
-  ib.appendChild(nm);
-  if(it.tag){
-    var tg=document.createElement('span'); tg.className='itag '+(it.tc||'t-gy'); tg.textContent=it.tag;
-    ib.appendChild(tg);
-  }
+  var nm=document.createElement('div'); nm.className='iname'; nm.textContent=it.name; ib.appendChild(nm);
+  if(it.tag){ var tg=document.createElement('span'); tg.className='itag '+(it.tc||'t-gy'); tg.textContent=it.tag; ib.appendChild(tg); }
   var qc=document.createElement('div'); qc.className='qc';
   var qm=document.createElement('button'); qm.type='button'; qm.className='qb qm'; qm.textContent='−';
-  qm.addEventListener('click',function(e){ e.stopPropagation(); adjQty(it.id,-1); });
+  qm.addEventListener('click', function(e){ e.stopPropagation(); adjQty(it.id,-1); });
   var qn=document.createElement('span'); qn.className='qnum'; qn.id='q'+it.id; qn.textContent=it.qty;
   var qp=document.createElement('button'); qp.type='button'; qp.className='qb qp'; qp.textContent='+';
-  qp.addEventListener('click',function(e){ e.stopPropagation(); adjQty(it.id,+1); });
+  qp.addEventListener('click', function(e){ e.stopPropagation(); adjQty(it.id,+1); });
   qc.appendChild(qm); qc.appendChild(qn); qc.appendChild(qp);
   var xb=document.createElement('button'); xb.type='button'; xb.className='xb'; xb.textContent='✕';
-  xb.addEventListener('click',function(e){ e.stopPropagation(); removeItem(it.id); });
+  xb.addEventListener('click', function(e){ e.stopPropagation(); removeItem(it.id); });
   d.appendChild(cb); d.appendChild(ib); d.appendChild(qc); d.appendChild(xb);
   return d;
 }
 
 function doCheck(id){
   var it=null; for(var i=0;i<items.length;i++) if(items[i].id===id){ it=items[i]; break; }
-  if(!it) return;
-  it.checked=!it.checked;
+  if(!it) return; it.checked=!it.checked;
   if(it.checked){
-    var curCatId=curChain.cats[aisleIdx]?curChain.cats[aisleIdx].id:null;
-    if(items.filter(function(x){ return x.cat===curCatId&&!x.checked; }).length===0&&aisleIdx<curChain.cats.length-1){
+    var curCatId=curChainCfg.cats[aisleIdx]?curChainCfg.cats[aisleIdx].id:null;
+    if(items.filter(function(x){ return x.cat===curCatId&&!x.checked; }).length===0&&aisleIdx<curChainCfg.cats.length-1){
       aisleIdx++; renderChips();
     }
   }
@@ -1211,54 +1250,48 @@ function adjQty(id,delta){
     var el=document.getElementById('q'+id); if(el) el.textContent=items[i].qty; return;
   }
 }
-function removeItem(id){
-  items=items.filter(function(i){ return i.id!==id; });
-  renderList(); renderQuickAdd();
-}
+function removeItem(id){ items=items.filter(function(i){ return i.id!==id; }); renderList(); renderQuickAdd(); }
 
-/* ═══════════════════════════════════════
-   QUICK ADD
-═══════════════════════════════════════ */
+/* ════════════════════════════════
+   QUICK ADD — uses current store items
+════════════════════════════════ */
 function renderQuickAdd(){
   var wrap=document.getElementById('qa-wrap'); if(!wrap) return;
   var inList={};
   items.forEach(function(i){ inList[i.name.toLowerCase()]=true; });
-  var avail=curChain.quickAdd.filter(function(q){ return !inList[q.name.toLowerCase()]; });
-  if(!avail.length||items.filter(function(i){ return !i.checked; }).length>=6){ wrap.innerHTML=''; return; }
-  var show=avail.slice(0,8);
-  var html='<div class="qa-section"><div class="qa-label">⚡ Quick Add</div><div class="qa-grid">';
+  var available=curChainCfg.quickAdd.filter(function(q){ return !inList[q.name.toLowerCase()]; });
+  if(available.length===0||items.filter(function(i){ return !i.checked; }).length>=6){ wrap.innerHTML=''; return; }
+  var show=available.slice(0,8);
+  var html='<div class="qa-wrap"><div class="qa-label">⚡ Quick Add<span style="font-size:10px;font-weight:500;color:var(--dim);margin-left:4px;">tap to add instantly</span></div><div class="qa-grid">';
   show.forEach(function(q){
     var cat=getCat(q.cat);
-    html+='<div class="qa-card" data-name="'+q.name+'" data-cat="'+q.cat+'">'+
-      '<span class="qa-em">'+q.emoji+'</span>'+
-      '<div class="qa-info"><div class="qa-name">'+q.name+'</div><div class="qa-cat">'+cat.label+' · '+cat.aisle+'</div></div>'+
-      '<button class="qa-plus" type="button">+</button></div>';
+    html+='<div class="qa-card" data-name="'+q.name+'" data-cat="'+q.cat+'"><span class="qa-em">'+q.emoji+'</span><div class="qa-text"><div class="qa-name">'+q.name+'</div><div class="qa-cat">'+cat.label+' · '+cat.aisle+'</div></div><button class="qa-add" type="button">+</button></div>';
   });
   html+='</div></div>';
   wrap.innerHTML=html;
   wrap.querySelectorAll('.qa-card').forEach(function(card){
-    card.addEventListener('click',function(){
+    card.addEventListener('click', function(){
       var name=this.getAttribute('data-name'), cat=this.getAttribute('data-cat');
-      this.classList.add('added'); this.querySelector('.qa-plus').textContent='✓';
+      this.classList.add('added'); this.querySelector('.qa-add').textContent='✓';
       var ex=null; for(var x=0;x<items.length;x++) if(items[x].name.toLowerCase()===name.toLowerCase()){ ex=items[x]; break; }
       if(ex){ ex.qty++; } else { items.push({id:nid++,name:name,cat:cat,qty:1,checked:false,tag:null,tc:''}); }
-      setTimeout(function(){ renderList(); renderQuickAdd(); },400);
+      var self=this; setTimeout(function(){ renderList(); renderQuickAdd(); },500);
     });
   });
 }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    ADD ITEM
-═══════════════════════════════════════ */
+════════════════════════════════ */
 function buildCatGrid(){
   var el=document.getElementById('cat-grid'); if(!el) return;
   el.innerHTML='';
-  curChain.cats.forEach(function(c){
+  curChainCfg.cats.forEach(function(c){
     (function(cat){
       var b=document.createElement('button'); b.type='button';
       b.className='cat-btn'+(cat.id===selCat?' sel':'');
       b.textContent=cat.emoji+' '+cat.label;
-      b.addEventListener('click',function(){
+      b.addEventListener('click', function(){
         selCat=cat.id;
         el.querySelectorAll('.cat-btn').forEach(function(x){ x.classList.remove('sel'); });
         b.classList.add('sel');
@@ -1270,45 +1303,38 @@ function buildCatGrid(){
 function submitAdd(){
   var inp=document.getElementById('add-inp'), v=inp.value.trim(); if(!v) return;
   items.push({id:nid++,name:cap(v),cat:selCat,qty:1,checked:false,tag:null,tc:''});
-  inp.value=''; closeOv('ov-add'); renderList(); renderQuickAdd();
-  showToast('✓ Item added!');
+  inp.value=''; closeOv('ov-add'); renderList(); renderQuickAdd(); showToast('✓ Item added!');
 }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    IMPORT FROM NOTES
-═══════════════════════════════════════ */
-function parseNotes(raw){
+════════════════════════════════ */
+function parseNotesList(raw){
   return raw.split('\n').map(function(line){
-    return line.replace(/^[-•*✓✗☐☑️✅❌\d+\.\)]+\s*/,'').replace(/^\s+|\s+$/g,'').trim();
+    return line.replace(/^[-•*✓✗☐☑️✅❌\d+\.\)]+\s*/,'').replace(/^\s+|\s+$/g,'').replace(/\(.*?\)/g,'').trim();
   }).filter(function(l){ return l.length>1; });
 }
 function previewImport(){
   var raw=document.getElementById('imp-ta').value.trim();
-  var prev=document.getElementById('imp-preview');
+  var preview=document.getElementById('imp-preview');
   var btn=document.getElementById('imp-submit-btn');
-  if(!raw){ prev.style.display='none'; btn.disabled=true; btn.textContent='Import to My List'; return; }
-  var lines=parseNotes(raw);
-  if(!lines.length){ prev.style.display='none'; btn.disabled=true; return; }
+  if(!raw){ preview.style.display='none'; btn.disabled=true; btn.textContent='Import to My List'; return; }
+  var lines=parseNotesList(raw);
+  if(!lines.length){ preview.style.display='none'; btn.disabled=true; return; }
   document.getElementById('imp-prev-title').textContent='Found '+lines.length+' item'+(lines.length>1?'s':'')+':';
   var pl=document.getElementById('imp-prev-list'); pl.innerHTML='';
   lines.slice(0,5).forEach(function(line){
     var cat=getCat(guessCat(line));
     var d=document.createElement('div'); d.className='imp-prev-item';
-    d.innerHTML='<span style="font-size:16px;">'+cat.emoji+'</span>'+
-                '<span style="font-size:13px;font-weight:600;flex:1;">'+cap(line)+'</span>'+
-                '<span style="font-size:10px;font-weight:700;color:var(--or);">'+cat.label+'</span>';
+    d.innerHTML='<span style="font-size:16px;">'+cat.emoji+'</span><span style="font-size:13px;font-weight:600;flex:1;">'+cap(line)+'</span><span style="font-size:10px;font-weight:700;color:var(--or);">'+cat.label+'</span>';
     pl.appendChild(d);
   });
-  if(lines.length>5){
-    var more=document.createElement('div'); more.style.cssText='font-size:12px;color:var(--mut);text-align:center;padding:6px 0;';
-    more.textContent='+ '+(lines.length-5)+' more…'; pl.appendChild(more);
-  }
-  prev.style.display='block'; btn.disabled=false;
+  if(lines.length>5){ var more=document.createElement('div'); more.style.cssText='font-size:12px;color:var(--mut);text-align:center;padding:6px 0;'; more.textContent='+ '+(lines.length-5)+' more…'; pl.appendChild(more); }
+  preview.style.display='block'; btn.disabled=false;
   btn.textContent='Import '+lines.length+' Item'+(lines.length>1?'s':'')+' to My List';
 }
 function doImport(){
-  var raw=document.getElementById('imp-ta').value.trim();
-  var lines=parseNotes(raw); if(!lines.length) return;
+  var raw=document.getElementById('imp-ta').value.trim(); var lines=parseNotesList(raw); if(!lines.length) return;
   var added=0;
   lines.forEach(function(line){
     var name=cap(line), cat=guessCat(line);
@@ -1323,67 +1349,97 @@ function doImport(){
   showToast('✓ '+added+' item'+(added>1?'s':'')+' imported!');
 }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    VOICE
-═══════════════════════════════════════ */
+════════════════════════════════ */
 function addVoiceItem(raw){
-  var lo=raw.toLowerCase().trim();
-  var removeWords=['remove ','delete ','take off ','cross off ','scratch off ','drop '];
-  var isRemove=false, removeTerm='';
-  for(var r=0;r<removeWords.length;r++){
-    if(lo.indexOf(removeWords[r])===0){ isRemove=true; removeTerm=lo.replace(removeWords[r],'').trim(); break; }
+  var lo = raw.toLowerCase().trim();
+
+  // REMOVE commands: "remove milk", "delete bread", "take off salmon", "cross out eggs"
+  var removeWords = ['remove ','delete ','take off ','cross off ','cross out ','scratch off ','scratch out ','drop '];
+  var isRemove = false;
+  var removeTerm = '';
+  for(var r=0; r<removeWords.length; r++){
+    if(lo.indexOf(removeWords[r]) === 0 || lo.indexOf('please '+removeWords[r]) === 0){
+      isRemove = true;
+      removeTerm = lo.replace('please ','').replace(removeWords[r],'').trim();
+      break;
+    }
   }
-  var list=document.getElementById('v-added');
-  var d=document.createElement('div'); d.className='va';
+
   if(isRemove){
-    var matched=null;
-    for(var i=0;i<items.length;i++) if(items[i].name.toLowerCase().indexOf(removeTerm)!==-1){ matched=items[i]; break; }
+    // Find closest matching item and remove it
+    var matched = null;
+    for(var i=0;i<items.length;i++){
+      if(items[i].name.toLowerCase().indexOf(removeTerm) !== -1 ||
+         removeTerm.indexOf(items[i].name.toLowerCase()) !== -1){
+        matched = items[i]; break;
+      }
+    }
+    var list = document.getElementById('v-added');
+    var d = document.createElement('div'); d.className='va';
     if(matched){
-      items=items.filter(function(x){ return x.id!==matched.id; });
-      d.innerHTML='<div class="va-dot" style="background:var(--rtx);"></div><div><div class="va-name">Removed: '+matched.name+'</div><div class="va-meta">Off your list</div></div><div class="va-ok" style="color:var(--rtx);">✕</div>';
-      renderList(); renderQuickAdd();
+      items = items.filter(function(x){ return x.id !== matched.id; });
+      d.innerHTML='<div class="va-dot" style="background:var(--rtx);"></div><div><div class="va-name">Removed: '+matched.name+'</div><div class="va-meta">Taken off your list</div></div><div class="va-ok" style="color:var(--rtx);">✓</div>';
+      renderList();
+      renderQuickAdd();
     } else {
-      d.innerHTML='<div class="va-dot" style="background:var(--dim);"></div><div><div class="va-name">Not found: "'+removeTerm+'"</div></div>';
+      d.innerHTML='<div class="va-dot" style="background:var(--dim);"></div><div><div class="va-name">Not found: "'+removeTerm+'"</div><div class="va-meta">Not on your list</div></div><div class="va-ok" style="color:var(--dim);">?</div>';
     }
-    list.insertBefore(d,list.firstChild); return;
+    list.insertBefore(d, list.firstChild);
+    return;
   }
-  var checkWords=['check off ','got ','found ','checked '];
-  var isCheck=false, checkTerm='';
-  for(var c=0;c<checkWords.length;c++){
-    if(lo.indexOf(checkWords[c])===0){ isCheck=true; checkTerm=lo.replace(checkWords[c],'').trim(); break; }
+
+  // CHECK OFF commands: "check off milk", "got milk", "found salmon", "checked bananas"
+  var checkWords = ['check off ','check ','got ','found ','checked ','done with ','done '];
+  var isCheck = false;
+  var checkTerm = '';
+  for(var c=0; c<checkWords.length; c++){
+    if(lo.indexOf(checkWords[c]) === 0){
+      isCheck = true;
+      checkTerm = lo.replace(checkWords[c],'').trim();
+      break;
+    }
   }
-  if(isCheck&&checkTerm){
-    var matched2=null;
-    for(var i=0;i<items.length;i++) if(items[i].name.toLowerCase().indexOf(checkTerm)!==-1){ matched2=items[i]; break; }
+  if(isCheck && checkTerm){
+    var matched2 = null;
+    for(var i=0;i<items.length;i++){
+      if(items[i].name.toLowerCase().indexOf(checkTerm) !== -1){
+        matched2 = items[i]; break;
+      }
+    }
     if(matched2){
-      matched2.checked=true;
-      d.innerHTML='<div class="va-dot" style="background:var(--gtx);"></div><div><div class="va-name">Checked off: '+matched2.name+'</div></div><div class="va-ok" style="color:var(--gtx);">✓</div>';
-      list.insertBefore(d,list.firstChild); renderList(); return;
+      matched2.checked = true;
+      var list2 = document.getElementById('v-added');
+      var d2 = document.createElement('div'); d2.className='va';
+      d2.innerHTML='<div class="va-dot" style="background:var(--gtx);"></div><div><div class="va-name">Checked off: '+matched2.name+'</div><div class="va-meta">Moved to cart</div></div><div class="va-ok" style="color:var(--gtx);">✓</div>';
+      list2.insertBefore(d2,list2.firstChild);
+      renderList();
+      return;
     }
   }
+
+  // ADD — default behavior
   var name=cap(cleanName(raw)); if(!name||name.length<2) return;
   var qty=parseQty(raw), cat=guessCat(raw);
   var ex=null; for(var i=0;i<items.length;i++) if(items[i].name.toLowerCase()===name.toLowerCase()){ ex=items[i]; break; }
   if(ex){ ex.qty+=qty; } else { items.push({id:nid++,name:name,cat:cat,qty:qty,checked:false,tag:null,tc:''}); }
-  var catObj=getCat(cat);
+  var list=document.getElementById('v-added'); var catObj=getCat(cat);
+  var d=document.createElement('div'); d.className='va';
   d.innerHTML='<div class="va-dot"></div><div><div class="va-name">'+name+'</div><div class="va-meta">'+catObj.label+' · Qty '+qty+'</div></div><div class="va-ok">✓</div>';
   list.insertBefore(d,list.firstChild);
 }
-
 function startWave(){
   var bars=[1,2,3,4,5].map(function(n){ return document.getElementById('w'+n); });
   waveTimer=setInterval(function(){ bars.forEach(function(b){ if(b) b.style.height=(4+Math.random()*20)+'px'; }); },130);
 }
-function stopWave(){
-  clearInterval(waveTimer);
-  for(var i=1;i<=5;i++){ var b=document.getElementById('w'+i); if(b) b.style.height='4px'; }
-}
-
+function stopWave(){ clearInterval(waveTimer); for(var i=1;i<=5;i++){ var b=document.getElementById('w'+i); if(b) b.style.height='4px'; } }
 function startListening(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){
-    document.getElementById('v-err').textContent='⚠️ Voice requires Safari on iPhone or Chrome on Android/desktop.';
-    document.getElementById('v-err').style.display='block'; return;
+    document.getElementById('v-err').style.display='block';
+    document.getElementById('v-err').textContent='⚠️ Voice needs Safari on iPhone or Chrome on desktop.';
+    return;
   }
   isListening=true;
   document.getElementById('orb').textContent='⏹';
@@ -1391,7 +1447,10 @@ function startListening(){
   document.getElementById('orb-ring').classList.add('go');
   document.getElementById('v-state').textContent='Starting mic…';
   document.getElementById('v-err').style.display='none';
-  recog=new SR(); recog.continuous=true; recog.interimResults=true; recog.lang='en-US';
+  recog=new SR();
+  recog.continuous=true;
+  recog.interimResults=true;
+  recog.lang='en-US';
   recog.onstart=function(){
     document.getElementById('v-state').textContent='🔴 Listening…';
     document.getElementById('v-sub').textContent='Say what you need to buy';
@@ -1409,71 +1468,68 @@ function startListening(){
   recog.onerror=function(e){
     var err=document.getElementById('v-err');
     if(e.error==='not-allowed'){
-      err.innerHTML='🔒 Microphone blocked.<br><br><b>iPhone Safari:</b> Tap AA in address bar → Website Settings → Microphone → Allow<br><br><b>Chrome desktop:</b> Click 🔒 → Site settings → Microphone → Allow<br><br>Then tap the mic again.';
+      err.innerHTML='🔒 Mic blocked.<br><br><b>iPhone Safari:</b> Settings → Safari → Microphone → Allow<br><br><b>Chrome:</b> Click 🔒 address bar → Site settings → Mic → Allow<br><br>Then tap mic again.';
     } else if(e.error==='no-speech'){
-      document.getElementById('v-state').textContent='No speech — try speaking louder'; return;
-    } else if(e.error==='aborted'){ return; }
-    else { err.textContent='⚠️ Mic error: '+e.error+'. Try again.'; }
-    err.style.display='block'; stopListening();
+      document.getElementById('v-state').textContent='No speech — speak louder';
+      return;
+    } else if(e.error==='aborted'){
+      return;
+    } else {
+      err.textContent='⚠️ Mic error: '+e.error;
+    }
+    err.style.display='block';
+    stopListening();
   };
   recog.onend=function(){ if(isListening){ try{ recog.start(); }catch(ex){} } else { stopWave(); } };
-  try{ recog.start(); } catch(e){
+  try{ recog.start(); }
+  catch(e){
     document.getElementById('v-err').textContent='Could not start mic. Try reloading.';
-    document.getElementById('v-err').style.display='block'; isListening=false;
+    document.getElementById('v-err').style.display='block';
+    isListening=false;
   }
 }
 function stopListening(){
-  isListening=false;
-  if(recog){ try{ recog.abort(); }catch(e){} recog=null; }
-  document.getElementById('orb').textContent='🎤';
-  document.getElementById('orb').classList.remove('go');
-  document.getElementById('orb-ring').classList.remove('go');
-  document.getElementById('v-state').textContent='Tap the mic to start';
-  document.getElementById('v-sub').textContent='Voice adds items to your list instantly';
+  isListening=false; if(recog){ try{ recog.abort(); }catch(e){} recog=null; }
+  document.getElementById('orb').textContent='🎤'; document.getElementById('orb').classList.remove('go'); document.getElementById('orb-ring').classList.remove('go');
+  document.getElementById('v-state').textContent='Tap the mic to start'; document.getElementById('v-sub').textContent='Voice adds items to your list instantly';
   stopWave();
 }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    SETTINGS
-═══════════════════════════════════════ */
+════════════════════════════════ */
 function renderSettings(){
   var el=document.getElementById('set-rows'); if(!el) return; el.innerHTML='';
-  [
-    {label:'Your Store',       val:curStore.chain+' · '+curStore.name, sub:curStore.addr, action:function(){ openStorePicker(); }},
-    {label:'Smart Sort',       tog:true,on:true},
-    {label:'Low Stock Alerts', tog:true,on:true},
-    {label:'Voice Language',   val:'English (US)'},
-    {label:'Haptic Feedback',  tog:true,on:true},
-    {label:'Dark Mode',        tog:true,on:true},
-    {label:'Version',          val:'AisleMagic 2.0'}
+  [{label:'Your Store',val:curStore.chain+' · '+curStore.name,sub:curStore.city,action:function(){ openOv('ov-store'); }},
+   {label:'Smart Sort',tog:true,on:true},{label:'Low Stock Alerts',tog:true,on:true},
+   {label:'Voice Language',val:'English (US)'},{label:'Haptic Feedback',tog:true,on:true},
+   {label:'Dark Mode',tog:true,on:true},{label:'Version',val:'AisleMagic 2.0'},
   ].forEach(function(r){
     var d=document.createElement('div'); d.className='srow';
     if(r.tog){
       var on=r.on; d.innerHTML='<span class="srow-lbl">'+r.label+'</span><button type="button" class="tog'+(on?'':' off')+'"></button>';
-      d.querySelector('.tog').addEventListener('click',function(){ on=!on; this.classList.toggle('off',!on); });
+      d.querySelector('.tog').addEventListener('click', function(){ on=!on; this.classList.toggle('off',!on); });
     } else {
-      var valHtml=r.val+(r.sub?'<br><span style="font-size:10px;color:var(--mut);font-weight:400;">'+r.sub+'</span>':'');
-      d.innerHTML='<span class="srow-lbl">'+r.label+'</span><span class="srow-val">'+valHtml+'</span>';
+      d.innerHTML='<span class="srow-lbl">'+r.label+'</span><span class="srow-val">'+(r.val||'')+(r.sub?'<br><span style="font-size:11px;color:var(--mut);">'+r.sub+'</span>':'')+'</span>';
       if(r.action){ d.style.cursor='pointer'; d.addEventListener('click',r.action); }
     }
     el.appendChild(d);
   });
 }
 
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    WIRE UP ALL EVENTS
-═══════════════════════════════════════ */
-document.getElementById('mic-btn').addEventListener('click', goVoice);
-document.getElementById('store-btn').addEventListener('click', openStorePicker);
+════════════════════════════════ */
+document.getElementById('mic-nav-btn').addEventListener('click', goVoice);
+document.getElementById('store-btn').addEventListener('click', function(){ activeChain=curStore.chain; renderStorePicker(); openOv('ov-store'); });
 document.getElementById('reset-btn').addEventListener('click', function(){ aisleIdx=0; renderChips(); renderList(); showToast('Sort reset'); });
 document.getElementById('t-list').addEventListener('click', function(){ goTab('list'); });
 document.getElementById('t-voice').addEventListener('click', goVoice);
 document.getElementById('t-shop').addEventListener('click', function(){ goTab('list'); });
-document.getElementById('t-store').addEventListener('click', openStorePicker);
+document.getElementById('t-store').addEventListener('click', function(){ activeChain=curStore.chain; renderStorePicker(); openOv('ov-store'); });
 document.getElementById('t-settings').addEventListener('click', function(){ goTab('settings'); });
-document.getElementById('add-btn').addEventListener('click', function(){ openOv('ov-add'); });
-document.getElementById('imp-open-btn').addEventListener('click', function(){ openOv('ov-import'); });
-document.getElementById('sp-close-btn').addEventListener('click', function(){ closeOv('ov-store'); });
+document.getElementById('add-open-btn').addEventListener('click', function(){ openOv('ov-add'); });
+document.getElementById('import-open-btn').addEventListener('click', function(){ openOv('ov-import'); });
 document.getElementById('ov-store').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-store'); });
 document.getElementById('ov-add').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-add'); });
 document.getElementById('ov-import').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-import'); });
@@ -1483,19 +1539,14 @@ document.getElementById('imp-ta').addEventListener('input', previewImport);
 document.getElementById('imp-submit-btn').addEventListener('click', doImport);
 document.getElementById('imp-cancel-btn').addEventListener('click', function(){ closeOv('ov-import'); });
 document.getElementById('orb').addEventListener('click', function(){ if(isListening) stopListening(); else startListening(); });
-document.getElementById('v-back-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
-document.getElementById('v-done-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
+document.getElementById('voice-back-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
+document.getElementById('voice-done-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
 
-/* Search input */
-document.getElementById('sp-search').addEventListener('input', function(){
-  searchQuery=this.value;
-  renderStoreList();
-});
-
-/* ═══════════════════════════════════════
+/* ════════════════════════════════
    INIT
-═══════════════════════════════════════ */
+════════════════════════════════ */
 buildCatGrid();
+renderStorePicker();
 renderChips();
 renderList();
 renderSettings();
