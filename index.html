@@ -261,6 +261,21 @@
       0%, 100% { transform: rotate(0deg); }
       50%      { transform: rotate(9deg); }
     }
+    /* Hero bird: bigger, so a slower & slightly deeper flap — drifts out of sync with the walking bird */
+    .hero-bird .wing-front {
+      animation: flutterFrontHero 0.72s ease-in-out infinite;
+    }
+    .hero-bird .wing-back {
+      animation: flutterBackHero 0.8s ease-in-out infinite;
+    }
+    @keyframes flutterFrontHero {
+      0%, 100% { transform: rotate(0deg); }
+      50%      { transform: rotate(-14deg); }
+    }
+    @keyframes flutterBackHero {
+      0%, 100% { transform: rotate(0deg); }
+      50%      { transform: rotate(12deg); }
+    }
     @media (prefers-reduced-motion: reduce) {
       .wing-front, .wing-back { animation: none; }
     }
