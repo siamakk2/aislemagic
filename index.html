@@ -11,22 +11,76 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     :root {
-      --dark: #3a3430;
-      --cream: #faf8f5;
-      --accent: #e8762f;
-      --accent-light: #f5a75d;
-      --accent-muted: #d96b1f;
-      --sage: #8ba88f;
-      --gray-light: #e8e5e0;
-      --gray-mid: #d4cac0;
+      --bg: #0a0a0a;
+      --bg2: #131313;
+      --card: #1a1a1a;
+      --surf: #202020;
+      --text: #f5f5f5;
+      --text-muted: #a8a8a8;
+      --accent: #ff6b35;
+      --accent-light: #ff8c5a;
+      --border: #2a2a2a;
     }
     
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      color: var(--dark);
-      background: var(--cream);
+      color: var(--text);
+      background: var(--bg);
       line-height: 1.6;
+    }
+    
+    /* MUPPET BIRD SVG COMPONENT */
+    .bird-component {
+      display: inline-block;
+    }
+    
+    /* WALKING BIRD ANIMATION */
+    @keyframes birdWalkNatural {
+      0% {
+        transform: translateX(-150px) translateY(0px) rotateZ(0deg);
+        opacity: 0;
+      }
+      3% {
+        opacity: 1;
+      }
+      6% { transform: translateX(2vw) translateY(-12px) rotateZ(1deg); }
+      12% { transform: translateX(4vw) translateY(0px) rotateZ(-1deg); }
+      18% { transform: translateX(6vw) translateY(-12px) rotateZ(1deg); }
+      24% { transform: translateX(8vw) translateY(0px) rotateZ(-1deg); }
+      30% { transform: translateX(10vw) translateY(-12px) rotateZ(1deg); }
+      36% { transform: translateX(12vw) translateY(0px) rotateZ(-1deg); }
+      42% { transform: translateX(14vw) translateY(-12px) rotateZ(1deg); }
+      48% { transform: translateX(16vw) translateY(0px) rotateZ(-1deg); }
+      54% { transform: translateX(18vw) translateY(-12px) rotateZ(1deg); }
+      60% { transform: translateX(20vw) translateY(0px) rotateZ(-1deg); }
+      66% { transform: translateX(22vw) translateY(-12px) rotateZ(1deg); }
+      72% { transform: translateX(24vw) translateY(0px) rotateZ(-1deg); }
+      78% { transform: translateX(26vw) translateY(-12px) rotateZ(1deg); }
+      84% { transform: translateX(28vw) translateY(0px) rotateZ(-1deg); }
+      90% { transform: translateX(30vw) translateY(-12px) rotateZ(1deg); }
+      96% { transform: translateX(32vw) translateY(0px) rotateZ(-1deg); }
+      100% {
+        transform: translateX(calc(100vw + 150px)) translateY(0px) rotateZ(0deg);
+        opacity: 0;
+      }
+    }
+    
+    .walking-bird {
+      position: fixed;
+      top: 12%;
+      left: 0;
+      width: 140px;
+      height: 140px;
+      animation: birdWalkNatural 18s infinite ease-in-out;
+      z-index: 10;
+      pointer-events: none;
+      filter: drop-shadow(0 6px 16px rgba(255, 107, 53, 0.4));
+    }
+    
+    @keyframes birdBob {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-16px); }
     }
     
     /* NAVIGATION */
@@ -35,40 +89,33 @@
       justify-content: space-between;
       align-items: center;
       padding: 24px 40px;
-      background: white;
-      border-bottom: 1px solid var(--gray-light);
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
     
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       text-decoration: none;
-      color: var(--dark);
+      color: var(--text);
     }
     
     .nav-logo-bird {
-      width: 52px;
-      height: 52px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      font-weight: 800;
-      box-shadow: 0 4px 12px rgba(232, 118, 47, 0.2);
+      width: 70px;
+      height: 70px;
     }
     
     .nav-logo-text {
       font-family: 'Playfair Display', serif;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 800;
       letter-spacing: -0.5px;
+      color: var(--accent);
     }
     
     .nav-links {
@@ -79,7 +126,7 @@
     
     .nav-links a {
       text-decoration: none;
-      color: var(--dark);
+      color: var(--text);
       font-size: 14px;
       font-weight: 600;
       transition: color 0.2s;
@@ -101,19 +148,19 @@
     }
     
     .nav-cta:hover {
-      background: var(--accent-muted);
+      background: var(--accent-light);
       transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(232, 118, 47, 0.25);
+      box-shadow: 0 8px 16px rgba(255, 107, 53, 0.3);
     }
     
     /* HERO */
     .hero {
       padding: 80px 40px;
-      background: linear-gradient(135deg, var(--cream) 0%, #fcfbf9 100%);
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
       align-items: center;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 100%);
     }
     
     .hero-content h1 {
@@ -126,7 +173,7 @@
     }
     
     .hero-content h1 .lost {
-      color: var(--dark);
+      color: var(--text);
       display: block;
       font-weight: 700;
     }
@@ -138,7 +185,7 @@
     
     .hero-subtitle {
       font-size: 18px;
-      color: #666;
+      color: var(--text-muted);
       margin-bottom: 32px;
       line-height: 1.8;
       max-width: 500px;
@@ -164,9 +211,9 @@
     }
     
     .btn-primary:hover {
-      background: var(--accent-muted);
+      background: var(--accent-light);
       transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(232, 118, 47, 0.3);
+      box-shadow: 0 12px 24px rgba(255, 107, 53, 0.4);
     }
     
     .btn-secondary {
@@ -195,73 +242,11 @@
       justify-content: center;
     }
     
-    .bird-hero {
-      font-size: 280px;
-      line-height: 1;
-      animation: float 3s ease-in-out infinite;
-      filter: drop-shadow(0 20px 40px rgba(232, 118, 47, 0.15));
-    }
-    
-    @keyframes birdWalk {
-      0% {
-        transform: translateX(-200px) translateY(0px);
-        opacity: 0;
-      }
-      5% {
-        opacity: 1;
-      }
-      10% { transform: translateX(calc(5vw)) translateY(-8px); }
-      15% { transform: translateX(calc(10vw)) translateY(0px); }
-      20% { transform: translateX(calc(15vw)) translateY(-8px); }
-      25% { transform: translateX(calc(20vw)) translateY(0px); }
-      30% { transform: translateX(calc(25vw)) translateY(-8px); }
-      35% { transform: translateX(calc(30vw)) translateY(0px); }
-      40% { transform: translateX(calc(35vw)) translateY(-8px); }
-      45% { transform: translateX(calc(40vw)) translateY(0px); }
-      50% { transform: translateX(calc(45vw)) translateY(-8px); }
-      55% { transform: translateX(calc(50vw)) translateY(0px); }
-      60% { transform: translateX(calc(55vw)) translateY(-8px); }
-      65% { transform: translateX(calc(60vw)) translateY(0px); }
-      70% { transform: translateX(calc(65vw)) translateY(-8px); }
-      75% { transform: translateX(calc(70vw)) translateY(0px); }
-      80% { transform: translateX(calc(75vw)) translateY(-8px); }
-      85% { transform: translateX(calc(80vw)) translateY(0px); }
-      90% { transform: translateX(calc(85vw)) translateY(-8px); }
-      95% { transform: translateX(calc(100vw + 100px)) translateY(0px); }
-      100% {
-        transform: translateX(calc(100vw + 200px)) translateY(0px);
-        opacity: 0;
-      }
-    }
-    
-    .flying-bird {
-      position: fixed;
-      top: 15%;
-      left: 0;
-      width: 100px;
-      height: 100px;
-      animation: birdWalk 16s infinite ease-in-out;
-      z-index: 10;
-      pointer-events: none;
-      filter: drop-shadow(0 4px 8px rgba(232, 118, 47, 0.3));
-    }
-    
-    .hero-visual {
-      position: relative;
-      height: 500px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .bird-svg {
-      width: 280px;
-      height: 280px;
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
+    .hero-bird {
+      width: 320px;
+      height: 320px;
+      animation: birdBob 3s ease-in-out infinite;
+      filter: drop-shadow(0 20px 40px rgba(255, 107, 53, 0.25));
     }
     
     /* SECTION */
@@ -290,16 +275,16 @@
     
     .problem-card {
       padding: 40px;
-      background: white;
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 16px;
-      border: 1px solid var(--gray-light);
       transition: all 0.3s;
-      position: relative;
     }
     
     .problem-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+      border-color: var(--accent);
+      box-shadow: 0 16px 40px rgba(255, 107, 53, 0.15);
     }
     
     .problem-card-icon {
@@ -311,18 +296,18 @@
       font-size: 20px;
       font-weight: 700;
       margin-bottom: 12px;
-      color: var(--dark);
+      color: var(--text);
     }
     
     .problem-card p {
       font-size: 15px;
-      color: #777;
+      color: var(--text-muted);
       line-height: 1.8;
     }
     
     /* FEATURES SECTION */
     .features {
-      background: white;
+      background: var(--bg2);
       padding: 100px 40px;
     }
     
@@ -334,7 +319,7 @@
     
     .features-intro p {
       font-size: 18px;
-      color: #666;
+      color: var(--text-muted);
       line-height: 1.8;
       margin-bottom: 24px;
     }
@@ -355,7 +340,8 @@
       width: 80px;
       height: 80px;
       margin: 0 auto 24px;
-      background: linear-gradient(135deg, #fef3e9 0%, #fde9d6 100%);
+      background: rgba(255, 107, 53, 0.15);
+      border: 1px solid rgba(255, 107, 53, 0.3);
       border-radius: 16px;
       display: flex;
       align-items: center;
@@ -367,28 +353,29 @@
       font-size: 18px;
       font-weight: 700;
       margin-bottom: 12px;
-      color: var(--dark);
+      color: var(--text);
     }
     
     .feature p {
       font-size: 14px;
-      color: #777;
+      color: var(--text-muted);
       line-height: 1.8;
     }
     
     /* STORY SECTION */
     .story {
       padding: 100px 40px;
-      background: linear-gradient(135deg, #f9f5f0 0%, var(--cream) 100%);
+      background: var(--bg);
     }
     
     .story-content {
       max-width: 800px;
       margin: 0 auto;
-      background: white;
+      background: var(--card);
       padding: 60px;
       border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     }
     
     .story-content h2 {
@@ -396,14 +383,14 @@
       font-size: 32px;
       font-weight: 800;
       margin-bottom: 24px;
-      color: var(--dark);
+      color: var(--text);
       letter-spacing: -0.5px;
     }
     
     .story-content p {
       font-size: 16px;
       line-height: 1.9;
-      color: #666;
+      color: var(--text-muted);
       margin-bottom: 20px;
     }
     
@@ -415,7 +402,7 @@
     /* PRICING */
     .pricing {
       padding: 100px 40px;
-      background: white;
+      background: var(--bg2);
     }
     
     .pricing-grid {
@@ -428,23 +415,23 @@
     
     .pricing-card {
       padding: 48px;
-      background: linear-gradient(135deg, var(--cream) 0%, #fcfbf9 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 20px;
-      border: 2px solid var(--gray-light);
       text-align: center;
       transition: all 0.3s;
     }
     
     .pricing-card:hover {
       border-color: var(--accent);
-      box-shadow: 0 20px 50px rgba(232, 118, 47, 0.1);
+      box-shadow: 0 20px 50px rgba(255, 107, 53, 0.2);
     }
     
     .pricing-card h3 {
       font-size: 22px;
       font-weight: 700;
       margin-bottom: 16px;
-      color: var(--dark);
+      color: var(--text);
     }
     
     .price {
@@ -457,7 +444,7 @@
     
     .price-period {
       font-size: 14px;
-      color: #999;
+      color: var(--text-muted);
       margin-bottom: 32px;
     }
     
@@ -465,18 +452,18 @@
       text-align: left;
       margin-bottom: 40px;
       font-size: 14px;
-      color: #777;
+      color: var(--text-muted);
     }
     
     .pricing-list li {
       list-style: none;
       padding: 10px 0;
-      border-bottom: 1px solid var(--gray-light);
+      border-bottom: 1px solid var(--border);
     }
     
     .pricing-list li:before {
       content: "✓ ";
-      color: var(--sage);
+      color: var(--accent);
       font-weight: 800;
       margin-right: 10px;
     }
@@ -526,10 +513,11 @@
     /* FOOTER */
     .footer {
       padding: 60px 40px;
-      background: var(--dark);
-      color: white;
+      background: var(--bg);
+      color: var(--text-muted);
       text-align: center;
       font-size: 14px;
+      border-top: 1px solid var(--border);
     }
     
     .footer-links {
@@ -540,16 +528,15 @@
     }
     
     .footer-links a {
-      color: white;
+      color: var(--text-muted);
       text-decoration: none;
-      opacity: 0.7;
-      transition: opacity 0.2s;
+      transition: color 0.2s;
     }
     
-    .footer-links a:hover { opacity: 1; }
+    .footer-links a:hover { color: var(--accent); }
     
     .footer-credit {
-      opacity: 0.6;
+      opacity: 0.7;
       font-size: 13px;
     }
     
@@ -557,7 +544,7 @@
     @media (max-width: 1024px) {
       .hero { grid-template-columns: 1fr; gap: 40px; }
       .hero-visual { height: 350px; }
-      .bird-hero { font-size: 200px; }
+      .hero-bird { width: 200px; height: 200px; }
       .problem-grid { grid-template-columns: 1fr; }
       .features-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
@@ -571,95 +558,109 @@
 <body>
   
   <!-- BIRD WALKING ACROSS SCREEN -->
-  <div class="flying-bird">
-    <svg width="100" height="100" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+  <div class="walking-bird">
+    <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
       <!-- Back wing feathers -->
-      <path d="M 80 130 Q 60 100 50 140 Q 55 160 80 165 Z" fill="#e8762f" opacity="0.7"/>
-      <path d="M 70 125 Q 55 95 40 130 Q 48 155 75 160 Z" fill="#f5a75d" opacity="0.8"/>
+      <path d="M 70 140 Q 45 110 35 155 Q 48 175 85 170 Z" fill="#ff6b35" opacity="0.8"/>
+      <path d="M 60 135 Q 40 100 25 145 Q 42 170 75 165 Z" fill="#ff8c5a" opacity="0.9"/>
       
-      <!-- Body -->
-      <ellipse cx="140" cy="140" rx="45" ry="55" fill="#e8762f"/>
+      <!-- Body (rounder, more muppet-like) -->
+      <ellipse cx="140" cy="145" rx="55" ry="65" fill="#ff6b35"/>
       
-      <!-- Head -->
-      <circle cx="140" cy="90" r="32" fill="#e8762f"/>
+      <!-- Belly -->
+      <ellipse cx="140" cy="160" rx="40" ry="50" fill="#ffb59d" opacity="0.7"/>
       
-      <!-- Eye -->
-      <circle cx="152" cy="85" r="6" fill="#fff"/>
-      <circle cx="154" cy="85" r="3" fill="#000"/>
+      <!-- Head (bigger, rounder) -->
+      <circle cx="140" cy="75" r="42" fill="#ff6b35"/>
       
-      <!-- Beak -->
-      <path d="M 165 88 L 185 85 L 165 92 Z" fill="#d96b1f"/>
+      <!-- Big expressive eyes -->
+      <circle cx="150" cy="65" r="10" fill="#fff"/>
+      <circle cx="150" cy="65" r="6" fill="#000"/>
+      <circle cx="127" cy="65" r="10" fill="#fff"/>
+      <circle cx="127" cy="65" r="6" fill="#000"/>
+      
+      <!-- Eye sparkles (muppet style) -->
+      <circle cx="152" cy="62" r="3" fill="#fff"/>
+      <circle cx="129" cy="62" r="3" fill="#fff"/>
+      
+      <!-- Beak (rounder, friendlier) -->
+      <path d="M 165 75 Q 185 73 188 78 Q 185 82 165 80 Z" fill="#ff4500"/>
       
       <!-- Chest highlight -->
-      <ellipse cx="140" cy="155" rx="20" ry="28" fill="#f5a75d" opacity="0.6"/>
+      <ellipse cx="140" cy="150" rx="28" ry="40" fill="#ffb59d" opacity="0.5"/>
       
       <!-- Front wing feathers (top) -->
-      <path d="M 180 110 Q 220 90 240 110 Q 225 130 185 135 Z" fill="#f5a75d"/>
-      <path d="M 185 120 Q 225 110 250 125 Q 230 145 190 140 Z" fill="#e8762f" opacity="0.8"/>
-      <path d="M 190 130 Q 230 125 255 140 Q 235 155 195 150 Z" fill="#d96b1f" opacity="0.7"/>
+      <path d="M 185 100 Q 230 75 250 95 Q 230 125 190 130 Z" fill="#ff8c5a"/>
+      <path d="M 190 115 Q 235 100 260 120 Q 240 145 195 140 Z" fill="#ff6b35" opacity="0.9"/>
+      <path d="M 195 130 Q 240 120 265 145 Q 245 160 200 155 Z" fill="#ff4500" opacity="0.8"/>
       
-      <!-- Front wing feathers (bottom) -->
-      <path d="M 180 150 Q 220 160 245 155 Q 225 170 185 165 Z" fill="#f5a75d" opacity="0.6"/>
+      <!-- Tail feathers (bigger, fluffier) -->
+      <path d="M 95 160 Q 55 145 40 185 Q 65 205 105 185 Z" fill="#ff4500" opacity="0.9"/>
+      <path d="M 92 180 Q 55 170 35 220 Q 65 230 100 200 Z" fill="#ff6b35" opacity="0.8"/>
+      <path d="M 95 200 Q 60 205 40 255 Q 70 260 105 220 Z" fill="#ff8c5a" opacity="0.7"/>
       
-      <!-- Tail feathers -->
-      <path d="M 100 160 Q 70 150 60 180 Q 75 195 105 180 Z" fill="#d96b1f" opacity="0.8"/>
-      <path d="M 98 175 Q 65 170 50 205 Q 70 210 100 190 Z" fill="#e8762f" opacity="0.7"/>
-      <path d="M 100 185 Q 70 190 55 225 Q 75 225 105 200 Z" fill="#f5a75d" opacity="0.6"/>
+      <!-- Feet (bigger, visible) -->
+      <ellipse cx="130" cy="210" rx="8" ry="12" fill="#ff4500"/>
+      <ellipse cx="150" cy="210" rx="8" ry="12" fill="#ff4500"/>
       
-      <!-- Legs -->
-      <line x1="135" y1="190" x2="135" y2="210" stroke="#d96b1f" stroke-width="3"/>
-      <line x1="145" y1="190" x2="145" y2="210" stroke="#d96b1f" stroke-width="3"/>
-      
-      <!-- Feet -->
-      <path d="M 130 210 L 125 218 M 135 210 L 140 218 M 140 210 L 145 218" stroke="#d96b1f" stroke-width="2" stroke-linecap="round"/>
-      <path d="M 140 210 L 145 218 M 145 210 L 150 218 M 150 210 L 155 218" stroke="#d96b1f" stroke-width="2" stroke-linecap="round"/>
+      <!-- Toes -->
+      <g stroke="#ff4500" stroke-width="2.5" stroke-linecap="round">
+        <line x1="125" y1="220" x2="120" y2="232"/>
+        <line x1="130" y1="220" x2="130" y2="232"/>
+        <line x1="135" y1="220" x2="140" y2="232"/>
+        <line x1="145" y1="220" x2="140" y2="232"/>
+        <line x1="150" y1="220" x2="150" y2="232"/>
+        <line x1="155" y1="220" x2="160" y2="232"/>
+      </g>
     </svg>
   </div>
   
   <!-- NAVIGATION -->
   <nav class="nav">
     <a href="#" class="nav-logo">
-      <svg width="52" height="52" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 4px rgba(232, 118, 47, 0.2));">
+      <svg class="nav-logo-bird" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
         <!-- Back wing feathers -->
-        <path d="M 80 130 Q 60 100 50 140 Q 55 160 80 165 Z" fill="#e8762f" opacity="0.7"/>
-        <path d="M 70 125 Q 55 95 40 130 Q 48 155 75 160 Z" fill="#f5a75d" opacity="0.8"/>
+        <path d="M 70 140 Q 45 110 35 155 Q 48 175 85 170 Z" fill="#ff6b35" opacity="0.8"/>
+        <path d="M 60 135 Q 40 100 25 145 Q 42 170 75 165 Z" fill="#ff8c5a" opacity="0.9"/>
         
         <!-- Body -->
-        <ellipse cx="140" cy="140" rx="45" ry="55" fill="#e8762f"/>
+        <ellipse cx="140" cy="145" rx="55" ry="65" fill="#ff6b35"/>
+        
+        <!-- Belly -->
+        <ellipse cx="140" cy="160" rx="40" ry="50" fill="#ffb59d" opacity="0.7"/>
         
         <!-- Head -->
-        <circle cx="140" cy="90" r="32" fill="#e8762f"/>
+        <circle cx="140" cy="75" r="42" fill="#ff6b35"/>
         
-        <!-- Eye -->
-        <circle cx="152" cy="85" r="6" fill="#fff"/>
-        <circle cx="154" cy="85" r="3" fill="#000"/>
+        <!-- Eyes -->
+        <circle cx="150" cy="65" r="10" fill="#fff"/>
+        <circle cx="150" cy="65" r="6" fill="#000"/>
+        <circle cx="127" cy="65" r="10" fill="#fff"/>
+        <circle cx="127" cy="65" r="6" fill="#000"/>
+        
+        <!-- Eye sparkles -->
+        <circle cx="152" cy="62" r="3" fill="#fff"/>
+        <circle cx="129" cy="62" r="3" fill="#fff"/>
         
         <!-- Beak -->
-        <path d="M 165 88 L 185 85 L 165 92 Z" fill="#d96b1f"/>
+        <path d="M 165 75 Q 185 73 188 78 Q 185 82 165 80 Z" fill="#ff4500"/>
         
         <!-- Chest highlight -->
-        <ellipse cx="140" cy="155" rx="20" ry="28" fill="#f5a75d" opacity="0.6"/>
+        <ellipse cx="140" cy="150" rx="28" ry="40" fill="#ffb59d" opacity="0.5"/>
         
         <!-- Front wing feathers (top) -->
-        <path d="M 180 110 Q 220 90 240 110 Q 225 130 185 135 Z" fill="#f5a75d"/>
-        <path d="M 185 120 Q 225 110 250 125 Q 230 145 190 140 Z" fill="#e8762f" opacity="0.8"/>
-        <path d="M 190 130 Q 230 125 255 140 Q 235 155 195 150 Z" fill="#d96b1f" opacity="0.7"/>
-        
-        <!-- Front wing feathers (bottom) -->
-        <path d="M 180 150 Q 220 160 245 155 Q 225 170 185 165 Z" fill="#f5a75d" opacity="0.6"/>
+        <path d="M 185 100 Q 230 75 250 95 Q 230 125 190 130 Z" fill="#ff8c5a"/>
+        <path d="M 190 115 Q 235 100 260 120 Q 240 145 195 140 Z" fill="#ff6b35" opacity="0.9"/>
+        <path d="M 195 130 Q 240 120 265 145 Q 245 160 200 155 Z" fill="#ff4500" opacity="0.8"/>
         
         <!-- Tail feathers -->
-        <path d="M 100 160 Q 70 150 60 180 Q 75 195 105 180 Z" fill="#d96b1f" opacity="0.8"/>
-        <path d="M 98 175 Q 65 170 50 205 Q 70 210 100 190 Z" fill="#e8762f" opacity="0.7"/>
-        <path d="M 100 185 Q 70 190 55 225 Q 75 225 105 200 Z" fill="#f5a75d" opacity="0.6"/>
-        
-        <!-- Legs -->
-        <line x1="135" y1="190" x2="135" y2="210" stroke="#d96b1f" stroke-width="3"/>
-        <line x1="145" y1="190" x2="145" y2="210" stroke="#d96b1f" stroke-width="3"/>
+        <path d="M 95 160 Q 55 145 40 185 Q 65 205 105 185 Z" fill="#ff4500" opacity="0.9"/>
+        <path d="M 92 180 Q 55 170 35 220 Q 65 230 100 200 Z" fill="#ff6b35" opacity="0.8"/>
+        <path d="M 95 200 Q 60 205 40 255 Q 70 260 105 220 Z" fill="#ff8c5a" opacity="0.7"/>
         
         <!-- Feet -->
-        <path d="M 130 210 L 125 218 M 135 210 L 140 218 M 140 210 L 145 218" stroke="#d96b1f" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 140 210 L 145 218 M 145 210 L 150 218 M 150 210 L 155 218" stroke="#d96b1f" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="130" cy="210" rx="8" ry="12" fill="#ff4500"/>
+        <ellipse cx="150" cy="210" rx="8" ry="12" fill="#ff4500"/>
       </svg>
       <div class="nav-logo-text">AisleBird</div>
     </a>
@@ -688,47 +689,59 @@
       </div>
     </div>
     <div class="hero-visual">
-      <svg class="bird-svg" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" style="animation: float 3s ease-in-out infinite; filter: drop-shadow(0 20px 40px rgba(232, 118, 47, 0.15));">
+      <svg class="hero-bird" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
         <!-- Back wing feathers -->
-        <path d="M 80 130 Q 60 100 50 140 Q 55 160 80 165 Z" fill="#e8762f" opacity="0.7"/>
-        <path d="M 70 125 Q 55 95 40 130 Q 48 155 75 160 Z" fill="#f5a75d" opacity="0.8"/>
+        <path d="M 70 140 Q 45 110 35 155 Q 48 175 85 170 Z" fill="#ff6b35" opacity="0.8"/>
+        <path d="M 60 135 Q 40 100 25 145 Q 42 170 75 165 Z" fill="#ff8c5a" opacity="0.9"/>
         
         <!-- Body -->
-        <ellipse cx="140" cy="140" rx="45" ry="55" fill="#e8762f"/>
+        <ellipse cx="140" cy="145" rx="55" ry="65" fill="#ff6b35"/>
+        
+        <!-- Belly -->
+        <ellipse cx="140" cy="160" rx="40" ry="50" fill="#ffb59d" opacity="0.7"/>
         
         <!-- Head -->
-        <circle cx="140" cy="90" r="32" fill="#e8762f"/>
+        <circle cx="140" cy="75" r="42" fill="#ff6b35"/>
         
-        <!-- Eye -->
-        <circle cx="152" cy="85" r="6" fill="#fff"/>
-        <circle cx="154" cy="85" r="3" fill="#000"/>
+        <!-- Eyes -->
+        <circle cx="150" cy="65" r="10" fill="#fff"/>
+        <circle cx="150" cy="65" r="6" fill="#000"/>
+        <circle cx="127" cy="65" r="10" fill="#fff"/>
+        <circle cx="127" cy="65" r="6" fill="#000"/>
+        
+        <!-- Eye sparkles -->
+        <circle cx="152" cy="62" r="3" fill="#fff"/>
+        <circle cx="129" cy="62" r="3" fill="#fff"/>
         
         <!-- Beak -->
-        <path d="M 165 88 L 185 85 L 165 92 Z" fill="#d96b1f"/>
+        <path d="M 165 75 Q 185 73 188 78 Q 185 82 165 80 Z" fill="#ff4500"/>
         
         <!-- Chest highlight -->
-        <ellipse cx="140" cy="155" rx="20" ry="28" fill="#f5a75d" opacity="0.6"/>
+        <ellipse cx="140" cy="150" rx="28" ry="40" fill="#ffb59d" opacity="0.5"/>
         
         <!-- Front wing feathers (top) -->
-        <path d="M 180 110 Q 220 90 240 110 Q 225 130 185 135 Z" fill="#f5a75d"/>
-        <path d="M 185 120 Q 225 110 250 125 Q 230 145 190 140 Z" fill="#e8762f" opacity="0.8"/>
-        <path d="M 190 130 Q 230 125 255 140 Q 235 155 195 150 Z" fill="#d96b1f" opacity="0.7"/>
-        
-        <!-- Front wing feathers (bottom) -->
-        <path d="M 180 150 Q 220 160 245 155 Q 225 170 185 165 Z" fill="#f5a75d" opacity="0.6"/>
+        <path d="M 185 100 Q 230 75 250 95 Q 230 125 190 130 Z" fill="#ff8c5a"/>
+        <path d="M 190 115 Q 235 100 260 120 Q 240 145 195 140 Z" fill="#ff6b35" opacity="0.9"/>
+        <path d="M 195 130 Q 240 120 265 145 Q 245 160 200 155 Z" fill="#ff4500" opacity="0.8"/>
         
         <!-- Tail feathers -->
-        <path d="M 100 160 Q 70 150 60 180 Q 75 195 105 180 Z" fill="#d96b1f" opacity="0.8"/>
-        <path d="M 98 175 Q 65 170 50 205 Q 70 210 100 190 Z" fill="#e8762f" opacity="0.7"/>
-        <path d="M 100 185 Q 70 190 55 225 Q 75 225 105 200 Z" fill="#f5a75d" opacity="0.6"/>
-        
-        <!-- Legs -->
-        <line x1="135" y1="190" x2="135" y2="210" stroke="#d96b1f" stroke-width="3"/>
-        <line x1="145" y1="190" x2="145" y2="210" stroke="#d96b1f" stroke-width="3"/>
+        <path d="M 95 160 Q 55 145 40 185 Q 65 205 105 185 Z" fill="#ff4500" opacity="0.9"/>
+        <path d="M 92 180 Q 55 170 35 220 Q 65 230 100 200 Z" fill="#ff6b35" opacity="0.8"/>
+        <path d="M 95 200 Q 60 205 40 255 Q 70 260 105 220 Z" fill="#ff8c5a" opacity="0.7"/>
         
         <!-- Feet -->
-        <path d="M 130 210 L 125 218 M 135 210 L 140 218 M 140 210 L 145 218" stroke="#d96b1f" stroke-width="2" stroke-linecap="round"/>
-        <path d="M 140 210 L 145 218 M 145 210 L 150 218 M 150 210 L 155 218" stroke="#d96b1f" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="130" cy="210" rx="8" ry="12" fill="#ff4500"/>
+        <ellipse cx="150" cy="210" rx="8" ry="12" fill="#ff4500"/>
+        
+        <!-- Toes -->
+        <g stroke="#ff4500" stroke-width="2.5" stroke-linecap="round">
+          <line x1="125" y1="220" x2="120" y2="232"/>
+          <line x1="130" y1="220" x2="130" y2="232"/>
+          <line x1="135" y1="220" x2="140" y2="232"/>
+          <line x1="145" y1="220" x2="140" y2="232"/>
+          <line x1="150" y1="220" x2="150" y2="232"/>
+          <line x1="155" y1="220" x2="160" y2="232"/>
+        </g>
       </svg>
     </div>
   </section>
