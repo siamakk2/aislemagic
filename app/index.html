@@ -270,7 +270,24 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 
 <!-- NAV -->
 <div class="nav">
-  <div class="logo">AisleMagic</div>
+  <div class="logo">
+    <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; margin-right: 8px; display: inline-block; vertical-align: middle;">
+      <!-- Body -->
+      <ellipse cx="140" cy="145" rx="55" ry="65" fill="#ff6b35"/>
+      <!-- Head -->
+      <circle cx="140" cy="75" r="42" fill="#ff6b35"/>
+      <!-- Eyes -->
+      <circle cx="120" cy="70" r="10" fill="#fff"/>
+      <circle cx="120" cy="70" r="6" fill="#000"/>
+      <circle cx="160" cy="70" r="10" fill="#fff"/>
+      <circle cx="160" cy="70" r="6" fill="#000"/>
+      <!-- Beak -->
+      <ellipse cx="140" cy="85" rx="14" ry="11" fill="#ff4500"/>
+      <!-- Belly -->
+      <ellipse cx="140" cy="160" rx="40" ry="50" fill="#ffb59d" opacity="0.7"/>
+    </svg>
+    AisleBird
+  </div>
   <button class="store-btn" id="store-btn" type="button">
     <span id="store-icon">🌿</span>
     <span class="store-name" id="store-name">Whole Foods · Napa</span>
@@ -417,7 +434,75 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 <div class="toast" id="toast"></div>
 </div>
 
+
+<!-- APP FOOTER -->
+<div class="app-footer">
+  <a href="/support.html" target="_blank">Support</a>
+  <span>•</span>
+  <a href="/privacy.html" target="_blank">Privacy</a>
+  <span>•</span>
+  <a href="/terms.html" target="_blank">Terms</a>
+  <span>•</span>
+  <span style="display:none;">© 2026 Siamak Kalhor Consulting LLC</span>
+</div>
+
 <script>
+/* ITEM CATEGORIZATION SYSTEM */
+const ITEM_CATEGORIES={milk:'dairy',cheese:'dairy',butter:'dairy',yogurt:'dairy',cream:'dairy',chicken:'meat',beef:'meat',pork:'meat',turkey:'meat',salmon:'meat',fish:'meat',apple:'produce',banana:'produce',orange:'produce',carrot:'produce',broccoli:'produce',spinach:'produce',lettuce:'produce',tomato:'produce',potato:'produce',onion:'produce',rice:'pantry',pasta:'pantry',flour:'pantry',oil:'pantry','olive oil':'pantry',salt:'pantry',sugar:'pantry',beans:'pantry',bread:'bakery',cake:'bakery','ice cream':'frozen',juice:'beverages',coffee:'beverages',tea:'beverages',water:'beverages'};function categorizeItem(n){var t=n.toLowerCase().trim();if(ITEM_CATEGORIES[t])return ITEM_CATEGORIES[t];for(var e in ITEM_CATEGORIES)if(t.includes(e))return ITEM_CATEGORIES[e];return'general'}
+// ═══════════════════════════════════════
+// ITEM CATEGORIZATION SYSTEM
+// ═══════════════════════════════════════
+const ITEM_CATEGORIES = {
+  // Dairy
+  'milk': 'dairy', 'cheese': 'dairy', 'butter': 'dairy', 'yogurt': 'dairy', 
+  'cream': 'dairy', 'sour cream': 'dairy', 'whipped cream': 'dairy',
+  // Meat & Fish
+  'chicken': 'meat', 'beef': 'meat', 'pork': 'meat', 'turkey': 'meat',
+  'salmon': 'meat', 'fish': 'meat', 'tuna': 'meat', 'shrimp': 'meat',
+  // Produce
+  'apple': 'produce', 'banana': 'produce', 'orange': 'produce', 'carrot': 'produce',
+  'broccoli': 'produce', 'spinach': 'produce', 'lettuce': 'produce', 'tomato': 'produce',
+  'potato': 'produce', 'onion': 'produce', 'garlic': 'produce', 'pepper': 'produce',
+  'grapes': 'produce', 'berries': 'produce', 'cucumber': 'produce',
+  // Pantry/Bulk
+  'rice': 'pantry', 'pasta': 'pantry', 'flour': 'pantry', 'oil': 'pantry',
+  'olive oil': 'pantry', 'spice': 'pantry', 'salt': 'pantry', 'sugar': 'pantry',
+  'beans': 'pantry', 'lentils': 'pantry', 'nuts': 'pantry', 'cereal': 'pantry',
+  // Frozen
+  'ice cream': 'frozen', 'frozen vegetables': 'frozen', 'frozen meal': 'frozen',
+  // Beverages
+  'juice': 'beverages', 'coffee': 'beverages', 'tea': 'beverages', 'soda': 'beverages',
+  'water': 'beverages', 'wine': 'beverages', 'beer': 'beverages', 'milk': 'beverages',
+  // Bakery
+  'bread': 'bakery', 'cake': 'bakery', 'pastry': 'bakery', 'donut': 'bakery',
+};
+
+const CATEGORY_DISPLAY = {
+  dairy: '🥛 Dairy',
+  meat: '🥩 Meat & Fish',
+  produce: '🥬 Produce',
+  pantry: '🥫 Pantry',
+  frozen: '🧊 Frozen',
+  beverages: '🥤 Beverages',
+  bakery: '🍞 Bakery',
+  general: '🛒 General'
+};
+
+function categorizeItem(itemName) {
+  const lower = itemName.toLowerCase().trim();
+  if (ITEM_CATEGORIES[lower]) return ITEM_CATEGORIES[lower];
+  
+  for (const [key, cat] of Object.entries(ITEM_CATEGORIES)) {
+    if (lower.includes(key)) return cat;
+  }
+  return 'general';
+}
+
+function parseCommaInput(input) {
+  return input.split(',').map(item => item.trim()).filter(item => item.length > 0);
+}
+
+
 /* ═══════════════════════════════════════
    CHAIN CONFIGS — categories & quick add
 ═══════════════════════════════════════ */
@@ -1299,9 +1384,18 @@ function buildCatGrid(){
 }
 function submitAdd(){
   var inp=document.getElementById('add-inp'), v=inp.value.trim(); if(!v) return;
-  items.push({id:nid++,name:cap(v),cat:selCat,qty:1,checked:false,tag:null,tc:''});
+  
+  // Parse comma-separated items
+  var itemsToAdd = v.split(',').map(function(s) { return s.trim(); }).filter(function(s) { return s.length > 0; });
+  
+  // Add each item
+  itemsToAdd.forEach(function(itemName) {
+    var category = categorizeItem(itemName);
+    items.push({id:nid++,name:cap(itemName),cat:category,qty:1,checked:false,tag:null,tc:''});
+  });
+  
   inp.value=''; closeOv('ov-add'); renderList(); renderQuickAdd();
-  showToast('✓ Item added!');
+  showToast('✓ ' + itemsToAdd.length + ' item(s) added!');
 }
 
 /* ═══════════════════════════════════════
@@ -1475,7 +1569,7 @@ function renderSettings(){
     {label:'Voice Language',   val:'English (US)'},
     {label:'Haptic Feedback',  tog:true,on:true},
     {label:'Dark Mode',        tog:true,on:true},
-    {label:'Version',          val:'AisleMagic 2.0'}
+    {label:'Version',          val:'AisleBird 1.0'}
   ].forEach(function(r){
     var d=document.createElement('div'); d.className='srow';
     if(r.tog){
@@ -1491,8 +1585,41 @@ function renderSettings(){
 }
 
 /* ═══════════════════════════════════════
-   WIRE UP ALL EVENTS
+   FOOTER LINKS
 ═══════════════════════════════════════ */
+.app-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-top: 1px solid var(--hi);
+  font-size: 0.85rem;
+  background: var(--bg2);
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.app-footer a {
+  color: var(--or);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
+}
+
+.app-footer span {
+  color: var(--mut);
+}
+
+@media (max-width: 599px) {
+  .app-footer {
+    gap: 1rem;
+    font-size: 0.8rem;
+    padding: 1rem;
+  }
+}
 document.getElementById('mic-btn').addEventListener('click', goVoice);
 document.getElementById('store-btn').addEventListener('click', openStorePicker);
 document.getElementById('reset-btn').addEventListener('click', function(){ aisleIdx=0; renderChips(); renderList(); showToast('Sort reset'); });
