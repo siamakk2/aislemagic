@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The story behind AisleBird - how voice AI solves the retail shopping problem">
+  <title>Our Story — AisleBird</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #131313;
+      --card: #1a1a1a;
+      --surf: #202020;
+      --text: #f5f5f5;
+      --text-muted: #a8a8a8;
+      --accent: #ff6b35;
+      --border: #2a2a2a;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    nav a { color: var(--accent); text-decoration: none; }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    
+    h2 {
+      font-size: 2rem;
+      font-family: 'Playfair Display', serif;
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.5rem;
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    .founders {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .founder-card {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    
+    .founder-card h3 {
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    
+    .founder-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    
+    .pain-points {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+      margin: 2rem 0;
+    }
+    
+    .pain-points ul {
+      list-style: none;
+      margin-left: 0;
+    }
+    
+    .pain-points li {
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+    }
+    
+    .pain-points li:before {
+      content: "✗";
+      position: absolute;
+      left: 0;
+      color: #ff4500;
+      font-weight: bold;
+    }
+    
+    .solution {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 12px;
+      border-left: 4px solid #00d97e;
+      margin: 2rem 0;
+    }
+    
+    .solution ul {
+      list-style: none;
+      margin-left: 0;
+    }
+    
+    .solution li {
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+    }
+    
+    .solution li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #00d97e;
+      font-weight: bold;
+    }
+    
+    .vision {
+      background: linear-gradient(135deg, var(--card) 0%, var(--surf) 100%);
+      padding: 3rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin: 2rem 0;
+      text-align: center;
+    }
+    
+    .vision h3 {
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .tech-stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .tech-item {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    
+    .tech-item h4 {
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .tech-item p {
+      font-size: 0.85rem;
+      margin: 0;
+    }
+    
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.5rem; }
+      .founders { grid-template-columns: 1fr; }
+      .container { padding: 1.5rem; }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <nav>
+    <a href="/">← Back to AisleBird</a>
+  </nav>
+  
+  <div class="container">
+    <h1>🐦 The Story Behind AisleBird</h1>
+    
+    <h2>The Problem</h2>
+    <p>
+      Every day, millions of people walk into grocery stores, hardware stores, pharmacies, and retail locations 
+      <span class="highlight">confused about where to find what they need</span>. They wander aisles, ask employees multiple times, 
+      backtrack, waste time, and leave frustrated. We call them <span class="highlight">"aisle birds"</span> — 
+      people flying aimlessly through stores without direction.
+    </p>
+    
+    <div class="pain-points">
+      <h3 style="margin-top: 0; color: var(--accent);">The Shopping Struggle</h3>
+      <ul>
+        <li><strong>Lost in unfamiliar stores:</strong> New location? No idea where dairy, frozen foods, or tools are.</li>
+        <li><strong>Time wasted:</strong> Average shopper spends 20-30% of time wandering instead of buying.</li>
+        <li><strong>Cognitive overload:</strong> Remembering which aisle has what across different store layouts is impossible.</li>
+        <li><strong>Accessibility gap:</strong> Elderly, disabled, or busy parents need guidance, not frustration.</li>
+        <li><strong>Inefficient shopping:</strong> No smart route planning = backtracking and duplicate searches.</li>
+      </ul>
+    </div>
+    
+    <h2>The Founders</h2>
+    <div class="founders">
+      <div class="founder-card">
+        <h3>🎨 Jennifer Love</h3>
+        <p><strong>Design Director & Co-Founder</strong></p>
+        <p>Emmy-winning designer with 15+ years in media and entertainment. Former Vice President of NFL Network, where she led product design for millions of users. Jennifer designed AisleBird from the ground up, focusing on intuitive voice interaction and real-world shopping scenarios.</p>
+        <p><em>"I was tired of wasting time shopping. Great design should eliminate friction, not add it."</em></p>
+      </div>
+      <div class="founder-card">
+        <h3>💻 Siamak Kalhor</h3>
+        <p><strong>Founder & Lead Developer</strong></p>
+        <p>Software engineer specializing in AI, voice recognition, and real-time systems. Built AisleBird as a labor of love for his wife, combining modern LLM technology with practical retail solutions. Passionate about using AI to solve everyday problems.</p>
+        <p><em>"I wanted to build something Jennifer could actually use and love."</em></p>
+      </div>
+    </div>
+    
+    <h2>The Solution: AisleBird</h2>
+    <p>
+      AisleBird is a <span class="highlight">voice-powered AI shopping guide</span> that transforms how people navigate 
+      retail environments. Built on cutting-edge natural language processing and machine learning, AisleBird understands 
+      intent, knows store layouts, and delivers real-time guidance.
+    </p>
+    
+    <div class="solution">
+      <h3 style="margin-top: 0; color: #00d97e;">How AisleBird Solves It</h3>
+      <ul>
+        <li><strong>Voice Intelligence:</strong> Say "I need organic bananas" — AI understands intent and guides you.</li>
+        <li><strong>Real-time Mapping:</strong> 119+ California stores pre-mapped with aisle-level accuracy.</li>
+        <li><strong>Smart Routes:</strong> AI plans efficient shopping paths to minimize backtracking.</li>
+        <li><strong>Multi-store Awareness:</strong> Same product, different aisle? AisleBird knows each store's layout.</li>
+        <li><strong>Contextual Understanding:</strong> "Making pasta dinner" → AI knows you need pasta, sauce, wine, etc.</li>
+        <li><strong>Persistent Learning:</strong> Your shopping patterns improve recommendations over time.</li>
+      </ul>
+    </div>
+    
+    <h2>The Technology Stack</h2>
+    <p>AisleBird is built on modern AI and voice technologies:</p>
+    <div class="tech-stack">
+      <div class="tech-item">
+        <h4>🎤 Speech Recognition</h4>
+        <p>Real-time voice-to-text using Web Speech API</p>
+      </div>
+      <div class="tech-item">
+        <h4>🧠 Natural Language Processing</h4>
+        <p>Intent detection and semantic understanding</p>
+      </div>
+      <div class="tech-item">
+        <h4>🤖 Large Language Models</h4>
+        <p>Contextual AI for shopping intelligence</p>
+      </div>
+      <div class="tech-item">
+        <h4>📍 Location Intelligence</h4>
+        <p>Store-level data with aisle mapping</p>
+      </div>
+      <div class="tech-item">
+        <h4>🧪 Machine Learning</h4>
+        <p>Pattern recognition and recommendations</p>
+      </div>
+      <div class="tech-item">
+        <h4>☁️ Cloud Infrastructure</h4>
+        <p>Vercel for global deployment and scaling</p>
+      </div>
+    </div>
+    
+    <h2>Pain Points We Address</h2>
+    <p>
+      Traditional shopping is broken. Maps, apps, and GPS don't work indoors. Employees aren't always available. 
+      Signage is confusing. AisleBird fixes all of this with <span class="highlight">conversational, intelligent guidance</span>.
+    </p>
+    
+    <div class="pain-points" style="border-left-color: #ff6b35;">
+      <h3 style="margin-top: 0;">What We Solve:</h3>
+      <ul style="list-style: none; margin: 0;">
+        <li style="padding: 0.75rem 0;">🛒 <strong>Retail Frustration:</strong> Eliminate the confusion of unfamiliar store layouts</li>
+        <li style="padding: 0.75rem 0;">⏱️ <strong>Time Efficiency:</strong> Reduce shopping time by 30% with optimized routes</li>
+        <li style="padding: 0.75rem 0;">♿ <strong>Accessibility:</strong> Enable people with mobility issues to shop independently</li>
+        <li style="padding: 0.75rem 0;">👥 <strong>Inclusivity:</strong> Support multiple languages and accessibility needs</li>
+        <li style="padding: 0.75rem 0;">📊 <strong>Commerce Intelligence:</strong> Retailers get insights into shopping patterns</li>
+        <li style="padding: 0.75rem 0;">🤝 <strong>Customer Retention:</strong> Better shopping experience = customer loyalty</li>
+      </ul>
+    </div>
+    
+    <h2>Market Opportunity</h2>
+    <p>
+      The retail market is massive. In California alone, there are <span class="highlight">billions in annual grocery and retail spending</span>. 
+      Current solutions don't exist at scale:
+    </p>
+    <ul style="margin-left: 2rem; color: var(--text-muted);">
+      <li>No voice shopping guide for indoor retail</li>
+      <li>GPS doesn't work indoors</li>
+      <li>Manual apps require too much data entry</li>
+      <li>Chatbots lack store-specific knowledge</li>
+    </ul>
+    <p style="margin-top: 1.5rem;">
+      AisleBird is <span class="highlight">the first AI shopping guide that combines voice, NLP, and store-level mapping</span> at scale.
+    </p>
+    
+    <h2>Our Vision</h2>
+    <div class="vision">
+      <h3>Transform Retail Through Conversational AI</h3>
+      <p style="margin: 0; color: var(--text);">
+        We envision a future where shopping is effortless. No more wandering. No more confusion. Just you, 
+        your voice, and an AI that understands what you need. AisleBird is the bridge between intent and action — 
+        turning retail navigation into a delightful, frictionless experience.
+      </p>
+    </div>
+    
+    <h2>The Mission</h2>
+    <p>
+      <span class="highlight">Stop being an aisle bird. Start flying.</span>
+    </p>
+    <p>
+      We're building the future of retail. One voice at a time. By combining Jennifer's design excellence with 
+      Siamak's AI expertise, we're creating a product that solves a real problem for millions of people. 
+      AisleBird isn't just a shopping app — it's a reimagining of how humans interact with physical retail spaces.
+    </p>
+    
+    <h2>Early Traction</h2>
+    <p>
+      Since launch, AisleBird has:
+    </p>
+    <ul style="margin-left: 2rem; color: var(--text-muted);">
+      <li>Mapped 119+ California retail locations</li>
+      <li>Processed thousands of voice queries</li>
+      <li>Achieved 4.8-star ratings from users</li>
+      <li>Gained support from retail innovation communities</li>
+    </ul>
+    
+    <h2>Next Steps</h2>
+    <p>
+      We're expanding to:
+    </p>
+    <ul style="margin-left: 2rem; color: var(--text-muted);">
+      <li>📱 Native iOS/Android apps via Capacitor</li>
+      <li>🏪 More retail chains and store locations</li>
+      <li>🌍 National expansion beyond California</li>
+      <li>💰 Monetization through Pro tier and retail partnerships</li>
+      <li>🤖 Advanced AI features and personalization</li>
+    </ul>
+    
+    <hr style="border: none; border-top: 1px solid var(--border); margin: 3rem 0;">
+    
+    <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+      <strong>AisleBird</strong> — Built with precision by Jennifer Love. Powered by AI engineering from Siamak Kalhor. 
+      Made for everyone who's ever felt lost in a store.
+    </p>
+  </div>
+</body>
+</html>
