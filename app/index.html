@@ -12,12 +12,12 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
-  --bg:#131313;--bg2:#0e0e0e;--card:#1c1b1b;--surf:#20201f;--hi:#2a2a2a;
-  --bdr:#2a2a2a;--warm:#594139;--tx:#e5e2e1;--mut:#a98a80;--dim:#594139;
-  --or:#ff6b35;--ordm:#5f1900;--orl:#ffb59d;
-  --rbg:#93000a;--rtx:#ffdad6;--gbg:#1a3a1a;--gtx:#7ecf7e;
+  --bg:#f9f7f4;--bg2:#ffffff;--card:#ffffff;--surf:#f5f3f0;--hi:#e8e5e0;
+  --bdr:#d9d5d0;--warm:#c4b5ae;--tx:#2a2824;--mut:#8b8680;--dim:#5f5a56;
+  --or:#e8762f;--ordm:#f5a75d;--orl:#e8762f;
+  --rbg:#d84a5a;--rtx:#ffdad6;--gbg:#7cb342;--gtx:#ffffff;
 }
-html,body{height:100%;overflow:hidden;background:#000;}
+html,body{height:100%;overflow:hidden;background:#f9f7f4;}
 body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;}
 .app{width:100%;max-width:430px;height:100vh;display:flex;flex-direction:column;background:var(--bg);overflow:hidden;position:relative;}
 
@@ -161,7 +161,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
    Top row: chain icon buttons
    Below: scrollable store list
 ═══════════════════════════ */
-.sp-panel{background:var(--card);border-radius:24px 24px 0 0;width:100%;height:90vh;display:flex;flex-direction:column;border-top:1px solid var(--bdr);animation:sup .22s ease;}
+.sp-panel{background:var(--card);border-radius:24px 24px 0 0;width:100%;height:90vh;display:flex;flex-direction:column;border-top:1px solid var(--bdr);animation:sup .22s ease;overflow:hidden;}
 @keyframes sup{from{transform:translateY(100%);}to{transform:translateY(0);}}
 
 /* handle + title + close */
@@ -176,9 +176,14 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .sp-search:focus{border-color:var(--or);}
 
 /* Chain selector — big tappable icons in a row */
-.chain-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;border-bottom:1px solid var(--bdr);margin:0 -14px;padding-left:14px;padding-right:14px;}
+.chain-row-wrap{display:flex;align-items:center;border-bottom:1px solid var(--bdr);flex-shrink:0;position:relative;}
+.chain-arrow{width:32px;height:60px;flex-shrink:0;background:var(--card);border:none;color:var(--or);font-size:28px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;z-index:5;padding:0;}
+.chain-arrow:active{background:var(--surf);}
+.chain-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:0 4px 10px;flex:1;min-width:0;scroll-behavior:smooth;}
+.chain-row::-webkit-scrollbar{height:4px;}
+.chain-row::-webkit-scrollbar-thumb{background:var(--warm);border-radius:2px;}
 .chain-row::-webkit-scrollbar{height:0;}
-.chain-pill{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:14px;border:1.5px solid var(--bdr);cursor:pointer;background:var(--surf);flex-shrink:0;min-width:70px;font-family:'Inter',sans-serif;}
+.chain-pill{display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:14px;border:1.5px solid var(--bdr);cursor:pointer;background:var(--surf);flex-shrink:0;flex-grow:0;min-width:70px;width:70px;font-family:'Inter',sans-serif;}
 .chain-pill.on{border-color:var(--or);background:var(--ordm);}
 .chain-pill-icon{font-size:24px;}
 .chain-pill-name{font-size:10px;font-weight:700;color:var(--mut);white-space:nowrap;}
@@ -244,7 +249,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 
 <!-- NAV -->
 <div class="nav">
-  <div class="logo">AisleBird</div>
+  <div class="logo">AisleMagic</div>
   <button class="store-btn" id="store-btn" type="button">
     <span id="store-icon">🌿</span>
     <span class="store-name" id="store-name">Whole Foods · Napa</span>
@@ -348,7 +353,11 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
         <button class="sp-close" id="sp-close-btn" type="button">✕ Close</button>
       </div>
       <input class="sp-search" id="sp-search" type="search" placeholder="🔍 Search by city, name, or chain…" autocomplete="off"/>
+    </div>
+    <div class="chain-row-wrap">
+      <button class="chain-arrow chain-arrow-left" id="chain-arrow-left" type="button">‹</button>
       <div class="chain-row" id="chain-row"></div>
+      <button class="chain-arrow chain-arrow-right" id="chain-arrow-right" type="button">›</button>
     </div>
     <div class="sp-list" id="sp-list"></div>
   </div>
@@ -1445,7 +1454,7 @@ function renderSettings(){
     {label:'Voice Language',   val:'English (US)'},
     {label:'Haptic Feedback',  tog:true,on:true},
     {label:'Dark Mode',        tog:true,on:true},
-    {label:'Version',          val:'AisleBird 2.0'}
+    {label:'Version',          val:'AisleMagic 2.0'}
   ].forEach(function(r){
     var d=document.createElement('div'); d.className='srow';
     if(r.tog){
@@ -1483,6 +1492,8 @@ document.getElementById('imp-ta').addEventListener('input', previewImport);
 document.getElementById('imp-submit-btn').addEventListener('click', doImport);
 document.getElementById('imp-cancel-btn').addEventListener('click', function(){ closeOv('ov-import'); });
 document.getElementById('orb').addEventListener('click', function(){ if(isListening) stopListening(); else startListening(); });
+document.getElementById('chain-arrow-left').addEventListener('click', function(){ document.getElementById('chain-row').scrollBy({left:-150,behavior:'smooth'}); });
+document.getElementById('chain-arrow-right').addEventListener('click', function(){ document.getElementById('chain-row').scrollBy({left:150,behavior:'smooth'}); });
 document.getElementById('v-back-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
 document.getElementById('v-done-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
 
