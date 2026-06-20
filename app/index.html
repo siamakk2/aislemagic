@@ -407,6 +407,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 var CHAIN_CONFIG = {
   'Whole Foods': {
     icon: '🌿',
+    shortName: 'Whole Foods',
     color: '#1a3a1a',
     cats: [
       {id:'produce',  label:'Produce',     emoji:'🥦', aisle:'Aisle 1'},
@@ -439,6 +440,7 @@ var CHAIN_CONFIG = {
     voiceTips: ['🥦 "Add organic bananas"','🧀 "Two cartons of almond milk"','🍞 "Sourdough bread"','🥩 "Wild salmon fillets"','🌾 "Bulk granola"'],
   },
   "Trader Joe's": {
+    shortName: "TJ's",
     icon: '🛵',
     color: '#1a1a3a',
     cats: [
@@ -614,6 +616,7 @@ var CHAIN_CONFIG = {
   },
   "Lowes": {
     icon: '🔵',
+    shortName: "Lowe's",
     displayName: "Lowe's",
     color: '#00112a',
     cats: [
@@ -700,6 +703,7 @@ var CHAIN_CONFIG = {
     voiceTips: ['🪵 "Two by four stud"','🎨 "Paint brushes"','🚿 "PVC fittings"','⚡ "Wire nuts"','🔩 "Lag screws"'],
   },
   'Home Depot': {
+    shortName: 'Home Depot',
     icon: '🔨',
     color: '#3a2a1a',
     cats: [
@@ -1037,7 +1041,8 @@ function renderStorePicker(){
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'chain-tab' + (chain===activeChain?' on':'');
-    btn.innerHTML = '<span class="chain-tab-icon">'+cfg.icon+'</span><span class="chain-tab-name">'+chain+'</span>';
+    var shortName = cfg.shortName || chain;
+    btn.innerHTML = '<span class="chain-tab-icon">'+cfg.icon+'</span><span class="chain-tab-name">'+shortName+'</span>';
     btn.addEventListener('click', function(){
       activeChain = chain;
       renderStorePicker();
