@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<title>AisleBird</title>
+<title>AisleMagic</title>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content="AisleBird"/>
+<meta name="apple-mobile-web-app-title" content="AisleMagic"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
-  --bg:#0a0a0a;--bg2:#131313;--card:#1a1a1a;--surf:#202020;--hi:#2a2a2a;
-  --bdr:#333333;--warm:#594139;--tx:#ffffff;--mut:#d0d0d0;--dim:#7a7a7a;
-  --or:#ff6b35;--ordm:#ff8c5a;--orl:#ffb59d;
-  --rbg:#c82333;--rtx:#ffdad6;--gbg:#7cb342;--gtx:#ffffff;
+  --bg:#131313;--bg2:#0e0e0e;--card:#1c1b1b;--surf:#20201f;--hi:#2a2a2a;
+  --bdr:#2a2a2a;--warm:#594139;--tx:#e5e2e1;--mut:#a98a80;--dim:#594139;
+  --or:#ff6b35;--ordm:#5f1900;--orl:#ffb59d;
+  --rbg:#93000a;--rtx:#ffdad6;--gbg:#1a3a1a;--gtx:#7ecf7e;
 }
-html,body{height:100%;overflow:hidden;background:#0a0a0a;}
+html,body{height:100%;overflow:hidden;background:#000;}
 body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antialiased;display:flex;justify-content:center;}
-.app{width:100%;max-width:100%;height:100vh;display:flex;flex-direction:column;background:var(--bg);overflow:hidden;position:relative;}
+.app{width:100%;max-width:430px;height:100vh;display:flex;flex-direction:column;background:var(--bg);overflow:hidden;position:relative;}
 
 /* NAV */
 .nav{background:var(--bg2);padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--bdr);flex-shrink:0;}
@@ -41,7 +41,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .ssort-ico{width:28px;height:28px;border-radius:7px;background:var(--ordm);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
 .ssort-title{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--orl);text-transform:uppercase;margin-left:8px;}
 .ssort-sub{font-size:10px;color:var(--mut);margin-top:1px;margin-left:8px;}
-.ssort-reset{background:var(--or);border:none;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:800;color:#ffffff;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 2px 8px rgba(255,107,53,0.3);}
+.ssort-reset{background:var(--ordm);border:none;border-radius:999px;padding:4px 11px;font-size:11px;font-weight:700;color:var(--or);cursor:pointer;font-family:'Inter',sans-serif;}
 .chips{display:flex;align-items:center;overflow-x:auto;padding-bottom:2px;}
 .chips::-webkit-scrollbar{height:0;}
 .chip-wrap{display:flex;align-items:center;flex-shrink:0;}
@@ -242,27 +242,6 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .bt-pill span{color:#fff;font-size:10px;font-weight:800;}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--gbg);border:1px solid var(--gtx);border-radius:999px;padding:10px 20px;font-size:13px;font-weight:700;color:var(--gtx);z-index:999;white-space:nowrap;font-family:'Inter',sans-serif;pointer-events:none;opacity:0;transition:opacity .2s;}
 .toast.show{opacity:1;}
-
-/* RESPONSIVE - Desktop expansion */
-@media (min-width: 600px) {
-  .app {
-    max-width: 100%;
-    padding: 0;
-  }
-  body {
-    display: flex;
-    justify-content: center;
-  }
-}
-
-/* MOBILE - Keep compact on small screens */
-@media (max-width: 599px) {
-  .app {
-    max-width: 100%;
-    width: 100vw;
-  }
-}
-
 </style>
 </head>
 <body>
@@ -270,24 +249,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 
 <!-- NAV -->
 <div class="nav">
-  <div class="logo">
-    <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px; margin-right: 8px; display: inline-block; vertical-align: middle;">
-      <!-- Body -->
-      <ellipse cx="140" cy="145" rx="55" ry="65" fill="#ff6b35"/>
-      <!-- Head -->
-      <circle cx="140" cy="75" r="42" fill="#ff6b35"/>
-      <!-- Eyes -->
-      <circle cx="120" cy="70" r="10" fill="#fff"/>
-      <circle cx="120" cy="70" r="6" fill="#000"/>
-      <circle cx="160" cy="70" r="10" fill="#fff"/>
-      <circle cx="160" cy="70" r="6" fill="#000"/>
-      <!-- Beak -->
-      <ellipse cx="140" cy="85" rx="14" ry="11" fill="#ff4500"/>
-      <!-- Belly -->
-      <ellipse cx="140" cy="160" rx="40" ry="50" fill="#ffb59d" opacity="0.7"/>
-    </svg>
-    AisleBird
-  </div>
+  <div class="logo">AisleMagic</div>
   <button class="store-btn" id="store-btn" type="button">
     <span id="store-icon">🌿</span>
     <span class="store-name" id="store-name">Whole Foods · Napa</span>
@@ -432,18 +394,6 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 </div>
 
 <div class="toast" id="toast"></div>
-</div>
-
-
-<!-- APP FOOTER -->
-<div class="app-footer">
-  <a href="/support.html" target="_blank">Support</a>
-  <span>•</span>
-  <a href="/privacy.html" target="_blank">Privacy</a>
-  <span>•</span>
-  <a href="/terms.html" target="_blank">Terms</a>
-  <span>•</span>
-  <span>© 2026 Siamak Kalhor Consulting LLC</span>
 </div>
 
 <script>
@@ -1504,7 +1454,7 @@ function renderSettings(){
     {label:'Voice Language',   val:'English (US)'},
     {label:'Haptic Feedback',  tog:true,on:true},
     {label:'Dark Mode',        tog:true,on:true},
-    {label:'Version',          val:'AisleBird 1.0'}
+    {label:'Version',          val:'AisleMagic 2.0'}
   ].forEach(function(r){
     var d=document.createElement('div'); d.className='srow';
     if(r.tog){
@@ -1520,41 +1470,8 @@ function renderSettings(){
 }
 
 /* ═══════════════════════════════════════
-   FOOTER LINKS
+   WIRE UP ALL EVENTS
 ═══════════════════════════════════════ */
-.app-footer {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  border-top: 1px solid var(--hi);
-  font-size: 0.85rem;
-  background: var(--bg2);
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
-
-.app-footer a {
-  color: var(--or);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.app-footer a:hover {
-  text-decoration: underline;
-}
-
-.app-footer span {
-  color: var(--mut);
-}
-
-@media (max-width: 599px) {
-  .app-footer {
-    gap: 1rem;
-    font-size: 0.8rem;
-    padding: 1rem;
-  }
-}
 document.getElementById('mic-btn').addEventListener('click', goVoice);
 document.getElementById('store-btn').addEventListener('click', openStorePicker);
 document.getElementById('reset-btn').addEventListener('click', function(){ aisleIdx=0; renderChips(); renderList(); showToast('Sort reset'); });
