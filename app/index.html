@@ -417,6 +417,18 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 <div class="toast" id="toast"></div>
 </div>
 
+
+<!-- APP FOOTER -->
+<div class="app-footer">
+  <a href="/support.html" target="_blank">Support</a>
+  <span>•</span>
+  <a href="/privacy.html" target="_blank">Privacy</a>
+  <span>•</span>
+  <a href="/terms.html" target="_blank">Terms</a>
+  <span>•</span>
+  <span>© 2026 Siamak Kalhor Consulting LLC</span>
+</div>
+
 <script>
 /* ═══════════════════════════════════════
    CHAIN CONFIGS — categories & quick add
@@ -1491,8 +1503,41 @@ function renderSettings(){
 }
 
 /* ═══════════════════════════════════════
-   WIRE UP ALL EVENTS
+   FOOTER LINKS
 ═══════════════════════════════════════ */
+.app-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-top: 1px solid var(--hi);
+  font-size: 0.85rem;
+  background: var(--bg2);
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.app-footer a {
+  color: var(--or);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
+}
+
+.app-footer span {
+  color: var(--mut);
+}
+
+@media (max-width: 599px) {
+  .app-footer {
+    gap: 1rem;
+    font-size: 0.8rem;
+    padding: 1rem;
+  }
+}
 document.getElementById('mic-btn').addEventListener('click', goVoice);
 document.getElementById('store-btn').addEventListener('click', openStorePicker);
 document.getElementById('reset-btn').addEventListener('click', function(){ aisleIdx=0; renderChips(); renderList(); showToast('Sort reset'); });
