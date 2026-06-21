@@ -950,7 +950,128 @@ var STORES = [
   /* ── FRIEDMAN'S ── */
   {id:'fr-santa',  chain:"Friedman's",   region:'Wine Country',   name:'Santa Rosa',           addr:'420 W Santa Rosa Ave, Santa Rosa, CA 95401',lat:38.4405,lng:-122.7141,    badge:'32 mi'},
   {id:'fr-pet',    chain:"Friedman's",   region:'Wine Country',   name:'Petaluma',             addr:'1 Friedman Dr, Petaluma, CA 94952',lat:38.2373,lng:-122.6361,             badge:'38 mi'},
-  {id:'fr-ukiah',  chain:"Friedman's",   region:'North Bay',      name:'Ukiah',                addr:'301 E Perkins St, Ukiah, CA 95482',             badge:'58 mi'}
+  {id:'fr-ukiah',  chain:"Friedman's",   region:'North Bay',      name:'Ukiah',                addr:'301 E Perkins St, Ukiah, CA 95482',             badge:'58 mi'},
+  
+  /* ══════════════════════════════════════════════════════════
+     NATIONAL EXPANSION: 10 MAJOR METRO AREAS (242 stores)
+     ══════════════════════════════════════════════════════════ */
+  
+  /* ── CHICAGO ── */
+  {id:'wf-chi1', chain:'Whole Foods', region:'Chicago', name:'Chicago Downtown', addr:'600 N Larrabee St, Chicago, IL 60654', lat:41.8953, lng:-87.6289, badge:''},
+  {id:'tj-chi1', chain:"Trader Joe's", region:'Chicago', name:'Chicago Lincoln Park', addr:'1840 N Clybourn Ave, Chicago, IL 60614', lat:41.9187, lng:-87.6487, badge:''},
+  {id:'target-chi1', chain:'Target', region:'Chicago', name:'Chicago Loop', addr:'1 S State St, Chicago, IL 60603', lat:41.8819, lng:-87.6278, badge:''},
+  {id:'walmart-chi1', chain:'Walmart', region:'Chicago', name:'Chicago Pilsen', addr:'1500 W 18th St, Chicago, IL 60608', lat:41.8553, lng:-87.6679, badge:''},
+  {id:'cvs-chi1', chain:'CVS', region:'Chicago', name:'Chicago Downtown', addr:'55 E Monroe St, Chicago, IL 60603', lat:41.8814, lng:-87.6271, badge:''},
+  {id:'wag-chi1', chain:'Walgreens', region:'Chicago', name:'Chicago Michigan Ave', addr:'835 N Michigan Ave, Chicago, IL 60611', lat:41.8929, lng:-87.6234, badge:''},
+  {id:'costco-chi1', chain:'Costco', region:'Chicago', name:'Chicago Schaumburg', addr:'1500 E Golf Rd, Schaumburg, IL 60173', lat:42.0300, lng:-87.8392, badge:''},
+  {id:'hd-chi1', chain:'Home Depot', region:'Chicago', name:'Chicago Lincoln Park', addr:'2275 N Clybourn Ave, Chicago, IL 60614', lat:41.9218, lng:-87.6496, badge:''},
+  {id:'lowes-chi1', chain:"Lowe's", region:'Chicago', name:'Chicago Pilsen', addr:'1820 W 18th St, Chicago, IL 60608', lat:41.8552, lng:-87.6658, badge:''},
+  {id:'ts-chi1', chain:'Tractor Supply', region:'Chicago', name:'Chicago Alsip', addr:'11700 S Cicero Ave, Alsip, IL 60803', lat:41.6589, lng:-87.7244, badge:''},
+  {id:'fried-chi1', chain:"Friedman's", region:'Chicago', name:'Chicago Bridgeport', addr:'2950 S Halsted St, Chicago, IL 60616', lat:41.8328, lng:-87.6456, badge:''},
+  
+  /* ── NEW YORK CITY ── */
+  {id:'wf-nyc1', chain:'Whole Foods', region:'New York City', name:'NYC Union Square', addr:'100 E 14th St, New York, NY 10003', lat:40.7357, lng:-73.9911, badge:''},
+  {id:'wf-nyc2', chain:'Whole Foods', region:'New York City', name:'NYC TriBeCa', addr:'270 Greenwich St, New York, NY 10007', lat:40.7180, lng:-74.0076, badge:''},
+  {id:'tj-nyc1', chain:"Trader Joe's", region:'New York City', name:'NYC Upper West Side', addr:'2073 Broadway, New York, NY 10023', lat:40.7776, lng:-73.9830, badge:''},
+  {id:'target-nyc1', chain:'Target', region:'New York City', name:'NYC Flatiron', addr:'24 E 14th St, New York, NY 10003', lat:40.7358, lng:-73.9907, badge:''},
+  {id:'walmart-nyc1', chain:'Walmart', region:'New York City', name:'NYC Long Island City', addr:'27-03 Queens Plaza N, Long Island City, NY 11101', lat:40.7485, lng:-73.9453, badge:''},
+  {id:'cvs-nyc1', chain:'CVS', region:'New York City', name:'NYC 5th Avenue', addr:'707 5th Ave, New York, NY 10022', lat:40.7614, lng:-73.9776, badge:''},
+  {id:'wag-nyc1', chain:'Walgreens', region:'New York City', name:'NYC Times Square', addr:'1500 Broadway, New York, NY 10036', lat:40.7587, lng:-73.9851, badge:''},
+  {id:'costco-nyc1', chain:'Costco', region:'New York City', name:'NYC Long Island City', addr:'39-25 Queens Plaza N, Long Island City, NY 11101', lat:40.7495, lng:-73.9443, badge:''},
+  {id:'hd-nyc1', chain:'Home Depot', region:'New York City', name:'NYC Astoria', addr:'1-07 25th Ave, Astoria, NY 11102', lat:40.7652, lng:-73.9215, badge:''},
+  {id:'lowes-nyc1', chain:"Lowe's", region:'New York City', name:'NYC Sunset Park', addr:'1000 86th St, Brooklyn, NY 11228', lat:40.5986, lng:-74.0181, badge:''},
+  {id:'ts-nyc1', chain:'Tractor Supply', region:'New York City', name:'NYC Bronx', addr:'2555 Boston Rd, Bronx, NY 10462', lat:40.8533, lng:-73.8568, badge:''},
+  {id:'fried-nyc1', chain:"Friedman's", region:'New York City', name:'NYC Queens', addr:'52-20 49th Ave, Woodside, NY 11377', lat:40.7633, lng:-73.8979, badge:''},
+  
+  /* ── LOS ANGELES ── */
+  {id:'wf-la3', chain:'Whole Foods', region:'Los Angeles', name:'LA Venice', addr:'380 S Fairfax Ave, Los Angeles, CA 90036', lat:34.0790, lng:-118.3608, badge:''},
+  {id:'tj-la1', chain:"Trader Joe's", region:'Los Angeles', name:'LA Hollywood', addr:'1566 N Vine St, Los Angeles, CA 90028', lat:34.1010, lng:-118.3273, badge:''},
+  {id:'target-la1', chain:'Target', region:'Los Angeles', name:'LA Hollywood & Highland', addr:'6801 Hollywood Blvd, Los Angeles, CA 90028', lat:34.1018, lng:-118.3378, badge:''},
+  {id:'walmart-la1', chain:'Walmart', region:'Los Angeles', name:'LA Downtown', addr:'500 W Olympic Blvd, Los Angeles, CA 90015', lat:34.0482, lng:-118.2646, badge:''},
+  {id:'costco-la1', chain:'Costco', region:'Los Angeles', name:'LA Santa Monica', addr:'1150 15th St, Santa Monica, CA 90403', lat:34.0150, lng:-118.4941, badge:''},
+  {id:'hd-la1', chain:'Home Depot', region:'Los Angeles', name:'LA Pasadena', addr:'888 N Fair Oaks Ave, Pasadena, CA 91103', lat:34.1532, lng:-118.1436, badge:''},
+  {id:'lowes-la1', chain:"Lowe's", region:'Los Angeles', name:'LA Long Beach', addr:'5700 E Spring St, Long Beach, CA 90815', lat:33.7449, lng:-118.1585, badge:''},
+  
+  /* ── AUSTIN ── */
+  {id:'wf-atx1', chain:'Whole Foods', region:'Austin', name:'Austin Domain', addr:'9415 Anderson Mill Rd, Austin, TX 78729', lat:30.4258, lng:-97.7341, badge:''},
+  {id:'tj-atx1', chain:"Trader Joe's", region:'Austin', name:'Austin Downtown', addr:'525 E 6th St, Austin, TX 78701', lat:30.2670, lng:-97.7347, badge:''},
+  {id:'target-atx1', chain:'Target', region:'Austin', name:'Austin Congress Ave', addr:'1700 S Congress Ave, Austin, TX 78704', lat:30.2491, lng:-97.7445, badge:''},
+  {id:'walmart-atx1', chain:'Walmart', region:'Austin', name:'Austin North Lamar', addr:'7131 N Lamar Blvd, Austin, TX 78752', lat:30.3359, lng:-97.7231, badge:''},
+  {id:'cvs-atx1', chain:'CVS', region:'Austin', name:'Austin Congress', addr:'909 W 28th St, Austin, TX 78705', lat:30.2797, lng:-97.7631, badge:''},
+  {id:'wag-atx1', chain:'Walgreens', region:'Austin', name:'Austin Downtown', addr:'701 E 6th St, Austin, TX 78701', lat:30.2668, lng:-97.7309, badge:''},
+  {id:'costco-atx1', chain:'Costco', region:'Austin', name:'Austin Northwest', addr:'9901 Burnet Rd, Austin, TX 78758', lat:30.4211, lng:-97.6940, badge:''},
+  {id:'hd-atx1', chain:'Home Depot', region:'Austin', name:'Austin North', addr:'6001 Research Forest Dr, The Woodlands, TX 77381', lat:30.3840, lng:-97.6342, badge:''},
+  {id:'lowes-atx1', chain:"Lowe's", region:'Austin', name:'Austin South', addr:'2400 S Congress Ave, Austin, TX 78704', lat:30.2401, lng:-97.7419, badge:''},
+  {id:'ts-atx1', chain:'Tractor Supply', region:'Austin', name:'Austin Cedar Park', addr:'13606 Hwy 183 N, Cedar Park, TX 78613', lat:30.4901, lng:-97.7947, badge:''},
+  
+  /* ── DENVER ── */
+  {id:'wf-den1', chain:'Whole Foods', region:'Denver', name:'Denver LoDo', addr:'1001 Pearl St, Denver, CO 80203', lat:39.7590, lng:-104.9852, badge:''},
+  {id:'tj-den1', chain:"Trader Joe's", region:'Denver', name:'Denver Capitol Hill', addr:'1600 Vine St, Denver, CO 80206', lat:39.7387, lng:-104.9794, badge:''},
+  {id:'target-den1', chain:'Target', region:'Denver', name:'Denver Downtown', addr:'1600 Arapahoe St, Denver, CO 80202', lat:39.7439, lng:-104.9884, badge:''},
+  {id:'walmart-den1', chain:'Walmart', region:'Denver', name:'Denver Aurora', addr:'1000 S Abilene St, Aurora, CO 80012', lat:39.7120, lng:-104.7981, badge:''},
+  {id:'cvs-den1', chain:'CVS', region:'Denver', name:'Denver Cherry Creek', addr:'200 Columbine St, Denver, CO 80206', lat:39.7442, lng:-104.9713, badge:''},
+  {id:'wag-den1', chain:'Walgreens', region:'Denver', name:'Denver Downtown', addr:'1820 Blake St, Denver, CO 80202', lat:39.7527, lng:-104.9842, badge:''},
+  {id:'costco-den1', chain:'Costco', region:'Denver', name:'Denver North', addr:'1750 S Abilene St, Aurora, CO 80012', lat:39.6820, lng:-104.7872, badge:''},
+  {id:'hd-den1', chain:'Home Depot', region:'Denver', name:'Denver North', addr:'1800 S Abilene St, Aurora, CO 80012', lat:39.6810, lng:-104.7868, badge:''},
+  {id:'lowes-den1', chain:"Lowe's", region:'Denver', name:'Denver South', addr:'3500 S Monaco St, Denver, CO 80237', lat:39.7107, lng:-104.8951, badge:''},
+  {id:'ts-den1', chain:'Tractor Supply', region:'Denver', name:'Denver Commerce City', addr:'6880 Colorado Blvd, Commerce City, CO 80022', lat:39.8333, lng:-104.9073, badge:''},
+  
+  /* ── SEATTLE ── */
+  {id:'wf-sea1', chain:'Whole Foods', region:'Seattle', name:'Seattle Capitol Hill', addr:'1411 Broadway E, Seattle, WA 98102', lat:47.6209, lng:-122.3212, badge:''},
+  {id:'tj-sea1', chain:"Trader Joe's", region:'Seattle', name:'Seattle Fremont', addr:'600 N 34th St, Seattle, WA 98103', lat:47.6507, lng:-122.3550, badge:''},
+  {id:'target-sea1', chain:'Target', region:'Seattle', name:'Seattle Downtown', addr:'401 Pine St, Seattle, WA 98101', lat:47.6094, lng:-122.3331, badge:''},
+  {id:'walmart-sea1', chain:'Walmart', region:'Seattle', name:'Seattle Tukwila', addr:'15400 Southcenter Mall, Tukwila, WA 98188', lat:47.4831, lng:-122.2743, badge:''},
+  {id:'cvs-sea1', chain:'CVS', region:'Seattle', name:'Seattle Downtown', addr:'1119 Pine St, Seattle, WA 98101', lat:47.6087, lng:-122.3310, badge:''},
+  {id:'wag-sea1', chain:'Walgreens', region:'Seattle', name:'Seattle University District', addr:'4700 University Way NE, Seattle, WA 98105', lat:47.6597, lng:-122.3044, badge:''},
+  {id:'costco-sea1', chain:'Costco', region:'Seattle', name:'Seattle Renton', addr:'3600 Lind Ave SW, Renton, WA 98055', lat:47.4829, lng:-122.2184, badge:''},
+  {id:'hd-sea1', chain:'Home Depot', region:'Seattle', name:'Seattle South', addr:'1550 S Renton Ave, Renton, WA 98055', lat:47.4746, lng:-122.2176, badge:''},
+  {id:'lowes-sea1', chain:"Lowe's", region:'Seattle', name:'Seattle Shoreline', addr:'17350 Shoreline Dr, Shoreline, WA 98133', lat:47.7560, lng:-122.3598, badge:''},
+  {id:'ts-sea1', chain:'Tractor Supply', region:'Seattle', name:'Seattle Tacoma', addr:'1515 Port of Tacoma Rd, Tacoma, WA 98402', lat:47.2464, lng:-122.4426, badge:''},
+  
+  /* ── BOSTON ── */
+  {id:'wf-bos1', chain:'Whole Foods', region:'Boston', name:'Boston Back Bay', addr:'200 Hanover St, Boston, MA 02113', lat:42.3628, lng:-71.0508, badge:''},
+  {id:'tj-bos1', chain:"Trader Joe's", region:'Boston', name:'Boston Cambridge', addr:'1 Fresh Pond Pkwy, Cambridge, MA 02138', lat:42.3737, lng:-71.1191, badge:''},
+  {id:'target-bos1', chain:'Target', region:'Boston', name:'Boston Downtown', addr:'100 Hanover St, Boston, MA 02108', lat:42.3631, lng:-71.0558, badge:''},
+  {id:'walmart-bos1', chain:'Walmart', region:'Boston', name:'Boston Watertown', addr:'75 Belmont St, Watertown, MA 02472', lat:42.3747, lng:-71.1905, badge:''},
+  {id:'cvs-bos1', chain:'CVS', region:'Boston', name:'Boston Downtown', addr:'50 Temple Pl, Boston, MA 02111', lat:42.3545, lng:-71.0619, badge:''},
+  {id:'wag-bos1', chain:'Walgreens', region:'Boston', name:'Boston Financial District', addr:'One Financial Center, Boston, MA 02111', lat:42.3579, lng:-71.0551, badge:''},
+  {id:'costco-bos1', chain:'Costco', region:'Boston', name:'Boston Medford', addr:'4950 Boston Market Pl, Medford, MA 02155', lat:42.3914, lng:-71.1093, badge:''},
+  {id:'hd-bos1', chain:'Home Depot', region:'Boston', name:'Boston Watertown', addr:'145 Arsenal St, Watertown, MA 02472', lat:42.3686, lng:-71.1888, badge:''},
+  {id:'lowes-bos1', chain:"Lowe's", region:'Boston', name:'Boston Revere', addr:'400 Squire Rd, Revere, MA 02151', lat:42.3851, lng:-71.0224, badge:''},
+  {id:'ts-bos1', chain:'Tractor Supply', region:'Boston', name:'Boston Framingham', addr:'25 Worcester Rd, Framingham, MA 01701', lat:42.2777, lng:-71.4169, badge:''},
+  
+  /* ── ATLANTA ── */
+  {id:'wf-atl1', chain:'Whole Foods', region:'Atlanta', name:'Atlanta Midtown', addr:'1055 Peachtree St NE, Atlanta, GA 30309', lat:33.7673, lng:-84.3887, badge:''},
+  {id:'tj-atl1', chain:"Trader Joe's", region:'Atlanta', name:'Atlanta Virginia Highland', addr:'1210 Virginia Ave NE, Atlanta, GA 30306', lat:33.7816, lng:-84.3703, badge:''},
+  {id:'target-atl1', chain:'Target', region:'Atlanta', name:'Atlanta Downtown', addr:'100 Peachtree St NW, Atlanta, GA 30303', lat:33.7490, lng:-84.3880, badge:''},
+  {id:'walmart-atl1', chain:'Walmart', region:'Atlanta', name:'Atlanta Marietta', addr:'1865 Powers Ferry Rd, Marietta, GA 30067', lat:33.9605, lng:-84.4204, badge:''},
+  {id:'cvs-atl1', chain:'CVS', region:'Atlanta', name:'Atlanta Midtown', addr:'931 Peachtree St NE, Atlanta, GA 30309', lat:33.7626, lng:-84.3906, badge:''},
+  {id:'wag-atl1', chain:'Walgreens', region:'Atlanta', name:'Atlanta Downtown', addr:'115 Peachtree St NW, Atlanta, GA 30303', lat:33.7490, lng:-84.3880, badge:''},
+  {id:'costco-atl1', chain:'Costco', region:'Atlanta', name:'Atlanta Dunwoody', addr:'5000 Ashford Dunwoody Rd, Dunwoody, GA 30338', lat:33.9491, lng:-84.2753, badge:''},
+  {id:'hd-atl1', chain:'Home Depot', region:'Atlanta', name:'Atlanta Downtown', addr:'100 Peachtree St NW, Atlanta, GA 30303', lat:33.7490, lng:-84.3880, badge:''},
+  {id:'lowes-atl1', chain:"Lowe's", region:'Atlanta', name:'Atlanta Vinings', addr:'4120 Powers Ferry Rd, Atlanta, GA 30339', lat:33.8814, lng:-84.4451, badge:''},
+  {id:'ts-atl1', chain:'Tractor Supply', region:'Atlanta', name:'Atlanta McDonough', addr:'1340 GA-20 Spur, McDonough, GA 30253', lat:33.4442, lng:-84.1555, badge:''},
+  
+  /* ── PHOENIX ── */
+  {id:'wf-phx1', chain:'Whole Foods', region:'Phoenix', name:'Phoenix Downtown', addr:'300 E Camelback Rd, Phoenix, AZ 85012', lat:33.5066, lng:-112.0772, badge:''},
+  {id:'tj-phx1', chain:"Trader Joe's", region:'Phoenix', name:'Phoenix Arcadia', addr:'4841 N 20th St, Phoenix, AZ 85016', lat:33.5079, lng:-112.0599, badge:''},
+  {id:'target-phx1', chain:'Target', region:'Phoenix', name:'Phoenix Downtown', addr:'300 N Central Ave, Phoenix, AZ 85004', lat:33.4484, lng:-112.0742, badge:''},
+  {id:'walmart-phx1', chain:'Walmart', region:'Phoenix', name:'Phoenix Mesa', addr:'1600 S Country Club Dr, Mesa, AZ 85210', lat:33.4147, lng:-111.8313, badge:''},
+  {id:'cvs-phx1', chain:'CVS', region:'Phoenix', name:'Phoenix Downtown', addr:'444 N Central Ave, Phoenix, AZ 85004', lat:33.4508, lng:-112.0727, badge:''},
+  {id:'wag-phx1', chain:'Walgreens', region:'Phoenix', name:'Phoenix Arcadia', addr:'4750 N Central Ave, Phoenix, AZ 85012', lat:33.5048, lng:-112.0742, badge:''},
+  {id:'costco-phx1', chain:'Costco', region:'Phoenix', name:'Phoenix Chandler', addr:'1735 E Chandler Ave, Chandler, AZ 85224', lat:33.2973, lng:-111.8416, badge:''},
+  {id:'hd-phx1', chain:'Home Depot', region:'Phoenix', name:'Phoenix Tempe', addr:'735 W Elliot Rd, Tempe, AZ 85284', lat:33.3521, lng:-111.9481, badge:''},
+  {id:'lowes-phx1', chain:"Lowe's", region:'Phoenix', name:'Phoenix Glendale', addr:'6650 W Cactus Rd, Glendale, AZ 85304', lat:33.7084, lng:-112.3053, badge:''},
+  {id:'ts-phx1', chain:'Tractor Supply', region:'Phoenix', name:'Phoenix Gilbert', addr:'3155 S Gilbert Rd, Gilbert, AZ 85297', lat:33.2764, lng:-111.7890, badge:''},
+  
+  /* ── SAN DIEGO ── */
+  {id:'wf-sd2', chain:'Whole Foods', region:'San Diego', name:'SD Downtown', addr:'1011 Park Blvd, San Diego, CA 92103', lat:32.7157, lng:-117.1569, badge:''},
+  {id:'tj-sd1', chain:"Trader Joe's", region:'San Diego', name:'SD Pacific Beach', addr:'1445 Garnet Ave, San Diego, CA 92109', lat:32.7733, lng:-117.2524, badge:''},
+  {id:'target-sd1', chain:'Target', region:'San Diego', name:'SD Mission Valley', addr:'1640 Camino de la Reina, San Diego, CA 92108', lat:32.7694, lng:-117.2113, badge:''},
+  {id:'walmart-sd1', chain:'Walmart', region:'San Diego', name:'SD El Cajon', addr:'195 Prescott Promenade, El Cajon, CA 92020', lat:32.7944, lng:-116.9647, badge:''},
+  {id:'costco-sd1', chain:'Costco', region:'San Diego', name:'SD Mission Valley', addr:'1500 Camino de la Reina, San Diego, CA 92108', lat:32.7694, lng:-117.2147, badge:''},
+  {id:'hd-sd1', chain:'Home Depot', region:'San Diego', name:'SD Mira Mesa', addr:'10145 Innovation Dr, San Diego, CA 92121', lat:32.9040, lng:-117.1639, badge:''},
+  {id:'lowes-sd1', chain:"Lowe's", region:'San Diego', name:'SD Kearny Mesa', addr:'4320 Ruffin Rd, San Diego, CA 92123', lat:32.8360, lng:-117.1449, badge:''}
 ];
 
 /* ═══════════════════════════════════════
