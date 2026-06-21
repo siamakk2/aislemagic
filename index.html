@@ -565,6 +565,93 @@
       line-height: 1.8;
     }
     
+    /* COVERAGE SECTION */
+    .coverage {
+      padding: 80px 20px;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.08) 0%, rgba(255, 140, 90, 0.04) 100%);
+      border-top: 1px solid rgba(255, 107, 53, 0.2);
+    }
+    
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      max-width: 600px;
+    }
+    
+    .coverage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto 48px;
+    }
+    
+    .coverage-city {
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .coverage-city:hover {
+      border-color: #ff6b35;
+      background: rgba(255, 107, 53, 0.05);
+      transform: translateY(-2px);
+    }
+    
+    .city-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    
+    .city-stores {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    
+    .coverage-cta {
+      text-align: center;
+      padding: 40px;
+      background: rgba(255, 107, 53, 0.08);
+      border: 2px solid #ff6b35;
+      border-radius: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .coverage-cta p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    
+    .request-btn {
+      background: #ff6b35;
+      color: #000;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .request-btn:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+    
+    .request-btn:active {
+      transform: scale(0.98);
+    }
+    
     /* STORY SECTION */
     .story {
       padding: 100px 40px;
@@ -1125,6 +1212,64 @@
         <h3>Coming Soon: National Coverage</h3>
         <p>Tell us what stores you need. We're actively expanding to every state and major city.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE MAP -->
+  <section class="coverage">
+    <h2 class="section-title">Where AisleBird Works Right Now</h2>
+    <p class="section-subtitle">Available in 10+ major metros. More cities coming soon.</p>
+    
+    <div class="coverage-grid">
+      <div class="coverage-city">
+        <div class="city-name">🏙️ Chicago</div>
+        <div class="city-stores">11 stores • All 11 chains</div>
+      </div>
+      <div class="coverage-city">
+        <div class="city-name">🗽 New York City</div>
+        <div class="city-stores">12 stores • All 11 chains</div>
+      </div>
+      <div class="coverage-city">
+        <div class="city-name">🌆 Los Angeles</div>
+        <div class="city-stores">19 stores • All 11 chains</div>
+      </div>
+      <div class="coverage-city">
+        <div class="city-name">🎸 Austin</div>
+        <div class="city-stores">10 stores • All 11 chains</div>
+      </div>
+      <div class="coverage-city">
+        <div class="city-name">⛰️ Denver</div>
+        <div class="city-stores">10 stores • All 11 chains</div>
+      </div>
+      <div class="coverage-city">
+        <div class="city-name">☔ Seattle</div>
+        <div class="city-stores">10 stores • All 11 chains</div>
+      </div>
+      <div class="coverage-city">
+        <div class="city-name">🔴 Boston</div>
+        <div class="city-stores">10 stores • All 11 chains</div>
+      </div>
+      <div class="coverage-city">
+        <div class="city-name">🍑 Atlanta</div>
+        <div class="city-stores">10 stores • All 11 chains</div>
+      </div>
+      <div class="coverage-city">
+        <div class="city-name">☀️ Phoenix</div>
+        <div class="city-stores">10 stores • All 11 chains</div>
+      </div>
+      <div class="coverage-city">
+        <div class="city-name">🌊 San Diego</div>
+        <div class="city-stores">17 stores • All 11 chains</div>
+      </div>
+      <div class="coverage-city">
+        <div class="city-name">🐦 California</div>
+        <div class="city-stores">119+ stores • Statewide coverage</div>
+      </div>
+    </div>
+    
+    <div class="coverage-cta">
+      <p><strong>Don't see your city?</strong> Tell us where you need AisleBird and we'll add it next.</p>
+      <button class="request-btn" id="request-city-btn">Request Your City</button>
     </div>
   </section>
 
