@@ -431,14 +431,21 @@ var CHAINS = {
   'Whole Foods': {
     icon:'🌿',
     cats:[
-      {id:'produce',  label:'Produce',     emoji:'🥦',aisle:'Aisle 1'},
-      {id:'bulk',     label:'Bulk Foods',  emoji:'🌾',aisle:'Aisle 2'},
-      {id:'dairy',    label:'Dairy',       emoji:'🧀',aisle:'Aisle 3'},
-      {id:'bakery',   label:'Bakery',      emoji:'🍞',aisle:'Aisle 4'},
-      {id:'meat',     label:'Meat & Fish', emoji:'🥩',aisle:'Aisle 5'},
-      {id:'prepared', label:'Prepared',    emoji:'🍱',aisle:'Hot Bar'},
-      {id:'wellness', label:'Wellness',    emoji:'💊',aisle:'Aisle 7'},
-      {id:'frozen',   label:'Frozen',      emoji:'❄️', aisle:'Aisle 8'}
+      {id:'produce',label:'Produce',emoji:'🥦',aisle:'Produce'},
+      {id:'bakery',label:'Bakery',emoji:'🍞',aisle:'Bakery'},
+      {id:'dairy',label:'Dairy & Eggs',emoji:'🧀',aisle:'Dairy'},
+      {id:'meat',label:'Meat & Seafood',emoji:'🥩',aisle:'Meat'},
+      {id:'prepared',label:'Prepared & Deli',emoji:'🍱',aisle:'Deli'},
+      {id:'frozen',label:'Frozen',emoji:'❄️',aisle:'Frozen'},
+      {id:'bulk',label:'Bulk',emoji:'🌾',aisle:'Bulk'},
+      {id:'pantry',label:'Pantry',emoji:'🥫',aisle:'Pantry'},
+      {id:'condiments',label:'Condiments & Sauces',emoji:'🫙',aisle:'Condiments'},
+      {id:'snacks',label:'Snacks',emoji:'🍿',aisle:'Snacks'},
+      {id:'beverages',label:'Beverages',emoji:'🥤',aisle:'Beverages'},
+      {id:'wine',label:'Wine & Beer',emoji:'🍷',aisle:'Wine & Beer'},
+      {id:'wellness',label:'Wellness & Body',emoji:'🧘',aisle:'Wellness'},
+      {id:'household',label:'Household',emoji:'🧻',aisle:'Household'},
+      {id:'pets',label:'Pet',emoji:'🐾',aisle:'Pet'}
     ],
     quickAdd:[
       {name:'Organic Bananas',      cat:'produce', emoji:'🍌'},
@@ -462,14 +469,19 @@ var CHAINS = {
   "Trader Joe's":{
     icon:'🛵',
     cats:[
-      {id:'produce',  label:'Produce',      emoji:'🥦',aisle:'Aisle 1'},
-      {id:'dairy',    label:'Dairy & Eggs', emoji:'🥚',aisle:'Aisle 2'},
-      {id:'frozen',   label:'Frozen',       emoji:'❄️', aisle:'Aisle 3'},
-      {id:'snacks',   label:'Snacks',       emoji:'🍿',aisle:'Aisle 4'},
-      {id:'bakery',   label:'Bakery',       emoji:'🍞',aisle:'Aisle 5'},
-      {id:'wine',     label:'Wine & Beer',  emoji:'🍷',aisle:'Aisle 6'},
-      {id:'pantry',   label:'Pantry',       emoji:'🫙',aisle:'Aisle 7'},
-      {id:'prepared', label:'Prepared',     emoji:'🍱',aisle:'Deli'}
+      {id:'produce',label:'Produce',emoji:'🥦',aisle:'Produce'},
+      {id:'dairy',label:'Dairy & Eggs',emoji:'🧀',aisle:'Dairy'},
+      {id:'meat',label:'Meat & Seafood',emoji:'🥩',aisle:'Meat'},
+      {id:'bakery',label:'Bakery',emoji:'🍞',aisle:'Bakery'},
+      {id:'frozen',label:'Frozen',emoji:'❄️',aisle:'Frozen'},
+      {id:'prepared',label:'Prepared & Deli',emoji:'🍱',aisle:'Deli'},
+      {id:'pantry',label:'Pantry',emoji:'🥫',aisle:'Pantry'},
+      {id:'condiments',label:'Condiments & Sauces',emoji:'🫙',aisle:'Condiments'},
+      {id:'snacks',label:'Snacks',emoji:'🍿',aisle:'Snacks'},
+      {id:'beverages',label:'Beverages',emoji:'🥤',aisle:'Beverages'},
+      {id:'wine',label:'Wine & Beer',emoji:'🍷',aisle:'Wine'},
+      {id:'household',label:'Household',emoji:'🧻',aisle:'Household'},
+      {id:'pets',label:'Pet',emoji:'🐾',aisle:'Pet'}
     ],
     quickAdd:[
       {name:'Bananas',                cat:'produce', emoji:'🍌'},
@@ -491,14 +503,26 @@ var CHAINS = {
   'Target':{
     icon:'🎯',
     cats:[
-      {id:'grocery',    label:'Grocery',     emoji:'🛒',aisle:'Grocery'},
-      {id:'produce',    label:'Produce',     emoji:'🥦',aisle:'Fresh'},
-      {id:'frozen',     label:'Frozen',      emoji:'❄️', aisle:'Frozen'},
-      {id:'pharmacy',   label:'Pharmacy',    emoji:'💊',aisle:'Pharmacy'},
-      {id:'beauty',     label:'Beauty',      emoji:'💄',aisle:'Beauty'},
-      {id:'home',       label:'Home',        emoji:'🏡',aisle:'Home'},
-      {id:'clothing',   label:'Clothing',    emoji:'👗',aisle:'Clothing'},
-      {id:'electronics',label:'Electronics', emoji:'📱',aisle:'Electronics'}
+      {id:'grocery',label:'Grocery',emoji:'🛒',aisle:'Grocery'},
+      {id:'produce',label:'Produce',emoji:'🥦',aisle:'Fresh'},
+      {id:'frozen',label:'Frozen',emoji:'❄️',aisle:'Frozen'},
+      {id:'beauty',label:'Personal Care',emoji:'💄',aisle:'Beauty'},
+      {id:'health',label:'Health',emoji:'💊',aisle:'Health'},
+      {id:'pharmacy',label:'Pharmacy',emoji:'⚕️',aisle:'Pharmacy'},
+      {id:'baby',label:'Baby',emoji:'🍼',aisle:'Baby'},
+      {id:'pets',label:'Pets',emoji:'🐾',aisle:'Pets'},
+      {id:'household',label:'Household Essentials',emoji:'🧻',aisle:'Household'},
+      {id:'kitchen',label:'Kitchen & Dining',emoji:'🍽️',aisle:'Kitchen'},
+      {id:'home',label:'Home & Decor',emoji:'🏡',aisle:'Home'},
+      {id:'clothing',label:'Clothing, Shoes & Accessories',emoji:'👗',aisle:'Apparel'},
+      {id:'toys',label:'Toys & Games',emoji:'🧸',aisle:'Toys'},
+      {id:'electronics',label:'Electronics',emoji:'📱',aisle:'Electronics'},
+      {id:'media',label:'Movies, Music & Books',emoji:'🎬',aisle:'Media'},
+      {id:'sports',label:'Sports & Outdoors',emoji:'🏀',aisle:'Sports'},
+      {id:'garden',label:'Outdoor & Garden',emoji:'🌳',aisle:'Garden'},
+      {id:'office',label:'School & Office',emoji:'✏️',aisle:'Office'},
+      {id:'party',label:'Party Supplies',emoji:'🎉',aisle:'Party'},
+      {id:'luggage',label:'Luggage',emoji:'🧳',aisle:'Luggage'}
     ],
     quickAdd:[
       {name:'Bananas',           cat:'produce',    emoji:'🍌'},
@@ -518,14 +542,25 @@ var CHAINS = {
   'Walmart':{
     icon:'🛒',
     cats:[
-      {id:'grocery',    label:'Grocery',     emoji:'🛒',aisle:'Grocery'},
-      {id:'produce',    label:'Produce',     emoji:'🥦',aisle:'Fresh'},
-      {id:'frozen',     label:'Frozen',      emoji:'❄️', aisle:'Frozen'},
-      {id:'pharmacy',   label:'Pharmacy',    emoji:'💊',aisle:'Pharmacy'},
-      {id:'home',       label:'Home',        emoji:'🏡',aisle:'Home'},
-      {id:'auto',       label:'Auto',        emoji:'🚗',aisle:'Auto'},
-      {id:'clothing',   label:'Clothing',    emoji:'👕',aisle:'Clothing'},
-      {id:'electronics',label:'Electronics', emoji:'📺',aisle:'Electronics'}
+      {id:'grocery',label:'Grocery',emoji:'🛒',aisle:'Grocery'},
+      {id:'produce',label:'Produce',emoji:'🥦',aisle:'Fresh'},
+      {id:'frozen',label:'Frozen',emoji:'❄️',aisle:'Frozen'},
+      {id:'pharmacy',label:'Pharmacy',emoji:'⚕️',aisle:'Pharmacy'},
+      {id:'health',label:'Health',emoji:'💊',aisle:'Health'},
+      {id:'beauty',label:'Personal Care',emoji:'💄',aisle:'Beauty'},
+      {id:'baby',label:'Baby',emoji:'🍼',aisle:'Baby'},
+      {id:'pets',label:'Pets',emoji:'🐾',aisle:'Pets'},
+      {id:'household',label:'Household Essentials',emoji:'🧻',aisle:'Household'},
+      {id:'kitchen',label:'Kitchen & Dining',emoji:'🍽️',aisle:'Kitchen'},
+      {id:'home',label:'Home',emoji:'🏡',aisle:'Home'},
+      {id:'clothing',label:'Clothing',emoji:'👗',aisle:'Apparel'},
+      {id:'toys',label:'Toys',emoji:'🧸',aisle:'Toys'},
+      {id:'electronics',label:'Electronics',emoji:'📱',aisle:'Electronics'},
+      {id:'sports',label:'Sports & Outdoors',emoji:'🏀',aisle:'Sports'},
+      {id:'auto',label:'Auto',emoji:'🚗',aisle:'Auto'},
+      {id:'garden',label:'Garden & Patio',emoji:'🌳',aisle:'Garden'},
+      {id:'office',label:'School & Office',emoji:'✏️',aisle:'Office'},
+      {id:'party',label:'Party',emoji:'🎉',aisle:'Party'}
     ],
     quickAdd:[
       {name:'Milk',           cat:'grocery', emoji:'🥛'},
@@ -543,12 +578,15 @@ var CHAINS = {
   'CVS':{
     icon:'💊',
     cats:[
-      {id:'pharmacy',label:'Pharmacy',emoji:'💊',aisle:'Pharmacy'},
-      {id:'beauty',  label:'Beauty',  emoji:'💄',aisle:'Beauty'},
-      {id:'health',  label:'Health',  emoji:'🏥',aisle:'Health'},
-      {id:'snacks',  label:'Snacks',  emoji:'🍬',aisle:'Snacks'},
-      {id:'baby',    label:'Baby',    emoji:'👶',aisle:'Baby'},
-      {id:'photo',   label:'Photo',   emoji:'📷',aisle:'Photo'}
+      {id:'pharmacy',label:'Pharmacy',emoji:'⚕️',aisle:'Pharmacy'},
+      {id:'health',label:'Health',emoji:'💊',aisle:'Health'},
+      {id:'wellness',label:'Wellness',emoji:'🧘',aisle:'Wellness'},
+      {id:'beauty',label:'Personal Care',emoji:'💄',aisle:'Beauty'},
+      {id:'baby',label:'Baby',emoji:'🍼',aisle:'Baby'},
+      {id:'household',label:'Household',emoji:'🧻',aisle:'Household'},
+      {id:'grocery',label:'Grocery',emoji:'🛒',aisle:'Grocery'},
+      {id:'snacks',label:'Snacks',emoji:'🍿',aisle:'Snacks'},
+      {id:'photo',label:'Photo',emoji:'📷',aisle:'Photo'}
     ],
     quickAdd:[
       {name:'Advil',        cat:'pharmacy',emoji:'💊'},
@@ -566,12 +604,15 @@ var CHAINS = {
   'Walgreens':{
     icon:'💜',
     cats:[
-      {id:'pharmacy',label:'Pharmacy',emoji:'💊',aisle:'Pharmacy'},
-      {id:'health',  label:'Health',  emoji:'🏥',aisle:'Health'},
-      {id:'beauty',  label:'Beauty',  emoji:'💄',aisle:'Beauty'},
-      {id:'snacks',  label:'Snacks',  emoji:'🍬',aisle:'Snacks'},
-      {id:'baby',    label:'Baby',    emoji:'👶',aisle:'Baby'},
-      {id:'photo',   label:'Photo',   emoji:'📷',aisle:'Photo'}
+      {id:'pharmacy',label:'Pharmacy',emoji:'⚕️',aisle:'Pharmacy'},
+      {id:'health',label:'Health',emoji:'💊',aisle:'Health'},
+      {id:'wellness',label:'Wellness',emoji:'🧘',aisle:'Wellness'},
+      {id:'beauty',label:'Personal Care',emoji:'💄',aisle:'Beauty'},
+      {id:'baby',label:'Baby',emoji:'🍼',aisle:'Baby'},
+      {id:'household',label:'Household',emoji:'🧻',aisle:'Household'},
+      {id:'grocery',label:'Grocery',emoji:'🛒',aisle:'Grocery'},
+      {id:'snacks',label:'Snacks',emoji:'🍿',aisle:'Snacks'},
+      {id:'photo',label:'Photo',emoji:'📷',aisle:'Photo'}
     ],
     quickAdd:[
       {name:'Advil',        cat:'pharmacy',emoji:'💊'},
@@ -586,14 +627,22 @@ var CHAINS = {
   'Costco':{
     icon:'🏭',
     cats:[
-      {id:'grocery',    label:'Grocery',       emoji:'🛒',aisle:'Grocery'},
-      {id:'produce',    label:'Fresh & Deli',  emoji:'🥦',aisle:'Fresh'},
-      {id:'bakery',     label:'Bakery',        emoji:'🍞',aisle:'Bakery'},
-      {id:'meat',       label:'Meat & Seafood',emoji:'🥩',aisle:'Meat'},
-      {id:'frozen',     label:'Frozen',        emoji:'❄️', aisle:'Frozen'},
-      {id:'pharmacy',   label:'Pharmacy',      emoji:'💊',aisle:'Pharmacy'},
-      {id:'electronics',label:'Electronics',   emoji:'📺',aisle:'Electronics'},
-      {id:'home',       label:'Home & Garden', emoji:'🏡',aisle:'Home'}
+      {id:'grocery',label:'Grocery',emoji:'🛒',aisle:'Grocery'},
+      {id:'produce',label:'Produce',emoji:'🥦',aisle:'Produce'},
+      {id:'bakery',label:'Bakery',emoji:'🍞',aisle:'Bakery'},
+      {id:'meat',label:'Meat & Seafood',emoji:'🥩',aisle:'Meat'},
+      {id:'frozen',label:'Frozen',emoji:'❄️',aisle:'Frozen'},
+      {id:'deli',label:'Deli',emoji:'🍱',aisle:'Deli'},
+      {id:'pharmacy',label:'Pharmacy',emoji:'⚕️',aisle:'Pharmacy'},
+      {id:'beauty',label:'Personal Care',emoji:'💄',aisle:'Beauty'},
+      {id:'electronics',label:'Electronics',emoji:'📱',aisle:'Electronics'},
+      {id:'home',label:'Home',emoji:'🏡',aisle:'Home'},
+      {id:'kitchen',label:'Kitchen',emoji:'🍽️',aisle:'Kitchen'},
+      {id:'clothing',label:'Clothing',emoji:'👗',aisle:'Apparel'},
+      {id:'sports',label:'Sports & Outdoors',emoji:'🏀',aisle:'Sports'},
+      {id:'office',label:'Office',emoji:'✏️',aisle:'Office'},
+      {id:'auto',label:'Auto & Tires',emoji:'🚗',aisle:'Auto'},
+      {id:'garden',label:'Patio & Garden',emoji:'🌳',aisle:'Garden'}
     ],
     quickAdd:[
       {name:'Kirkland Olive Oil',    cat:'grocery', emoji:'🫒'},
@@ -612,14 +661,19 @@ var CHAINS = {
   'Home Depot':{
     icon:'🔨',
     cats:[
-      {id:'lumber',   label:'Lumber',     emoji:'🪵',aisle:'Lumber'},
-      {id:'tools',    label:'Tools',      emoji:'🔧',aisle:'Tools'},
-      {id:'paint',    label:'Paint',      emoji:'🎨',aisle:'Paint'},
-      {id:'plumbing', label:'Plumbing',   emoji:'🚿',aisle:'Plumbing'},
-      {id:'electric', label:'Electrical', emoji:'⚡',aisle:'Electrical'},
-      {id:'garden',   label:'Garden',     emoji:'🌱',aisle:'Garden'},
-      {id:'flooring', label:'Flooring',   emoji:'🏠',aisle:'Flooring'},
-      {id:'hardware', label:'Hardware',   emoji:'🔩',aisle:'Hardware'}
+      {id:'lumber',label:'Lumber',emoji:'🪵',aisle:'Lumber'},
+      {id:'building',label:'Building Materials',emoji:'🧱',aisle:'Building'},
+      {id:'tools',label:'Tools',emoji:'🔧',aisle:'Tools'},
+      {id:'hardware',label:'Hardware',emoji:'🔩',aisle:'Hardware'},
+      {id:'paint',label:'Paint',emoji:'🎨',aisle:'Paint'},
+      {id:'plumbing',label:'Plumbing',emoji:'🚰',aisle:'Plumbing'},
+      {id:'electric',label:'Electrical',emoji:'⚡',aisle:'Electrical'},
+      {id:'flooring',label:'Flooring',emoji:'🪨',aisle:'Flooring'},
+      {id:'lighting',label:'Lighting',emoji:'💡',aisle:'Lighting'},
+      {id:'garden',label:'Garden & Outdoor',emoji:'🌳',aisle:'Garden'},
+      {id:'kitchen',label:'Kitchen & Bath',emoji:'🚿',aisle:'Kitchen & Bath'},
+      {id:'appliances',label:'Appliances',emoji:'🧺',aisle:'Appliances'},
+      {id:'home',label:'Decor',emoji:'🏡',aisle:'Decor'}
     ],
     quickAdd:[
       {name:'2x4 Stud 8ft',        cat:'lumber',   emoji:'🪵'},
@@ -633,14 +687,19 @@ var CHAINS = {
   "Lowe's":{
     icon:'🔵',
     cats:[
-      {id:'lumber',   label:'Lumber',     emoji:'🪵',aisle:'Lumber'},
-      {id:'tools',    label:'Tools',      emoji:'🔧',aisle:'Tools'},
-      {id:'paint',    label:'Paint',      emoji:'🎨',aisle:'Paint'},
-      {id:'plumbing', label:'Plumbing',   emoji:'🚿',aisle:'Plumbing'},
-      {id:'electric', label:'Electrical', emoji:'⚡',aisle:'Electrical'},
-      {id:'garden',   label:'Garden',     emoji:'🌱',aisle:'Garden'},
-      {id:'flooring', label:'Flooring',   emoji:'🏠',aisle:'Flooring'},
-      {id:'hardware', label:'Hardware',   emoji:'🔩',aisle:'Hardware'}
+      {id:'lumber',label:'Lumber',emoji:'🪵',aisle:'Lumber'},
+      {id:'building',label:'Building Materials',emoji:'🧱',aisle:'Building'},
+      {id:'tools',label:'Tools',emoji:'🔧',aisle:'Tools'},
+      {id:'hardware',label:'Hardware',emoji:'🔩',aisle:'Hardware'},
+      {id:'paint',label:'Paint',emoji:'🎨',aisle:'Paint'},
+      {id:'plumbing',label:'Plumbing',emoji:'🚰',aisle:'Plumbing'},
+      {id:'electric',label:'Electrical',emoji:'⚡',aisle:'Electrical'},
+      {id:'flooring',label:'Flooring',emoji:'🪨',aisle:'Flooring'},
+      {id:'lighting',label:'Lighting',emoji:'💡',aisle:'Lighting'},
+      {id:'garden',label:'Garden & Outdoor',emoji:'🌳',aisle:'Garden'},
+      {id:'kitchen',label:'Kitchen & Bath',emoji:'🚿',aisle:'Kitchen & Bath'},
+      {id:'appliances',label:'Appliances',emoji:'🧺',aisle:'Appliances'},
+      {id:'home',label:'Decor',emoji:'🏡',aisle:'Decor'}
     ],
     quickAdd:[
       {name:'2x4 Lumber 8ft',      cat:'lumber',   emoji:'🪵'},
@@ -654,14 +713,19 @@ var CHAINS = {
   'Tractor Supply':{
     icon:'🚜',
     cats:[
-      {id:'petfood',  label:'Pet Food',      emoji:'🐾',aisle:'Pet'},
-      {id:'livestock',label:'Livestock Feed', emoji:'🐄',aisle:'Feed'},
-      {id:'poultry',  label:'Poultry',       emoji:'🐓',aisle:'Poultry'},
-      {id:'equine',   label:'Equine',        emoji:'🐴',aisle:'Equine'},
-      {id:'seed',     label:'Seeds & Plants',emoji:'🌱',aisle:'Garden'},
-      {id:'clothing', label:'Workwear',      emoji:'👢',aisle:'Clothing'},
-      {id:'tools',    label:'Farm Tools',    emoji:'🔧',aisle:'Tools'},
-      {id:'fencing',  label:'Fencing',       emoji:'🪟',aisle:'Fencing'}
+      {id:'petfood',label:'Pet & Animal Feed',emoji:'🐾',aisle:'Feed'},
+      {id:'livestock',label:'Livestock',emoji:'🐄',aisle:'Livestock'},
+      {id:'poultry',label:'Poultry',emoji:'🐔',aisle:'Poultry'},
+      {id:'equine',label:'Equine',emoji:'🐴',aisle:'Equine'},
+      {id:'pets',label:'Pet Care',emoji:'🦴',aisle:'Pet Care'},
+      {id:'seed',label:'Seed & Feed',emoji:'🌾',aisle:'Seed'},
+      {id:'garden',label:'Lawn & Garden',emoji:'🌳',aisle:'Garden'},
+      {id:'clothing',label:'Workwear',emoji:'👖',aisle:'Workwear'},
+      {id:'tools',label:'Tools',emoji:'🔧',aisle:'Tools'},
+      {id:'hardware',label:'Hardware',emoji:'🔩',aisle:'Hardware'},
+      {id:'fencing',label:'Fencing',emoji:'🚧',aisle:'Fencing'},
+      {id:'sports',label:'Sporting & Hunting',emoji:'🎯',aisle:'Sporting'},
+      {id:'auto',label:'Auto & Trailers',emoji:'🚗',aisle:'Auto'}
     ],
     quickAdd:[
       {name:'Dog Food 40lb',     cat:'petfood',  emoji:'🐶'},
@@ -677,14 +741,17 @@ var CHAINS = {
   "Friedman's":{
     icon:'🪚',
     cats:[
-      {id:'lumber',   label:'Lumber',      emoji:'🪵',aisle:'Lumber'},
-      {id:'tools',    label:'Tools',       emoji:'🔧',aisle:'Tools'},
-      {id:'paint',    label:'Paint',       emoji:'🎨',aisle:'Paint'},
-      {id:'plumbing', label:'Plumbing',    emoji:'🚿',aisle:'Plumbing'},
-      {id:'electric', label:'Electrical',  emoji:'⚡',aisle:'Electrical'},
-      {id:'garden',   label:'Garden',      emoji:'🌱',aisle:'Garden'},
-      {id:'hardware', label:'Hardware',    emoji:'🔩',aisle:'Hardware'},
-      {id:'rental',   label:'Tool Rental', emoji:'🏗️',aisle:'Rental'}
+      {id:'lumber',label:'Lumber',emoji:'🪵',aisle:'Lumber'},
+      {id:'building',label:'Building Materials',emoji:'🧱',aisle:'Building'},
+      {id:'tools',label:'Tools',emoji:'🔧',aisle:'Tools'},
+      {id:'hardware',label:'Hardware',emoji:'🔩',aisle:'Hardware'},
+      {id:'paint',label:'Paint',emoji:'🎨',aisle:'Paint'},
+      {id:'plumbing',label:'Plumbing',emoji:'🚰',aisle:'Plumbing'},
+      {id:'electric',label:'Electrical',emoji:'⚡',aisle:'Electrical'},
+      {id:'garden',label:'Garden & Outdoor',emoji:'🌳',aisle:'Garden'},
+      {id:'lighting',label:'Lighting',emoji:'💡',aisle:'Lighting'},
+      {id:'home',label:'Home & Decor',emoji:'🏡',aisle:'Decor'},
+      {id:'rental',label:'Tool Rental',emoji:'🛠️',aisle:'Rental'}
     ],
     quickAdd:[
       {name:'2x4 Stud 8ft',    cat:'lumber',   emoji:'🪵'},
@@ -928,81 +995,149 @@ function getCat(id){
   return cats[0];
 }
 /* ─── Standard departments every store gets (auto-merged on load) ─── */
-var STD_CATS=[
-  {id:'produce',   label:'Produce',            emoji:'🥦',aisle:'Produce'},
-  {id:'bakery',    label:'Bakery',             emoji:'🍞',aisle:'Bakery'},
-  {id:'meat',      label:'Meat & Fish',        emoji:'🥩',aisle:'Meat & Seafood'},
-  {id:'dairy',     label:'Dairy & Eggs',       emoji:'🧀',aisle:'Dairy'},
-  {id:'frozen',    label:'Frozen',             emoji:'❄️',aisle:'Frozen'},
-  {id:'bulk',      label:'Bulk Foods',         emoji:'🌾',aisle:'Bulk'},
-  {id:'pantry',    label:'Pantry',             emoji:'🥫',aisle:'Pantry'},
-  {id:'condiments',label:'Condiments & Sauces',emoji:'🫙',aisle:'Condiments'},
-  {id:'snacks',    label:'Snacks',             emoji:'🍿',aisle:'Snacks'},
-  {id:'beverages', label:'Beverages',          emoji:'🥤',aisle:'Beverages'},
-  {id:'wine',      label:'Wine & Beer',        emoji:'🍷',aisle:'Wine & Beer'},
-  {id:'prepared',  label:'Prepared & Deli',    emoji:'🍱',aisle:'Deli'},
-  {id:'health',    label:'Health & Beauty',    emoji:'💊',aisle:'Health & Beauty'},
-  {id:'household', label:'Household',          emoji:'🧻',aisle:'Household'},
-  {id:'pet',       label:'Pet',                emoji:'🐾',aisle:'Pet'},
-  {id:'other',     label:'Other',              emoji:'🛒',aisle:'Other'}
-];
+var COLLAPSE={
+  produce:['produce','grocery'], dairy:['dairy','grocery'], meat:['meat','grocery'],
+  bakery:['bakery','grocery'], frozen:['frozen','grocery'], pantry:['pantry','grocery'],
+  condiments:['condiments','pantry','grocery'], snacks:['snacks','grocery'],
+  beverages:['beverages','grocery'], wine:['wine','beverages','grocery'],
+  bulk:['bulk','pantry','grocery'], deli:['deli','prepared','meat','grocery'], grocery:['grocery'],
+  beauty:['beauty','health','pharmacy','wellness'], health:['health','pharmacy','wellness','beauty'],
+  wellness:['wellness','health','pharmacy'], pharmacy:['pharmacy','health','wellness'],
+  baby:['baby','grocery'], household:['household','home','grocery'], home:['home','kitchen'],
+  kitchen:['kitchen','home'], garden:['garden','seed','home'], clothing:['clothing'],
+  luggage:['luggage','clothing','home'], electronics:['electronics'],
+  videogames:['videogames','electronics'], media:['media','electronics'],
+  office:['office','electronics','home'], toys:['toys','home'], sports:['sports','garden','home'],
+  party:['party','home'], pets:['pets','petfood','grocery'], petfood:['petfood','pets','livestock','grocery'],
+  livestock:['livestock','petfood','seed'], poultry:['poultry','livestock','petfood'],
+  equine:['equine','livestock','petfood'], seed:['seed','garden'], fencing:['fencing','hardware','tools'],
+  tools:['tools','hardware'], hardware:['hardware','tools'], lumber:['lumber','building','hardware'],
+  building:['building','lumber','hardware'], paint:['paint','hardware'], plumbing:['plumbing','hardware'],
+  electric:['electric','hardware','electronics'], flooring:['flooring','building','hardware'],
+  lighting:['lighting','electric','home','hardware'], appliances:['appliances','home','electronics'],
+  auto:['auto','hardware','home'], photo:['photo','electronics'], storage:['storage','home']
+};
+/* Ensure every store has an Other catch-all (no grocery dumping) */
 function mergeStdCats(chain){
-  var have={}; chain.cats.forEach(function(c){ have[c.id]=true; });
-  STD_CATS.forEach(function(c){ if(!have[c.id]){ chain.cats.push(c); have[c.id]=true; } });
+  if(!chain.cats.some(function(c){return c.id==='other';}))
+    chain.cats.push({id:'other',label:'Other',emoji:'🛒',aisle:'Other'});
 }
-
-/* ─── Multi-word phrases checked first (most specific) ─── */
+/* Multi-word phrases checked first (most specific) -> concept */
 var GCAT_PHRASES=[
-  ['pet',       ['dog food','cat food','dog treat','cat treat','cat litter','kitty litter','pet food','bird seed']],
-  ['household', ['toilet paper','paper towel','paper towels','trash bag','trash bags','garbage bag','garbage bags','dish soap','dishwasher','laundry detergent','aluminum foil','plastic wrap','light bulb','light bulbs','ziploc','sandwich bags','paper plates','trash bags']],
-  ['health',    ['body wash','hand soap','pain reliever','cough syrup','first aid','cotton balls','hand sanitizer','baby wipes','toilet bowl']],
+  ['petfood',['dog food','cat food','dog treat','cat treat','bird seed','chicken feed','horse feed','animal feed','livestock feed','puppy food','kitten food']],
+  ['pets',['cat litter','kitty litter','dog leash','dog toy','pet bed','litter box','flea treatment']],
+  ['baby',['baby food','baby wipes','baby formula','baby lotion','diaper','diapers']],
+  ['household',['toilet paper','paper towel','paper towels','trash bag','trash bags','garbage bag','garbage bags','dish soap','laundry detergent','dryer sheets','fabric softener','aluminum foil','plastic wrap','light bulb','light bulbs','ziploc','sandwich bags','paper plates','air freshener','dish detergent']],
+  ['health',['pain reliever','cough syrup','first aid','cold medicine','allergy medicine','band aid','heating pad','blood pressure']],
+  ['beauty',['body wash','hand soap','face wash','makeup remover','hand sanitizer','shaving cream','cotton balls','nail polish','cotton swabs']],
   ['condiments',['soy sauce','hot sauce','bbq sauce','barbecue sauce','tomato sauce','pasta sauce','salad dressing','ranch dressing','fish sauce','marinara sauce']],
-  ['pantry',    ['olive oil','coconut oil','vegetable oil','canola oil','cooking oil','peanut butter','almond butter','maple syrup','tomato paste']],
-  ['frozen',    ['ice cream','frozen pizza','frozen']],
-  ['wine',      ['red wine','white wine','sparkling wine']],
-  ['beverages', ['sparkling water','orange juice','apple juice','coconut water','energy drink']],
-  ['bulk',      ['trail mix']],
-  ['snacks',    ['granola bar','protein bar','potato chips']],
-  ['prepared',  ['rotisserie chicken','hot bar']]
+  ['pantry',['olive oil','coconut oil','vegetable oil','canola oil','cooking oil','peanut butter','almond butter','maple syrup','tomato paste']],
+  ['frozen',['ice cream','frozen pizza','frozen dinner','frozen meal','frozen']],
+  ['wine',['red wine','white wine','sparkling wine']],
+  ['beverages',['sparkling water','orange juice','apple juice','coconut water','energy drink','soft drink']],
+  ['deli',['rotisserie chicken','deli meat','lunch meat']],
+  ['kitchen',['frying pan','cutting board','coffee maker','baking sheet','food storage','measuring cup','can opener','mixing bowl','dish set','pots and pans']],
+  ['videogames',['video game','video games','gaming console']],
+  ['photo',['disposable camera','passport photo','photo print','photo prints','film roll']],
+  ['media',['blu ray','board game','coffee table book']],
+  ['office',['printer paper','school supplies','office supplies','ballpoint pen','file folder','dry erase','copy paper']],
+  ['sports',['yoga mat','tennis ball','golf ball','camping tent','sleeping bag','fishing rod','bike helmet','exercise bike','jump rope']],
+  ['garden',['potting soil','garden hose','lawn mower','weed killer','patio furniture','grass seed','plant food','bird bath','garden soil']],
+  ['tools',['power drill','drill bit','tape measure','utility knife','tool box','socket set','circular saw','nail gun']],
+  ['hardware',['wood screws','wall anchors','duct tape','door hinge','cabinet handle','picture hooks']],
+  ['plumbing',['pvc pipe','drain cleaner','toilet seat','shower head','pipe fitting','garbage disposal']],
+  ['electric',['extension cord','wire nuts','light switch','circuit breaker','electrical tape','wall outlet','power strip']],
+  ['paint',['paint brush','paint roller','spray paint','wood stain','painters tape','drop cloth']],
+  ['lumber',['plywood','two by four','2x4','pressure treated','wood board']],
+  ['flooring',['floor tile','vinyl plank','laminate floor']],
+  ['building',['drywall','concrete mix','cement bag']],
+  ['lighting',['ceiling fan','light fixture','floor lamp','led bulb']],
+  ['appliances',['washing machine','refrigerator','microwave oven','water heater']],
+  ['equine',['horse feed','horse blanket','saddle pad']],
+  ['poultry',['chicken coop','chick starter','poultry feed','laying hens']],
+  ['livestock',['cattle feed','goat feed','pig feed','hay bale','mineral block']],
+  ['fencing',['barbed wire','fence post','t post','welded wire','field fence']],
+  ['seed',['garden seed','flower seed','seed starter']],
+  ['clothing',['t shirt','work boots','blue jeans','baseball cap','winter coat','work gloves']],
+  ['luggage',['carry on','duffel bag','suit case']],
+  ['party',['birthday candles','party favors','gift wrap','wrapping paper','greeting card']],
+  ['auto',['motor oil','windshield wiper','car wax','engine oil','wiper blades']]
 ];
-/* ─── Whole-word keywords, first matching category wins ─── */
+/* Whole-word keywords -> concept (first match wins) */
 var GCAT_WORDS=[
-  ['pet',       ['dog','cat','kibble','litter','leash']],
-  ['household', ['detergent','bleach','sponge','sponges','napkins','tissues','tissue','candles','batteries','foil','broom','mop','trash','garbage']],
-  ['health',    ['vitamin','vitamins','supplement','supplements','medicine','ibuprofen','tylenol','advil','aspirin','bandaid','bandages','shampoo','conditioner','soap','toothpaste','toothbrush','deodorant','lotion','sunscreen','makeup','razor','razors','floss']],
-  ['wine',      ['wine','beer','champagne','prosecco','vodka','whiskey','whisky','tequila','rum','gin','liquor','ale','ipa','rose','rosé','cider','sake','bourbon','merlot','chardonnay','cabernet']],
+  ['petfood',['kibble','dogfood','catfood']],
+  ['pets',['leash','catnip','aquarium']],
+  ['baby',['formula','pacifier','onesie']],
+  ['household',['detergent','bleach','sponge','sponges','napkins','tissues','tissue','batteries','foil','broom','mop','trash','garbage','clorox','swiffer']],
+  ['beauty',['shampoo','conditioner','toothpaste','toothbrush','deodorant','lotion','sunscreen','makeup','razor','razors','floss','perfume','cologne','mascara','lipstick','moisturizer','soap']],
+  ['health',['vitamin','vitamins','supplement','supplements','medicine','ibuprofen','tylenol','advil','aspirin','bandaid','bandages','thermometer','melatonin','probiotic','antacid']],
+  ['wellness',['wellness']],
+  ['wine',['wine','beer','champagne','prosecco','vodka','whiskey','whisky','tequila','rum','gin','liquor','ale','ipa','rose','cider','sake','bourbon','merlot','chardonnay','cabernet']],
   ['condiments',['ketchup','catsup','mustard','mayo','mayonnaise','dressing','salsa','sauce','relish','vinegar','sriracha','jam','jelly','marmalade','pickles','pickle','preserves']],
-  ['beverages', ['water','juice','soda','coffee','tea','lemonade','kombucha','cola','seltzer','gatorade']],
-  ['dairy',     ['milk','cheese','butter','yogurt','yoghurt','cream','egg','eggs','paneer','cheddar','mozzarella','parmesan','feta','ricotta','brie','gouda','creamer']],
-  ['meat',      ['chicken','beef','pork','turkey','salmon','fish','tuna','shrimp','bacon','sausage','ham','steak','lamb','fillet','filet','cod','tilapia','crab','lobster','meat','ribs','brisket','ground','veal','scallops','prawns']],
-  ['produce',   ['apple','apples','banana','bananas','orange','oranges','lettuce','spinach','tomato','tomatoes','potato','potatoes','onion','onions','garlic','carrot','carrots','broccoli','cucumber','pepper','peppers','avocado','avocados','berry','berries','strawberry','strawberries','blueberry','blueberries','grape','grapes','lemon','lemons','lime','limes','kale','celery','mushroom','mushrooms','cilantro','parsley','ginger','salad','greens','herb','herbs','squash','zucchini','corn','cauliflower','cabbage','melon','peach','peaches','pear','pears','mango','mangoes','asparagus','beet','beets','radish','scallion','scallions','leek','leeks']],
-  ['bakery',    ['bread','bagel','bagels','loaf','croissant','croissants','muffin','muffins','cake','cakes','donut','donuts','doughnut','tortilla','tortillas','bun','buns','roll','rolls','pita','baguette','sourdough','pastry','pastries','cupcake','cupcakes','pie']],
-  ['frozen',    ['popsicle','popsicles','edamame','gelato','sorbet']],
-  ['bulk',      ['oats','almonds','nuts','rice','beans','lentils','quinoa','granola','flour','grains','seeds','cashews','walnuts','pecans','oatmeal','barley','couscous','raisins']],
-  ['snacks',    ['chips','crackers','chocolate','candy','cookies','cookie','popcorn','pretzels','pretzel','snacks','gum','jerky']],
-  ['pantry',    ['oil','oils','pasta','noodles','cereal','soup','broth','stock','canned','sugar','salt','honey','syrup','spices','spice','ramen','yeast','cornstarch','breadcrumbs','rice']],
-  ['prepared',  ['sushi','rotisserie','deli','sandwich','sandwiches']]
+  ['beverages',['water','juice','soda','coffee','tea','lemonade','kombucha','cola','seltzer','gatorade']],
+  ['dairy',['milk','cheese','butter','yogurt','yoghurt','cream','egg','eggs','cheddar','mozzarella','parmesan','feta','ricotta','brie','gouda','creamer']],
+  ['meat',['beef','pork','turkey','salmon','tuna','shrimp','bacon','sausage','steak','lamb','fillet','filet','cod','tilapia','crab','lobster','ribs','brisket','veal','scallops','prawns']],
+  ['produce',['apple','apples','banana','bananas','orange','oranges','lettuce','spinach','tomato','tomatoes','potato','potatoes','onion','onions','garlic','carrot','carrots','broccoli','cucumber','pepper','peppers','avocado','avocados','berry','berries','strawberry','strawberries','blueberry','blueberries','grape','grapes','lemon','lemons','lime','limes','kale','celery','mushroom','mushrooms','cilantro','parsley','ginger','salad','greens','herb','herbs','squash','zucchini','corn','cauliflower','cabbage','melon','peach','peaches','pear','pears','mango','mangoes','asparagus']],
+  ['bakery',['bread','bagel','bagels','loaf','croissant','muffin','muffins','cake','cakes','donut','donuts','doughnut','tortilla','tortillas','bun','buns','baguette','sourdough','pastry','pastries','cupcake','pie']],
+  ['frozen',['popsicle','popsicles','edamame','gelato','sorbet']],
+  ['bulk',['oats','almonds','rice','beans','lentils','quinoa','granola','flour','cashews','walnuts','pecans','oatmeal','barley','couscous','raisins']],
+  ['snacks',['chips','crackers','chocolate','candy','cookies','cookie','popcorn','pretzels','pretzel','snacks','gum','jerky']],
+  ['pantry',['oil','pasta','noodles','cereal','soup','broth','stock','canned','sugar','salt','honey','syrup','spices','spice','ramen','yeast','cornstarch']],
+  ['deli',['deli','rotisserie']],
+  ['videogames',['xbox','playstation','nintendo','controller','gamepad']],
+  ['photo',['film','prints']],
+  ['media',['book','books','movie','movies','dvd','vinyl','magazine','novel']],
+  ['electronics',['tv','television','laptop','tablet','headphones','earbuds','charger','speaker','speakers','monitor','keyboard','router','printer','camera','phone','iphone','airpods','usb']],
+  ['office',['pen','pens','pencil','pencils','notebook','notebooks','binder','binders','folder','folders','stapler','marker','markers','glue','scissors','envelopes','calculator']],
+  ['toys',['toy','toys','lego','legos','doll','dolls','puzzle','puzzles','blocks','figurine','crayons','playset']],
+  ['sports',['bike','bicycle','helmet','dumbbell','dumbbells','weights','treadmill','yoga','tent','kayak','fishing','golf','basketball','football','soccer','baseball','racket','skateboard']],
+  ['kitchen',['pan','pans','pot','pots','skillet','spatula','plates','bowls','mug','mugs','utensils','cookware','blender','toaster','kettle','tupperware']],
+  ['home',['pillow','pillows','blanket','blankets','sheets','towel','towels','curtains','rug','rugs','lamp','frame','frames','vase','decor','furniture','sofa','chair','desk','mattress','hanger','hangers']],
+  ['clothing',['shirt','shirts','pants','jeans','dress','dresses','socks','shoes','boots','jacket','coat','sweater','hoodie','hat','gloves','underwear','leggings','shorts','sneakers','sandals','belt','scarf']],
+  ['luggage',['luggage','suitcase','backpack','duffel']],
+  ['party',['balloons','balloon','confetti','streamers','banner','invitations']],
+  ['garden',['soil','mulch','fertilizer','plant','plants','shovel','rake','hose','mower','flowerpot','sprinkler']],
+  ['tools',['drill','hammer','screwdriver','wrench','pliers','saw','sander','clamp','chisel','toolbox']],
+  ['hardware',['screws','screw','nails','nail','bolts','bolt','washers','anchors','hinge','hinges','bracket','brackets']],
+  ['plumbing',['pipe','pipes','faucet','valve','drain','plunger','caulk','sealant','toilet']],
+  ['electric',['wire','wires','outlet','outlets','breaker','conduit','voltage']],
+  ['paint',['paint','primer','stain','brush','roller','varnish']],
+  ['lumber',['plywood','board','boards','plank','planks','beam','beams']],
+  ['flooring',['tile','tiles','flooring','laminate','grout','carpet','linoleum']],
+  ['lighting',['bulb','bulbs','fixture','chandelier','sconce']],
+  ['appliances',['refrigerator','fridge','washer','dishwasher','microwave','oven','stove']],
+  ['equine',['horse','equine','saddle','bridle','halter','hoof','mane']],
+  ['poultry',['chick','chicks','coop','poultry','hen','hens','rooster']],
+  ['livestock',['cattle','cow','goat','goats','pig','pigs','sheep','hay','livestock']],
+  ['fencing',['fence','fencing','posts']],
+  ['seed',['seed','seeds','sapling']],
+  ['auto',['tire','tires','antifreeze','coolant','wiper','wipers']]
 ];
+function resolveCat(concept){
+  if(!concept) return 'other';
+  var ids=curChain.cats.map(function(c){return c.id;});
+  if(ids.indexOf(concept)!==-1) return concept;
+  var ch=COLLAPSE[concept]||[];
+  for(var i=0;i<ch.length;i++) if(ids.indexOf(ch[i])!==-1) return ch[i];
+  return 'other';
+}
 function guessCat(text){
   var n=(text||'').toLowerCase().trim();
-  var ids=curChain.cats.map(function(c){ return c.id; });
   var hit=null;
-  // 1) multi-word phrases first
   for(var p=0;p<GCAT_PHRASES.length && !hit;p++){
     var phr=GCAT_PHRASES[p][1];
     for(var q=0;q<phr.length;q++){ if(n.indexOf(phr[q])!==-1){ hit=GCAT_PHRASES[p][0]; break; } }
   }
-  // 2) whole-word match (so "champagne" never matches "ham", "toilet" never matches "oil")
   if(!hit){
-    var words=n.split(/[^a-zà-ÿ]+/).filter(Boolean);
+    var words=n.split(/[^a-zà-ÿ0-9]+/).filter(Boolean);
     for(var w=0;w<GCAT_WORDS.length && !hit;w++){
       var set=GCAT_WORDS[w][1];
       for(var x=0;x<words.length && !hit;x++){ if(set.indexOf(words[x])!==-1) hit=GCAT_WORDS[w][0]; }
     }
   }
-  if(!hit) hit='other';
-  return ids.indexOf(hit)!==-1 ? hit : 'other';
+  return resolveCat(hit);
 }
+
 function parseQty(text){
   var wm={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8};
   var lo=text.toLowerCase(); var keys=Object.keys(wm);
