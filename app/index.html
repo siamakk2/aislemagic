@@ -212,6 +212,16 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 /* OVERLAYS */
 .ov{display:none;position:absolute;inset:0;background:rgba(0,0,0,.8);z-index:400;align-items:flex-end;}
 .ov.on{display:flex;}
+/* First-time store setup */
+#ov-first-store{justify-content:center;align-items:center;}
+.first-store-panel{background:var(--card);border-radius:16px;padding:32px 24px;max-width:500px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.fs-content{text-align:center;}
+.fs-step{display:inline-block;background:var(--or);color:#000;padding:6px 12px;border-radius:6px;font-weight:700;font-size:12px;margin-bottom:16px;}
+.fs-title{margin:0 0 8px 0;font-size:28px;font-weight:800;color:var(--tx);}
+.fs-subtitle{margin:0 0 24px 0;font-size:15px;color:var(--mut);line-height:1.5;}
+.fs-open-picker{background:var(--or);color:#000;border:none;padding:14px 24px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;width:100%;transition:all .2s;font-family:'Inter',sans-serif;}
+.fs-open-picker:active{transform:scale(.98);opacity:.9;}
+.fs-hint{margin:16px 0 0 0;font-size:13px;color:var(--mut);}
 .sheet{background:var(--card);border-radius:24px 24px 0 0;width:100%;padding:14px 14px 44px;border-top:1px solid var(--bdr);animation:sup .22s ease;max-height:88vh;overflow-y:auto;}
 .sheet::-webkit-scrollbar{width:0;}
 .sh-handle{width:36px;height:4px;background:var(--hi);border-radius:2px;margin:0 auto 14px;}
@@ -369,6 +379,19 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     <span>Settings</span>
   </button>
+</div>
+
+<!-- FIRST-TIME STORE SETUP (shown until a store is picked) -->
+<div class="ov" id="ov-first-store">
+  <div class="first-store-panel">
+    <div class="fs-content">
+      <div class="fs-step">Step 1</div>
+      <h2 class="fs-title">Pick Your Store</h2>
+      <p class="fs-subtitle">Choose where you're shopping so AisleBird sorts your list by that store's aisles</p>
+      <button class="fs-open-picker" id="fs-open-picker" type="button">📍 Select Store</button>
+      <p class="fs-hint">You can change stores anytime from the top menu</p>
+    </div>
+  </div>
 </div>
 
 <!-- STORE PICKER OVERLAY -->
@@ -1212,6 +1235,7 @@ function applyStore(store){
   renderList();
   renderSettings();
   closeOv('ov-store');
+  closeOv('ov-first-store');
   showToast('✓ '+store.chain+' '+store.name);
 }
 
@@ -1751,6 +1775,7 @@ document.getElementById('chain-arrow-left').addEventListener('click', function()
 document.getElementById('chain-arrow-right').addEventListener('click', function(){ document.getElementById('chain-row').scrollBy({left:150,behavior:'smooth'}); });
 document.getElementById('v-back-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
 document.getElementById('v-done-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
+document.getElementById('fs-open-picker').addEventListener('click', function(){ closeOv('ov-first-store'); openStorePicker(); });
 
 /* Search input */
 document.getElementById('sp-search').addEventListener('input', function(){
@@ -1767,6 +1792,8 @@ buildCatGrid();
 renderChips();
 renderList();
 renderSettings();
+/* Show first-store selection prompt */
+document.getElementById('ov-first-store').classList.add('on');
 </script>
 </body>
 </html>
