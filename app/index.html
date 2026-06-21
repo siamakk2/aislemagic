@@ -994,6 +994,13 @@ function getCat(id){
   for(var i=0;i<cats.length;i++) if(cats[i].id===id) return cats[i];
   return cats[0];
 }
+/* Show "Label · Aisle" but drop the aisle when it just repeats the label */
+function catTag(cat){
+  if(!cat.aisle) return cat.label;
+  var l=cat.label.toLowerCase(), a=cat.aisle.toLowerCase();
+  if(l.indexOf(a)!==-1 || a.indexOf(l)!==-1) return cat.label;
+  return cat.label+' · '+cat.aisle;
+}
 /* ─── Standard departments every store gets (auto-merged on load) ─── */
 var COLLAPSE={
   produce:['produce','grocery'], dairy:['dairy','grocery'], meat:['meat','grocery'],
@@ -1374,7 +1381,7 @@ function renderList(){
       var sh=document.createElement('div');
       sh.className='sec'+(ci===aisleIdx?' here':'');
       sh.innerHTML=(ci===aisleIdx?'<div class="here-dot"></div>':'')+
-        cat.emoji+' '+cat.label.toUpperCase()+' — '+cat.aisle+
+        cat.emoji+' '+catTag(cat).toUpperCase().replace(' · ',' — ')+
         (ci===aisleIdx?' &nbsp;← YOU ARE HERE':'');
       body.appendChild(sh);
     }
@@ -1469,10 +1476,10 @@ function renderQuickAdd(){
   var show=avail.slice(0,8);
   var html='<div class="qa-section"><div class="qa-label">⚡ Quick Add</div><div class="qa-grid">';
   show.forEach(function(q){
-    var cat=getCat(q.cat);
-    html+='<div class="qa-card" data-name="'+q.name+'" data-cat="'+q.cat+'">'+
+    var catId=guessCat(q.name); var cat=getCat(catId);
+    html+='<div class="qa-card" data-name="'+q.name+'" data-cat="'+catId+'">'+
       '<span class="qa-em">'+q.emoji+'</span>'+
-      '<div class="qa-info"><div class="qa-name">'+q.name+'</div><div class="qa-cat">'+cat.label+' · '+cat.aisle+'</div></div>'+
+      '<div class="qa-info"><div class="qa-name">'+q.name+'</div><div class="qa-cat">'+catTag(cat)+'</div></div>'+
       '<button class="qa-plus" type="button">+</button></div>';
   });
   html+='</div></div>';
