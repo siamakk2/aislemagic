@@ -1212,56 +1212,7 @@ var KW = {
 ═══════════════════════════════════════ */
 var items       = [];
 
-// ════════════════════════════════════════════════════════════════
-// STORAGE: Per-store list persistence (using curStore)
-// ════════════════════════════════════════════════════════════════
-function saveItemsForStore(){
-  try{
-    var key='ab_items_'+curStore.id;
-    localStorage.setItem(key,JSON.stringify(items));
-  }catch(e){
-    console.warn('Could not save list',e);
-  }
-}
 
-function loadItemsForStore(){
-  try{
-    var key='ab_items_'+curStore.id;
-    var saved=localStorage.getItem(key);
-    if(saved){
-      items=JSON.parse(saved);
-      return true;
-    }
-  }catch(e){
-    console.warn('Could not load list',e);
-  }
-  return false;
-}
-
-function saveCurrentStore(){
-  try{
-    localStorage.setItem('ab_last_store_id',curStore.id);
-  }catch(e){}
-}
-
-function loadLastStore(){
-  try{
-    var id=localStorage.getItem('ab_last_store_id');
-    if(id){
-      for(var i=0;i<STORES.length;i++){
-        if(STORES[i].id===id){
-          curStore=STORES[i];
-          return true;
-        }
-      }
-    }
-  }catch(e){}
-  return false;
-}
-
-// Load last store on app start
-loadLastStore();
-loadItemsForStore();
 
 
 // ════════════════════════════════════════════════════════════════
@@ -1646,7 +1597,7 @@ function renderStoreList(){
             '<div class="sp-row-addr">'+store.addr+distText+'</div>'+
           '</div>'+
           '<div class="sp-row-badge">'+store.badge+'</div>';
-        d.addEventListener('click',function(){ saveItemsForStore(); curStore=s; saveCurrentStore(); loadItemsForStore(); closeStorePicker(); renderChips(); renderList(); });
+        d.addEventListener('click',function(){ curStore=store; closeStorePicker(); renderChips(); renderList(); });
         el.appendChild(d);
       })(s);
     });
@@ -1817,7 +1768,7 @@ function makeCard(it){
 function doCheck(id){
   var it=null; for(var i=0;i<items.length;i++) if(items[i].id===id){ it=items[i]; break; }
   if(!it) return;
-  it.checked=!it.checked;saveItemsForStore();saveItems();
+  it.checked=!it.checked;saveItems();
   if(it.checked){
     var curCatId=curChain.cats[aisleIdx]?curChain.cats[aisleIdx].id:null;
     if(items.filter(function(x){ return x.cat===curCatId&&!x.checked; }).length===0&&aisleIdx<curChain.cats.length-1){
