@@ -1594,7 +1594,7 @@ function renderStoreList(){
             '<div class="sp-row-addr">'+store.addr+distText+'</div>'+
           '</div>'+
           '<div class="sp-row-badge">'+store.badge+'</div>';
-        d.addEventListener('click',function(){ applyStore(store); });
+        d.addEventListener('click',function(){ applyStore(s.name); });
         el.appendChild(d);
       })(s);
     });
