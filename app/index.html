@@ -1223,6 +1223,42 @@ var waveTimer   = null;
 var activeChain = 'Whole Foods';
 var searchQuery = '';
 
+
+/* ═══════════════════════════════════════
+   STORAGE: Per-store list persistence
+═══════════════════════════════════════ */
+function getStorageKey(){
+  return 'ab_items_' + curStore.id;
+}
+
+function saveItems(){
+  if(!curStore) return;
+  var key=getStorageKey();
+  localStorage.setItem(key, JSON.stringify(items));
+}
+
+function loadItems(){
+  if(!curStore) return;
+  var key=getStorageKey();
+  var stored=localStorage.getItem(key);
+  if(stored){
+    try{
+      items=JSON.parse(stored);
+    } catch(e){
+      items=[];
+    }
+  } else {
+    items=[];
+  }
+  nid=1; // Reset nid for this store
+  for(var i=0;i<items.length;i++){
+    if(items[i].id>=nid) nid=items[i].id+1;
+  }
+}
+
+// Load items on startup
+loadItems();
+
 /* ═══════════════════════════════════════
    HELPERS
 ═══════════════════════════════════════ */
@@ -1437,7 +1473,9 @@ function goVoice(){
    APPLY STORE
 ═══════════════════════════════════════ */
 function applyStore(store){
+  saveItems(); // Save items from previous store
   curStore=store;
+  loadItems(); // Load items for new store
   curChain=CHAINS[store.chain];
   mergeStdCats(curChain);
   aisleIdx=0;
@@ -1621,7 +1659,7 @@ function updateProg(){
 /* ═══════════════════════════════════════
    RENDER LIST
 ═══════════════════════════════════════ */
-function renderList(){
+function renderList(){ saveItems();
   var body=document.getElementById('list-body'); if(!body) return;
   body.innerHTML='';
   var unchecked=items.filter(function(i){ return !i.checked; });
