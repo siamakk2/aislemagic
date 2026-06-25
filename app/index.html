@@ -1603,7 +1603,17 @@ function renderStoreList(){
             '<div class="sp-row-addr">'+store.addr+distText+'</div>'+
           '</div>'+
           '<div class="sp-row-badge">'+store.badge+'</div>';
-        d.addEventListener('click',function(){ console.log('Store clicked:', store); curStore=store; closeOv('ov-store'); renderChips(); renderList(); });
+        d.addEventListener('click',function(){ 
+  console.log('Store clicked:', store.name);
+  curStore=store;
+  console.log('curStore changed to:', curStore.name);
+  closeOv('ov-store');
+  console.log('Modal should be closing now');
+  renderChips();
+  console.log('renderChips done');
+  renderList();
+  console.log('renderList done - CLICK HANDLER COMPLETE');
+});
         el.appendChild(d);
       })(s);
     });
@@ -1640,6 +1650,7 @@ function getDistanceText(store){
    SMART SORT CHIPS
 ═══════════════════════════════════════ */
 function renderChips(){
+  console.log('renderChips called')
   var el=document.getElementById('chips'); if(!el) return;
   el.innerHTML='';
   curChain.cats.forEach(function(c,i){
