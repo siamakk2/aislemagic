@@ -1211,6 +1211,53 @@ var KW = {
    STATE
 ═══════════════════════════════════════ */
 var items       = [];
+
+// ════════════════════════════════════════════════════════════════
+// STORAGE: Persist lists to localStorage
+// ════════════════════════════════════════════════════════════════
+function saveItems(){
+  try{
+    localStorage.setItem('ab_items',JSON.stringify(items));
+  }catch(e){
+    console.warn('Storage unavailable',e);
+  }
+}
+
+function loadItems(){
+  try{
+    var saved=localStorage.getItem('ab_items');
+    if(saved){
+      items=JSON.parse(saved);
+      return true;
+    }
+  }catch(e){
+    console.warn('Could not load list',e);
+  }
+  return false;
+}
+
+// Load saved list on start
+loadItems();
+
+// Also save store selection
+function saveStore(){
+  try{
+    localStorage.setItem('ab_store',store);
+    localStorage.setItem('ab_aisle_idx',aisleIdx);
+  }catch(e){}
+}
+
+function loadStore(){
+  try{
+    var s=localStorage.getItem('ab_store');
+    if(s) store=s;
+    var a=localStorage.getItem('ab_aisle_idx');
+    if(a) aisleIdx=parseInt(a,10);
+  }catch(e){}
+}
+
+// Load store on start
+loadStore();
 var nid         = 1;
 var curStore    = STORES[0];
 var curChain    = CHAINS['Whole Foods'];
@@ -1721,7 +1768,7 @@ function makeCard(it){
 function doCheck(id){
   var it=null; for(var i=0;i<items.length;i++) if(items[i].id===id){ it=items[i]; break; }
   if(!it) return;
-  it.checked=!it.checked;
+  it.checked=!it.checked;saveItems();
   if(it.checked){
     var curCatId=curChain.cats[aisleIdx]?curChain.cats[aisleIdx].id:null;
     if(items.filter(function(x){ return x.cat===curCatId&&!x.checked; }).length===0&&aisleIdx<curChain.cats.length-1){
