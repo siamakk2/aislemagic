@@ -1213,11 +1213,15 @@ var KW = {
 var items       = [];
 
 // ════════════════════════════════════════════════════════════════
-// STORAGE: Persist lists to localStorage
+// STORAGE: Per-store list persistence
 // ════════════════════════════════════════════════════════════════
+function getStoreKey(){
+  return 'ab_items_'+store;  // Each store gets its own key
+}
+
 function saveItems(){
   try{
-    localStorage.setItem('ab_items',JSON.stringify(items));
+    localStorage.setItem(getStoreKey(),JSON.stringify(items));
   }catch(e){
     console.warn('Storage unavailable',e);
   }
@@ -1225,7 +1229,7 @@ function saveItems(){
 
 function loadItems(){
   try{
-    var saved=localStorage.getItem('ab_items');
+    var saved=localStorage.getItem(getStoreKey());
     if(saved){
       items=JSON.parse(saved);
       return true;
@@ -1236,28 +1240,27 @@ function loadItems(){
   return false;
 }
 
-// Load saved list on start
-loadItems();
-
-// Also save store selection
-function saveStore(){
-  try{
-    localStorage.setItem('ab_store',store);
-    localStorage.setItem('ab_aisle_idx',aisleIdx);
-  }catch(e){}
-}
-
+// Load store choice on start
 function loadStore(){
   try{
-    var s=localStorage.getItem('ab_store');
+    var s=localStorage.getItem('ab_store_choice');
     if(s) store=s;
     var a=localStorage.getItem('ab_aisle_idx');
     if(a) aisleIdx=parseInt(a,10);
   }catch(e){}
 }
 
-// Load store on start
+// Save store choice
+function saveStoreChoice(){
+  try{
+    localStorage.setItem('ab_store_choice',store);
+    localStorage.setItem('ab_aisle_idx',aisleIdx);
+  }catch(e){}
+}
+
+// Load store choice and items on start
 loadStore();
+loadItems();
 var nid         = 1;
 var curStore    = STORES[0];
 var curChain    = CHAINS['Whole Foods'];
@@ -1483,21 +1486,15 @@ function goVoice(){
 /* ═══════════════════════════════════════
    APPLY STORE
 ═══════════════════════════════════════ */
-function applyStore(store){
-  curStore=store;
-  curChain=CHAINS[store.chain];
-  mergeStdCats(curChain);
+function applyStore(st){
+  saveItems();  // Save current list before switching
+  store=st;
+  saveStoreChoice();
+  loadItems();  // Load list for new store
   aisleIdx=0;
-  selCat=curChain.cats[0].id;
-  document.getElementById('store-icon').textContent=curChain.icon;
-  document.getElementById('store-name').textContent=store.chain+' · '+store.name;
-  buildCatGrid();
+  closeStorePicker();
   renderChips();
   renderList();
-  renderSettings();
-  closeOv('ov-store');
-  closeOv('ov-first-store');
-  showToast('✓ '+store.chain+' '+store.name);
 }
 
 /* ═══════════════════════════════════════
