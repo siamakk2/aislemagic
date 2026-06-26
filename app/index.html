@@ -2973,12 +2973,19 @@ async function syncAllFromCloud(){
   if(!sb || !session) return;
   try {
     // Get all this user's lists
-    var listsRes = await sb.from('shopping_lists').select('store_id, items').eq('user_id', session.user.id);
+    var listsRes = await sb.from('shopping_lists').select('store_id, items, updated_at').eq('user_id', session.user.id);
     if(listsRes.data){
       for(var i = 0; i < listsRes.data.length; i++){
         var row = listsRes.data[i];
         var key = 'ab_cache_' + session.user.id + '_' + row.store_id;
-        localStorage.setItem(key, JSON.stringify(row.items || []));
+        var tsKey = key + '_ts';
+        var localTs = parseInt(localStorage.getItem(tsKey) || '0');
+        var cloudTs = row.updated_at ? new Date(row.updated_at).getTime() : 0;
+        // Only overwrite local if cloud data is strictly newer than last local save
+        if(cloudTs > localTs){
+          localStorage.setItem(key, JSON.stringify(row.items || []));
+          localStorage.setItem(tsKey, String(cloudTs));
+        }
       }
     }
     // Get last store preference
@@ -3039,7 +3046,10 @@ function localCacheKey(){
 function saveItemsToLocal(){
   var key = localCacheKey();
   if(!key) return;
-  try { localStorage.setItem(key, JSON.stringify(items)); } catch(e){}
+  try {
+    localStorage.setItem(key, JSON.stringify(items));
+    localStorage.setItem(key + '_ts', String(Date.now()));
+  } catch(e){}
 }
 
 function loadItemsFromLocal(){
