@@ -129,7 +129,7 @@
 
     /* ── NAV ── */
     nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;}
-    .nav-logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;color:var(--accent);}
+    .nav-logo{display:flex;align-items:center;gap:6px;font-size:20px;font-weight:800;color:var(--accent);}
     .nav-links{display:flex;align-items:center;gap:32px;}
     .nav-links a{font-size:14px;font-weight:600;color:var(--muted);transition:color .2s;}
     .nav-links a:hover{color:var(--text);}
@@ -184,6 +184,7 @@
     .phone-add{margin:8px 12px;background:var(--accent);border-radius:999px;padding:9px 14px;font-size:11px;font-weight:800;color:#fff;text-align:center;}
     @keyframes checkOff{0%{transform:scale(1)}50%{transform:scale(.88)}100%{transform:scale(1)}}
     .animate-check{animation:checkOff .3s ease;}
+    @keyframes heroBirdFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
 
     /* ── SECTION SHARED ── */
     .section-wrap{max-width:1200px;margin:0 auto;padding:0 40px;}
@@ -367,7 +368,20 @@
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="nav-logo">🐦 AisleBird</a>
+  <a href="/" class="nav-logo"><svg viewBox="0 0 280 290" xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="flex-shrink:0;margin-right:2px;">
+  <defs><style>
+    .ll{animation:lf 2.1s cubic-bezier(.55,0,.45,1) infinite;transform-origin:138px 162px;transform-box:fill-box}
+    .lr{animation:rf 2.1s cubic-bezier(.55,0,.45,1) infinite .16s;transform-origin:142px 162px;transform-box:fill-box}
+    .lb{animation:bb 2.1s ease-in-out infinite}
+    @keyframes lf{0%{transform:rotate(0deg)}16%{transform:rotate(-50deg)}46%{transform:rotate(26deg)}70%{transform:rotate(10deg)}100%{transform:rotate(0deg)}}
+    @keyframes rf{0%{transform:rotate(0deg)}20%{transform:rotate(-46deg)}50%{transform:rotate(24deg)}73%{transform:rotate(8deg)}100%{transform:rotate(0deg)}}
+    @keyframes bb{0%,100%{transform:translateY(0)}16%{transform:translateY(-9px)}46%{transform:translateY(4px)}70%{transform:translateY(1px)}}
+  </style></defs>
+  <g class="ll"><path d="M138 162 C112 146 80 138 50 148 C40 155 38 165 46 172 C64 180 96 176 124 168 Z" fill="#c44b1f"/><path d="M138 162 C116 150 88 144 62 152 C54 160 54 170 62 174 C80 180 110 174 132 166 Z" fill="#e05528"/></g>
+  <g class="lb"><ellipse cx="140" cy="192" rx="50" ry="60" fill="#e05528"/><ellipse cx="138" cy="206" rx="35" ry="44" fill="#ffb59d" opacity=".45"/><circle cx="140" cy="100" r="44" fill="#e05528"/><circle cx="156" cy="90" r="13" fill="white"/><circle cx="158" cy="92" r="8" fill="#1a0800"/><circle cx="161" cy="88" r="3.5" fill="white"/><circle cx="122" cy="92" r="11.5" fill="white"/><circle cx="121" cy="94" r="7" fill="#1a0800"/><circle cx="124" cy="90" r="3" fill="white"/><path d="M130 110 C132 100 152 99 154 108 C148 115 133 115 130 110 Z" fill="#ff4500"/><path d="M130 112 C132 122 151 122 153 112 C148 124 133 122 130 112 Z" fill="#cc3800"/></g>
+  <g class="lr"><path d="M142 162 C168 146 200 138 230 148 C240 155 242 165 234 172 C216 180 184 176 156 168 Z" fill="#c44b1f"/><path d="M142 162 C164 150 192 144 218 152 C226 160 226 170 218 174 C200 180 170 174 148 166 Z" fill="#e05528"/></g>
+  <g style="transform-origin:140px 232px;animation:bb 2.1s ease-in-out infinite .24s"><path d="M118 234 C106 258 94 280 84 298 C96 290 108 270 114 248 Z" fill="#c44418"/><path d="M140 240 C138 268 136 292 134 312 C140 304 142 280 140 256 Z" fill="#e05528"/><path d="M162 234 C174 258 182 278 186 296 C176 290 164 270 158 248 Z" fill="#c44418"/></g>
+</svg> AisleBird</a>
   <div class="nav-links">
     <a href="#how-it-works">How It Works</a>
     <a href="#demo">Try Demo</a>
@@ -405,7 +419,25 @@
       <div class="hero-proof-item"><span>📵</span> Works Offline</div>
     </div>
   </div>
-  <div class="hero-right">
+  <div class="hero-right" style="position:relative;">
+    <!-- Animated flying bird hero element -->
+    <div style="position:absolute;top:-60px;right:-20px;animation:heroBirdFloat 3s ease-in-out infinite;pointer-events:none;z-index:2;">
+      <svg viewBox="0 0 280 290" xmlns="http://www.w3.org/2000/svg" width="110" height="110" style="filter:drop-shadow(0 8px 20px rgba(255,107,53,.35));">
+        <defs><style>
+          .hwl{animation:hwlf 2s cubic-bezier(.55,0,.45,1) infinite;transform-origin:138px 162px;transform-box:fill-box}
+          .hwr{animation:hwrf 2s cubic-bezier(.55,0,.45,1) infinite .14s;transform-origin:142px 162px;transform-box:fill-box}
+          .hbd{animation:hbb 2s ease-in-out infinite}
+          @keyframes hwlf{0%{transform:rotate(0deg)}16%{transform:rotate(-55deg)}46%{transform:rotate(30deg)}70%{transform:rotate(12deg)}100%{transform:rotate(0deg)}}
+          @keyframes hwrf{0%{transform:rotate(0deg)}20%{transform:rotate(-50deg)}50%{transform:rotate(27deg)}73%{transform:rotate(9deg)}100%{transform:rotate(0deg)}}
+          @keyframes hbb{0%,100%{transform:translateY(0)}16%{transform:translateY(-14px)}46%{transform:translateY(6px)}70%{transform:translateY(2px)}}
+        </style></defs>
+        <g class="hwl"><path d="M138 162 C112 146 80 138 50 148 C40 155 38 165 46 172 C64 180 96 176 124 168 Z" fill="#c44b1f"/><path d="M138 162 C116 150 88 144 62 152 C54 160 54 170 62 174 C80 180 110 174 132 166 Z" fill="#e05528"/><path d="M80 170 C66 178 52 190 40 206 C50 208 60 200 72 192 C82 184 84 176 80 170 Z" fill="#b83d12"/></g>
+        <g class="hbd"><ellipse cx="140" cy="192" rx="50" ry="60" fill="#e05528"/><ellipse cx="138" cy="206" rx="35" ry="44" fill="#ffb59d" opacity=".42"/><circle cx="140" cy="100" r="44" fill="#e05528"/><circle cx="156" cy="90" r="13" fill="white"/><circle cx="158" cy="92" r="8" fill="#1a0800"/><circle cx="161" cy="88" r="3.5" fill="white"/><circle cx="122" cy="92" r="11.5" fill="white"/><circle cx="121" cy="94" r="7" fill="#1a0800"/><circle cx="124" cy="90" r="3" fill="white"/><path d="M130 110 C132 100 152 99 154 108 C148 115 133 115 130 110 Z" fill="#ff4500"/><path d="M130 112 C132 122 151 122 153 112 C148 124 133 122 130 112 Z" fill="#cc3800"/></g>
+        <g class="hwr"><path d="M142 162 C168 146 200 138 230 148 C240 155 242 165 234 172 C216 180 184 176 156 168 Z" fill="#c44b1f"/><path d="M142 162 C164 150 192 144 218 152 C226 160 226 170 218 174 C200 180 170 174 148 166 Z" fill="#e05528"/><path d="M200 170 C214 178 228 190 240 206 C230 208 220 200 208 192 C198 184 196 176 200 170 Z" fill="#b83d12"/></g>
+        <g style="transform-origin:140px 232px;animation:hbb 2s ease-in-out infinite .22s"><path d="M118 234 C106 258 94 280 84 298 C96 290 108 270 114 248 Z" fill="#c44418"/><path d="M140 240 C138 268 136 292 134 312 C140 304 142 280 140 256 Z" fill="#e05528"/><path d="M162 234 C174 258 182 278 186 296 C176 290 164 270 158 248 Z" fill="#c44418"/></g>
+      </svg>
+    </div>
+
     <div class="phone" id="hero-phone">
       <div class="phone-notch"></div>
       <div class="phone-screen">
