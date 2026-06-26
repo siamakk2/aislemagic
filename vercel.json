@@ -2,6 +2,15 @@
   "version": 2,
   "buildCommand": "echo 'Static site - no build needed'",
   "outputDirectory": ".",
+  "headers": [
+    {
+      "source": "/llms.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    }
+  ],
   "routes": [
     { "handle": "filesystem" },
     { "src": "/app", "dest": "/app/index.html" },
