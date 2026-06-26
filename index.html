@@ -133,13 +133,17 @@
     .nav-links{display:flex;align-items:center;gap:32px;}
     .nav-links a{font-size:14px;font-weight:600;color:var(--muted);transition:color .2s;}
     .nav-links a:hover{color:var(--text);}
+    .nav-actions{display:flex;align-items:center;gap:10px;}
+    .nav-signin{font-size:14px;font-weight:600;color:var(--muted);transition:color .2s;padding:9px 16px;}
+    .nav-signin:hover{color:var(--text);}
     .nav-cta{background:var(--accent);color:#fff;border-radius:999px;padding:9px 22px;font-size:14px;font-weight:700;transition:opacity .2s;}
     .nav-cta:hover{opacity:.85;}
-    .nav-mobile-cta{display:none;}
+    .nav-mobile-actions{display:none;}
+    .nav-mobile-cta{background:var(--accent);color:#fff;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;}
 
     /* ── HERO ── */
     .hero{min-height:100vh;display:flex;align-items:center;padding:80px 40px 60px;gap:60px;max-width:1280px;margin:0 auto;position:relative;}
-    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 50%,rgba(255,107,53,.08),transparent);pointer-events:none;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 50%,rgba(255,107,53,.12),transparent);pointer-events:none;}
     .hero-left{flex:1;min-width:0;}
     .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,107,53,.12);border:1px solid rgba(255,107,53,.3);color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:24px;}
     .hero-eyebrow span{font-size:14px;}
@@ -150,31 +154,33 @@
     .hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
     .btn-primary{background:var(--accent);color:#fff;border-radius:999px;padding:16px 32px;font-size:16px;font-weight:800;display:inline-flex;align-items:center;gap:8px;transition:transform .2s,opacity .2s;}
     .btn-primary:hover{opacity:.88;transform:translateY(-2px);}
-    .btn-ghost{background:transparent;color:var(--text);border:1.5px solid var(--border2);border-radius:999px;padding:15px 28px;font-size:15px;font-weight:700;transition:border-color .2s;}
-    .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+    .btn-secondary{background:var(--surf);color:var(--text);border:1.5px solid var(--border2);border-radius:999px;padding:16px 28px;font-size:16px;font-weight:700;transition:all .2s;display:inline-flex;align-items:center;}
+    .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+    .btn-ghost{background:transparent;color:var(--muted);border:none;padding:12px 0;font-size:14px;font-weight:600;transition:color .2s;}
+    .btn-ghost:hover{color:var(--text);}
     .hero-proof{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
     .hero-proof-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);}
     .hero-proof-item span{font-size:16px;}
     .hero-right{flex:0 0 340px;display:flex;justify-content:center;}
 
     /* ── PHONE MOCKUP ── */
-    .phone{width:260px;background:#111;border-radius:40px;border:6px solid #2a2a2a;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 0 1px #333;position:relative;}
-    .phone-notch{height:28px;background:#111;display:flex;align-items:center;justify-content:center;}
-    .phone-notch::after{content:'';width:80px;height:18px;background:#1a1a1a;border-radius:0 0 14px 14px;}
-    .phone-screen{background:var(--card);min-height:480px;}
-    .phone-nav{background:#161616;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #2a2a2a;}
+    .phone{width:260px;background:#1c1c1e;border-radius:40px;border:6px solid #3a3a3a;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px #444;position:relative;}
+    .phone-notch{height:28px;background:#1c1c1e;display:flex;align-items:center;justify-content:center;}
+    .phone-notch::after{content:'';width:80px;height:18px;background:#2a2a2a;border-radius:0 0 14px 14px;}
+    .phone-screen{background:#242428;min-height:480px;}
+    .phone-nav{background:#1e1e22;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #38383c;}
     .phone-nav-logo{font-size:14px;font-weight:800;color:var(--accent);}
-    .phone-store-pill{flex:1;background:#2a2a2a;border-radius:999px;padding:5px 10px;font-size:10px;color:var(--muted);text-align:center;}
+    .phone-store-pill{flex:1;background:#303036;border-radius:999px;padding:5px 10px;font-size:10px;color:#c0c0c0;text-align:center;}
     .phone-mic{width:30px;height:30px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
     .phone-list{padding:8px 0;}
-    .phone-item{display:flex;align-items:center;gap:8px;padding:9px 12px;margin:0 8px 4px;background:#2a2a2a;border-radius:12px;}
+    .phone-item{display:flex;align-items:center;gap:8px;padding:9px 12px;margin:0 8px 4px;background:#303036;border-radius:12px;}
     .phone-item.checked{opacity:.35;}
     .phone-cb{width:22px;height:22px;border-radius:6px;border:2px solid #ff6b35;background:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;}
     .phone-cb.on{background:var(--green);border-color:var(--green);color:#fff;}
     .phone-item-info{flex:1;min-width:0;}
-    .phone-item-name{font-size:12px;font-weight:700;color:#f0f0f0;}
-    .phone-item-aisle{font-size:10px;color:var(--accent);margin-top:1px;}
-    .phone-sec{padding:6px 12px 3px;font-size:9px;font-weight:800;letter-spacing:.08em;color:var(--dim);text-transform:uppercase;}
+    .phone-item-name{font-size:12px;font-weight:700;color:#ffffff;}
+    .phone-item-aisle{font-size:10px;color:#ff8c5a;margin-top:1px;}
+    .phone-sec{padding:6px 12px 3px;font-size:9px;font-weight:800;letter-spacing:.08em;color:#888;text-transform:uppercase;}
     .phone-add{margin:8px 12px;background:var(--accent);border-radius:999px;padding:9px 14px;font-size:11px;font-weight:800;color:#fff;text-align:center;}
     @keyframes checkOff{0%{transform:scale(1)}50%{transform:scale(.88)}100%{transform:scale(1)}}
     .animate-check{animation:checkOff .3s ease;}
@@ -326,7 +332,8 @@
     @media(max-width:900px){
       nav{padding:0 20px;}
       .nav-links{display:none;}
-      .nav-mobile-cta{display:block;background:var(--accent);color:#fff;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:700;}
+      .nav-actions{display:none;}
+      .nav-mobile-actions{display:flex;align-items:center;gap:8px;}
       .hero{flex-direction:column;padding:60px 20px 40px;gap:40px;min-height:auto;}
       .hero-right{flex:none;width:100%;order:-1;}
       .phone{width:220px;margin:0 auto;}
@@ -368,8 +375,14 @@
     <a href="#coverage">Stores</a>
     <a href="#pricing">Pricing</a>
   </div>
-  <a href="/app" class="nav-cta">Open App Free →</a>
-  <a href="/app" class="nav-mobile-cta">Open Free →</a>
+  <div class="nav-actions">
+    <a href="/app" class="nav-signin">Sign In</a>
+    <a href="/app" class="nav-cta">Get Started →</a>
+  </div>
+  <div class="nav-mobile-actions">
+    <a href="/app" class="nav-signin">Sign In</a>
+    <a href="/app" class="nav-mobile-cta">Start Free →</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -381,11 +394,12 @@
       Say or type your items — AisleBird instantly sorts every one by department and aisle for <strong>your exact store</strong>. Walk in order. Check off as you go. Never backtrack again.
     </p>
     <div class="hero-ctas">
-      <a href="/app" class="btn-primary">🛒 Start Shopping Free</a>
-      <a href="#demo" class="btn-ghost">See Live Demo ↓</a>
+      <a href="/app" class="btn-primary">🛒 Start Shopping</a>
+      <a href="/app" class="btn-secondary">Sign In →</a>
+      <a href="#demo" class="btn-ghost" style="font-size:14px;padding:12px 22px;">Watch Demo ↓</a>
     </div>
     <div class="hero-proof">
-      <div class="hero-proof-item"><span>✅</span> 100% Free Forever</div>
+      <div class="hero-proof-item"><span>✅</span> No app to download</div>
       <div class="hero-proof-item"><span>🏪</span> 11 Store Chains</div>
       <div class="hero-proof-item"><span>📍</span> 300+ Locations</div>
       <div class="hero-proof-item"><span>📵</span> Works Offline</div>
