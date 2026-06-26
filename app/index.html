@@ -352,6 +352,10 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .you-here{font-size:12px;font-weight:800;}
 .sec-aisle{font-size:11px;}
 
+
+/* DEPARTMENT LOCATION HINTS */
+.aisle-loc{font-size:11px;color:var(--dim);font-weight:600;}
+.sec-loc{font-size:9px;font-weight:600;color:var(--dim);letter-spacing:.03em;text-transform:none;margin-left:3px;}
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -670,6 +674,190 @@ if('serviceWorker' in navigator){
 /* ═══════════════════════════════════════
    CHAIN CONFIGS — categories & quick add
 ═══════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════
+   DEPARTMENT LOCATION HINTS (no aisle numbers —
+   directional guidance based on typical store layout)
+══════════════════════════════════════════════════ */
+var DEPT_LOCS = {
+  'Whole Foods':{
+    produce:'Near entrance',
+    bakery:'Front of store',
+    dairy:'Back wall',
+    meat:'Back of store',
+    prepared:'Deli · center front',
+    frozen:'Center aisles',
+    bulk:'Center of store',
+    pantry:'Center aisles',
+    condiments:'Center aisles',
+    snacks:'Center aisles',
+    beverages:'Center aisles',
+    wine:'Side · near checkout',
+    wellness:'Side aisle',
+    household:'Side aisle',
+    pets:'Side aisle'
+  },
+  "Trader Joe's":{
+    produce:'Near entrance',
+    dairy:'Back wall',
+    meat:'Refrigerated wall',
+    bakery:'Near entrance',
+    frozen:'Center · freezer cases',
+    prepared:'Refrigerated wall',
+    pantry:'Center aisles',
+    condiments:'Center aisles',
+    snacks:'Center aisles',
+    beverages:'Center aisles',
+    wine:'Charles Shaw section',
+    household:'Side aisle',
+    pets:'End caps'
+  },
+  'Costco':{
+    bakery:'Front left · entrance',
+    produce:'Front · left side',
+    meat:'Back of warehouse',
+    dairy:'Back wall',
+    frozen:'Freezer aisle · back',
+    deli:'Back · prepared foods',
+    pharmacy:'Front · right side',
+    personal:'Center aisles',
+    electronics:'Center · right side',
+    home:'Center aisles',
+    kitchen:'Center aisles',
+    clothing:'Center aisles',
+    sports:'Right side',
+    office:'Right side',
+    auto:'Back right',
+    garden:'Outdoor · seasonal',
+    grocery:'Center aisles'
+  },
+  'Target':{
+    grocery:'Left side · food section',
+    produce:'Left entrance',
+    frozen:'Food section',
+    personal:'Center · beauty',
+    health:'Pharmacy area',
+    pharmacy:'Back left corner',
+    baby:'Back · nursery',
+    pets:'Back aisle',
+    household:'Center aisles',
+    kitchen:'Home section',
+    home:'Right side',
+    clothing:'Center · apparel',
+    toys:'Back right',
+    electronics:'Front right',
+    media:'Electronics area',
+    sports:'Back area',
+    garden:'Seasonal · entrance',
+    office:'Center aisles',
+    party:'Seasonal section',
+    luggage:'Home area'
+  },
+  'Walmart':{
+    grocery:'Left side',
+    produce:'Left entrance',
+    frozen:'Grocery section · back',
+    pharmacy:'Back left corner',
+    health:'Pharmacy area',
+    personal:'Center aisles',
+    baby:'Center aisle',
+    pets:'Right side · back',
+    household:'Center aisles',
+    kitchen:'Home section',
+    home:'Right side',
+    clothing:'Center · apparel',
+    toys:'Right side',
+    electronics:'Front right',
+    sports:'Right side',
+    auto:'Back right',
+    garden:'Side entrance',
+    office:'Center aisles',
+    party:'Seasonal area'
+  },
+  'CVS':{
+    pharmacy:'Back of store',
+    health:'Center aisles',
+    wellness:'Center aisles',
+    personal:'Center aisles',
+    baby:'Center aisle',
+    household:'Front aisles',
+    grocery:'Center aisles',
+    snacks:'Near entrance',
+    photo:'Back · service counter'
+  },
+  'Walgreens':{
+    pharmacy:'Back of store',
+    health:'Center aisles',
+    wellness:'Center aisles',
+    personal:'Center aisles',
+    baby:'Center aisle',
+    household:'Front aisles',
+    grocery:'Center aisles',
+    snacks:'Near entrance',
+    photo:'Back · service counter'
+  },
+  'Home Depot':{
+    lumber:'Outdoor yard · back',
+    building:'Indoor · right side',
+    tools:'Center aisles',
+    hardware:'Hardware wall',
+    paint:'Mixing station · side wall',
+    plumbing:'Back corner',
+    electrical:'Center aisles',
+    flooring:'Left side',
+    lighting:'Center',
+    garden:'Outdoor · garden center',
+    kitchen:'Display area · front',
+    appliances:'Display area · front',
+    decor:'Center aisles',
+    rental:'Front service desk'
+  },
+  "Lowe's":{
+    lumber:'Outdoor yard',
+    building:'Indoor · right side',
+    tools:'Center aisles',
+    hardware:'Hardware wall',
+    paint:'Mixing station',
+    plumbing:'Back corner',
+    electrical:'Center aisles',
+    flooring:'Left side',
+    lighting:'Center',
+    garden:'Outdoor · garden center',
+    kitchen:'Display area · front',
+    appliances:'Display area',
+    decor:'Center aisles',
+    rental:'Front service desk'
+  },
+  "Friedman's":{
+    lumber:'Yard · outside',
+    building:'Indoor · right',
+    tools:'Center aisles',
+    hardware:'Hardware wall',
+    paint:'Mixing station',
+    plumbing:'Back corner',
+    electrical:'Center aisles',
+    garden:'Garden department',
+    lighting:'Center',
+    home:'Center aisles',
+    rental:'Front counter'
+  },
+  'Tractor Supply':{
+    feed:'Right side · large bags',
+    livestock:'Back of store',
+    poultry:'Back right',
+    equine:'Center aisles',
+    personal:'Center aisles',
+    seed:'Seasonal · front',
+    lawn:'Seasonal section',
+    workwear:'Left side · clothing',
+    tools:'Center aisles',
+    hardware:'Center aisles',
+    fencing:'Outdoor yard',
+    sporting:'Center aisles',
+    auto:'Center · right side'
+  }
+};
+
 var CHAINS = {
   'Whole Foods': {
     icon:'🌿',
@@ -1922,8 +2110,10 @@ function renderList(){
       if(cat.aisle&&cat.aisle.toLowerCase()!==cat.label.toLowerCase()){
         _sf='<span class="sec-aisle"> · '+escHtml(cat.aisle)+'</span>';
       }
+      var _secLoc=curStore&&DEPT_LOCS[curStore.chain]?DEPT_LOCS[curStore.chain][cat.id]||'':'';
+      var _secLocSpan=_secLoc?'<span class="sec-loc"> &nbsp;·&nbsp; '+escHtml(_secLoc)+'</span>':'';
       sh.innerHTML=(ci===aisleIdx?'<div class="here-dot"></div>':'')+
-        cat.emoji+' '+escHtml(cat.label).toUpperCase()+_sf+
+        cat.emoji+' '+escHtml(cat.label).toUpperCase()+_sf+_secLocSpan+
         (ci===aisleIdx?'&nbsp;&nbsp;<span class="you-here">← You are here</span>':'');
       body.appendChild(sh);
     }
@@ -1972,7 +2162,9 @@ function makeCard(it){
   if(_aCat){
     var _aTag=document.createElement('div'); _aTag.className='aisle-tag';
     var _aisleLabel=_aCat.aisle||_aCat.label;
-    _aTag.innerHTML='<span class="aisle-tag-icon">'+_aCat.emoji+'</span>'+'<span>'+escHtml(_aisleLabel)+'</span>';
+    var _aLocHint=curStore&&DEPT_LOCS[curStore.chain]?DEPT_LOCS[curStore.chain][it.cat]||'':'';
+    _aTag.innerHTML='<span class="aisle-tag-icon">'+_aCat.emoji+'</span>'+'<span>'+escHtml(_aisleLabel)+'</span>'+
+    (_aLocHint?'<span class="aisle-loc"> · '+escHtml(_aLocHint)+'</span>':'');
     ib.appendChild(_aTag);
   }
   var noteEl=document.createElement('div');
