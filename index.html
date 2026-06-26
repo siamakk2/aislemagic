@@ -1069,68 +1069,119 @@
   
   <!-- BIRD WALKING ACROSS SCREEN -->
   <div class="walking-bird">
-    <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-      <!-- Back wing feathers -->
-      <g class="wing-back">
-      <path d="M 70 140 Q 45 110 35 155 Q 48 175 85 170 Z" fill="#ff6b35" opacity="0.8"/>
-      <path d="M 60 135 Q 40 100 25 145 Q 42 170 75 165 Z" fill="#ff8c5a" opacity="0.9"/>
-      </g>
-      
-      <!-- Body (rounder, more muppet-like) -->
-      <ellipse cx="140" cy="145" rx="55" ry="65" fill="#ff6b35"/>
-      
-      <!-- Belly -->
-      <ellipse cx="140" cy="160" rx="40" ry="50" fill="#ffb59d" opacity="0.7"/>
-      
-      <!-- Head (bigger, rounder) -->
-      <circle cx="140" cy="75" r="42" fill="#ff6b35"/>
-      
-      <!-- Big expressive eyes -->
-        <circle cx="120" cy="70" r="10" fill="#fff"/>
-        <circle cx="120" cy="70" r="6" fill="#000"/>
-        <circle cx="160" cy="70" r="10" fill="#fff"/>
-        <circle cx="160" cy="70" r="6" fill="#000"/>
-        
-        <!-- Eye sparkles (muppet style) -->
-        <circle cx="122" cy="68" r="3" fill="#fff"/>
-        <circle cx="162" cy="68" r="3" fill="#fff"/>
-        
-        <!-- Beak (centered, facing forward) -->
-        <ellipse cx="140" cy="85" rx="14" ry="11" fill="#ff4500"/>
-        <path d="M 154 82 L 165 78 L 154 88 Z" fill="#ff4500"/>
-        
-        <!-- Nostril -->
-        <circle cx="148" cy="84" r="2" fill="#cc3300"/>
-      
-      <!-- Chest highlight -->
-      <ellipse cx="140" cy="150" rx="28" ry="40" fill="#ffb59d" opacity="0.5"/>
-      
-      <!-- Front wing feathers (top) -->
-      <g class="wing-front">
-      <path d="M 185 100 Q 230 75 250 95 Q 230 125 190 130 Z" fill="#ff8c5a"/>
-      <path d="M 190 115 Q 235 100 260 120 Q 240 145 195 140 Z" fill="#ff6b35" opacity="0.9"/>
-      <path d="M 195 130 Q 240 120 265 145 Q 245 160 200 155 Z" fill="#ff4500" opacity="0.8"/>
-      </g>
-      
-      <!-- Tail feathers (bigger, fluffier) -->
-      <path d="M 95 160 Q 55 145 40 185 Q 65 205 105 185 Z" fill="#ff4500" opacity="0.9"/>
-      <path d="M 92 180 Q 55 170 35 220 Q 65 230 100 200 Z" fill="#ff6b35" opacity="0.8"/>
-      <path d="M 95 200 Q 60 205 40 255 Q 70 260 105 220 Z" fill="#ff8c5a" opacity="0.7"/>
-      
-      <!-- Feet (bigger, visible) -->
-      <ellipse cx="130" cy="210" rx="8" ry="12" fill="#ff4500"/>
-      <ellipse cx="150" cy="210" rx="8" ry="12" fill="#ff4500"/>
-      
-      <!-- Toes -->
-      <g stroke="#ff4500" stroke-width="2.5" stroke-linecap="round">
-        <line x1="125" y1="220" x2="120" y2="232"/>
-        <line x1="130" y1="220" x2="130" y2="232"/>
-        <line x1="135" y1="220" x2="140" y2="232"/>
-        <line x1="145" y1="220" x2="140" y2="232"/>
-        <line x1="150" y1="220" x2="150" y2="232"/>
-        <line x1="155" y1="220" x2="160" y2="232"/>
-      </g>
-    </svg>
+    <svg viewBox="0 0 280 290" xmlns="http://www.w3.org/2000/svg" width="200" height="200" style="filter:drop-shadow(0 14px 32px rgba(255,107,53,.28))">
+<defs><style>
+.wl{animation:wlf 2.1s cubic-bezier(.55,0,.45,1) infinite;transform-origin:138px 162px;transform-box:fill-box}
+.wr{animation:wrf 2.1s cubic-bezier(.55,0,.45,1) infinite .16s;transform-origin:142px 162px;transform-box:fill-box}
+.bd{animation:bob 2.1s ease-in-out infinite}
+.tl{animation:twg 2.1s ease-in-out infinite .24s;transform-origin:140px 232px;transform-box:fill-box}
+.sh{animation:shd 2.1s ease-in-out infinite}
+.ld{transform-origin:center;transform-box:fill-box}
+.ldr{animation:blk 5s linear infinite 2.2s}
+.ldl{animation:blk 5s linear infinite 2.3s}
+@keyframes wlf{
+  0%{transform:rotate(0deg)}
+  16%{transform:rotate(-55deg)}
+  46%{transform:rotate(30deg)}
+  70%{transform:rotate(12deg)}
+  100%{transform:rotate(0deg)}
+}
+@keyframes wrf{
+  0%{transform:rotate(0deg)}
+  20%{transform:rotate(-50deg)}
+  50%{transform:rotate(27deg)}
+  73%{transform:rotate(9deg)}
+  100%{transform:rotate(0deg)}
+}
+@keyframes bob{0%,100%{transform:translateY(0)}16%{transform:translateY(-11px)}46%{transform:translateY(5px)}70%{transform:translateY(1px)}}
+@keyframes twg{0%,100%{transform:rotate(0deg)}22%{transform:rotate(-8deg)}55%{transform:rotate(6deg)}}
+@keyframes shd{0%,100%{transform:scaleX(1);opacity:.11}16%{transform:scaleX(.76);opacity:.05}46%{transform:scaleX(1.2);opacity:.16}}
+@keyframes blk{0%,90%,100%{transform:scaleY(0)}92%,97%{transform:scaleY(1)}}
+</style></defs>
+
+<!-- Ground shadow -->
+<ellipse class="sh" cx="140" cy="278" rx="50" ry="8" fill="#2a1000" opacity=".11"/>
+
+<!-- LEFT WING — sweeps back from left shoulder, wide feathered shape -->
+<g class="wl">
+  <!-- Wing base membrane -->
+  <path d="M138 162 C112 146 80 138 50 148 C40 155 38 165 46 172 C64 180 96 176 124 168 Z" fill="#c44b1f"/>
+  <!-- Secondary feathers (mid-wing) -->
+  <path d="M138 162 C116 150 88 144 62 152 C54 160 54 170 62 174 C80 180 110 174 132 166 Z" fill="#d95422"/>
+  <!-- Primary feathers — long, fanning at wingtip -->
+  <path d="M80 170 C66 178 52 190 40 206 C50 208 60 200 72 192 C82 184 84 176 80 170 Z" fill="#b83d12"/>
+  <path d="M66 166 C50 176 34 190 20 208 C31 209 42 202 56 192 C68 183 70 172 66 166 Z" fill="#b83d12"/>
+  <path d="M52 161 C34 172 18 188 6 208 C17 208 30 200 44 190 C56 181 58 168 52 161 Z" fill="#c44418"/>
+  <!-- Feather detail lines -->
+  <path d="M138 162 C108 148 76 140 48 150" stroke="#a33810" stroke-width="1.2" fill="none" opacity=".45"/>
+  <path d="M124 168 C96 158 68 154 46 162" stroke="#a33810" stroke-width="1" fill="none" opacity=".3"/>
+</g>
+
+<!-- BODY -->
+<g class="bd">
+  <!-- Torso -->
+  <ellipse cx="140" cy="192" rx="50" ry="60" fill="#e05528"/>
+  <!-- Breast lighter patch -->
+  <ellipse cx="138" cy="206" rx="35" ry="44" fill="#ffb59d" opacity=".42"/>
+
+  <!-- Head — round, sits naturally on body -->
+  <circle cx="140" cy="100" r="44" fill="#e05528"/>
+  <!-- Head crown highlight -->
+  <ellipse cx="130" cy="84" rx="20" ry="12" fill="#ff8c5a" opacity=".28"/>
+
+  <!-- RIGHT EYE -->
+  <circle cx="156" cy="90" r="13" fill="white"/>
+  <circle cx="158" cy="92" r="8" fill="#1a0800"/>
+  <circle cx="161" cy="88" r="3.5" fill="white"/>
+  <!-- Right eyelid -->
+  <ellipse class="ld ldr" cx="156" cy="84" rx="13" ry="8" fill="#e05528"/>
+
+  <!-- LEFT EYE -->
+  <circle cx="122" cy="92" r="11.5" fill="white"/>
+  <circle cx="121" cy="94" r="7" fill="#1a0800"/>
+  <circle cx="124" cy="90" r="3" fill="white"/>
+  <!-- Left eyelid -->
+  <ellipse class="ld ldl" cx="122" cy="86" rx="11.5" ry="7.5" fill="#e05528"/>
+
+  <!-- Beak — two parts, natural shape -->
+  <path d="M130 110 C132 100 152 99 154 108 C148 115 133 115 130 110 Z" fill="#ff4500"/>
+  <path d="M130 112 C132 122 151 122 153 112 C148 124 133 122 130 112 Z" fill="#cc3800"/>
+</g>
+
+<!-- RIGHT WING — mirrors left, sweeps back from right shoulder -->
+<g class="wr">
+  <path d="M142 162 C168 146 200 138 230 148 C240 155 242 165 234 172 C216 180 184 176 156 168 Z" fill="#c44b1f"/>
+  <path d="M142 162 C164 150 192 144 218 152 C226 160 226 170 218 174 C200 180 170 174 148 166 Z" fill="#d95422"/>
+  <!-- Primary feathers -->
+  <path d="M200 170 C214 178 228 190 240 206 C230 208 220 200 208 192 C198 184 196 176 200 170 Z" fill="#b83d12"/>
+  <path d="M214 166 C230 176 246 190 260 208 C249 209 238 202 224 192 C212 183 210 172 214 166 Z" fill="#b83d12"/>
+  <path d="M228 161 C246 172 262 188 274 208 C263 208 250 200 236 190 C224 181 222 168 228 161 Z" fill="#c44418"/>
+  <!-- Detail lines -->
+  <path d="M142 162 C172 148 204 140 232 150" stroke="#a33810" stroke-width="1.2" fill="none" opacity=".45"/>
+  <path d="M156 168 C184 158 212 154 234 162" stroke="#a33810" stroke-width="1" fill="none" opacity=".3"/>
+</g>
+
+<!-- TAIL — natural fan of 5 feathers pointing down-back -->
+<g class="tl">
+  <path d="M118 234 C106 258 94 280 84 298 C96 290 108 270 114 248 Z" fill="#c44418"/>
+  <path d="M128 238 C122 264 116 288 112 308 C120 300 126 278 128 254 Z" fill="#d95422"/>
+  <path d="M140 240 C138 268 136 292 134 312 C140 304 142 280 140 256 Z" fill="#e05528"/>
+  <path d="M152 238 C158 264 160 288 158 308 C152 300 148 278 148 254 Z" fill="#d95422"/>
+  <path d="M162 234 C174 258 182 278 186 296 C176 290 164 270 158 248 Z" fill="#c44418"/>
+</g>
+
+<!-- Feet -->
+<g class="bd">
+  <line x1="126" y1="248" x2="112" y2="266" stroke="#ff4500" stroke-width="3" stroke-linecap="round"/>
+  <line x1="112" y1="266" x2="98" y2="268" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="112" y1="266" x2="108" y2="276" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="112" y1="266" x2="118" y2="276" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="154" y1="248" x2="168" y2="266" stroke="#ff4500" stroke-width="3" stroke-linecap="round"/>
+  <line x1="168" y1="266" x2="182" y2="268" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="168" y1="266" x2="172" y2="276" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="168" y1="266" x2="162" y2="276" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
+</g>
+</svg>
   </div>
   
   <!-- NAVIGATION -->
