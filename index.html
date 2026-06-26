@@ -983,6 +983,56 @@
       .llmo-section { padding: 60px 20px; }
     }
 
+
+    /* HOW-TO STEPS */
+    .how-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;max-width:1200px;margin:0 auto;}
+    .how-step{text-align:center;position:relative;}
+    .how-step:not(:last-child)::after{content:'→';position:absolute;right:-18px;top:36px;font-size:22px;color:var(--accent);opacity:.4;}
+    .how-step-num{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));color:#fff;font-family:'Playfair Display',serif;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 24px rgba(255,107,53,.3);}
+    .how-step-icon{font-size:28px;margin-bottom:10px;}
+    .how-step h3{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--text);}
+    .how-step p{font-size:13px;color:var(--text-muted);line-height:1.7;}
+    /* FEATURE GROUPS */
+    .fg-section{padding:80px 40px;max-width:1200px;margin:0 auto;}
+    .fg-header{display:flex;align-items:center;gap:16px;margin-bottom:40px;}
+    .fg-badge{background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.35);color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:6px 14px;border-radius:999px;}
+    .fg-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;letter-spacing:-.3px;}
+    .fg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+    .fg-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 24px;transition:all .25s;}
+    .fg-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 32px rgba(255,107,53,.12);}
+    .fg-card-icon{font-size:32px;margin-bottom:14px;}
+    .fg-card h4{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--text);}
+    .fg-card p{font-size:13px;color:var(--text-muted);line-height:1.75;}
+    /* JENNIFER QUOTE */
+    .jennifer-section{background:linear-gradient(135deg,rgba(255,107,53,.08),rgba(255,140,90,.04));border-top:1px solid rgba(255,107,53,.2);border-bottom:1px solid rgba(255,107,53,.2);padding:80px 40px;}
+    .jennifer-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:center;}
+    .jennifer-bird{text-align:center;}
+    .jennifer-bird svg{width:180px;height:180px;filter:drop-shadow(0 12px 30px rgba(255,107,53,.3));}
+    .jennifer-quote blockquote{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.5;color:var(--text);margin:0 0 24px;letter-spacing:-.3px;}
+    .jennifer-quote blockquote::before{content:'“';color:var(--accent);font-size:48px;line-height:0;vertical-align:-.4em;margin-right:4px;}
+    .jennifer-quote blockquote::after{content:'”';color:var(--accent);font-size:48px;line-height:0;vertical-align:-.4em;margin-left:4px;}
+    .jennifer-byline{font-size:14px;color:var(--text-muted);}
+    .jennifer-byline strong{color:var(--accent);}
+    /* HISTORY FEATURE HIGHLIGHT */
+    .history-highlight{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:48px;max-width:1000px;margin:0 auto;}
+    .history-mockup{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:32px;}
+    .hist-mock-card{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:14px;}
+    .hist-mock-store{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;}
+    .hist-mock-date{font-size:10px;color:var(--text-muted);}
+    .hist-mock-count{font-size:20px;font-weight:800;color:var(--accent);margin-top:10px;}
+    .hist-mock-items{font-size:10px;color:var(--text-muted);margin-top:4px;line-height:1.5;}
+    @media(max-width:1024px){
+      .how-steps{grid-template-columns:1fr 1fr;gap:20px;}
+      .how-step:not(:last-child)::after{display:none;}
+      .fg-grid{grid-template-columns:1fr;}
+      .jennifer-inner{grid-template-columns:1fr;gap:32px;}
+      .jennifer-bird{display:none;}
+      .jennifer-quote blockquote{font-size:20px;}
+      .history-mockup{grid-template-columns:1fr;}
+      .fg-section{padding:60px 20px;}
+      .jennifer-section{padding:60px 20px;}
+    }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero { grid-template-columns: 1fr; gap: 40px; }
@@ -1137,8 +1187,9 @@
       <div class="nav-logo-text">AisleBird</div>
     </a>
     <ul class="nav-links">
-      <li><a href="#features">How it works</a></li>
-      <li><a href="#new-features">What's New</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#navigation">Features</a></li>
+      <li><a href="#history">History</a></li>
       <li><a href="#story">Our story</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="/llms.txt" title="LLM-optimized info">For AI</a></li>
@@ -1154,8 +1205,7 @@
         <span class="found">Start flying.</span>
       </h1>
       <p class="hero-subtitle">
-        Powered by voice recognition and natural language processing. AisleBird uses AI to understand what you need, 
-        instantly map store layouts, and guide you through any retail environment. Built on advanced LLM technology for true shopping intelligence.
+        Say or type your list — AisleBird instantly sorts every item into the right aisle at your exact store. Walk the aisles in order, swipe to check things off, and see your full shopping history. Works at Whole Foods, Target, Costco, and 8 more chains. Free forever.
       </p>
       <div class="hero-ctas">
         <button class="btn-primary" onclick="window.location.href='/app'">Get Started Free</button>
@@ -1228,6 +1278,48 @@
     </div>
   </section>
   
+
+  <!-- HOW TO USE — 5 STEPS -->
+  <section style="background:var(--bg2);padding:80px 40px;border-bottom:1px solid var(--border);" id="how-it-works">
+    <div style="max-width:1200px;margin:0 auto;text-align:center;margin-bottom:56px;">
+      <span style="background:rgba(255,107,53,.15);border:1px solid rgba(255,107,53,.3);color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;border-radius:999px;display:inline-block;margin-bottom:20px;">Using AisleBird</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:40px;font-weight:800;letter-spacing:-.5px;margin-bottom:14px;">Five steps. One smooth trip.</h2>
+      <p style="font-size:17px;color:var(--text-muted);max-width:560px;margin:0 auto;line-height:1.7;">From empty list to empty cart — here's exactly how AisleBird works.</p>
+    </div>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <div class="how-step-icon">🏪</div>
+        <h3>Pick your store</h3>
+        <p>Choose from 300+ locations. AisleBird uses your location to show the nearest ones first.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <div class="how-step-icon">🎤</div>
+        <h3>Add your list</h3>
+        <p>Speak it, type it, paste from Notes, or tap your history — every item goes in instantly.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <div class="how-step-icon">⇅</div>
+        <h3>AisleBird sorts it</h3>
+        <p>Every item lands in the right department for <em>your</em> store, in the order you walk it.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">4</div>
+        <div class="how-step-icon">👆</div>
+        <h3>Swipe to check off</h3>
+        <p>Swipe right on any item to check it. Tap the aisle you're standing in to re-sort your route.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">5</div>
+        <div class="how-step-icon">📊</div>
+        <h3>See your history</h3>
+        <p>Every trip is saved. Re-buy a past list in one tap, share with family, or track your spending.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- THE PROBLEM -->
   <section class="section">
     <h2 class="section-title">The Aisle Bird Problem</h2>
@@ -1250,84 +1342,218 @@
     </div>
   </section>
   
-  <!-- FEATURES -->
-  <section class="features" id="features">
-    <h2 class="section-title">How AisleBird Guides You</h2>
-    <div class="features-intro">
-      <p>AisleBird pairs voice recognition with a smart categorization engine: say or type your whole list and every item is automatically placed in the right department for the store you're shopping. It organizes your list by aisle so you move through the store without backtracking.</p>
-    </div>
-    <div class="features-grid">
-      <div class="feature">
-        <div class="feature-icon">🎤</div>
-        <h3>Voice &amp; Text Entry</h3>
-        <p>Speak or type your list naturally. Say “organic bananas, olive oil, paper towels” and each item is added and sorted.</p>
+
+  <!-- FEATURE GROUPS — comprehensive -->
+  <section style="background:var(--bg);">
+
+    <!-- Group 1: Smart List Building -->
+    <div class="fg-section" id="features">
+      <div class="fg-header">
+        <span class="fg-badge">Add Items</span>
+        <h2 class="fg-title">Every way you think of a list</h2>
       </div>
-      <div class="feature">
-        <div class="feature-icon">🗺️</div>
-        <h3>Store-Aware Sorting</h3>
-        <p>Each item is placed in the correct department for the store you chose — across grocery, pharmacy, hardware, and big-box retailers. 119+ California locations.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">⚡</div>
-        <h3>Automatic Categorization</h3>
-        <p>Type a comma-separated list and AisleBird figures out the department for every item automatically — no manual tagging or category picking.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">✅</div>
-        <h3>Knows Your Products</h3>
-        <p>Recognizes thousands of common products — from milk and salmon to lumber and vitamins — and matches each to the right aisle for that store.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">📍</div>
-        <h3>Walk-the-Aisle Order</h3>
-        <p>Tap the aisle you’re standing in and your list reorders to match your path through Whole Foods, Target, Costco, and more.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">💾</div>
-        <h3>Unlimited Lists, Every Store</h3>
-        <p>Add unlimited items and switch between 11 store chains — your list instantly re-sorts to match each store’s layout.</p>
-      </div>
-    </div>
-  </section>
-  
-  <!-- SMART DEPARTMENT SORTING -->
-  <section class="features" id="smart-sort">
-    <h2 class="section-title">One List. Every Department. Automatically Sorted.</h2>
-    <div class="features-intro">
-      <p>Type or say your whole list at once — "milk, olive oil, dog food, toilet paper, light bulbs" — and AisleBird sorts every item into the right department for the exact store you're shopping. No tagging, no picking categories by hand. It knows milk is dairy, a 2x4 is lumber, ibuprofen is health, and a horse blanket belongs in equine. AisleBird adapts its departments to each store type, across 11 chains and 119+ California locations.</p>
-    </div>
-    <div class="features-grid">
-      <div class="feature">
-        <div class="feature-icon">🛒</div>
-        <h3>Grocery &amp; Warehouse</h3>
-        <p>Whole Foods, Trader Joe's, Costco — sorts into Produce, Dairy, Meat &amp; Seafood, Bakery, Frozen, Pantry, Condiments, Snacks, Beverages, Wine &amp; Beer, and Deli.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🎯</div>
-        <h3>General Merchandise</h3>
-        <p>Target, Walmart — Grocery, Personal Care, Baby, Pets, Household Essentials, Kitchen &amp; Dining, Home &amp; Decor, Clothing, Toys, Electronics, Sports, Garden, School &amp; Office, Party, and Luggage.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">⚕️</div>
-        <h3>Pharmacy</h3>
-        <p>CVS, Walgreens — Pharmacy, Health, Wellness, Personal Care, Baby, Household, Grocery, Snacks, and Photo.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🔧</div>
-        <h3>Hardware &amp; Home Improvement</h3>
-        <p>Home Depot, Lowe's, Friedman's — Lumber, Building Materials, Tools, Hardware, Paint, Plumbing, Electrical, Flooring, Lighting, Garden, Kitchen &amp; Bath, and Appliances.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">🐄</div>
-        <h3>Farm &amp; Ranch</h3>
-        <p>Tractor Supply — Pet &amp; Animal Feed, Livestock, Poultry, Equine, Pet Care, Seed, Lawn &amp; Garden, Workwear, Tools, Hardware, and Fencing.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">↕️</div>
-        <h3>Walk-the-Aisle Order</h3>
-        <p>Tap the department you're standing in and your whole list reorders to match your path through the store — so you never double back for a forgotten item.</p>
+      <div class="fg-grid">
+        <div class="fg-card">
+          <div class="fg-card-icon">🎤</div>
+          <h4>Voice Entry</h4>
+          <p>Tap the mic and say your list in natural language — "two cartons of almond milk, organic bananas, sourdough." Each item is added and sorted instantly. Also works for checking things off: "Got the eggs."</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">✏️</div>
+          <h4>Type &amp; Comma-Separate</h4>
+          <p>Type "milk, eggs, bread, salmon" in one shot — AisleBird splits, categorizes, and sorts all of them at once. No need to add items one by one.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">📋</div>
+          <h4>Import from Notes</h4>
+          <p>Copy your list from iPhone Notes, any text app, or a recipe — paste it in and AisleBird parses every line and sorts it by aisle automatically.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">🔍</div>
+          <h4>History Autocomplete</h4>
+          <p>The moment you start typing, AisleBird suggests items from your personal buying history, ranked by how often you buy them. Your regulars are always one tap away.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">⚡</div>
+          <h4>Quick Add</h4>
+          <p>Store-specific quick-add grids show your most-likely items for that chain. Whole Foods shows organic produce and bulk items; Tractor Supply shows feed and livestock supplies.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">📝</div>
+          <h4>Item Notes</h4>
+          <p>Add a private note to any item — "get the ripest ones," "brand X only," "2 lbs." Notes show on the card and are included when you copy or share the list.</p>
+        </div>
       </div>
     </div>
+
+    <!-- Group 2: In-Store Navigation -->
+    <div class="fg-section" style="background:var(--bg2);" id="navigation">
+      <div class="fg-header">
+        <span class="fg-badge">Navigate</span>
+        <h2 class="fg-title">Walk the store without backtracking</h2>
+      </div>
+      <div class="fg-grid">
+        <div class="fg-card">
+          <div class="fg-card-icon">📍</div>
+          <h4>Aisle Display on Every Item</h4>
+          <p>Every item shows its physical aisle or department right on the card — Dairy, Bulk, Lumber — so you always know exactly where to go without scanning the whole list.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">⇅</div>
+          <h4>Smart Sort by Aisle</h4>
+          <p>Your list is automatically sorted in the order you walk through that specific store — Produce → Bakery → Dairy → Meat → Frozen. No backtracking, no doubling back.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">👆</div>
+          <h4>Tap Your Current Aisle</h4>
+          <p>Tap the department chip you're standing in and your remaining list instantly reorders to match your exact path from that point forward.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">👉</div>
+          <h4>Swipe Right to Check Off</h4>
+          <p>Swipe any item card to the right to check it off — no need to tap the small checkbox. The card flashes green and the item moves to your cart. One-handed and glove-friendly.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">⚠️</div>
+          <h4>Out-of-Stock Alerts</h4>
+          <p>Flag any item as out of stock at your store. Every other shopper sees a ⚠️ warning on that item with suggested alternatives — "Try: Oat Milk · Soy Milk." Community-sourced, real-time.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">🔍</div>
+          <h4>Filter Within Your List</h4>
+          <p>Tap the search icon to filter your list by name as you shop. Instantly find "salmon" in a 40-item list without scrolling. Press Escape to clear and see everything again.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group 3: Team & Family Shopping -->
+    <div class="fg-section" id="sharing">
+      <div class="fg-header">
+        <span class="fg-badge">Share &amp; Collaborate</span>
+        <h2 class="fg-title">Shop together, even when apart</h2>
+      </div>
+      <div class="fg-grid">
+        <div class="fg-card">
+          <div class="fg-card-icon">🤝</div>
+          <h4>Shared Lists</h4>
+          <p>Invite your partner, roommate, or anyone by email. They open the same live list, can add items, check things off, and see every change in real time. No extra app needed.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">🔄</div>
+          <h4>Real-Time Sync</h4>
+          <p>Using AisleBird on two devices? Changes sync instantly via Supabase Realtime. A green dot pulses to confirm a sync arrived. Shared collaborators update every 15 seconds.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">📤</div>
+          <h4>Copy List as Text</h4>
+          <p>One tap copies your full list to the clipboard — grouped by department, with quantities and notes. Paste it into Messages, WhatsApp, or email in a second.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">📋</div>
+          <h4>List Templates</h4>
+          <p>Save any list as a named template — "Weekly Whole Foods," "BBQ Supplies," "Renovation Run." Apply a template to any store in one tap and all items drop in, already sorted by aisle.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">🔄</div>
+          <h4>Re-buy Last Trip</h4>
+          <p>When you clear your checked items, AisleBird saves that trip automatically. Next time your list is empty, a "Re-buy Last Trip" button restores everything in one tap.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">🖨️</div>
+          <h4>Print Your List</h4>
+          <p>Tap the 🖨️ button (or Ctrl+P on desktop) to print a clean, formatted list grouped by department — store name, date, quantities, and notes all included.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group 4: Shopping History -->
+    <div class="fg-section" style="background:var(--bg2);" id="history">
+      <div class="fg-header">
+        <span class="fg-badge">Your History</span>
+        <h2 class="fg-title">Every trip. Remembered.</h2>
+      </div>
+      <p style="font-size:17px;color:var(--text-muted);max-width:600px;line-height:1.8;margin-bottom:44px;">
+        Every time you finish shopping and remove your checked items, that trip is automatically saved — 
+        the store, the date, every item you bought. Open <strong style="color:var(--text)">My History</strong> anytime to see it all.
+      </p>
+      <div class="history-highlight">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
+          <div>
+            <h3 style="font-size:22px;font-weight:800;margin-bottom:16px;">What you can do with it</h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;">
+              <li style="display:flex;gap:12px;font-size:15px;color:var(--text-muted);line-height:1.6;"><span style="color:var(--accent);font-weight:800;flex-shrink:0;">→</span> See all your past trips filtered by store</li>
+              <li style="display:flex;gap:12px;font-size:15px;color:var(--text-muted);line-height:1.6;"><span style="color:var(--accent);font-weight:800;flex-shrink:0;">→</span> Expand any trip to see every item you bought</li>
+              <li style="display:flex;gap:12px;font-size:15px;color:var(--text-muted);line-height:1.6;"><span style="color:var(--accent);font-weight:800;flex-shrink:0;">→</span> Tap "Add all to list" to instantly rebuild a past trip</li>
+              <li style="display:flex;gap:12px;font-size:15px;color:var(--text-muted);line-height:1.6;"><span style="color:var(--accent);font-weight:800;flex-shrink:0;">→</span> See your stats — total trips, items bought, stores visited</li>
+              <li style="display:flex;gap:12px;font-size:15px;color:var(--text-muted);line-height:1.6;"><span style="color:var(--accent);font-weight:800;flex-shrink:0;">→</span> Admins see every client's history with date and item count</li>
+            </ul>
+          </div>
+          <div>
+            <div class="history-mockup">
+              <div class="hist-mock-card">
+                <div class="hist-mock-store">🌿 Whole Foods · Napa</div>
+                <div class="hist-mock-date">Thu, Jun 19, 2026</div>
+                <div class="hist-mock-count">14 items</div>
+                <div class="hist-mock-items">Organic Bananas, Almond Milk, Wild Salmon…</div>
+              </div>
+              <div class="hist-mock-card">
+                <div class="hist-mock-store">🛵 Trader Joe's · Napa</div>
+                <div class="hist-mock-date">Mon, Jun 16, 2026</div>
+                <div class="hist-mock-count">9 items</div>
+                <div class="hist-mock-items">Mandarin Oranges, Everything Bagels, Dark Chocolate…</div>
+              </div>
+              <div class="hist-mock-card">
+                <div class="hist-mock-store">🎯 Target · Napa</div>
+                <div class="hist-mock-date">Fri, Jun 13, 2026</div>
+                <div class="hist-mock-count">6 items</div>
+                <div class="hist-mock-items">Paper Towels, Vitamins, Laundry Detergent…</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group 5: Power Tools -->
+    <div class="fg-section" id="tools">
+      <div class="fg-header">
+        <span class="fg-badge">Power Features</span>
+        <h2 class="fg-title">Built for serious shoppers</h2>
+      </div>
+      <div class="fg-grid">
+        <div class="fg-card">
+          <div class="fg-card-icon">💰</div>
+          <h4>Budget Mode</h4>
+          <p>Enable Budget Mode in Settings and every item gets a price field pre-filled with a category estimate. Edit any price. A live running total in the progress bar shows your estimated remaining spend as you check items off.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">🌙</div>
+          <h4>Dark &amp; Light Mode</h4>
+          <p>Toggle between a deep dark theme (default) and a warm cream light mode in Settings. Your preference persists across sessions. Both modes use full contrast for glanceability in bright store lighting.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">📱</div>
+          <h4>Works Offline</h4>
+          <p>AisleBird is a PWA with a service worker. Once you've opened it once, it loads instantly even without internet. Your list stays on-device. Syncs to the cloud when you reconnect.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">↩️</div>
+          <h4>Undo Remove</h4>
+          <p>Accidentally delete an item? A 4-second undo toast appears immediately. Tap Undo to restore the item to its exact position in the list. No data is ever permanently lost during a session.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">⌨️</div>
+          <h4>Keyboard Shortcuts</h4>
+          <p>For desktop and laptop shoppers: <kbd style="background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-size:12px;">/</kbd> opens the filter, <kbd style="background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-size:12px;">A</kbd> focuses the add input, <kbd style="background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-size:12px;">Esc</kbd> closes any overlay, <kbd style="background:var(--surf);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-size:12px;">⌘P</kbd> prints.</p>
+        </div>
+        <div class="fg-card">
+          <div class="fg-card-icon">🔔</div>
+          <h4>Haptic Feedback</h4>
+          <p>On Android and supported browsers, AisleBird vibrates subtly when you check an item off (12ms), add an item (18ms), or delete one (double pulse). Toggle it in Settings.</p>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- LOCATION-AWARE STORE FINDER -->
@@ -1494,26 +1720,55 @@
     </div>
   </section>
 
-  <!-- OUR STORY -->
-  <section class="story" id="story">
-    <h2 class="section-title">Why AisleBird Exists</h2>
-    <div class="story-content">
-      <h2>Built with precision for people who demand it.</h2>
-      <p>
-        AisleBird was born from a simple frustration: shopping is confusing, time-consuming, and mentally exhausting. 
-        A developer built it for his wife, <span class="story-highlight">Jennifer</span>, 
-        who demands precision in everything she does. She designed every detail of AisleBird, making sure nothing was left to chance.
-      </p>
-      <p>
-        What started as one person's solution became something thousands of people across California now rely on. 
-        Because you shouldn't have to wander. You shouldn't have to think. You should just shop, check off your list, and get on with your life.
-      </p>
-      <p>
-        <span class="story-highlight">That's the AisleBird promise.</span>
-      </p>
+
+  <!-- JENNIFER -->
+  <section class="jennifer-section" id="story">
+    <div class="jennifer-inner">
+      <div class="jennifer-bird">
+        <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+          <g class="wing-back"><path d="M 70 140 Q 45 110 35 155 Q 48 175 85 170 Z" fill="#ff6b35" opacity="0.8"/><path d="M 60 135 Q 40 100 25 145 Q 42 170 75 165 Z" fill="#ff8c5a" opacity="0.9"/></g>
+          <ellipse cx="140" cy="145" rx="55" ry="65" fill="#ff6b35"/>
+          <ellipse cx="140" cy="160" rx="40" ry="50" fill="#ffb59d" opacity="0.7"/>
+          <circle cx="140" cy="75" r="42" fill="#ff6b35"/>
+          <circle cx="150" cy="65" r="10" fill="#fff"/><circle cx="150" cy="65" r="6" fill="#000"/>
+          <circle cx="127" cy="65" r="10" fill="#fff"/><circle cx="127" cy="65" r="6" fill="#000"/>
+          <circle cx="152" cy="62" r="3" fill="#fff"/><circle cx="129" cy="62" r="3" fill="#fff"/>
+          <ellipse cx="140" cy="85" rx="14" ry="11" fill="#ff4500"/>
+          <path d="M 154 82 L 165 78 L 154 88 Z" fill="#ff4500"/>
+          <ellipse cx="140" cy="150" rx="28" ry="40" fill="#ffb59d" opacity="0.5"/>
+          <g class="wing-front"><path d="M 185 100 Q 230 75 250 95 Q 230 125 190 130 Z" fill="#ff8c5a"/><path d="M 190 115 Q 235 100 260 120 Q 240 145 195 140 Z" fill="#ff6b35" opacity="0.9"/><path d="M 195 130 Q 240 120 265 145 Q 245 160 200 155 Z" fill="#ff4500" opacity="0.8"/></g>
+          <path d="M 95 160 Q 55 145 40 185 Q 65 205 105 185 Z" fill="#ff4500" opacity="0.9"/>
+          <path d="M 92 180 Q 55 170 35 220 Q 65 230 100 200 Z" fill="#ff6b35" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="jennifer-quote">
+        <blockquote>I shouldn't have to wander. I just want to get in, get everything, and get out.</blockquote>
+        <p class="jennifer-byline">
+          <strong>Jennifer</strong> — Co-founder &amp; Design Director of AisleBird.<br>
+          <span style="margin-top:8px;display:block;line-height:1.7;">AisleBird was built for her. She designed every detail of the experience — 
+          every font size, every aisle label, every gesture — making sure nothing was left to chance. 
+          What started as one person's solution now helps thousands of shoppers across the country 
+          get through the store faster, spend less time wandering, and never forget where the salmon is.</span>
+        </p>
+        <div style="margin-top:28px;display:flex;gap:32px;">
+          <div style="text-align:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--accent);">300+</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:600;">Store Locations</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--accent);">11</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:600;">Retail Chains</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--accent);">$0</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:600;">Forever Free</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
-  
+
+
   <!-- PRICING -->
   <section class="pricing" id="pricing">
     <h2 class="section-title">Simple Pricing</h2>
@@ -1531,6 +1786,9 @@
           <li>Shared lists</li>
           <li>Item history &amp; autocomplete</li>
           <li>Out-of-stock alerts</li>
+          <li>Shopping trip history</li>
+          <li>Budget mode</li>
+          <li>Re-buy last trip</li>
         </ul>
         <button class="btn-primary" onclick="window.location.href='/app'">Start Free</button>
       </div>
@@ -1683,6 +1941,38 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "When you open the store picker, AisleBird requests your location and calculates the distance to each store, showing them sorted by proximity. Stores display distance in miles, making it easy to pick the closest one. You can switch stores anytime — distance sorting adapts to wherever you are."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does AisleBird save my shopping history?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Every time you finish shopping and remove your checked items, AisleBird automatically saves that trip — the store, the date, and every item you bought. Open My History in Settings to see all your past trips, expand any trip to view its full item list, and tap to add any past trip back to your current list. Shopping history requires a free account."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I share my shopping list with someone?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Go to Settings and tap Share This List. Enter your collaborator's email address and send an invite. They can view and edit the same list in real time. Both the owner and the invitee can add items, check things off, and see each other's changes as they happen. No app installation is required for the recipient."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Budget Mode?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Budget Mode is a setting that adds an editable price field to every item in your list. Prices are pre-filled with category-based estimates — produce around $3.50, meat around $14, electronics around $45. You can override any estimate. A running total in the progress bar shows your estimated remaining spend as you check items off."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I save my list and reuse it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, in two ways. First, templates: save any current list under a name like 'Weekly Whole Foods Run' and apply it to any store in one tap. Second, Re-buy Last Trip: when you clear your checked items, that list is saved automatically. The next time your list is empty at that store, a Re-buy Last Trip button restores everything instantly."
         }
       }
     ]
