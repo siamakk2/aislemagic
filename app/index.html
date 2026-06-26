@@ -1947,7 +1947,7 @@ function goVoice(){
    APPLY STORE
 ═══════════════════════════════════════ */
 function applyStore(store){
-  _activeListSlot=0; _slotItems=[null,null,null];
+  _activeListSlot=0;
   if(typeof saveItems === 'function') saveItems();
   stopSharedListPoll();
   curStore=store;
@@ -1966,6 +1966,7 @@ function applyStore(store){
   renderChips();
   renderList();
   renderSettings();
+  renderListSwitcher(); renderSuggestionStrip();
   loadLastTrip();
   closeOv('ov-store');
   closeOv('ov-first-store');
@@ -4217,19 +4218,18 @@ function renderListSwitcher(){
     sw.appendChild(btn);
   });
 }
+function _slotKey(slot){
+  return 'sl'+(curStore?curStore.id:'x')+slot+(session?'_'+session.user.id:'_g');
+}
 function switchList(slot){
   if(slot===_activeListSlot) return;
-  _slotItems[_activeListSlot]=items.slice();
+  // Save current slot to localStorage before switching
+  try{ localStorage.setItem(_slotKey(_activeListSlot), JSON.stringify(items)); }catch(e){}
   _activeListSlot=slot;
-  if(_slotItems[slot]!==null){
-    items=_slotItems[slot];
-    nid=items.length?Math.max.apply(null,items.map(function(i){ return i.id||0; }))+1:0;
-  } else {
-    var sk='ls'+slot+'_'+(curStore?curStore.id:'')+'_'+(session?session.user.id:'');
-    var saved=null; try{ saved=localStorage.getItem(sk); }catch(e){}
-    if(saved){ try{ items=JSON.parse(saved); nid=items.length; }catch(e){ items=[]; nid=0; } }
-    else { items=[]; nid=0; }
-  }
+  var saved=null;
+  try{ saved=localStorage.getItem(_slotKey(slot)); }catch(e){}
+  if(saved){ try{ items=JSON.parse(saved); nid=items.length?Math.max.apply(null,items.map(function(i){ return i.id||0; }))+1:0; }catch(e){ items=[]; nid=0; } }
+  else{ items=[]; nid=0; }
   renderList(); renderQuickAdd(); renderListSwitcher(); renderSuggestionStrip();
   showToast('Switched to '+_listSlots[slot]);
 }
