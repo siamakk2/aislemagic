@@ -1212,7 +1212,7 @@ var KW = {
 ═══════════════════════════════════════ */
 var items       = [];
 var nid         = 1;
-var curStore    = STORES[0];
+var curStore    = STORES[0]; // Default, will be overridden by loadLastStore()
 var curChain    = CHAINS['Whole Foods'];
 var aisleIdx    = 0;
 var selCat      = 'produce';
@@ -1227,6 +1227,36 @@ var searchQuery = '';
 /* ═══════════════════════════════════════
    STORAGE: Per-store list persistence
 ═══════════════════════════════════════ */
+/* Store persistence - remember last selected store */
+function saveLastStore(){
+  if(curStore){
+    localStorage.setItem('ab_last_store_id', curStore.id);
+    console.log('saveLastStore: Saved store ID', curStore.id);
+  }
+}
+
+function loadLastStore(){
+  var lastStoreId=localStorage.getItem('ab_last_store_id');
+  console.log('loadLastStore: Retrieved store ID', lastStoreId);
+  if(lastStoreId){
+    // Find the store with this ID
+    var found=null;
+    for(var i=0;i<STORES.length;i++){
+      if(STORES[i].id===lastStoreId){
+        found=STORES[i];
+        break;
+      }
+    }
+    if(found){
+      console.log('loadLastStore: Found store, applying:', found.name);
+      applyStore(found);
+      return;
+    }
+  }
+  console.log('loadLastStore: No previous store found, using default');
+  // Use default (already set)
+}
+
 function getStorageKey(){
   return 'ab_items_' + curStore.id;
 }
@@ -1259,8 +1289,8 @@ function loadItems(){
   }
 }
 
-// Load items on startup
-loadItems();
+// Load last selected store and its items on startup
+loadLastStore(); // This will call applyStore() which calls loadItems()
 
 /* ═══════════════════════════════════════
    HELPERS
@@ -1480,6 +1510,7 @@ function applyStore(store){
   saveItems(); // Save items from previous store
   curStore=store;
   console.log('curStore changed to:', curStore.name);
+  saveLastStore(); // Remember this store for next time
   loadItems(); // Load items for new store
   curChain=CHAINS[store.chain];
   mergeStdCats(curChain);
