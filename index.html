@@ -390,21 +390,26 @@
       85% {opacity:.6}
       100%{opacity:.88}
     }
-
-    @keyframes perchSway{
-      0%  {transform:rotate(0deg)   translateY(0px);}
       28% {transform:rotate(-2deg)  translateY(-4px);}
       55% {transform:rotate(1.5deg) translateY(3px);}
       80% {transform:rotate(-1deg)  translateY(-2px);}
       100%{transform:rotate(0deg)   translateY(0px);}
     }
-    @keyframes perchOpacity{
-      0%  {opacity:.92}
       20% {opacity:1}
       45% {opacity:.78}
       65% {opacity:.96}
       85% {opacity:.7}
       100%{opacity:.92}
+    }
+      28% {transform:translateX(-50%) rotate(-2.2deg) translateY(-4px);}
+      55% {transform:translateX(-50%) rotate(1.8deg) translateY(3px);}
+      80% {transform:translateX(-50%) rotate(-1deg)  translateY(-1px);}
+      100%{transform:translateX(-50%) rotate(0deg)   translateY(0px);}
+    }
+      25% {opacity:1}
+      50% {opacity:.8}
+      75% {opacity:.97}
+      100%{opacity:.9}
     }
   </style>
 </head>
@@ -523,195 +528,13 @@
       <div class="hero-proof-item"><span>📵</span> Works Offline</div>
     </div>
   </div>
-  <div class="hero-right" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+  <div class="hero-right" style="position:relative;min-height:620px;overflow:visible;display:block;">
 
-  <!-- ── BIRD — floats above phone, feet on rim ── -->
-  <div style="position:relative;z-index:3;margin-bottom:-22px;
-              animation:perchSway 5s ease-in-out infinite,perchOpacity 7s ease-in-out infinite;
-              filter:drop-shadow(0 6px 32px rgba(255,107,53,.5));">
-    <svg viewBox="0 0 280 310" xmlns="http://www.w3.org/2000/svg" width="210" height="247">
-    <defs><style>
-    /* body bobs gently — perched birds sway, not flap */
-    .pg{animation:pbob 4s ease-in-out infinite}
-    .pt{transform-origin:140px 242px;transform-box:fill-box;animation:ptwg 4s ease-in-out infinite .3s}
-    .pe{transform-origin:center;transform-box:fill-box;animation:pblk 5s linear infinite}
-    .pe2{animation-delay:2.6s}
-    .ph{animation:pGlow 3.5s ease-in-out infinite}
-    @keyframes pbob{0%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}70%{transform:translateY(3px)}}
-    @keyframes ptwg{0%,100%{transform:rotate(0deg)}35%{transform:rotate(-5deg)}65%{transform:rotate(4deg)}}
-    @keyframes pblk{0%,85%,100%{transform:scaleY(0)}87%,95%{transform:scaleY(1)}}
-    @keyframes pGlow{0%,100%{opacity:.3}50%{opacity:.65}}
-    </style></defs>
-
-    <!-- Glow halo behind head -->
-    <defs>
-      <filter id="pHalo" x="-100%" y="-100%" width="300%" height="300%">
-        <feGaussianBlur stdDeviation="16"/>
-      </filter>
-    </defs>
-    <ellipse class="ph" cx="140" cy="94" rx="58" ry="54" fill="#ff6b35" opacity=".4" filter="url(#pHalo)"/>
-
-    <!-- ── LEFT WING  (SMIL morphing)
-         REST:    drooping, tips down — relaxed perch
-         FLUTTER: sweeps up then returns — balance adjustment
-         Timing: 0-72% rest, 72-82% sweep up, 82-92% return, 92-100% rest
-    ── -->
-    <!-- main membrane -->
-    <path fill="#e05528">
-      <animate attributeName="d"
-        values="
-          M100,168 C80,178 54,192 32,208 C18,218 18,232 30,234 C54,238 84,220 100,168;
-          M100,168 C65,128 20,114 -14,136 C-28,154 -22,174 2,180 C38,188 78,180 100,168;
-          M100,168 C80,178 54,192 32,208 C18,218 18,232 30,234 C54,238 84,220 100,168;
-          M100,168 C80,178 54,192 32,208 C18,218 18,232 30,234 C54,238 84,220 100,168"
-        keyTimes="0;0.77;0.90;1"
-        calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
-        dur="5s" repeatCount="indefinite"/>
-    </path>
-    <!-- secondary feather layer -->
-    <path fill="#c84010" opacity=".6">
-      <animate attributeName="d"
-        values="
-          M100,168 C82,182 60,196 42,210 C30,220 32,232 44,232 C66,232 90,216 100,168;
-          M100,168 C72,136 32,122 2,144 C-10,160 -6,178 16,183 C48,190 82,182 100,168;
-          M100,168 C82,182 60,196 42,210 C30,220 32,232 44,232 C66,232 90,216 100,168;
-          M100,168 C82,182 60,196 42,210 C30,220 32,232 44,232 C66,232 90,216 100,168"
-        keyTimes="0;0.77;0.90;1"
-        calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
-        dur="5s" repeatCount="indefinite"/>
-    </path>
-    <!-- primary feather tips (darkest) -->
-    <path fill="#a02c08" opacity=".9">
-      <animate attributeName="d"
-        values="
-          M30,232 C14,248 8,238 22,226;
-          M-8,172 C-28,184 -32,170 -14,160;
-          M30,232 C14,248 8,238 22,226;
-          M30,232 C14,248 8,238 22,226"
-        keyTimes="0;0.77;0.90;1"
-        calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
-        dur="5s" repeatCount="indefinite"/>
-    </path>
-
-    <!-- ── RIGHT WING (mirror) ── -->
-    <path fill="#e05528">
-      <animate attributeName="d"
-        values="
-          M180,168 C200,178 226,192 248,208 C262,218 262,232 250,234 C226,238 196,220 180,168;
-          M180,168 C215,128 260,114 294,136 C308,154 302,174 278,180 C242,188 202,180 180,168;
-          M180,168 C200,178 226,192 248,208 C262,218 262,232 250,234 C226,238 196,220 180,168;
-          M180,168 C200,178 226,192 248,208 C262,218 262,232 250,234 C226,238 196,220 180,168"
-        keyTimes="0;0.77;0.90;1"
-        calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
-        dur="5s" repeatCount="indefinite"/>
-    </path>
-    <path fill="#c84010" opacity=".6">
-      <animate attributeName="d"
-        values="
-          M180,168 C198,182 220,196 238,210 C250,220 248,232 236,232 C214,232 190,216 180,168;
-          M180,168 C208,136 248,122 278,144 C290,160 286,178 264,183 C232,190 198,182 180,168;
-          M180,168 C198,182 220,196 238,210 C250,220 248,232 236,232 C214,232 190,216 180,168;
-          M180,168 C198,182 220,196 238,210 C250,220 248,232 236,232 C214,232 190,216 180,168"
-        keyTimes="0;0.77;0.90;1"
-        calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
-        dur="5s" repeatCount="indefinite"/>
-    </path>
-    <path fill="#a02c08" opacity=".9">
-      <animate attributeName="d"
-        values="
-          M250,232 C266,248 272,238 258,226;
-          M288,172 C308,184 312,170 294,160;
-          M250,232 C266,248 272,238 258,226;
-          M250,232 C266,248 272,238 258,226"
-        keyTimes="0;0.77;0.90;1"
-        calcMode="spline" keySplines="0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
-        dur="5s" repeatCount="indefinite"/>
-    </path>
-
-    <!-- ── BODY + HEAD — drawn on top of wings ── -->
-    <g class="pg">
-      <!-- Body -->
-      <ellipse cx="140" cy="196" rx="54" ry="62" fill="#e05528"/>
-      <ellipse cx="138" cy="214" rx="38" ry="48" fill="#ffb59d" opacity=".42"/>
-
-      <!-- HEAD -->
-      <circle cx="140" cy="96" r="48" fill="#e05528"/>
-      <!-- crown tufts -->
-      <ellipse cx="118" cy="55" rx="6" ry="13" fill="#d04010" transform="rotate(-22,118,55)"/>
-      <ellipse cx="140" cy="50" rx="7" ry="16" fill="#ff7a44"/>
-      <ellipse cx="162" cy="55" rx="6" ry="13" fill="#d04010" transform="rotate(22,162,55)"/>
-      <!-- forehead shine -->
-      <ellipse cx="132" cy="78" rx="26" ry="15" fill="#ff8c5a" opacity=".3"/>
-
-      <!-- RIGHT EYE — large, sparkling -->
-      <circle cx="161" cy="89" r="17" fill="white"/>
-      <circle cx="163" cy="91" r="11" fill="#1a0600"/>
-      <circle cx="163" cy="91" r="11" fill="none" stroke="#c06018" stroke-width="2.5" opacity=".75"/>
-      <circle cx="165" cy="89" r="6" fill="#060100"/>
-      <circle cx="168" cy="85" r="3" fill="white"/>
-      <circle cx="163" cy="95" r="1.4" fill="white" opacity=".65"/>
-      <ellipse class="pe" cx="161" cy="82" rx="17" ry="11" fill="#e05528"/>
-
-      <!-- LEFT EYE -->
-      <circle cx="117" cy="91" r="14.5" fill="white"/>
-      <circle cx="116" cy="93" r="9.5" fill="#1a0600"/>
-      <circle cx="116" cy="93" r="9.5" fill="none" stroke="#c06018" stroke-width="2" opacity=".75"/>
-      <circle cx="118" cy="91" r="5.5" fill="#060100"/>
-      <circle cx="121" cy="88" r="2.5" fill="white"/>
-      <circle cx="115" cy="96" r="1.1" fill="white" opacity=".65"/>
-      <ellipse class="pe pe2" cx="117" cy="85" rx="14.5" ry="9.5" fill="#e05528"/>
-
-      <!-- BEAK (slightly open, cheerful) -->
-      <path d="M125,115 C127,103 155,102 157,113 C150,121 131,121 125,115Z" fill="#ff4500"/>
-      <path d="M126,117 C128,130 154,130 157,117 C150,130 132,129 126,117Z" fill="#cc3800"/>
-      <ellipse cx="141" cy="124" rx="8" ry="4" fill="#dd2200" opacity=".45"/>
-      <ellipse cx="141" cy="107" rx="11" ry="4.5" fill="#ff6030" opacity=".35"/>
-
-      <!-- cheek blush -->
-      <ellipse cx="102" cy="106" rx="10" ry="7" fill="#ff8060" opacity=".26"/>
-      <ellipse cx="178" cy="104" rx="10" ry="7" fill="#ff8060" opacity=".26"/>
-    </g>
-
-    <!-- TAIL feathers -->
-    <g class="pt">
-      <path d="M117,248 C103,274 88,298 76,316 C90,308 104,284 110,258Z" fill="#c44418"/>
-      <path d="M129,252 C120,280 114,304 110,324 C118,316 124,292 126,264Z" fill="#d45020"/>
-      <path d="M140,254 C138,282 136,308 133,328 C139,320 142,296 140,270Z" fill="#e05528"/>
-      <path d="M151,252 C159,280 162,304 160,324 C154,316 150,292 150,264Z" fill="#d45020"/>
-      <path d="M163,248 C177,272 188,296 192,314 C180,308 168,284 162,258Z" fill="#c44418"/>
-    </g>
-
-    <!-- ── FEET — gripping the phone rim ── -->
-    <!-- Left leg -->
-    <line x1="124" y1="254" x2="110" y2="284" stroke="#ff4500" stroke-width="4.5" stroke-linecap="round"/>
-    <!-- Left foot: 4 toes gripping forward+back (classic bird perch grip) -->
-    <line x1="110" y1="284" x2="86"  y2="290" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="110" y1="284" x2="100" y2="300" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="110" y1="284" x2="120" y2="300" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="110" y1="284" x2="132" y2="288" stroke="#ff4500" stroke-width="3"   stroke-linecap="round"/>
-    <!-- toe nail hints -->
-    <path d="M85,290 C82,293 80,291 83,289" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
-    <path d="M99,301 C96,305 93,303 96,300" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
-    <path d="M120,301 C119,305 116,304 117,301" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
-
-    <!-- Right leg -->
-    <line x1="156" y1="254" x2="170" y2="284" stroke="#ff4500" stroke-width="4.5" stroke-linecap="round"/>
-    <!-- Right foot -->
-    <line x1="170" y1="284" x2="146" y2="290" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="170" y1="284" x2="160" y2="300" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="170" y1="284" x2="180" y2="300" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="170" y1="284" x2="192" y2="288" stroke="#ff4500" stroke-width="3"   stroke-linecap="round"/>
-    <path d="M145,290 C142,293 140,291 143,289" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
-    <path d="M159,301 C156,305 153,303 156,300" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
-    <path d="M180,301 C179,305 176,304 177,301" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-  </div><!-- end bird div -->
-
-  <!-- ── PHONE — directly below bird, z-index 2 ── -->
-  <div style="position:relative;z-index:2;">
+  <!-- ── PHONE at z-index 4 ── -->
+  <div id="hero-phone" style="position:absolute;top:130px;left:50%;transform:translateX(-50%);z-index:4;">
     <div class="phone" style="width:240px;">
       <div class="phone-notch"></div>
-      <div class="phone-screen" style="min-height:420px;">
+      <div class="phone-screen" style="min-height:400px;">
         <div class="phone-nav">
           <div class="phone-nav-logo">🐦 AisleBird</div>
           <div class="phone-store-pill">🌿 Whole Foods · Napa</div>
@@ -729,6 +552,204 @@
       </div>
     </div>
   </div>
+
+  <!-- ── BIRD — rises from behind phone, lands on rim ──
+       top:0, starts at translateY(377px) → z-index:2 (behind phone)
+       animates to translateY(-99px)
+       at ~1.67s: z-index flips to 6 (head clears phone top)
+       after 3s: inline transform removed, top:-99px set, sway CSS added
+  ── -->
+  <div id="hero-bird"
+       style="position:absolute;top:0;left:50%;z-index:2;overflow:visible;
+              transform:translateX(-50%) translateY(377px);
+              filter:drop-shadow(0 8px 36px rgba(255,107,53,.5));">
+
+    <!-- SVG overflow:visible so wings render OUTSIDE the 240px box
+         during ascent wings reach x=-50 and x=330 → 37px visible each side of phone -->
+    <svg id="hero-bird-svg"
+         viewBox="0 0 280 310" xmlns="http://www.w3.org/2000/svg"
+         width="240" height="265" style="overflow:visible;display:block;">
+    <defs>
+    <style>
+    /* body bobs — runs continuously, looks like flying during rise, perch bob after */
+    .rg{animation:rbob 1.9s ease-in-out infinite}
+    .rt{transform-origin:140px 242px;transform-box:fill-box;animation:rtwg 1.9s ease-in-out infinite .22s}
+    .re{transform-origin:center;transform-box:fill-box;animation:rblk 5.5s linear infinite}
+    .re2{animation-delay:2.6s}
+    .rh{animation:rhalo 3.2s ease-in-out infinite}
+    @keyframes rbob{0%,100%{transform:translateY(0)}20%{transform:translateY(-11px)}55%{transform:translateY(6px)}80%{transform:translateY(1px)}}
+    @keyframes rtwg{0%,100%{transform:rotate(0deg)}22%{transform:rotate(-7deg)}58%{transform:rotate(5deg)}}
+    @keyframes rblk{0%,87%,100%{transform:scaleY(0)}89%,96%{transform:scaleY(1)}}
+    @keyframes rhalo{0%,100%{opacity:.28}50%{opacity:.6}}
+    </style>
+    <filter id="rHalo" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    </defs>
+
+    <!-- Head glow -->
+    <ellipse class="rh" cx="140" cy="94" rx="60" ry="56" fill="#ff6b35" opacity=".38" filter="url(#rHalo)"/>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         LEFT WING — SMIL path morphing
+         ASCENT (first ~2 cycles, dur=1.9s × 1.5 = ~2.85s):
+           Wide spread wings beating strongly — visible 37px left of phone
+         AFTER LANDING: same cycle continues — looks like gentle flutter
+         Path extends to x=-50 (outside viewBox, visible via overflow:visible)
+    ══════════════════════════════════════════════════════════════ -->
+    <!-- main membrane — widest, most visible -->
+    <path fill="#e05528">
+      <animate attributeName="d"
+        values="
+          M100,168 C60,145 14,132 -30,154 C-46,170 -40,194 -12,202 C28,212 76,196 100,168;
+          M100,168 C58,98 4,76 -40,106 C-58,128 -50,158 -18,168 C24,180 74,172 100,168;
+          M100,168 C60,145 14,132 -30,154 C-46,170 -40,194 -12,202 C28,212 76,196 100,168;
+          M100,168 C62,212 24,232 -2,226 C-16,218 -14,200 4,186 C32,170 74,162 100,168;
+          M100,168 C60,145 14,132 -30,154 C-46,170 -40,194 -12,202 C28,212 76,196 100,168"
+        keyTimes="0;0.22;0.44;0.72;1"
+        calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+        dur="1.9s" repeatCount="indefinite"/>
+    </path>
+    <!-- mid feather layer -->
+    <path fill="#cc4010" opacity=".65">
+      <animate attributeName="d"
+        values="
+          M100,168 C68,150 32,140 2,158 C-10,170 -8,186 8,194 C36,204 78,192 100,168;
+          M100,168 C70,110 28,94 -6,120 C-18,140 -12,162 10,170 C40,180 78,174 100,168;
+          M100,168 C68,150 32,140 2,158 C-10,170 -8,186 8,194 C36,204 78,192 100,168;
+          M100,168 C70,215 34,232 10,228 C0,222 2,206 14,194 C36,178 76,166 100,168;
+          M100,168 C68,150 32,140 2,158 C-10,170 -8,186 8,194 C36,204 78,192 100,168"
+        keyTimes="0;0.22;0.44;0.72;1"
+        calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+        dur="1.9s" repeatCount="indefinite"/>
+    </path>
+    <!-- primary feather tips (darkest, fingertip feathers) -->
+    <path fill="#a02c08" opacity=".9">
+      <animate attributeName="d"
+        values="
+          M-20,198 C-42,216 -50,205 -30,190;
+          M-30,152 C-54,166 -60,148 -36,136;
+          M-20,198 C-42,216 -50,205 -30,190;
+          M-8,214 C-24,230 -30,220 -14,206;
+          M-20,198 C-42,216 -50,205 -30,190"
+        keyTimes="0;0.22;0.44;0.72;1"
+        calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+        dur="1.9s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         RIGHT WING — exact mirror of left
+         Extends to x=330 (outside 280px viewBox, visible via overflow)
+    ══════════════════════════════════════════════════════════════ -->
+    <path fill="#e05528">
+      <animate attributeName="d"
+        values="
+          M180,168 C220,145 266,132 310,154 C326,170 320,194 292,202 C252,212 204,196 180,168;
+          M180,168 C222,98 276,76 320,106 C338,128 330,158 298,168 C256,180 206,172 180,168;
+          M180,168 C220,145 266,132 310,154 C326,170 320,194 292,202 C252,212 204,196 180,168;
+          M180,168 C218,212 256,232 282,226 C296,218 294,200 276,186 C248,170 206,162 180,168;
+          M180,168 C220,145 266,132 310,154 C326,170 320,194 292,202 C252,212 204,196 180,168"
+        keyTimes="0;0.22;0.44;0.72;1"
+        calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+        dur="1.9s" repeatCount="indefinite"/>
+    </path>
+    <path fill="#cc4010" opacity=".65">
+      <animate attributeName="d"
+        values="
+          M180,168 C212,150 248,140 278,158 C290,170 288,186 272,194 C244,204 202,192 180,168;
+          M180,168 C210,110 252,94 286,120 C298,140 292,162 270,170 C240,180 202,174 180,168;
+          M180,168 C212,150 248,140 278,158 C290,170 288,186 272,194 C244,204 202,192 180,168;
+          M180,168 C210,215 246,232 270,228 C280,222 278,206 266,194 C244,178 204,166 180,168;
+          M180,168 C212,150 248,140 278,158 C290,170 288,186 272,194 C244,204 202,192 180,168"
+        keyTimes="0;0.22;0.44;0.72;1"
+        calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+        dur="1.9s" repeatCount="indefinite"/>
+    </path>
+    <path fill="#a02c08" opacity=".9">
+      <animate attributeName="d"
+        values="
+          M300,198 C322,216 330,205 310,190;
+          M310,152 C334,166 340,148 316,136;
+          M300,198 C322,216 330,205 310,190;
+          M288,214 C304,230 310,220 294,206;
+          M300,198 C322,216 330,205 310,190"
+        keyTimes="0;0.22;0.44;0.72;1"
+        calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+        dur="1.9s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- ══ BODY + HEAD — drawn AFTER wings, covers wing roots ══ -->
+    <g class="rg">
+      <ellipse cx="140" cy="196" rx="54" ry="63" fill="#e05528"/>
+      <ellipse cx="138" cy="215" rx="37" ry="49" fill="#ffb59d" opacity=".42"/>
+
+      <!-- HEAD -->
+      <circle cx="140" cy="96" r="48" fill="#e05528"/>
+      <!-- Crown tufts -->
+      <ellipse cx="118" cy="56" rx="6.5" ry="14" fill="#d04010" transform="rotate(-22,118,56)"/>
+      <ellipse cx="140" cy="50" rx="7"   ry="16" fill="#ff7a44"/>
+      <ellipse cx="162" cy="56" rx="6.5" ry="14" fill="#d04010" transform="rotate(22,162,56)"/>
+      <!-- Forehead shine -->
+      <ellipse cx="132" cy="79" rx="26" ry="15" fill="#ff8c5a" opacity=".3"/>
+
+      <!-- RIGHT EYE -->
+      <circle cx="161" cy="90" r="17" fill="white"/>
+      <circle cx="163" cy="92" r="11" fill="#1a0600"/>
+      <circle cx="163" cy="92" r="11" fill="none" stroke="#c06018" stroke-width="2.5" opacity=".75"/>
+      <circle cx="165" cy="90" r="6"  fill="#060100"/>
+      <circle cx="168" cy="86" r="3"  fill="white"/>
+      <circle cx="163" cy="95" r="1.4" fill="white" opacity=".6"/>
+      <ellipse class="re" cx="161" cy="83" rx="17" ry="11" fill="#e05528"/>
+
+      <!-- LEFT EYE -->
+      <circle cx="117" cy="92" r="14.5" fill="white"/>
+      <circle cx="116" cy="94" r="9.5"  fill="#1a0600"/>
+      <circle cx="116" cy="94" r="9.5"  fill="none" stroke="#c06018" stroke-width="2" opacity=".75"/>
+      <circle cx="118" cy="92" r="5.5"  fill="#060100"/>
+      <circle cx="121" cy="89" r="2.5"  fill="white"/>
+      <circle cx="115" cy="97" r="1.1"  fill="white" opacity=".6"/>
+      <ellipse class="re re2" cx="117" cy="86" rx="14.5" ry="9.5" fill="#e05528"/>
+
+      <!-- BEAK -->
+      <path d="M125,115 C127,103 155,102 157,113 C150,121 131,121 125,115Z" fill="#ff4500"/>
+      <path d="M126,117 C128,130 154,130 157,117 C150,130 132,129 126,117Z" fill="#cc3800"/>
+      <ellipse cx="141" cy="124" rx="8" ry="4" fill="#dd2200" opacity=".44"/>
+      <ellipse cx="141" cy="107" rx="11" ry="4.5" fill="#ff6030" opacity=".33"/>
+      <!-- cheek blush -->
+      <ellipse cx="102" cy="106" rx="10" ry="7" fill="#ff8060" opacity=".26"/>
+      <ellipse cx="178" cy="104" rx="10" ry="7" fill="#ff8060" opacity=".26"/>
+    </g>
+
+    <!-- TAIL -->
+    <g class="rt">
+      <path d="M117,248 C102,274 87,298 75,316 C89,308 104,284 110,258Z" fill="#c44418"/>
+      <path d="M129,252 C120,280 114,304 110,324 C118,316 124,292 126,265Z" fill="#d45020"/>
+      <path d="M140,254 C138,282 135,308 132,328 C138,320 142,296 140,270Z" fill="#e05528"/>
+      <path d="M151,252 C159,280 162,304 160,324 C154,316 150,292 150,265Z" fill="#d45020"/>
+      <path d="M163,248 C177,272 188,296 192,314 C180,308 168,284 162,258Z" fill="#c44418"/>
+    </g>
+
+    <!-- FEET — gripping the phone rim -->
+    <line x1="124" y1="254" x2="110" y2="284" stroke="#ff4500" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="110" y1="284" x2="86"  y2="290" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="110" y1="284" x2="100" y2="300" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="110" y1="284" x2="120" y2="300" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="110" y1="284" x2="132" y2="288" stroke="#ff4500" stroke-width="3"   stroke-linecap="round"/>
+    <path d="M85,290 C82,294 79,292 82,289" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
+    <path d="M99,301 C96,306 93,303 96,300" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
+    <path d="M120,301 C119,306 116,304 117,301" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
+
+    <line x1="156" y1="254" x2="170" y2="284" stroke="#ff4500" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="170" y1="284" x2="146" y2="290" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="170" y1="284" x2="160" y2="300" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="170" y1="284" x2="180" y2="300" stroke="#ff4500" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="170" y1="284" x2="192" y2="288" stroke="#ff4500" stroke-width="3"   stroke-linecap="round"/>
+    <path d="M145,290 C142,294 139,292 142,289" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
+    <path d="M159,301 C156,306 153,303 156,300" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
+    <path d="M180,301 C179,306 176,304 177,301" fill="none" stroke="#cc3000" stroke-width="2" stroke-linecap="round"/>
+
+    </svg>
+  </div><!-- end hero-bird -->
 
 </div>
   </section>
@@ -1353,6 +1374,52 @@ renderDemoList();
 })();
 </script>
 
-<script>(function(){var a=["pi2","pi3","pi4","pi5"],i=0;setInterval(function(){if(i>=a.length){i=0;a.forEach(function(id){var e=document.getElementById(id);if(e){var c=e.querySelector(".phone-cb");if(c){c.classList.remove("on");c.textContent="";}e.classList.remove("checked");}});return;}var el=document.getElementById(a[i]);if(!el)return;var c=el.querySelector(".phone-cb");if(c){c.classList.add("on");c.textContent="✓";}el.classList.add("checked");i++;},1900);})();</script>
+<script>
+(function(){
+  /* ── Bird entrance: rises from behind phone ── */
+  var bird = document.getElementById('hero-bird');
+  if(bird){
+    /* Short wait, then rise with spring easing */
+    setTimeout(function(){
+      bird.style.transition = 'transform 2.8s cubic-bezier(0.22, 0.61, 0.36, 1)';
+      bird.style.transform  = 'translateX(-50%) translateY(-99px)';
+
+      /* Head clears phone top at ~62% of 2.8s = 1.74s → flip z-index */
+      setTimeout(function(){ bird.style.zIndex = '6'; }, 1740);
+
+      /* After rise completes (2.9s), switch to CSS sway animation */
+      setTimeout(function(){
+        bird.style.transition = 'none';
+        bird.style.top        = '-99px';          /* anchor Y position */
+        bird.style.transform  = 'translateX(-50%)';
+        /* A tiny settle bounce */
+        bird.style.animation  = 'perchSway 5s ease-in-out infinite, perchOpacity 7s ease-in-out infinite';
+      }, 2950);
+    }, 550);
+  }
+
+  /* ── Phone list: check off items on a loop ── */
+  var items=["pi2","pi3","pi4","pi5"], idx=0;
+  setInterval(function(){
+    if(idx>=items.length){
+      idx=0;
+      items.forEach(function(id){
+        var e=document.getElementById(id);
+        if(!e)return;
+        var c=e.querySelector('.phone-cb');
+        if(c){c.classList.remove('on');c.textContent='';}
+        e.classList.remove('checked');
+      });
+      return;
+    }
+    var el=document.getElementById(items[idx]);
+    if(!el)return;
+    var c=el.querySelector('.phone-cb');
+    if(c){c.classList.add('on');c.textContent='✓';}
+    el.classList.add('checked');
+    idx++;
+  }, 2000);
+})();
+</script>
 </body>
 </html>
