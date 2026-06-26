@@ -389,10 +389,10 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .share-link-copy{background:var(--or);border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
 .pinned-note{font-size:12px;color:var(--or);margin-top:4px;display:flex;align-items:center;gap:4px;}
 .pin-note-btn{font-size:10px;font-weight:800;color:var(--dim);background:none;border:none;cursor:pointer;padding:0;font-family:'Inter',sans-serif;text-decoration:underline;margin-left:4px;}
-.list-switcher{display:flex;gap:8px;padding:8px 12px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid var(--bdr);}
-.list-switcher::-webkit-scrollbar{height:0;}
-.ls-tab{background:var(--surf);border:1px solid var(--bdr);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--mut);cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;flex-shrink:0;}
-.ls-tab.on{background:var(--or);border-color:var(--or);color:#000;}
+
+
+
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -485,7 +485,6 @@ if('serviceWorker' in navigator){
       <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
     <div class="budget-row" id="budget-row"><span>💰 Estimated remaining</span><span class="budget-total-val" id="budget-total">$0.00</span></div>
     </div>
-    <div class="list-switcher" id="list-switcher" style="display:none;"></div>
     <div class="suggest-strip" id="suggest-strip"></div>
     <div id="list-body"></div>
     <div id="qa-wrap"></div>
@@ -1717,10 +1716,7 @@ var myHistory=[];
 var _histFilter='all';
 var _parsedRecipe=[];
 var _shareUrl='';
-var _storeNotes={};
-var _activeListSlot=0;
-var _listSlots=['My List','List 2','List 3'];
-var _slotItems=[null,null,null];          // out-of-stock flags for current store
+var _storeNotes={};          // out-of-stock flags for current store
 var isListening = false;
 var recog       = null;
 var waveTimer   = null;
@@ -1947,7 +1943,6 @@ function goVoice(){
    APPLY STORE
 ═══════════════════════════════════════ */
 function applyStore(store){
-  _activeListSlot=0;
   if(typeof saveItems === 'function') saveItems();
   stopSharedListPoll();
   curStore=store;
@@ -1966,7 +1961,7 @@ function applyStore(store){
   renderChips();
   renderList();
   renderSettings();
-  renderListSwitcher(); renderSuggestionStrip();
+  renderSuggestionStrip();
   loadLastTrip();
   closeOv('ov-store');
   closeOv('ov-first-store');
@@ -2971,7 +2966,7 @@ async function bootForUser(){
   setupRealtime();
   loadLastTrip();
   loadMyHistory().then(function(){ renderSuggestionStrip(); });
-  loadStoreNotes(); initListSlots(); checkSharedView();
+  loadStoreNotes(); checkSharedView();
 }
 
 async function syncAllFromCloud(){
@@ -4204,43 +4199,6 @@ function getStoreNote(itemName){
 /* =====================================
    FEATURE 7: MULTIPLE LISTS (3-slot)
 ===================================== */
-function renderListSwitcher(){
-  var sw=document.getElementById('list-switcher');
-  if(!sw) return;
-  if(!session){ sw.style.display='none'; return; }
-  sw.style.display='flex';
-  sw.innerHTML='';
-  _listSlots.forEach(function(name,i){
-    var btn=document.createElement('button'); btn.type='button';
-    btn.className='ls-tab'+(i===_activeListSlot?' on':'');
-    btn.textContent=name;
-    (function(slot){ btn.addEventListener('click',function(){ switchList(slot); }); })(i);
-    sw.appendChild(btn);
-  });
-}
-function _slotKey(slot){
-  return 'sl'+(curStore?curStore.id:'x')+slot+(session?'_'+session.user.id:'_g');
-}
-function switchList(slot){
-  if(slot===_activeListSlot) return;
-  // Save current slot to localStorage before switching
-  try{ localStorage.setItem(_slotKey(_activeListSlot), JSON.stringify(items)); }catch(e){}
-  _activeListSlot=slot;
-  var saved=null;
-  try{ saved=localStorage.getItem(_slotKey(slot)); }catch(e){}
-  if(saved){ try{ items=JSON.parse(saved); nid=items.length?Math.max.apply(null,items.map(function(i){ return i.id||0; }))+1:0; }catch(e){ items=[]; nid=0; } }
-  else{ items=[]; nid=0; }
-  renderList(); renderQuickAdd(); renderListSwitcher(); renderSuggestionStrip();
-  showToast('Switched to '+_listSlots[slot]);
-}
-function initListSlots(){
-  try{
-    var saved=localStorage.getItem('lsnames_'+(session?session.user.id:''));
-    if(saved) _listSlots=JSON.parse(saved);
-  }catch(e){}
-  renderListSwitcher();
-}
-
 // Expose logout for the sign-out button
 window.aislebirdLogout = doLogout;
 
