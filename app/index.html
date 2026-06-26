@@ -183,21 +183,24 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .chain-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;padding:8px 4px 12px;flex:1;min-width:0;scroll-behavior:smooth;}
 .chain-row::-webkit-scrollbar{height:0;}
 .chain-pill{display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:14px;border:1.5px solid var(--bdr);cursor:pointer;background:var(--surf);flex-shrink:0;flex-grow:0;min-width:70px;width:70px;font-family:'Inter',sans-serif;}
-.chain-pill.on{border-color:var(--or);background:var(--ordm);}
+.chain-pill.on{border-color:var(--or);background:var(--or);}
 .chain-pill-icon{font-size:24px;}
 .chain-pill-name{font-size:10px;font-weight:700;color:var(--mut);white-space:nowrap;}
-.chain-pill.on .chain-pill-name{color:var(--orl);}
+.chain-pill.on .chain-pill-name{color:#000;}
 .sp-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 14px 40px;}
 .sp-list::-webkit-scrollbar{width:0;}
 .sp-region-hdr{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--dim);text-transform:uppercase;padding:10px 0 6px;}
 .sp-row{background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:13px 14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:11px;}
 .sp-row:active{transform:scale(.98);}
-.sp-row.sel{border-color:var(--or);background:var(--ordm);}
+.sp-row.sel{border-color:var(--or);background:var(--or);}
 .sp-row-icon{font-size:22px;flex-shrink:0;}
 .sp-row-info{flex:1;min-width:0;}
 .sp-row-name{font-size:13px;font-weight:700;color:var(--tx);}
+.sp-row.sel .sp-row-name{color:#000;}
 .sp-row-addr{font-size:11px;color:var(--mut);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.sp-row-badge{font-size:10px;font-weight:700;color:var(--or);background:var(--ordm);border-radius:999px;padding:3px 8px;flex-shrink:0;white-space:nowrap;}
+.sp-row.sel .sp-row-addr{color:rgba(0,0,0,.75);}
+.sp-row-badge{font-size:10px;font-weight:700;color:#000;background:var(--or);border-radius:999px;padding:3px 8px;flex-shrink:0;white-space:nowrap;}
+.sp-row.sel .sp-row-badge{background:#000;color:var(--orl);}
 .sp-no-results{text-align:center;padding:32px 20px;color:var(--dim);font-size:14px;}
 
 /* OVERLAYS */
