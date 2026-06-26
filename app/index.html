@@ -282,27 +282,6 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 </style>
 </head>
 <body>
-
-<!-- LOGIN SCREEN -->
-<div id="auth-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:10000;flex-direction:column;padding:20px;">
-  <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:30px;max-width:320px;width:100%;box-shadow:0 10px 40px rgba(0,0,0,0.1);">
-    <h1 style="text-align:center;margin:0 0 10px 0;font-size:28px;">🦅 AisleBird</h1>
-    <p style="text-align:center;color:var(--mut);margin:0 0 30px 0;font-size:13px;">Smart Shopping Lists</p>
-    
-    <input id="auth-username" type="text" placeholder="Username" style="width:100%;padding:12px;border:1px solid var(--bdr);border-radius:10px;margin-bottom:12px;font-size:14px;box-sizing:border-box;background:var(--bg);color:var(--tx);font-family:inherit;">
-    
-    <input id="auth-password" type="password" placeholder="Password" style="width:100%;padding:12px;border:1px solid var(--bdr);border-radius:10px;margin-bottom:20px;font-size:14px;box-sizing:border-box;background:var(--bg);color:var(--tx);font-family:inherit;">
-    
-    <button id="auth-login-btn" style="width:100%;padding:14px;background:var(--or);color:#000;border:none;border-radius:10px;font-weight:700;cursor:pointer;margin-bottom:10px;font-size:15px;font-family:inherit;">Login</button>
-    
-    <button id="auth-signup-btn" style="width:100%;padding:14px;background:var(--bdr);color:var(--tx);border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:15px;font-family:inherit;">Create Account</button>
-    
-    <p id="auth-error" style="color:#e74c3c;font-size:12px;text-align:center;margin-top:15px;display:none;"></p>
-  </div>
-</div>
-
-<!-- MAIN APP (hidden until logged in) -->
-<div id="app-container" style="display:none;">
 <div class="app">
 
 <!-- NAV -->
@@ -1228,178 +1207,6 @@ var KW = {
   rental:   ['rent','rental','tool rental']
 };
 
-
-
-/* ═══════════════════════════════════════
-   AUTHENTICATION
-═══════════════════════════════════════ */
-var currentUser=null;
-
-function loadCurrentUser(){
-  var stored=localStorage.getItem('ab_user');
-  if(stored){
-    try{
-      currentUser=JSON.parse(stored);
-      return true;
-    } catch(e){}
-  }
-  return false;
-}
-
-function saveCurrentUser(){
-  if(currentUser){
-    localStorage.setItem('ab_user', JSON.stringify(currentUser));
-  }
-}
-
-function logout(){
-  currentUser=null;
-  localStorage.removeItem('ab_user');
-  document.getElementById('auth-screen').style.display='flex';
-  document.getElementById('app-container').style.display='none';
-  document.getElementById('auth-username').value='';
-  document.getElementById('auth-password').value='';
-}
-
-function showAuthError(msg){
-  var err=document.getElementById('auth-error');
-  err.textContent=msg;
-  err.style.display='block';
-  setTimeout(function(){ err.style.display='none'; }, 4000);
-}
-
-function handleLogin(){
-  var username=document.getElementById('auth-username').value.trim();
-  var password=document.getElementById('auth-password').value.trim();
-  
-  if(!username || !password){
-    showAuthError('Username and password required');
-    return;
-  }
-  
-  // Check if user exists in localStorage
-  var stored=localStorage.getItem('ab_user_'+username);
-  if(!stored){
-    showAuthError('User not found. Create an account first.');
-    return;
-  }
-  
-  try{
-    var user=JSON.parse(stored);
-    if(user.password===password){
-      currentUser={username:username, createdAt:user.createdAt};
-      saveCurrentUser();
-      showApp();
-    } else {
-      showAuthError('Incorrect password');
-    }
-  } catch(e){
-    showAuthError('Error logging in');
-  }
-}
-
-function handleSignup(){
-  var username=document.getElementById('auth-username').value.trim();
-  var password=document.getElementById('auth-password').value.trim();
-  
-  if(!username || !password){
-    showAuthError('Username and password required');
-    return;
-  }
-  
-  if(username.length<3){
-    showAuthError('Username must be 3+ characters');
-    return;
-  }
-  
-  if(password.length<4){
-    showAuthError('Password must be 4+ characters');
-    return;
-  }
-  
-  // Check if user already exists
-  if(localStorage.getItem('ab_user_'+username)){
-    showAuthError('Username already taken');
-    return;
-  }
-  
-  // Create user
-  var user={username:username, password:password, createdAt:new Date().toISOString()};
-  localStorage.setItem('ab_user_'+username, JSON.stringify(user));
-  
-  currentUser={username:username, createdAt:user.createdAt};
-  saveCurrentUser();
-  showApp();
-}
-
-function showApp(){
-  document.getElementById('auth-screen').style.display='none';
-  document.getElementById('app-container').style.display='block';
-  loadItems();
-  renderList();
-}
-
-// Check if user is logged in on page load
-window.addEventListener('load', function(){
-  if(loadCurrentUser()){
-    showApp();
-  } else {
-    document.getElementById('auth-screen').style.display='flex';
-  }
-});
-
-document.getElementById('auth-login-btn').addEventListener('click', handleLogin);
-document.getElementById('auth-signup-btn').addEventListener('click', handleSignup);
-
-// Allow Enter key to login
-document.getElementById('auth-password').addEventListener('keypress', function(e){
-  if(e.key==='Enter') handleLogin();
-});
-
-/* ═══════════════════════════════════════
-   PERSISTENCE: Save/Load per Store
-═══════════════════════════════════════ */
-function saveItems(){
-  if(!curStore) return;
-  localStorage.setItem('ab_items_'+curStore.id, JSON.stringify(items));
-}
-
-function loadItems(){
-  if(!curStore) return;
-  var stored=localStorage.getItem('ab_items_'+curStore.id);
-  if(stored){
-    try{
-      items=JSON.parse(stored);
-      nid=1;
-      for(var i=0;i<items.length;i++){
-        if(items[i].id>=nid) nid=items[i].id+1;
-      }
-      return;
-    } catch(e){}
-  }
-  items=[];
-  nid=1;
-}
-
-function rememberStore(){
-  localStorage.setItem('ab_current_store', JSON.stringify({id:curStore.id, chain:curStore.chain, name:curStore.name}));
-}
-
-function restoreStore(){
-  var stored=localStorage.getItem('ab_current_store');
-  if(stored){
-    try{
-      var prev=JSON.parse(stored);
-      for(var i=0;i<STORES.length;i++){
-        if(STORES[i].id===prev.id){
-          return STORES[i];
-        }
-      }
-    } catch(e){}
-  }
-  return null;
-}
-
 /* ═══════════════════════════════════════
    STATE
 ═══════════════════════════════════════ */
@@ -1630,10 +1437,7 @@ function goVoice(){
    APPLY STORE
 ═══════════════════════════════════════ */
 function applyStore(store){
-  saveItems();
   curStore=store;
-  rememberStore();
-  loadItems();
   curChain=CHAINS[store.chain];
   mergeStdCats(curChain);
   aisleIdx=0;
@@ -1818,7 +1622,6 @@ function updateProg(){
    RENDER LIST
 ═══════════════════════════════════════ */
 function renderList(){
-  saveItems();
   var body=document.getElementById('list-body'); if(!body) return;
   body.innerHTML='';
   var unchecked=items.filter(function(i){ return !i.checked; });
@@ -2239,14 +2042,6 @@ mergeStdCats(curChain);
 selCat=curChain.cats[0].id;
 buildCatGrid();
 renderChips();
-// Restore last store on startup
-var restoredStore=restoreStore();
-if(restoredStore){
-  curStore=restoredStore;
-  curChain=CHAINS[curStore.chain];
-}
-loadItems();
-
 renderList();
 renderSettings();
 /* Show first-store selection prompt */
@@ -2254,6 +2049,5 @@ document.getElementById('ov-first-store').classList.add('on');
 /* Request user location for geofencing */
 requestGeolocation();
 </script>
-</div><!-- /app-container -->
 </body>
 </html>
