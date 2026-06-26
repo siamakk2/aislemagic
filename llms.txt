@@ -1,71 +1,94 @@
 # AisleBird
 
-> AisleBird is a free, voice-powered shopping assistant that automatically sorts any list by store aisle — across 11 retail chains and 300+ locations nationwide. Users speak or type items, and the app places each one in the correct department for whichever store they've selected. No manual tagging. No backtracking.
+> AisleBird is a free, voice-powered shopping assistant that automatically sorts any list by the exact aisle and department for your chosen store. Say or type your items, and every one lands in the right aisle — across 11 retail chains and 300+ locations. Swipe to check off, see your full shopping history, share lists with family, track your budget, and more. Free forever.
 
-AisleBird is a Progressive Web App (PWA) available at https://aislebird.com/app. It works in any modern mobile or desktop browser, with no installation required. It is free forever for all core features.
+AisleBird is a Progressive Web App (PWA) at https://aislebird.com/app. It works in any modern browser with no installation. All core features are free. A Supabase backend handles sync, auth, and history.
 
-## What AisleBird Does
+## How AisleBird Works (5 Steps)
 
-AisleBird solves the aisle-wandering problem: people waste time walking back and forth because their list is not organized by store layout. AisleBird fixes this by:
+1. **Pick your store** — choose from 300+ locations; AisleBird uses your location to sort by distance
+2. **Add your list** — by voice, typing, pasting from Notes, or from your history autocomplete
+3. **AisleBird sorts it** — every item placed in the correct department for that exact chain
+4. **Walk the aisles, swipe to check off** — swipe right on any item to check it; tap your current aisle chip to re-sort your remaining route
+5. **History saved automatically** — every completed trip is stored; re-buy any past trip in one tap
 
-1. Accepting items by voice ("organic bananas, olive oil, paper towels") or typed text, including comma-separated bulk entry
-2. Automatically categorizing each item into the correct department for the selected store
-3. Displaying the list sorted by department in the order you walk the store
-4. Letting you tap your current aisle to reorder the remaining items for your exact path
-5. Remembering your items and suggesting them from history as you type
+## Complete Feature List
 
-## Core Features
+### Adding Items
+- **Voice entry**: Tap mic, speak naturally — "two cartons of almond milk, organic bananas." Supports add, remove, and check-off commands.
+- **Typed entry**: Type a comma-separated list; all items sorted at once
+- **Import from Notes**: Paste from iPhone Notes or any text source; parses and sorts automatically
+- **History autocomplete**: Suggests items from your buying history as you type, ranked by frequency
+- **Quick Add**: Store-specific one-tap items (Whole Foods shows organic produce; Tractor Supply shows feed)
+- **Item notes**: Add private notes to any item ("get the ripe ones", "brand X only", "2 lbs")
 
-- **Voice recognition**: Tap the mic and say your items in natural language. Supports add, remove, and check-off commands (e.g., "Got the eggs" checks off eggs).
-- **Smart categorization**: Automatic placement of every item into the correct aisle/department based on the selected store type.
-- **Store-aware sorting**: Each of 11 retail chains has its own department set. Milk goes to Dairy at Whole Foods, Grocery at Target, and Grocery at Walmart — correctly for each.
-- **Walk-the-aisle ordering**: Tap your current department chip and the list reorders to match your path through the store.
-- **Import from Notes**: Paste a list from iPhone Notes, any text app, or a recipe — AisleBird parses and sorts it instantly.
-- **Geolocation**: Optional location access shows nearby stores sorted by distance in miles.
-- **Cross-device sync**: Log in with email to sync your lists across all your devices via Supabase.
-- **Guest mode**: Use the app on this device only without creating an account.
+### In-Store Navigation
+- **Aisle display on every item**: Each card shows the physical department emoji + name (🥦 Produce, 🧀 Dairy)
+- **Smart Sort by aisle**: List sorted in walk-order for that specific store type
+- **Tap your current aisle**: Reorders remaining items from where you are
+- **Swipe right to check off**: Right-swipe gesture checks an item; green flash confirms
+- **Out-of-stock flags**: Flag any item ⚠️ out of stock; all shoppers at that location see the warning + substitution suggestions
+- **In-list search/filter**: Filter visible items by name while shopping
 
-## New Features (2026)
+### Sharing & Collaboration
+- **Shared lists**: Invite by email; both parties can view and edit in real time (15-second poll sync)
+- **Real-time sync across devices**: Same account on multiple devices syncs via Supabase Realtime broadcast
+- **Copy list as text**: One tap copies the full list grouped by department for pasting into Messages or email
+- **List templates**: Save and name any list; apply to any store in one tap
+- **Re-buy Last Trip**: Clearing checked items auto-saves the trip; a "Re-buy" button restores it next visit
+- **Print list**: 🖨️ button or Ctrl+P produces a clean print layout grouped by department
 
-- **List Templates**: Save the current list under a name (e.g., "Weekly Whole Foods Run"). Apply any template to the current store in one tap — items are added and sorted automatically. Stored in Supabase per user.
-- **Shared Lists**: Invite a collaborator by email. Both the owner and the invitee can view and edit the shared list in real time. No app install needed for the recipient.
-- **Out-of-Stock Flags**: Tap the flag icon (🚩) on any item to report it as out of stock at the current store. All users at that location immediately see a ⚠️ warning on that item. Community-sourced, store-specific alerts.
-- **Item History & Autocomplete**: Every item added is logged to the user's personal history with a frequency count. As the user types, AisleBird suggests matching items sorted by how often they buy them.
-- **Admin Dashboard**: Verified admins see a dashboard inside the app showing total users, new signups this week, total lists created, total items tracked, and recent out-of-stock reports by store.
+### Shopping History
+- **Auto-saved trips**: Every completed shopping trip is stored in Supabase (store, date, all items)
+- **History overlay**: View all past trips filtered by store chain; expand any trip to see full item list
+- **Stats**: Total trips, total items bought, number of stores visited
+- **Add from history**: "Add all N items to my list" button on any past trip
+- **Admin view**: Verified admins see every user's trip history with email, store, date, item count
 
-## Supported Retail Chains
+### Smart Tools
+- **Budget Mode**: Price fields on every item (auto-estimated by category); live running total in progress bar
+- **Dark / Light Mode**: Toggle in Settings; preference persists; warm cream light theme
+- **Haptic feedback**: Subtle vibration on check/add/delete (Android + supported browsers); toggleable
+- **Offline mode**: Service worker caches the app shell; works without internet after first load
+- **Undo remove**: 4-second undo toast after deleting any item
+- **Keyboard shortcuts**: / = filter, A = add input, Escape = close overlays, ⌘P = print (desktop)
+- **OOS substitutions**: When item is flagged out of stock, shows 1–2 suggested alternatives as tappable chips
 
-AisleBird supports 11 retail chains. Department sets are tailored per chain.
+### Account & Sync
+- **Email + password auth** via Supabase Auth
+- **Guest mode**: Use locally on this device with no account
+- **Cross-device sync**: Lists sync to all devices via Supabase cloud storage
+- **Admin dashboard**: Total users, new signups, total lists, items tracked, recent OOS reports, all client trips
+
+## Supported Retail Chains & Department Sets
 
 ### Grocery & Warehouse
-- **Whole Foods** — Produce, Bakery, Dairy & Eggs, Meat & Seafood, Prepared & Deli, Frozen, Bulk, Pantry, Condiments & Sauces, Snacks, Beverages, Wine & Beer, Wellness & Body, Household, Pet
-- **Trader Joe's** — Produce, Dairy & Eggs, Meat & Seafood, Bakery, Frozen, Prepared & Deli, Pantry, Condiments & Sauces, Snacks, Beverages, Wine, Household, Pet
-- **Costco** — Grocery, Produce, Bakery, Meat & Seafood, Frozen, Deli, Pharmacy, Personal Care, Electronics, Home, Kitchen, Clothing, Sports & Outdoors, Office, Auto & Tires, Patio & Garden
+- **Whole Foods** — Produce, Bakery, Dairy & Eggs, Meat & Seafood, Prepared & Deli, Frozen, Bulk, Pantry, Condiments, Snacks, Beverages, Wine & Beer, Wellness, Household, Pet
+- **Trader Joe's** — Produce, Dairy & Eggs, Meat & Seafood, Bakery, Frozen, Prepared & Deli, Pantry, Condiments, Snacks, Beverages, Wine, Household, Pet
+- **Costco** — Grocery, Produce, Bakery, Meat & Seafood, Frozen, Deli, Pharmacy, Personal Care, Electronics, Home, Kitchen, Clothing, Sports, Office, Auto, Garden
 
 ### General Merchandise
-- **Target** — Grocery, Fresh Produce, Frozen, Personal Care, Health, Pharmacy, Baby, Pets, Household Essentials, Kitchen & Dining, Home & Decor, Clothing Shoes & Accessories, Toys & Games, Electronics, Movies Music & Books, Sports & Outdoors, Outdoor & Garden, School & Office, Party Supplies, Luggage
-- **Walmart** — Grocery, Fresh Produce, Frozen, Pharmacy, Health, Personal Care, Baby, Pets, Household Essentials, Kitchen & Dining, Home, Clothing, Toys, Electronics, Sports & Outdoors, Auto, Garden & Patio, School & Office, Party
+- **Target** — Grocery, Fresh Produce, Frozen, Personal Care, Health, Pharmacy, Baby, Pets, Household, Kitchen, Home, Clothing, Toys, Electronics, Media, Sports, Garden, Office, Party, Luggage
+- **Walmart** — Grocery, Fresh Produce, Frozen, Pharmacy, Health, Personal Care, Baby, Pets, Household, Kitchen, Home, Clothing, Toys, Electronics, Sports, Auto, Garden, Office, Party
 
 ### Pharmacy
 - **CVS** — Pharmacy, Health, Wellness, Personal Care, Baby, Household, Grocery, Snacks, Photo
 - **Walgreens** — Pharmacy, Health, Wellness, Personal Care, Baby, Household, Grocery, Snacks, Photo
 
 ### Hardware & Home Improvement
-- **Home Depot** — Lumber, Building Materials, Tools, Hardware, Paint, Plumbing, Electrical, Flooring, Lighting, Garden & Outdoor, Kitchen & Bath, Appliances, Decor
-- **Lowe's** — Lumber, Building Materials, Tools, Hardware, Paint, Plumbing, Electrical, Flooring, Lighting, Garden & Outdoor, Kitchen & Bath, Appliances, Decor
-- **Friedman's** — Lumber, Building Materials, Tools, Hardware, Paint, Plumbing, Electrical, Garden & Outdoor, Lighting, Home & Decor, Tool Rental
+- **Home Depot** — Lumber, Building Materials, Tools, Hardware, Paint, Plumbing, Electrical, Flooring, Lighting, Garden, Kitchen & Bath, Appliances, Decor
+- **Lowe's** — same as Home Depot
+- **Friedman's** — Lumber, Building Materials, Tools, Hardware, Paint, Plumbing, Electrical, Garden, Lighting, Home & Decor, Tool Rental
 
 ### Farm & Ranch
 - **Tractor Supply** — Pet & Animal Feed, Livestock, Poultry, Equine, Pet Care, Seed & Feed, Lawn & Garden, Workwear, Tools, Hardware, Fencing, Sporting & Hunting, Auto & Trailers
 
-## Store Coverage
+## Store Coverage (300+ locations)
 
-300+ verified store locations across:
-
-- **California** (119+ locations): Napa Valley, Wine Country, North Bay, San Francisco, East Bay, Silicon Valley, Sacramento, Los Angeles, San Diego — all 11 chains, statewide
+- **California**: 119+ locations statewide — Napa Valley, Wine Country, North Bay, San Francisco, East Bay, Silicon Valley, Sacramento, Los Angeles, San Diego
 - **Chicago** — all 11 chains
 - **New York City** — all 11 chains
-- **Los Angeles metro** (expanded) — Valley, Westside, South Bay, Beach Cities
+- **Los Angeles metro** (expanded) — Valley, Westside, South Bay, Beach Cities (80+ locations)
 - **Austin, TX** — all 11 chains
 - **Denver, CO** — all 11 chains
 - **Seattle, WA** — all 11 chains
@@ -74,59 +97,33 @@ AisleBird supports 11 retail chains. Department sets are tailored per chain.
 - **Phoenix, AZ** — all 11 chains
 - **San Diego, CA** — all 11 chains
 
-## Categorization Intelligence
+## Technical Architecture
 
-AisleBird categorizes items using a keyword-matching engine with thousands of product terms mapped to departments. Examples:
-
-- "milk", "eggs", "yogurt", "cheese" → Dairy
-- "chicken", "salmon", "ground beef" → Meat & Seafood
-- "bread", "sourdough", "bagel" → Bakery
-- "bananas", "avocados", "spinach" → Produce
-- "ibuprofen", "vitamins", "melatonin" → Health/Pharmacy
-- "2x4", "lumber", "drywall" → Lumber/Building Materials
-- "paint roller", "primer" → Paint
-- "dog food", "cat litter" → Pet/Pet & Animal Feed
-- "chicken feed", "horse blanket", "muck boots" → Poultry/Equine/Workwear (Tractor Supply)
-- "tide pods", "paper towels", "trash bags" → Household
-- "ipad", "charger", "batteries" → Electronics
-
-The engine resolves category names across store types. "Pet food" resolves to Pet at grocery/pharmacy chains and to Pet & Animal Feed at Tractor Supply.
-
-## Voice Command Examples
-
-| What you say | What happens |
-|---|---|
-| "Add organic bananas" | Adds Organic Bananas → Produce |
-| "Two cartons of almond milk" | Adds Almond Milk, qty 2 → Dairy |
-| "Remove milk" | Removes Milk from the list |
-| "Got the eggs" | Checks off Eggs |
-| "Sourdough bread, butter, olive oil" | Adds all three, sorted by department |
-
-## Technical Details
-
-- **Frontend**: Single-page PWA in vanilla HTML/CSS/JavaScript. No framework.
-- **Backend**: Supabase (PostgreSQL + Auth + Realtime)
-- **Authentication**: Email + password via Supabase Auth; guest/anonymous mode available
-- **Voice**: Web Speech API (works in Safari on iOS, Chrome on Android/desktop)
-- **Deployment**: Vercel with automatic deploys from GitHub
-- **Database tables**: shopping_lists, user_preferences, user_templates, list_shares, item_stock_reports, user_item_history, app_admins
+- **Frontend**: Vanilla HTML/CSS/JavaScript, single-file PWA
+- **Backend**: Supabase (PostgreSQL + Auth + Realtime + Row-Level Security)
+- **Voice**: Web Speech API (Safari iOS, Chrome Android/desktop)
+- **Offline**: Service worker with cache-first strategy for app shell
+- **Deployment**: Vercel (auto-deploy on GitHub push)
+- **Database tables**: shopping_lists, user_preferences, user_templates, list_shares, item_stock_reports, user_item_history, app_admins, shopping_trips
 
 ## Pricing
 
-- **Free** (forever): Full app, 300+ stores, voice, unlimited lists, templates, shared lists, item history & autocomplete, out-of-stock alerts
-- **Pro** (coming, $3.99/month): Everything in Free + cross-device sync, smart analytics, priority support, early access
+- **Free** (forever): Full app, 300+ stores, voice, unlimited lists, templates, shared lists, item history, OOS alerts, shopping history, budget mode, re-buy last trip, dark/light mode, print, offline
+- **Pro** (coming, $3.99/month): Everything in Free + advanced analytics, priority support, early access
+
+## About
+
+Designed by Jennifer. Built by Siamak Kalhor. Founded 2024. Based in Napa Valley, CA.
+AisleBird was built for Jennifer, who demands precision in everything she does and designed every detail of the experience.
 
 ## URLs
 
 - App: https://aislebird.com/app
 - Home: https://aislebird.com
-- This file: https://aislebird.com/llms.txt
+- How It Works: https://aislebird.com/#how-it-works
+- History feature: https://aislebird.com/#history
+- LLMO file: https://aislebird.com/llms.txt
 - Support: https://aislebird.com/support.html
 - Privacy: https://aislebird.com/privacy.html
 - Terms: https://aislebird.com/terms.html
-- Our Story: https://aislebird.com/story.html
 - GitHub: https://github.com/siamakk2/aislemagic
-
-## About
-
-Designed by Jennifer. Built by Siamak Kalhor. Founded 2024. Based in Napa Valley, CA.
