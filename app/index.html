@@ -347,8 +347,47 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 /* FILTER BAR */
 .filter-bar{margin:6px 12px 0;display:none;}
 .filter-inp{width:100%;background:var(--bg);border:1px solid var(--or);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--tx);font-family:'Inter',sans-serif;outline:none;}
+
+/* ── LIGHT MODE ── */
+html.light{
+  --bg:#f5f3ef;--bg2:#ede9e3;--card:#ffffff;--surf:#f9f7f4;--hi:#e5e1d8;
+  --bdr:#d4cfc4;--warm:#c4a898;--tx:#1a1612;--mut:#5a5550;--dim:#9e9890;
+  --or:#d9531f;--ordm:#f07040;--orl:#a83b12;
+  --rbg:#c82333;--rtx:#7a0010;--gbg:#4a8520;--gtx:#ffffff;
+}
+html.light body{ background:#f5f3ef; }
+html.light .nav{ box-shadow:0 2px 8px rgba(0,0,0,.08); }
+html.light .walking-bird{ filter:drop-shadow(0 4px 10px rgba(180,80,30,.25)); }
+/* ── PRINT ── */
+@media print{
+  .nav,.bn,.add-bar,.ssort,.prog,.qa-wrap,.walking-bird,
+  .ov,.toast,.toast-undo,.filter-bar,.flag-btn,.xb,.qb,.cb{ display:none!important; }
+  body,html{ background:#fff!important; color:#000!important; }
+  .scr{ display:block!important; }
+  #s-list{ display:block!important; }
+  .scroll{ overflow:visible!important; }
+  .ic{ border:1px solid #ccc; border-radius:6px; margin:4px 0; padding:8px 10px;
+       break-inside:avoid; background:#fff!important; opacity:1!important; }
+  .ic.done{ opacity:.45!important; }
+  .iname{ font-size:14px; font-weight:700; }
+  .sec{ font-size:10px; font-weight:800; letter-spacing:.08em; color:#888;
+        text-transform:uppercase; margin:12px 0 4px; padding:0; }
+  .inote{ color:#666; font-style:italic; }
+  .oos-warn,.sub-chip{ display:none!important; }
+  #print-header{ display:block!important; }
+}
+#print-header{ display:none; font-size:13px; font-weight:700; color:#666; margin:0 0 8px; }
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(function(r){ console.log('[SW] registered, scope:', r.scope); })
+      .catch(function(e){ console.log('[SW] registration failed:', e); });
+  });
+}
+</script>
 </head>
 <body>
 <!-- LOGIN OVERLAY (cross-device accounts via Supabase) -->
@@ -410,6 +449,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 <!-- LIST -->
 <div class="scr on" id="s-list">
   <div class="scroll">
+    <div id="print-header"></div>
     <div class="ssort">
       <div class="ssort-head">
         <div class="ssort-left">
@@ -438,6 +478,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
     <button class="add-bar-btn" id="add-inline-btn" type="button">Add</button>
     <button class="imp-icon-btn" id="imp-open-btn" type="button" title="Import from Notes">📋</button>
     <button class="imp-icon-btn" id="share-text-btn" type="button" title="Copy list as text">📤</button>
+    <button class="imp-icon-btn" id="print-btn" type="button" title="Print list">🖨️</button>
   </div>
 </div>
 
@@ -1403,6 +1444,9 @@ var selCat      = 'produce';
 var showCart    = false;
 var stockReports= {};
 var budgetMode  = false;
+var lightMode   = localStorage.getItem('ab_light')==='1';
+var hapticOn    = localStorage.getItem('ab_haptic')!=='0';
+if(lightMode) document.documentElement.classList.add('light');
 var filterQuery = '';
 var lastTripItems=[];
 var _confirmCb  = null;
@@ -1591,6 +1635,12 @@ function cleanName(text){
     .replace(/\b(one|two|three|four|five|six|seven|eight|\d+)\s+/i,'')
     .replace(/\b(cartons?|bottles?|bags?|boxes?|cans?|jars?|packs?|pounds?|lbs?|oz|ounces?|pieces?|loaves?|gallons?)\s*(of\s*)?/i,'')
     .replace(/\bof\b/gi,'').trim();
+}
+function haptic(type){
+  if(!hapticOn||!navigator.vibrate) return;
+  if(type==='check')  navigator.vibrate(12);
+  if(type==='add')    navigator.vibrate(18);
+  if(type==='remove') navigator.vibrate([10,40,10]);
 }
 function showToast(msg){
   var t=document.getElementById('toast');
@@ -1993,7 +2043,7 @@ function makeCard(it){
 function doCheck(id){
   var it=null; for(var i=0;i<items.length;i++) if(items[i].id===id){ it=items[i]; break; }
   if(!it) return;
-  it.checked=!it.checked;
+  it.checked=!it.checked; haptic('check');
   if(it.checked){
     var curCatId=curChain.cats[aisleIdx]?curChain.cats[aisleIdx].id:null;
     if(items.filter(function(x){ return x.cat===curCatId&&!x.checked; }).length===0&&aisleIdx<curChain.cats.length-1){
@@ -2014,6 +2064,7 @@ function removeItem(id){
   for(var i=0;i<items.length;i++) if(items[i].id===id){ idx=i; removed=items[i]; break; }
   if(!removed) return;
   _lastRemoved={item:JSON.parse(JSON.stringify(removed)),idx:idx};
+  haptic('remove');
   items=items.filter(function(i){ return i.id!==id; });
   renderList(); renderQuickAdd();
   // Show undo toast
@@ -2095,7 +2146,7 @@ function addItemsFromText(v){
     items.push({id:nid++,name:_n,cat:_c,qty:1,checked:false,tag:null,tc:''});
     logItemHistory(_n,_c);
   });
-  renderList(); renderQuickAdd();
+  haptic('add'); renderList(); renderQuickAdd();
   showToast(parts.length===1?'✓ Item added!':'✓ '+parts.length+' items added!');
   return parts.length;
 }
@@ -2277,8 +2328,8 @@ function renderSettings(){
     {label:'Smart Sort',       tog:true,on:true},
     {label:'Low Stock Alerts', tog:true,on:true},
     {label:'Voice Language',   val:'English (US)'},
-    {label:'Haptic Feedback',  tog:true,on:true},
-    {label:'Dark Mode',        tog:true,on:true},
+    {label:'Haptic Feedback',  tog:true,on:hapticOn,onchange:function(v){ hapticOn=v; localStorage.setItem('ab_haptic',v?'1':'0'); }},
+    {label:'Dark Mode',        tog:true,on:!lightMode,onchange:function(v){ lightMode=!v; document.documentElement.classList.toggle('light',lightMode); localStorage.setItem('ab_light',lightMode?'1':''); }},
     {label:'Account',          val:((typeof session !== 'undefined' && session) ? session.user.email : ((typeof guestMode !== 'undefined' && guestMode) ? 'Guest (this device)' : 'Not signed in')), sub:'Tap to sign out', action:function(){ 
       var msg = (typeof session !== 'undefined' && session) ? 'Logged in as ' + session.user.email : 
                 (typeof guestMode !== 'undefined' && guestMode) ? 'Guest mode (this device only)' : 'Not logged in';
@@ -2330,6 +2381,7 @@ document.getElementById('add-inline').addEventListener('blur', function(){ setTi
 document.getElementById('add-inline').addEventListener('focus', function(){ if(!this.value) renderAutocomplete(''); });
 document.getElementById('imp-open-btn').addEventListener('click', function(){ openOv('ov-import'); });
 document.getElementById('share-text-btn').addEventListener('click', copyListAsText);
+document.getElementById('print-btn').addEventListener('click', printList);
 document.getElementById('toast-undo-btn').addEventListener('click', undoRemove);
 document.getElementById('sp-close-btn').addEventListener('click', function(){ closeOv('ov-store'); });
 document.getElementById('ov-store').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-store'); });
@@ -2771,6 +2823,28 @@ document.addEventListener('DOMContentLoaded', function(){
   if(emailInput) emailInput.addEventListener('keydown', onEnter);
   if(passInput) passInput.addEventListener('keydown', onEnter);
   
+
+  // Keyboard shortcuts (desktop)
+  document.addEventListener('keydown', function(e){
+    var tag=(document.activeElement||{}).tagName||'';
+    if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT') return;
+    if(e.key==='/'||e.key==='f'){
+      e.preventDefault();
+      var fb=document.getElementById('filter-btn'); if(fb) fb.click();
+    }
+    if(e.key==='a'||e.key==='n'){
+      e.preventDefault();
+      var ai=document.getElementById('add-inline'); if(ai) ai.focus();
+    }
+    if(e.key==='Escape'){
+      ['ov-confirm','ov-note','ov-templates','ov-share','ov-admin','ov-store','ov-add','ov-import'].forEach(function(id){
+        var el=document.getElementById(id); if(el&&el.classList.contains('on')) el.classList.remove('on');
+      });
+      var bar=document.getElementById('filter-bar');
+      if(bar&&bar.style.display==='block'){ bar.style.display='none'; filterQuery=''; renderList(); }
+    }
+    if(e.key==='p'&&(e.metaKey||e.ctrlKey)){ e.preventDefault(); printList(); }
+  });
   initSupabase();
 });
 
@@ -3405,6 +3479,17 @@ var PRICE_ESTIMATES={
 function getEstimatedPrice(item){
   if(item.price!==undefined) return item.price;
   return PRICE_ESTIMATES[item.cat]||PRICE_ESTIMATES['other']||5.00;
+}
+
+
+/* ═══════════════════════════════════════
+   PRINT LIST
+═══════════════════════════════════════ */
+function printList(){
+  var hdr=document.getElementById('print-header');
+  if(hdr) hdr.textContent=curStore.chain+' · '+curStore.name+
+    ' — '+new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  window.print();
 }
 
 // Expose logout for the sign-out button
