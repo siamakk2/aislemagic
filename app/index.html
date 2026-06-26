@@ -377,6 +377,40 @@ html.light .walking-bird{ filter:drop-shadow(0 4px 10px rgba(180,80,30,.25)); }
   #print-header{ display:block!important; }
 }
 #print-header{ display:none; font-size:13px; font-weight:700; color:#666; margin:0 0 8px; }
+
+/* -- SHOPPING HISTORY -- */
+.hist-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 14px 0;}
+.hist-stat{background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:14px 8px;text-align:center;}
+.hist-stat-val{font-size:22px;font-weight:800;color:var(--or);line-height:1;}
+.hist-stat-lbl{font-size:9px;font-weight:700;color:var(--mut);margin-top:4px;text-transform:uppercase;letter-spacing:.06em;}
+.hist-filter-row{display:flex;gap:7px;padding:10px 14px 0;overflow-x:auto;}
+.hist-filter-row::-webkit-scrollbar{height:0;}
+.hist-chip{background:var(--surf);border:1px solid var(--bdr);border-radius:999px;padding:5px 13px;font-size:11px;font-weight:700;color:var(--mut);cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;}
+.hist-chip.on{background:var(--or);border-color:var(--or);color:#fff;}
+.hist-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 14px 40px;}
+.hist-list::-webkit-scrollbar{width:0;}
+.hist-trip{background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:13px 14px;margin-bottom:9px;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.hist-trip.expanded{border-color:var(--or);box-shadow:0 4px 16px rgba(255,107,53,.12);}
+.hist-trip-head{display:flex;align-items:center;gap:10px;}
+.hist-trip-icon{font-size:24px;flex-shrink:0;}
+.hist-trip-info{flex:1;min-width:0;}
+.hist-trip-store{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.hist-trip-date{font-size:11px;color:var(--mut);margin-top:2px;}
+.hist-trip-badge{font-size:11px;font-weight:800;color:var(--or);background:rgba(255,107,53,.12);border-radius:999px;padding:3px 9px;flex-shrink:0;}
+.hist-trip-preview{font-size:11px;color:var(--mut);margin-top:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.hist-trip-full{margin-top:10px;padding-top:10px;border-top:1px solid var(--bdr);display:none;}
+.hist-trip-row{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px;font-weight:600;border-bottom:1px solid var(--bdr);}
+.hist-trip-row:last-of-type{border-bottom:none;}
+.hist-trip-qty{font-size:11px;font-weight:700;color:var(--dim);margin-left:auto;}
+.hist-add-btn{width:100%;margin-top:10px;background:var(--or);border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;}
+.hist-add-btn:active{opacity:.8;}
+.hist-empty{text-align:center;padding:40px 20px;color:var(--dim);}
+.hist-empty-icon{font-size:52px;margin-bottom:14px;}
+.admin-trip{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:10px 13px;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+.admin-trip-info{flex:1;min-width:0;}
+.admin-trip-user{font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--or);}
+.admin-trip-meta{font-size:10px;color:var(--mut);margin-top:2px;}
+.admin-trip-count{font-size:13px;font-weight:800;color:var(--tx);flex-shrink:0;}
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -635,8 +669,10 @@ if('serviceWorker' in navigator){
     <div class="sh-handle"></div>
     <div class="sh-title">🛠️ Admin Dashboard</div>
     <div id="admin-stats"></div>
+    <div class="section-hdr">Recent Client Trips</div>
+    <div id="admin-trips" style="max-height:220px;overflow-y:auto;margin-bottom:12px;"></div>
     <div class="section-hdr">Recent Stock Reports</div>
-    <div id="admin-reports" style="max-height:220px;overflow-y:auto;"></div>
+    <div id="admin-reports" style="max-height:160px;overflow-y:auto;"></div>
     <button class="imp-cancel" id="admin-close-btn" type="button" style="margin-top:12px;">Close</button>
   </div>
 </div>
@@ -664,6 +700,23 @@ if('serviceWorker' in navigator){
     <button class="sub-btn" id="note-save" type="button" style="margin-bottom:8px;">Save Note</button>
     <button class="imp-cancel" id="note-clear" type="button" style="margin-bottom:6px;">Remove Note</button>
     <button class="imp-cancel" id="note-cancel" type="button">Cancel</button>
+  </div>
+</div>
+
+
+<!-- SHOPPING HISTORY OVERLAY -->
+<div class="ov" id="ov-history">
+  <div class="sp-panel" style="height:92vh;">
+    <div class="sp-top">
+      <div class="sp-handle"></div>
+      <div class="sp-title-row">
+        <div class="sp-title">📊 Shopping History</div>
+        <button class="sp-close" id="history-close-btn" type="button">✕ Close</button>
+      </div>
+    </div>
+    <div class="hist-stats" id="hist-stats"></div>
+    <div class="hist-filter-row" id="hist-filter-row"></div>
+    <div class="hist-list" id="hist-list"></div>
   </div>
 </div>
 
@@ -1454,7 +1507,9 @@ var _noteItem   = null;
 var realtimeChannel=null;
 var _lastSaveTime=0;
 var _viewingSharedOwner=null;
-var _sharedPollTimer=null;          // out-of-stock flags for current store
+var _sharedPollTimer=null;
+var myHistory=[];
+var _histFilter='all';          // out-of-stock flags for current store
 var isListening = false;
 var recog       = null;
 var waveTimer   = null;
@@ -1942,7 +1997,7 @@ function renderList(){
       clr.textContent='🗑 Remove all checked items';
       clr.addEventListener('click',function(){
         var _chk=items.filter(function(i){ return i.checked; });
-        if(_chk.length) autoSaveLastTrip(_chk);
+        if(_chk.length){ autoSaveLastTrip(_chk); saveTrip(_chk); }
         items=items.filter(function(i){ return !i.checked; });
         showCart=false; renderList(); renderQuickAdd();
       });
@@ -2340,6 +2395,7 @@ function renderSettings(){
       showConfirm('Sign out?', msg + ' — are you sure you want to sign out?', function(){ window.aislebirdLogout(); });
     }},
     {label:'\ud83d\udcb0 Budget Mode',   tog:true,on:budgetMode,onchange:function(v){ budgetMode=v; renderList(); }},
+    {label:'\ud83d\udcca My History',     val:'Your past shopping trips',  action:openHistory},
     {label:'\ud83d\udccb My Templates',   val:'Save & reuse list templates', action:openTemplates},
     {label:'\ud83e\udd1d Share This List', val:'Invite others to collaborate', action:openShareSheet},
     {label:'Version',          val:'AisleBird 1.0'}
@@ -2434,6 +2490,8 @@ document.getElementById('tpl-save-btn').addEventListener('click', saveAsTemplate
 document.getElementById('share-close-btn').addEventListener('click', function(){ closeOv('ov-share'); });
 document.getElementById('share-send-btn').addEventListener('click', sendShareInvite);
 document.getElementById('admin-close-btn').addEventListener('click', function(){ closeOv('ov-admin'); });
+document.getElementById('history-close-btn').addEventListener('click', function(){ closeOv('ov-history'); });
+document.getElementById('ov-history').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-history'); });
 document.getElementById('ov-templates').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-templates'); });
 document.getElementById('ov-share').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-share'); });
 document.getElementById('ov-admin').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-admin'); });
@@ -2659,6 +2717,7 @@ async function bootForUser(){
   checkAdmin();
   setupRealtime();
   loadLastTrip();
+  loadMyHistory();
 }
 
 async function syncAllFromCloud(){
@@ -3246,6 +3305,32 @@ async function openAdminDashboard(){
         return '<div class="admin-stat"><span class="admin-stat-lbl">'+s.label+'</span><span class="admin-stat-val">'+s.val+'</span></div>';
       }).join('');
     }
+    // Recent client trips (admin RLS reads all)
+    var tripsEl=document.getElementById('admin-trips');
+    try{
+      var tripsRes=await sb.from('shopping_trips')
+        .select('user_email,store_chain,store_name,item_count,completed_at')
+        .order('completed_at',{ascending:false}).limit(30);
+      if(tripsEl){
+        if(!tripsRes.data||!tripsRes.data.length){
+          tripsEl.innerHTML='<p style="font-size:12px;color:var(--mut);">No trips recorded yet</p>';
+        } else {
+          tripsEl.innerHTML='';
+          tripsRes.data.forEach(function(t){
+            var d=document.createElement('div'); d.className='admin-trip';
+            var ch=CHAINS[t.store_chain]||{icon:'\u{1F3EA}'};
+            var when=t.completed_at?new Date(t.completed_at).toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+            d.innerHTML='<span style="font-size:20px;">'+ch.icon+'</span>'+
+              '<div class="admin-trip-info">'+
+                '<div class="admin-trip-user">'+escHtml(t.user_email||'guest')+'</div>'+
+                '<div class="admin-trip-meta">'+escHtml(t.store_chain)+' \u00b7 '+escHtml(t.store_name)+' \u00b7 '+when+'</div>'+
+              '</div>'+
+              '<div class="admin-trip-count">'+escHtml(String(t.item_count||0))+' items</div>';
+            tripsEl.appendChild(d);
+          });
+        }
+      }
+    }catch(eTrips){ if(tripsEl) tripsEl.innerHTML='<p style="font-size:11px;color:var(--dim);">Table not set up yet</p>'; }
     var rptRes=await sb.from('item_stock_reports')
       .select('store_id,item_name_lower,reported_by,status')
       .order('id',{ascending:false}).limit(15);
@@ -3495,6 +3580,126 @@ function printList(){
   if(hdr) hdr.textContent=curStore.chain+' · '+curStore.name+
     ' — '+new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
   window.print();
+}
+
+
+/* ===========================================
+   SHOPPING HISTORY
+=========================================== */
+async function saveTrip(tripItems){
+  if(!sb||!session||!curStore||!tripItems||!tripItems.length) return;
+  try{
+    await sb.from('shopping_trips').insert({
+      user_id:session.user.id, user_email:session.user.email,
+      store_id:curStore.id, store_name:curStore.name, store_chain:curStore.chain,
+      items:tripItems.map(function(i){ return {name:i.name,cat:i.cat,qty:i.qty||1}; }),
+      item_count:tripItems.length, completed_at:new Date().toISOString()
+    });
+    myHistory.unshift({ user_email:session.user.email,
+      store_chain:curStore.chain, store_name:curStore.name,
+      items:tripItems.map(function(i){ return {name:i.name,cat:i.cat,qty:i.qty||1}; }),
+      item_count:tripItems.length, completed_at:new Date().toISOString() });
+  }catch(e){ console.error('saveTrip:',e); }
+}
+async function loadMyHistory(){
+  if(!sb||!session){ myHistory=[]; return; }
+  try{
+    var res=await sb.from('shopping_trips')
+      .select('id,store_chain,store_name,items,item_count,completed_at')
+      .eq('user_id',session.user.id)
+      .order('completed_at',{ascending:false}).limit(100);
+    myHistory=res.data||[];
+  }catch(e){ console.error('loadMyHistory:',e); myHistory=[]; }
+}
+function openHistory(){
+  if(!session){ showToast('Sign in to view your history'); return; }
+  openOv('ov-history'); _histFilter='all';
+  renderHistoryOverlay(); loadMyHistory().then(renderHistoryOverlay);
+}
+function renderHistoryOverlay(){
+  var statsEl=document.getElementById('hist-stats');
+  var filterEl=document.getElementById('hist-filter-row');
+  var listEl=document.getElementById('hist-list');
+  if(!listEl) return;
+  var totalTrips=myHistory.length;
+  var totalItems=myHistory.reduce(function(s,t){ return s+(t.item_count||0); },0);
+  var storeSet={};
+  myHistory.forEach(function(t){ storeSet[t.store_chain]=true; });
+  if(statsEl) statsEl.innerHTML=
+    '<div class="hist-stat"><div class="hist-stat-val">'+totalTrips+'</div><div class="hist-stat-lbl">Trips</div></div>'+
+    '<div class="hist-stat"><div class="hist-stat-val">'+totalItems+'</div><div class="hist-stat-lbl">Items Bought</div></div>'+
+    '<div class="hist-stat"><div class="hist-stat-val">'+Object.keys(storeSet).length+'</div><div class="hist-stat-lbl">Stores Visited</div></div>';
+  if(filterEl){
+    var chains=['all'];
+    myHistory.forEach(function(t){ if(chains.indexOf(t.store_chain)===-1) chains.push(t.store_chain); });
+    filterEl.innerHTML='';
+    chains.forEach(function(ch){
+      var btn=document.createElement('button'); btn.type='button';
+      btn.className='hist-chip'+(_histFilter===ch?' on':'');
+      btn.textContent=ch==='all'?'All Stores':(CHAINS[ch]?CHAINS[ch].icon+' '+ch:ch);
+      btn.addEventListener('click',function(){ _histFilter=ch; renderHistoryOverlay(); });
+      filterEl.appendChild(btn);
+    });
+  }
+  var filtered=_histFilter==='all'?myHistory:myHistory.filter(function(t){ return t.store_chain===_histFilter; });
+  if(!filtered.length){
+    listEl.innerHTML='<div class="hist-empty"><div class="hist-empty-icon">🛒</div>'+
+      '<div style="font-size:15px;font-weight:800;margin-bottom:8px;">No trips yet</div>'+
+      '<div style="font-size:13px;color:var(--mut);line-height:1.6;">Complete a shopping trip and remove your checked items — it saves here automatically.</div></div>';
+    return;
+  }
+  listEl.innerHTML='';
+  filtered.forEach(function(trip){
+    var d=document.createElement('div'); d.className='hist-trip';
+    var ch=CHAINS[trip.store_chain]||{icon:'🏪'};
+    var when=trip.completed_at?new Date(trip.completed_at).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'}):'';
+    var preview=(trip.items||[]).slice(0,4).map(function(i){ return i.name; }).join(', ');
+    var more=(trip.item_count||0)>4?' +'+(trip.item_count-4)+' more':'';
+    d.innerHTML='<div class="hist-trip-head">'+
+      '<span class="hist-trip-icon">'+ch.icon+'</span>'+
+      '<div class="hist-trip-info">'+
+        '<div class="hist-trip-store">'+escHtml(trip.store_chain)+' · '+escHtml(trip.store_name)+'</div>'+
+        '<div class="hist-trip-date">'+when+'</div>'+
+      '</div>'+
+      '<span class="hist-trip-badge">'+(trip.item_count||0)+' items</span>'+
+    '</div>'+
+    '<div class="hist-trip-preview">'+escHtml(preview)+(more?'<span style="color:var(--dim)"> '+escHtml(more)+'</span>':'')+'</div>';
+    var expanded=false;
+    d.addEventListener('click',function(){
+      expanded=!expanded; d.classList.toggle('expanded',expanded);
+      var full=d.querySelector('.hist-trip-full');
+      if(expanded){
+        if(!full){
+          full=document.createElement('div'); full.className='hist-trip-full';
+          (trip.items||[]).forEach(function(item){
+            var row=document.createElement('div'); row.className='hist-trip-row';
+            var cat=getCat(item.cat);
+            row.innerHTML='<span style="font-size:14px;">'+(cat?cat.emoji:'•')+'</span>'+
+              '<span style="flex:1;">'+escHtml(item.name)+'</span>'+
+              (item.qty>1?'<span class="hist-trip-qty">×'+item.qty+'</span>':'');
+            full.appendChild(row);
+          });
+          var addBtn=document.createElement('button'); addBtn.type='button'; addBtn.className='hist-add-btn';
+          addBtn.textContent='➕ Add all '+(trip.item_count||0)+' items to my list';
+          (function(t){
+            addBtn.addEventListener('click',function(e){
+              e.stopPropagation(); var added=0;
+              (t.items||[]).forEach(function(ti){
+                var ex=null;
+                for(var i=0;i<items.length;i++) if(items[i].name.toLowerCase()===ti.name.toLowerCase()){ ex=items[i]; break; }
+                if(!ex){ items.push({id:nid++,name:ti.name,cat:ti.cat||guessCat(ti.name),qty:ti.qty||1,checked:false,tag:null,tc:''}); added++; }
+              });
+              renderList(); renderQuickAdd(); closeOv('ov-history');
+              showToast('✓ Added '+added+' items to your list!');
+            });
+          })(trip);
+          full.appendChild(addBtn); d.appendChild(full);
+        }
+        full.style.display='block';
+      } else { if(full) full.style.display='none'; }
+    });
+    listEl.appendChild(d);
+  });
 }
 
 // Expose logout for the sign-out button
