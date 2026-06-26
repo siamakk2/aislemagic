@@ -411,6 +411,12 @@ html.light .walking-bird{ filter:drop-shadow(0 4px 10px rgba(180,80,30,.25)); }
 .admin-trip-user{font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--or);}
 .admin-trip-meta{font-size:10px;color:var(--mut);margin-top:2px;}
 .admin-trip-count{font-size:13px;font-weight:800;color:var(--tx);flex-shrink:0;}
+
+/* AISLE TAGS */
+.aisle-tag{font-size:10px;font-weight:700;color:var(--ordm);letter-spacing:.03em;margin-top:3px;display:flex;align-items:center;gap:3px;}
+.aisle-tag-icon{font-size:11px;}
+.sec-aisle{font-size:9px;font-weight:700;color:var(--dim);letter-spacing:.05em;text-transform:uppercase;margin-left:6px;}
+.you-here{color:var(--or);font-weight:800;font-size:10px;letter-spacing:.04em;text-transform:uppercase;}
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -1977,9 +1983,13 @@ function renderList(){
       var cat=cats[ci]||cats[0];
       var sh=document.createElement('div');
       sh.className='sec'+(ci===aisleIdx?' here':'');
+      var _sf='';
+      if(cat.aisle&&cat.aisle.toLowerCase()!==cat.label.toLowerCase()){
+        _sf='<span class="sec-aisle"> · '+escHtml(cat.aisle)+'</span>';
+      }
       sh.innerHTML=(ci===aisleIdx?'<div class="here-dot"></div>':'')+
-        cat.emoji+' '+catTag(cat).toUpperCase().replace(' · ',' — ')+
-        (ci===aisleIdx?' &nbsp;← YOU ARE HERE':'');
+        cat.emoji+' '+escHtml(cat.label).toUpperCase()+_sf+
+        (ci===aisleIdx?'&nbsp;&nbsp;<span class="you-here">← You are here</span>':'');
       body.appendChild(sh);
     }
     body.appendChild(makeCard(it));
@@ -2023,6 +2033,13 @@ function makeCard(it){
   var ib=document.createElement('div'); ib.className='ib';
   var nm=document.createElement('div'); nm.className='iname'; nm.textContent=it.name;
   ib.appendChild(nm);
+  var _aCat=getCat(it.cat);
+  if(_aCat){
+    var _aTag=document.createElement('div'); _aTag.className='aisle-tag';
+    var _aisleLabel=_aCat.aisle||_aCat.label;
+    _aTag.innerHTML='<span class="aisle-tag-icon">'+_aCat.emoji+'</span>'+'<span>'+escHtml(_aisleLabel)+'</span>';
+    ib.appendChild(_aTag);
+  }
   var noteEl=document.createElement('div');
   noteEl.className=it.note?'inote':'inote-add';
   noteEl.textContent=it.note?'📝 '+it.note:'+ add note';
@@ -2081,7 +2098,7 @@ function makeCard(it){
   d.appendChild(fb);
   // Swipe right to check off
   (function(itemRef,card){
-    var sx=0,sy=0,sw=false;
+    var sx=0,sy=0,sw=false,_justSwiped=false;
     card.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; sw=false; },{passive:true});
     card.addEventListener('touchmove',function(e){
       var dx=e.touches[0].clientX-sx,dy=e.touches[0].clientY-sy;
@@ -2092,9 +2109,10 @@ function makeCard(it){
       var dx=e.changedTouches[0].clientX-sx;
       card.style.transition='transform .2s,background .2s'; card.style.transform=''; card.style.background='';
       setTimeout(function(){ card.style.transition=''; },250);
-      if(sw&&dx>75) doCheck(itemRef.id);
+      if(sw&&dx>75){ e.preventDefault(); _justSwiped=true; doCheck(itemRef.id); setTimeout(function(){_justSwiped=false;},600); }
       sw=false;
     });
+    card.addEventListener('click',function(e){ if(_justSwiped){ e.stopImmediatePropagation(); } },true);
   })(it,d);
   return d;
 }
