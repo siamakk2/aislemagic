@@ -285,9 +285,30 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 </style>
 </head>
 <body>
-<div id="ab-version-banner" style="position:fixed;top:0;left:0;right:0;background:#ff6b35;color:#000;text-align:center;padding:8px;font-weight:700;z-index:99999;font-family:sans-serif;font-size:12px;cursor:pointer;" onclick="this.style.display='none'">
-  v2026-FRESH (loaded at 01:22) — tap to dismiss
+<!-- LOGIN OVERLAY -->
+<div id="login-overlay" style="display:none;position:fixed;inset:0;background:#0a0a0a;z-index:99999;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:32px 24px;max-width:360px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+    <div style="text-align:center;margin-bottom:24px;">
+      <div style="font-size:48px;margin-bottom:8px;">🐦</div>
+      <h1 style="margin:0;color:#fff;font-size:24px;font-weight:800;">AisleBird</h1>
+      <p style="margin:8px 0 0 0;color:#999;font-size:13px;">Sign in to save your lists</p>
+    </div>
+    
+    <div id="login-error" style="display:none;background:#3a1a1a;color:#ff6b6b;padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px;text-align:center;"></div>
+    
+    <input id="login-username" type="text" placeholder="Username" autocomplete="username" style="width:100%;padding:14px;background:#0a0a0a;border:1px solid #333;border-radius:10px;color:#fff;font-size:15px;margin-bottom:10px;box-sizing:border-box;font-family:inherit;">
+    
+    <input id="login-password" type="password" placeholder="Password" autocomplete="current-password" style="width:100%;padding:14px;background:#0a0a0a;border:1px solid #333;border-radius:10px;color:#fff;font-size:15px;margin-bottom:16px;box-sizing:border-box;font-family:inherit;">
+    
+    <button id="login-submit-btn" style="width:100%;padding:14px;background:#ff6b35;color:#000;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:10px;font-family:inherit;">Log In</button>
+    
+    <button id="login-signup-btn" style="width:100%;padding:14px;background:transparent;color:#ff6b35;border:1px solid #ff6b35;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;">Create New Account</button>
+    
+    <p style="text-align:center;color:#666;font-size:11px;margin:16px 0 0 0;">Your lists are saved on this device.</p>
+  </div>
 </div>
+
+
 <div class="app">
 
 <!-- NAV -->
@@ -1443,7 +1464,10 @@ function goVoice(){
    APPLY STORE
 ═══════════════════════════════════════ */
 function applyStore(store){
+  if(typeof saveItems === 'function') saveItems();
   curStore=store;
+  if(typeof rememberLastStore === 'function') rememberLastStore();
+  if(typeof loadItems === 'function') loadItems();
   curChain=CHAINS[store.chain];
   mergeStdCats(curChain);
   aisleIdx=0;
@@ -1628,6 +1652,7 @@ function updateProg(){
    RENDER LIST
 ═══════════════════════════════════════ */
 function renderList(){
+  if(typeof saveItems === 'function') saveItems();
   var body=document.getElementById('list-body'); if(!body) return;
   body.innerHTML='';
   var unchecked=items.filter(function(i){ return !i.checked; });
@@ -2054,6 +2079,216 @@ renderSettings();
 document.getElementById('ov-first-store').classList.add('on');
 /* Request user location for geofencing */
 requestGeolocation();
+
+/* ═══════════════════════════════════════
+   USER ACCOUNTS & PERSISTENCE
+═══════════════════════════════════════ */
+
+// Get current logged-in user
+function getCurrentUser(){
+  return localStorage.getItem('ab_current_user');
+}
+
+// Set current user
+function setCurrentUser(username){
+  if(username){
+    localStorage.setItem('ab_current_user', username);
+  } else {
+    localStorage.removeItem('ab_current_user');
+  }
+}
+
+// Storage keys are scoped per user
+function itemsKey(){
+  var u = getCurrentUser();
+  if(!u || !curStore) return null;
+  return 'ab_items_' + u + '_' + curStore.id;
+}
+
+function lastStoreKey(){
+  var u = getCurrentUser();
+  if(!u) return null;
+  return 'ab_last_store_' + u;
+}
+
+// Save current items to localStorage (per user, per store)
+function saveItems(){
+  var key = itemsKey();
+  if(!key) return;
+  try{
+    localStorage.setItem(key, JSON.stringify(items));
+  }catch(e){
+    console.error('saveItems error:', e);
+  }
+}
+
+// Load items from localStorage (per user, per store)
+function loadItems(){
+  var key = itemsKey();
+  if(!key){ items = []; return; }
+  try{
+    var stored = localStorage.getItem(key);
+    if(stored){
+      items = JSON.parse(stored);
+      // Restore nid counter
+      nid = 1;
+      for(var i = 0; i < items.length; i++){
+        if(items[i].id >= nid) nid = items[i].id + 1;
+      }
+    } else {
+      items = [];
+    }
+  }catch(e){
+    console.error('loadItems error:', e);
+    items = [];
+  }
+}
+
+// Remember last store (per user)
+function rememberLastStore(){
+  var key = lastStoreKey();
+  if(!key || !curStore) return;
+  localStorage.setItem(key, curStore.id);
+}
+
+// Restore last store (per user) — returns store object or null
+function restoreLastStore(){
+  var key = lastStoreKey();
+  if(!key) return null;
+  var storeId = localStorage.getItem(key);
+  if(!storeId) return null;
+  for(var i = 0; i < STORES.length; i++){
+    if(STORES[i].id === storeId) return STORES[i];
+  }
+  return null;
+}
+
+/* ═══════════════════════════════════════
+   LOGIN / SIGNUP
+═══════════════════════════════════════ */
+
+function showLoginError(msg){
+  var el = document.getElementById('login-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function hideLoginError(){
+  document.getElementById('login-error').style.display = 'none';
+}
+
+function doLogin(){
+  hideLoginError();
+  var u = document.getElementById('login-username').value.trim().toLowerCase();
+  var p = document.getElementById('login-password').value;
+  if(!u || !p){ showLoginError('Enter username and password'); return; }
+  
+  var stored = localStorage.getItem('ab_account_' + u);
+  if(!stored){ showLoginError('No account found. Tap "Create New Account".'); return; }
+  
+  try{
+    var acct = JSON.parse(stored);
+    if(acct.password !== p){ showLoginError('Wrong password'); return; }
+  }catch(e){ showLoginError('Account data corrupted'); return; }
+  
+  setCurrentUser(u);
+  hideLoginOverlay();
+  bootForUser();
+}
+
+function doSignup(){
+  hideLoginError();
+  var u = document.getElementById('login-username').value.trim().toLowerCase();
+  var p = document.getElementById('login-password').value;
+  if(!u || !p){ showLoginError('Enter username and password'); return; }
+  if(u.length < 2){ showLoginError('Username too short'); return; }
+  if(p.length < 4){ showLoginError('Password must be 4+ characters'); return; }
+  
+  if(localStorage.getItem('ab_account_' + u)){
+    showLoginError('Username taken. Try Log In instead.');
+    return;
+  }
+  
+  localStorage.setItem('ab_account_' + u, JSON.stringify({
+    username: u, password: p, created: Date.now()
+  }));
+  setCurrentUser(u);
+  hideLoginOverlay();
+  bootForUser();
+}
+
+function doLogout(){
+  if(typeof saveItems === 'function') saveItems();
+  setCurrentUser(null);
+  items = [];
+  showLoginOverlay();
+}
+
+function showLoginOverlay(){
+  var ov = document.getElementById('login-overlay');
+  if(ov) ov.style.display = 'flex';
+  document.getElementById('login-username').value = '';
+  document.getElementById('login-password').value = '';
+  hideLoginError();
+}
+
+function hideLoginOverlay(){
+  var ov = document.getElementById('login-overlay');
+  if(ov) ov.style.display = 'none';
+}
+
+// Boot the app for the logged-in user
+function bootForUser(){
+  // Restore their last store (or keep default)
+  var last = restoreLastStore();
+  if(last){
+    applyStoreSilent(last);
+  }
+  loadItems();
+  if(typeof renderList === 'function') renderList();
+  if(typeof renderChips === 'function') renderChips();
+}
+
+// Switch store without the toast/UI noise (used on boot)
+function applyStoreSilent(store){
+  curStore = store;
+  curChain = CHAINS[store.chain];
+  if(typeof mergeStdCats === 'function') mergeStdCats(curChain);
+  aisleIdx = 0;
+  if(curChain && curChain.cats && curChain.cats[0]) selCat = curChain.cats[0].id;
+  var icon = document.getElementById('store-icon');
+  var name = document.getElementById('store-name');
+  if(icon) icon.textContent = curChain.icon;
+  if(name) name.textContent = store.chain + ' · ' + store.name;
+  if(typeof buildCatGrid === 'function') buildCatGrid();
+}
+
+// Wire up login buttons
+document.addEventListener('DOMContentLoaded', function(){
+  var loginBtn = document.getElementById('login-submit-btn');
+  var signupBtn = document.getElementById('login-signup-btn');
+  var userInput = document.getElementById('login-username');
+  var passInput = document.getElementById('login-password');
+  
+  if(loginBtn) loginBtn.addEventListener('click', doLogin);
+  if(signupBtn) signupBtn.addEventListener('click', doSignup);
+  
+  // Enter key submits
+  if(passInput) passInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') doLogin();
+  });
+  if(userInput) userInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && passInput.value) doLogin();
+  });
+  
+  // Show login if no user
+  if(!getCurrentUser()){
+    showLoginOverlay();
+  } else {
+    bootForUser();
+  }
+});
+
 </script>
 </body>
 </html>
