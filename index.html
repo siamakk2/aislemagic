@@ -373,6 +373,24 @@
       88%  { transform: translateX(0px) translateY(0px); opacity:0; }
       100% { transform: translateX(0px) translateY(0px); opacity:0; }
     }
+
+    /* background bird drift + opacity pulse */
+    @keyframes bgBirdDrift{
+      0%  {transform:translate(-50%,-50%) translateX(0px)   translateY(0px);}
+      25% {transform:translate(-50%,-50%) translateX(18px)  translateY(-14px);}
+      50% {transform:translate(-50%,-50%) translateX(-12px) translateY(10px);}
+      75% {transform:translate(-50%,-50%) translateX(22px)  translateY(-8px);}
+      100%{transform:translate(-50%,-50%) translateX(0px)   translateY(0px);}
+    }
+    @keyframes bgBirdOpacity{
+      0%  {opacity:.55}
+      18% {opacity:.85}
+      34% {opacity:.35}
+      52% {opacity:.72}
+      68% {opacity:.28}
+      84% {opacity:.65}
+      100%{opacity:.55}
+    }
   </style>
 </head>
 <body>
@@ -490,331 +508,90 @@
       <div class="hero-proof-item"><span>📵</span> Works Offline</div>
     </div>
   </div>
-  <div class="hero-right" style="position:relative;display:flex;justify-content:center;align-items:center;">
-<div id="aisle-scene" style="position:relative;width:460px;height:400px;border-radius:22px;overflow:hidden;border:1px solid #2a2a2e;box-shadow:0 40px 80px rgba(0,0,0,.6);flex-shrink:0;">
-
-  <!-- STORE BACKGROUND SVG -->
-  <svg viewBox="0 0 460 400" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;">
-    <!-- sky/ceiling -->
-    <rect width="460" height="400" fill="#0e0e12"/>
-    <!-- aisle floor with perspective -->
-    <path d="M60 280 L400 280 L460 400 L0 400 Z" fill="#1a1a20"/>
-    <path d="M60 280 L400 280 L420 400 L40 400 Z" fill="#18181e"/>
-    <!-- floor tiles subtle lines -->
-    <line x1="60" y1="310" x2="400" y2="310" stroke="#22222a" stroke-width="1"/>
-    <line x1="60" y1="345" x2="400" y2="345" stroke="#22222a" stroke-width="1"/>
-    <line x1="60" y1="380" x2="400" y2="380" stroke="#22222a" stroke-width="1"/>
-    <line x1="130" y1="280" x2="80" y2="400" stroke="#22222a" stroke-width="1"/>
-    <line x1="200" y1="280" x2="200" y2="400" stroke="#22222a" stroke-width="1"/>
-    <line x1="270" y1="280" x2="270" y2="400" stroke="#22222a" stroke-width="1"/>
-    <line x1="340" y1="280" x2="370" y2="400" stroke="#22222a" stroke-width="1"/>
-    <!-- left shelf unit -->
-    <rect x="0" y="55" width="88" height="260" fill="#1e1a14" rx="4"/>
-    <rect x="0" y="55" width="88" height="6" fill="#2e2820"/>
-    <rect x="0" y="120" width="88" height="5" fill="#2e2820"/>
-    <rect x="0" y="190" width="88" height="5" fill="#2e2820"/>
-    <rect x="0" y="258" width="88" height="5" fill="#2e2820"/>
-    <!-- shelf face trim -->
-    <rect x="84" y="55" width="4" height="260" fill="#3a3020"/>
-    <!-- ceiling overhead lights -->
-    <rect x="140" y="0" width="180" height="8" rx="4" fill="#ff8c5a" opacity=".18"/>
-    <ellipse cx="230" cy="12" rx="100" ry="18" fill="#ff8c5a" opacity=".06"/>
-    <!-- right wall (fade) -->
-    <rect x="370" y="55" width="90" height="260" fill="#1a1a1e" opacity=".8"/>
-  </svg>
-
-  <!-- DEPT SIGN at top -->
-  <div id="sc-dept" style="position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(255,107,53,.14);border:1px solid rgba(255,107,53,.45);border-radius:8px;padding:7px 18px;font-size:13px;font-weight:800;color:#ff8c5a;white-space:nowrap;font-family:system-ui;transition:opacity .4s;letter-spacing:.01em;">
-    🥦 Produce · Near entrance
-  </div>
-
-  <!-- SHELF ITEMS (left) -->
-  <div id="sc-shelf" style="position:absolute;left:8px;top:72px;display:flex;flex-direction:column;gap:10px;align-items:center;width:80px;">
-    <div class="sc-item" id="si-0" style="font-size:30px;transition:transform .2s,filter .3s;cursor:default;user-select:none;">🥑</div>
-    <div class="sc-item" id="si-1" style="font-size:28px;transition:transform .2s,filter .3s;cursor:default;user-select:none;">🍌</div>
-    <div class="sc-item" id="si-2" style="font-size:28px;transition:transform .2s,filter .3s;cursor:default;user-select:none;">🥬</div>
-  </div>
-
-  <!-- BIRD in aisle (center-left) -->
-  <div id="sc-bird" style="position:absolute;left:130px;bottom:128px;animation:scBob 2s ease-in-out infinite;">
-    <svg viewBox="0 0 280 295" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-    <defs><style>
-    .scwl{transform-origin:100px 168px;transform-box:fill-box;animation:scwlf 1.7s cubic-bezier(.6,0,.4,1) infinite}
-    .scwr{transform-origin:180px 168px;transform-box:fill-box;animation:scwrf 1.7s cubic-bezier(.6,0,.4,1) infinite .14s}
-    .scbd{animation:scbbd 1.7s ease-in-out infinite}
-    .sct{transform-origin:140px 242px;transform-box:fill-box;animation:sctwg 1.7s ease-in-out infinite .2s}
-    .sce{transform-origin:center;transform-box:fill-box;animation:scblk 5s linear infinite}
-    .sce2{animation-delay:2.3s}
-    @keyframes scwlf{0%{transform:rotate(0deg)}18%{transform:rotate(-52deg)}55%{transform:rotate(28deg)}80%{transform:rotate(8deg)}100%{transform:rotate(0deg)}}
-    @keyframes scwrf{0%{transform:rotate(0deg)}20%{transform:rotate(-48deg)}58%{transform:rotate(24deg)}82%{transform:rotate(6deg)}100%{transform:rotate(0deg)}}
-    @keyframes scbbd{0%,100%{transform:translateY(0)}18%{transform:translateY(-10px)}55%{transform:translateY(5px)}80%{transform:translateY(1px)}}
-    @keyframes sctwg{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-7deg)}58%{transform:rotate(5deg)}}
-    @keyframes scblk{0%,87%,100%{transform:scaleY(0)}89%,96%{transform:scaleY(1)}}
-    </style></defs>
-    <g class="scwl">
-      <path fill="#e05528"><animate attributeName="d" values="M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,116 16,104 -14,128 C-26,146 -20,167 2,173 C34,180 74,177 100,168;M100,168 C65,196 22,206 -2,198 C-12,190 -10,176 6,168 C32,161 74,161 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="1.7s" repeatCount="indefinite"/></path>
-      <path fill="#c04418" opacity=".5"><animate attributeName="d" values="M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,122 34,112 8,134 C-2,150 0,168 16,173 C46,180 78,176 100,168;M100,168 C72,198 38,207 14,200 C4,193 6,179 20,170 C46,163 78,162 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="1.7s" repeatCount="indefinite"/></path>
-    </g>
-    <g class="scwr">
-      <path fill="#e05528"><animate attributeName="d" values="M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,116 264,104 294,128 C306,146 300,167 278,173 C246,180 206,177 180,168;M180,168 C215,196 258,206 282,198 C292,190 290,176 274,168 C248,161 206,161 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="1.7s" repeatCount="indefinite"/></path>
-      <path fill="#c04418" opacity=".5"><animate attributeName="d" values="M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,122 246,112 272,134 C282,150 280,168 264,173 C234,180 202,176 180,168;M180,168 C208,198 242,207 266,200 C276,193 274,179 260,170 C234,163 202,162 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="1.7s" repeatCount="indefinite"/></path>
-    </g>
-    <g class="scbd">
-      <ellipse cx="140" cy="195" rx="54" ry="65" fill="#e05528"/>
-      <ellipse cx="138" cy="215" rx="37" ry="50" fill="#ffb59d" opacity=".37"/>
-      <circle cx="140" cy="100" r="46" fill="#e05528"/>
-      <circle cx="158" cy="91" r="13" fill="white"/><circle cx="160" cy="93" r="8" fill="#180600"/><circle cx="163" cy="89" r="3.5" fill="white"/>
-      <ellipse class="sce" cx="158" cy="85" rx="13" ry="8" fill="#e05528"/>
-      <circle cx="120" cy="93" r="11" fill="white"/><circle cx="119" cy="95" r="7" fill="#180600"/><circle cx="122" cy="91" r="3" fill="white"/>
-      <ellipse class="sce sce2" cx="120" cy="87" rx="11" ry="7" fill="#e05528"/>
-      <path d="M128,116 C130,105 156,104 158,114 C151,121 133,121 128,116Z" fill="#ff4500"/>
-      <path d="M128,118 C131,130 155,130 158,118 C151,131 133,129 128,118Z" fill="#cc3800"/>
-    </g>
-    <g class="sct">
-      <path d="M117,246 C103,272 89,294 77,312 C91,304 105,282 111,256Z" fill="#c44418"/>
-      <path d="M140,252 C138,280 136,304 134,324 C140,316 142,292 140,268Z" fill="#e05528"/>
-      <path d="M163,246 C177,270 187,292 191,310 C179,304 167,282 161,256Z" fill="#c44418"/>
-    </g>
-    </svg>
-  </div>
-
-  <!-- SHOPPING CART -->
-  <div id="sc-cart" style="position:absolute;left:210px;bottom:108px;transition:transform .15s;">
-    <svg viewBox="0 0 90 76" xmlns="http://www.w3.org/2000/svg" width="90" height="76">
-      <!-- cart handle -->
-      <path d="M2 8 C2 8 6 20 12 22" fill="none" stroke="#9a9aaa" stroke-width="2.5" stroke-linecap="round"/>
-      <!-- basket body -->
-      <rect x="12" y="22" width="62" height="36" rx="3" fill="none" stroke="#9a9aaa" stroke-width="2.5"/>
-      <!-- grid lines -->
-      <line x1="33" y1="22" x2="33" y2="58" stroke="#6a6a7a" stroke-width="1.2"/>
-      <line x1="53" y1="22" x2="53" y2="58" stroke="#6a6a7a" stroke-width="1.2"/>
-      <line x1="12" y1="36" x2="74" y2="36" stroke="#6a6a7a" stroke-width="1.2"/>
-      <line x1="12" y1="49" x2="74" y2="49" stroke="#6a6a7a" stroke-width="1.2"/>
-      <!-- wheels -->
-      <circle cx="26" cy="66" r="8" fill="none" stroke="#9a9aaa" stroke-width="2.5"/>
-      <circle cx="62" cy="66" r="8" fill="none" stroke="#9a9aaa" stroke-width="2.5"/>
-      <circle cx="26" cy="66" r="2.5" fill="#9a9aaa"/>
-      <circle cx="62" cy="66" r="2.5" fill="#9a9aaa"/>
-      <!-- cart contents (emoji fill) -->
-      <text id="cart-contents" x="43" y="46" text-anchor="middle" font-size="16" style="user-select:none;"></text>
-    </svg>
-  </div>
-
-  <!-- PHONE CARD (right side) -->
-  <div style="position:absolute;right:12px;top:48px;width:148px;background:#16161c;border:1.5px solid #2e2e38;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.4);">
-    <!-- phone notch -->
-    <div style="height:20px;background:#111118;display:flex;align-items:center;justify-content:center;">
-      <div style="width:50px;height:12px;background:#1a1a22;border-radius:0 0 8px 8px;"></div>
-    </div>
-    <!-- app header -->
-    <div style="padding:8px 10px;border-bottom:1px solid #2a2a34;display:flex;align-items:center;gap:6px;">
-      <span style="font-size:12px;">🐦</span>
-      <span style="font-size:10px;font-weight:800;color:#ff6b35;font-family:system-ui;">AisleBird</span>
-    </div>
-    <!-- dept pill inside phone -->
-    <div id="sc-phone-dept" style="margin:8px 8px 4px;background:rgba(255,107,53,.12);border:1px solid rgba(255,107,53,.3);border-radius:6px;padding:3px 8px;font-size:9px;font-weight:800;color:#ff8c5a;font-family:system-ui;transition:opacity .4s;">🥦 Produce</div>
-    <!-- list -->
-    <div id="sc-list" style="padding:0 8px 10px;display:flex;flex-direction:column;gap:5px;min-height:120px;"></div>
-  </div>
-
-  <!-- FLYING ITEM (created by JS) -->
-  <div id="sc-flyer" style="position:absolute;font-size:26px;pointer-events:none;display:none;z-index:10;"></div>
-
-  <style>
-  @keyframes scBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-  @keyframes scCartBounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-10px)}70%{transform:translateY(4px)}}
-  @keyframes scItemPop{0%{opacity:0;transform:scale(.5) translateY(6px)}60%{transform:scale(1.15) translateY(-2px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-  @keyframes scDeptSlide{0%{opacity:0;transform:translateY(-8px)}100%{opacity:1;transform:translateY(0)}}
-  .sc-list-item{animation:scItemPop .35s ease forwards;display:flex;align-items:center;gap:6px;font-size:10px;font-family:system-ui;color:#d0d0d8;font-weight:600;}
-  .sc-list-item .sc-check{width:14px;height:14px;border-radius:4px;background:#4caf50;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;color:#fff;}
-  .sc-glow{filter:drop-shadow(0 0 10px #ff8c5a) brightness(1.4);}
-  </style>
-
-  <script>
-  (function(){
-    var DEPTS = [
-      {sign:'🥦 Produce · Near entrance', pill:'🥦 Produce', items:[
-        {id:0, e:'🥑', n:'Avocados', cartE:'🥑'},
-        {id:1, e:'🍌', n:'Bananas',  cartE:'🍌'},
-        {id:2, e:'🥬', n:'Baby Spinach', cartE:'🥬'},
-      ]},
-      {sign:'🧀 Dairy · Back wall', pill:'🧀 Dairy', items:[
-        {id:0, e:'🥛', n:'Almond Milk', cartE:'🥛'},
-        {id:1, e:'🧀', n:'Greek Yogurt', cartE:'🧀'},
-        {id:2, e:'🧈', n:'Butter',  cartE:'🧈'},
-      ]},
-      {sign:'🥩 Meat · Back of store', pill:'🥩 Meat', items:[
-        {id:0, e:'🐟', n:'Wild Salmon', cartE:'🐟'},
-        {id:1, e:'🍗', n:'Chicken', cartE:'🍗'},
-        {id:2, e:'🥚', n:'Eggs',    cartE:'🥚'},
-      ]},
-    ];
-
-    var cartEmojis = [];
-    var deptIdx = 0, itemIdx = 0;
-    var busy = false;
-
-    function el(id){ return document.getElementById(id); }
-
-    function setShelf(dept){
-      var shelf = el('sc-shelf');
-      shelf.style.opacity = '0';
-      setTimeout(function(){
-        shelf.innerHTML = '';
-        dept.items.forEach(function(it, i){
-          var d = document.createElement('div');
-          d.className = 'sc-item';
-          d.id = 'si-'+i;
-          d.style.cssText = 'font-size:30px;transition:transform .2s,filter .3s;user-select:none;text-align:center;line-height:1.3;';
-          d.textContent = it.e;
-          shelf.appendChild(d);
-        });
-        shelf.style.transition = 'opacity .4s';
-        shelf.style.opacity = '1';
-      }, 350);
-    }
-
-    function setDept(dept){
-      var sign = el('sc-dept');
-      var pill = el('sc-phone-dept');
-      sign.style.opacity = '0';
-      pill.style.opacity = '0';
-      setTimeout(function(){
-        sign.textContent = dept.sign;
-        pill.textContent = dept.pill;
-        sign.style.opacity = '1';
-        pill.style.opacity = '1';
-        sign.style.animation = 'scDeptSlide .4s ease';
-      }, 380);
-    }
-
-    function addToList(item, deptPill){
-      var list = el('sc-list');
-      var row = document.createElement('div');
-      row.className = 'sc-list-item';
-      row.innerHTML = '<div class="sc-check">✓</div><span>'+item.n+'</span>';
-      list.appendChild(row);
-      // keep max 7 items visible
-      var rows = list.querySelectorAll('.sc-list-item');
-      if(rows.length > 7) rows[0].remove();
-    }
-
-    function updateCartText(){
-      var t = el('cart-contents');
-      if(t) t.textContent = cartEmojis.slice(-3).join('');
-    }
-
-    function bounceCart(){
-      var c = el('sc-cart');
-      c.style.animation = 'none';
-      c.offsetHeight; // reflow
-      c.style.animation = 'scCartBounce .4s ease';
-      setTimeout(function(){ c.style.animation = ''; }, 420);
-    }
-
-    function flyItem(itemEl, emoji, done){
-      var flyer = el('sc-flyer');
-      var scene = el('aisle-scene');
-      if(!itemEl || !flyer || !scene) { done(); return; }
-
-      var sr = scene.getBoundingClientRect();
-      var ir = itemEl.getBoundingClientRect();
-      var cart = el('sc-cart');
-      var cr = cart.getBoundingClientRect();
-
-      var startX = ir.left - sr.left + ir.width/2 - 13;
-      var startY = ir.top  - sr.top  + ir.height/2 - 13;
-      var endX   = cr.left - sr.left + 40;
-      var endY   = cr.top  - sr.top  + 22;
-
-      flyer.textContent = emoji;
-      flyer.style.cssText = 'position:absolute;font-size:26px;pointer-events:none;z-index:10;display:block;transition:none;';
-      flyer.style.left = startX + 'px';
-      flyer.style.top  = startY + 'px';
-
-      // arc via JS keyframes
-      var dur = 680;
-      var start = performance.now();
-      var midX = (startX + endX) / 2 - 20;
-      var midY = Math.min(startY, endY) - 60;
-
-      function frame(now){
-        var t = Math.min((now - start) / dur, 1);
-        var ease = t < .5 ? 2*t*t : -1+(4-2*t)*t; // easeInOut
-        // quadratic bezier
-        var x = (1-ease)*(1-ease)*startX + 2*(1-ease)*ease*midX + ease*ease*endX;
-        var y = (1-ease)*(1-ease)*startY + 2*(1-ease)*ease*midY + ease*ease*endY;
-        var scale = 1 - ease * 0.35;
-        flyer.style.left = x + 'px';
-        flyer.style.top  = y + 'px';
-        flyer.style.transform = 'scale('+scale+')';
-        flyer.style.opacity = t > 0.85 ? (1 - (t-0.85)/0.15) : 1;
-        if(t < 1){ requestAnimationFrame(frame); }
-        else {
-          flyer.style.display = 'none';
-          done();
-        }
-      }
-      requestAnimationFrame(frame);
-    }
-
-    function runNext(){
-      if(busy) return;
-      busy = true;
-      var dept = DEPTS[deptIdx];
-      var item = dept.items[itemIdx];
-      var shelfItem = document.getElementById('si-'+itemIdx);
-
-      // 1. Glow the shelf item
-      if(shelfItem) shelfItem.classList.add('sc-glow');
-
-      setTimeout(function(){
-        // 2. Fly it to cart
-        flyItem(shelfItem, item.e, function(){
-          if(shelfItem){ shelfItem.classList.remove('sc-glow'); shelfItem.style.opacity='0.2'; }
-          cartEmojis.push(item.cartE);
-          updateCartText();
-          bounceCart();
-
-          // 3. Add to phone list
-          setTimeout(function(){
-            addToList(item);
-            itemIdx++;
-
-            if(itemIdx >= dept.items.length){
-              // dept done — switch dept after pause
-              setTimeout(function(){
-                itemIdx = 0;
-                deptIdx = (deptIdx + 1) % DEPTS.length;
-                var nextDept = DEPTS[deptIdx];
-
-                // reset list if new cycle
-                if(deptIdx === 0){
-                  cartEmojis = [];
-                  updateCartText();
-                  el('sc-list').innerHTML = '';
-                }
-
-                setDept(nextDept);
-                setShelf(nextDept);
-
-                setTimeout(function(){ busy = false; runNext(); }, 1000);
-              }, 1200);
-            } else {
-              setTimeout(function(){ busy = false; runNext(); }, 900);
-            }
-          }, 180);
-        });
-      }, 600);
-    }
-
-    // init
-    setShelf(DEPTS[0]);
-    setTimeout(runNext, 1200);
-  })();
-  </script>
+  <div class="hero-right" style="position:relative;display:flex;justify-content:center;align-items:center;min-height:420px;">
+<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;pointer-events:none;animation:bgBirdDrift 8s ease-in-out infinite,bgBirdOpacity 7s ease-in-out infinite;">
+<svg viewBox="0 0 280 295" xmlns="http://www.w3.org/2000/svg" width="380" height="380">
+<defs><style>
+.bg{animation:bgbob 2s ease-in-out infinite}
+.bgt{transform-origin:140px 242px;transform-box:fill-box;animation:bgtwg 2s ease-in-out infinite .2s}
+.bge{transform-origin:center;transform-box:fill-box;animation:bgblk 5s linear infinite}
+.bge2{animation-delay:2.4s}
+@keyframes bgbob{0%,100%{transform:translateY(0)}18%{transform:translateY(-11px)}55%{transform:translateY(6px)}80%{transform:translateY(1px)}}
+@keyframes bgtwg{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-8deg)}58%{transform:rotate(5deg)}}
+@keyframes bgblk{0%,87%,100%{transform:scaleY(0)}89%,96%{transform:scaleY(1)}}
+</style></defs>
+<!-- LEFT WING morphing -->
+<path fill="#e05528">
+  <animate attributeName="d" values="M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,116 16,104 -14,128 C-26,146 -20,167 2,173 C34,180 74,177 100,168;M100,168 C65,196 22,206 -2,198 C-12,190 -10,176 6,168 C32,161 74,161 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168"
+  keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/>
+</path>
+<path fill="#d04818" opacity=".6">
+  <animate attributeName="d" values="M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,122 34,112 8,134 C-2,150 0,168 16,173 C46,180 78,176 100,168;M100,168 C72,198 38,207 14,200 C4,193 6,179 20,170 C46,163 78,162 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168"
+  keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/>
+</path>
+<path fill="#b03410" opacity=".8">
+  <animate attributeName="d" values="M-2,196 C-20,210 -28,200 -12,188;M-8,162 C-28,174 -34,162 -16,152;M0,182 C-14,194 -20,186 -6,176;M-2,196 C-20,210 -28,200 -12,188;M-2,196 C-20,210 -28,200 -12,188"
+  keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/>
+</path>
+<!-- RIGHT WING morphing -->
+<path fill="#e05528">
+  <animate attributeName="d" values="M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,116 264,104 294,128 C306,146 300,167 278,173 C246,180 206,177 180,168;M180,168 C215,196 258,206 282,198 C292,190 290,176 274,168 C248,161 206,161 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168"
+  keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/>
+</path>
+<path fill="#d04818" opacity=".6">
+  <animate attributeName="d" values="M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,122 246,112 272,134 C282,150 280,168 264,173 C234,180 202,176 180,168;M180,168 C208,198 242,207 266,200 C276,193 274,179 260,170 C234,163 202,162 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168"
+  keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/>
+</path>
+<path fill="#b03410" opacity=".8">
+  <animate attributeName="d" values="M282,196 C300,210 308,200 292,188;M288,162 C308,174 314,162 296,152;M280,182 C294,194 300,186 286,176;M282,196 C300,210 308,200 292,188;M282,196 C300,210 308,200 292,188"
+  keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/>
+</path>
+<!-- BODY on top -->
+<g class="bg">
+  <ellipse cx="140" cy="195" rx="54" ry="65" fill="#e05528"/>
+  <ellipse cx="138" cy="215" rx="37" ry="50" fill="#ffb59d" opacity=".37"/>
+  <circle cx="140" cy="100" r="46" fill="#e05528"/>
+  <ellipse cx="127" cy="83" rx="21" ry="12" fill="#ff8c5a" opacity=".22"/>
+  <circle cx="158" cy="91" r="14" fill="white"/><circle cx="160" cy="93" r="8.5" fill="#180600"/><circle cx="163" cy="89" r="3.5" fill="white"/>
+  <ellipse class="bge" cx="158" cy="85" rx="14" ry="9" fill="#e05528"/>
+  <circle cx="120" cy="93" r="12" fill="white"/><circle cx="119" cy="95" r="7.5" fill="#180600"/><circle cx="122" cy="91" r="3" fill="white"/>
+  <ellipse class="bge bge2" cx="120" cy="87" rx="12" ry="8" fill="#e05528"/>
+  <path d="M128,116 C130,105 156,104 158,114 C151,121 133,121 128,116Z" fill="#ff4500"/>
+  <path d="M128,118 C131,130 155,130 158,118 C151,131 133,129 128,118Z" fill="#cc3800"/>
+</g>
+<g class="bgt">
+  <path d="M117,246 C103,272 89,294 77,312 C91,304 105,282 111,256Z" fill="#c44418"/>
+  <path d="M130,248 C122,274 116,298 112,318 C120,310 126,286 128,262Z" fill="#d45020"/>
+  <path d="M140,252 C138,280 136,304 134,324 C140,316 142,292 140,268Z" fill="#e05528"/>
+  <path d="M150,248 C158,274 160,298 158,318 C152,310 148,286 148,262Z" fill="#d45020"/>
+  <path d="M163,246 C177,270 187,292 191,310 C179,304 167,282 161,256Z" fill="#c44418"/>
+</g>
+</svg>
 </div>
+<div style="position:relative;z-index:3;width:260px;flex-shrink:0;">
+  <div class="phone">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+      <div class="phone-nav">
+        <div class="phone-nav-logo">🐦 AisleBird</div>
+        <div class="phone-store-pill">🌿 Whole Foods · Napa</div>
+        <div class="phone-mic">🎤</div>
+      </div>
+      <div id="phone-list-content">
+        <div class="phone-sec">🥦 Produce · Near entrance</div>
+        <div class="phone-item" id="pi1"><div class="phone-cb on">✓</div><div class="phone-item-info"><div class="phone-item-name">Organic Bananas</div><div class="phone-item-aisle">🥦 Produce · Near entrance</div></div></div>
+        <div class="phone-item" id="pi2"><div class="phone-cb"></div><div class="phone-item-info"><div class="phone-item-name">Baby Spinach</div><div class="phone-item-aisle">🥦 Produce · Near entrance</div></div></div>
+        <div class="phone-sec">🧀 Dairy · Back wall</div>
+        <div class="phone-item" id="pi3"><div class="phone-cb"></div><div class="phone-item-info"><div class="phone-item-name">Almond Milk</div><div class="phone-item-aisle">🧀 Dairy · Back wall</div></div></div>
+        <div class="phone-sec">🥩 Meat · Back of store</div>
+        <div class="phone-item" id="pi4"><div class="phone-cb"></div><div class="phone-item-info"><div class="phone-item-name">Wild Salmon</div><div class="phone-item-aisle">🥩 Meat · Back of store</div></div></div>
+        <div class="phone-item" id="pi5"><div class="phone-cb"></div><div class="phone-item-info"><div class="phone-item-name">Sourdough Bread</div><div class="phone-item-aisle">🍞 Bakery · Front of store</div></div></div>
+      </div>
+      <div class="phone-add">🎤 Say or type your list…</div>
+    </div>
   </div>
+</div>
+</div>
   </section>
 
 <hr class="section-divider"/>
@@ -1413,6 +1190,29 @@ renderDemoList();
 </script>
 
 </div>
+
+
+<script>
+(function(){
+  var items=['pi2','pi3','pi4','pi5'];
+  var idx=0;
+  setInterval(function(){
+    if(idx>=items.length){idx=0;
+      items.forEach(function(id){
+        var e=document.getElementById(id);
+        if(e){var cb=e.querySelector('.phone-cb');if(cb){cb.classList.remove('on');cb.textContent='';} e.classList.remove('checked');}
+      });
+      return;
+    }
+    var el=document.getElementById(items[idx]);
+    if(!el)return;
+    var cb=el.querySelector('.phone-cb');
+    if(cb){cb.classList.add('on');cb.textContent='✓';}
+    el.classList.add('checked');
+    idx++;
+  },2000);
+})();
+</script>
 
 </body>
 </html>
