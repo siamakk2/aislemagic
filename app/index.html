@@ -1207,12 +1207,57 @@ var KW = {
   rental:   ['rent','rental','tool rental']
 };
 
+
+/* ═══════════════════════════════════════
+   PERSISTENCE: Save/Load per Store
+═══════════════════════════════════════ */
+function saveItems(){
+  if(!curStore) return;
+  localStorage.setItem('ab_items_'+curStore.id, JSON.stringify(items));
+}
+
+function loadItems(){
+  if(!curStore) return;
+  var stored=localStorage.getItem('ab_items_'+curStore.id);
+  if(stored){
+    try{
+      items=JSON.parse(stored);
+      nid=1;
+      for(var i=0;i<items.length;i++){
+        if(items[i].id>=nid) nid=items[i].id+1;
+      }
+      return;
+    } catch(e){}
+  }
+  items=[];
+  nid=1;
+}
+
+function rememberStore(){
+  localStorage.setItem('ab_current_store', JSON.stringify({id:curStore.id, chain:curStore.chain, name:curStore.name}));
+}
+
+function restoreStore(){
+  var stored=localStorage.getItem('ab_current_store');
+  if(stored){
+    try{
+      var prev=JSON.parse(stored);
+      for(var i=0;i<STORES.length;i++){
+        if(STORES[i].id===prev.id){
+          return STORES[i];
+        }
+      }
+    } catch(e){}
+  }
+  return null;
+}
+
 /* ═══════════════════════════════════════
    STATE
 ═══════════════════════════════════════ */
 var items       = [];
 var nid         = 1;
-var curStore    = STORES[0]; // Default, will be overridden by loadLastStore()
+var curStore    = STORES[0];
 var curChain    = CHAINS['Whole Foods'];
 var aisleIdx    = 0;
 var selCat      = 'produce';
@@ -1222,98 +1267,6 @@ var recog       = null;
 var waveTimer   = null;
 var activeChain = 'Whole Foods';
 var searchQuery = '';
-
-
-/* ═══════════════════════════════════════
-   STORAGE: Per-store list persistence
-═══════════════════════════════════════ */
-/* Store persistence - remember last selected store */
-function saveLastStore(){
-  if(curStore){
-    localStorage.setItem('ab_last_store_id', curStore.id);
-    console.log('saveLastStore: Saved store ID', curStore.id);
-  }
-}
-
-function loadLastStore(){
-  var lastStoreId=localStorage.getItem('ab_last_store_id');
-  console.log('loadLastStore: Retrieved store ID', lastStoreId);
-  if(lastStoreId){
-    // Find the store with this ID
-    var found=null;
-    for(var i=0;i<STORES.length;i++){
-      if(STORES[i].id===lastStoreId){
-        found=STORES[i];
-        break;
-      }
-    }
-    if(found){
-      console.log('loadLastStore: Found store, applying:', found.name);
-      applyStore(found);
-      return;
-    }
-  }
-  console.log('loadLastStore: No previous store found, using default');
-  // Use default (already set)
-}
-
-/* ═══════════════════════════════════════
-   STORE PERSISTENCE
-═══════════════════════════════════════ */
-function saveCurrentStore(){
-  if(curStore){
-    localStorage.setItem('ab_current_store_id', curStore.id);
-  }
-}
-
-function restoreCurrentStore(){
-  var storeId=localStorage.getItem('ab_current_store_id');
-  if(storeId){
-    for(var i=0;i<STORES.length;i++){
-      if(STORES[i].id===storeId){
-        curStore=STORES[i];
-        curChain=CHAINS[curStore.chain];
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-function getStorageKey(){
-  return 'ab_items_' + curStore.id;
-}
-
-function saveItems(){
-  if(!curStore) return;
-  var key=getStorageKey();
-  console.log('saveItems: Saving to key=', key, 'items count=', items.length);
-  localStorage.setItem(key, JSON.stringify(items));
-}
-
-function loadItems(){
-  if(!curStore) return;
-  var key=getStorageKey();
-  console.log('loadItems: Loading key=', key);
-  var stored=localStorage.getItem(key);
-  console.log('loadItems: Found in storage?', !!stored, 'items count:', stored ? JSON.parse(stored).length : 'N/A');
-  if(stored){
-    try{
-      items=JSON.parse(stored);
-    } catch(e){
-      items=[];
-    }
-  } else {
-    items=[];
-  }
-  nid=1; // Reset nid for this store
-  for(var i=0;i<items.length;i++){
-    if(items[i].id>=nid) nid=items[i].id+1;
-  }
-}
-
-// Load last selected store and its items on startup
-loadLastStore(); // This will call applyStore() which calls loadItems()
 
 /* ═══════════════════════════════════════
    HELPERS
@@ -1529,12 +1482,10 @@ function goVoice(){
    APPLY STORE
 ═══════════════════════════════════════ */
 function applyStore(store){
-  console.log('applyStore called:', store.chain, store.name);
-  saveItems(); // Save items from previous store
+  saveItems();
   curStore=store;
-  console.log('curStore changed to:', curStore.name);
-  saveLastStore(); // Remember this store for next time
-  loadItems(); // Load items for new store
+  rememberStore();
+  loadItems();
   curChain=CHAINS[store.chain];
   mergeStdCats(curChain);
   aisleIdx=0;
@@ -1718,7 +1669,8 @@ function updateProg(){
 /* ═══════════════════════════════════════
    RENDER LIST
 ═══════════════════════════════════════ */
-function renderList(){ saveItems();
+function renderList(){
+  saveItems();
   var body=document.getElementById('list-body'); if(!body) return;
   body.innerHTML='';
   var unchecked=items.filter(function(i){ return !i.checked; });
@@ -2139,6 +2091,14 @@ mergeStdCats(curChain);
 selCat=curChain.cats[0].id;
 buildCatGrid();
 renderChips();
+// Restore last store on startup
+var restoredStore=restoreStore();
+if(restoredStore){
+  curStore=restoredStore;
+  curChain=CHAINS[curStore.chain];
+}
+loadItems();
+
 renderList();
 renderSettings();
 /* Show first-store selection prompt */
