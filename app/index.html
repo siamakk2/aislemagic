@@ -313,6 +313,15 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .share-meta-lbl{font-size:10px;color:var(--mut);margin-top:2px;}
 .share-open-btn{background:var(--or);border:none;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
 .section-hdr{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--mut);text-transform:uppercase;margin:14px 0 8px;}
+
+    /* ITEM NOTE */
+    .inote{font-size:11px;color:var(--or);font-style:italic;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;}
+    .inote-add{font-size:11px;color:var(--dim);margin-top:3px;cursor:pointer;}
+    .inote-add:hover{color:var(--mut);}
+    /* UNDO TOAST */
+    .toast-undo{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid var(--bdr);border-radius:999px;padding:10px 20px;font-size:13px;font-weight:700;color:var(--tx);z-index:999;white-space:nowrap;font-family:'Inter',sans-serif;pointer-events:none;opacity:0;transition:opacity .2s;display:flex;align-items:center;gap:12px;}
+    .toast-undo.show{opacity:1;pointer-events:auto;}
+    .toast-undo-btn{background:var(--or);border:none;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;}
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -401,6 +410,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
     <input class="add-bar-inp" id="add-inline" placeholder="✏️  Tap here and type — e.g. milk, eggs, bananas" autocomplete="off"/>
     <button class="add-bar-btn" id="add-inline-btn" type="button">Add</button>
     <button class="imp-icon-btn" id="imp-open-btn" type="button" title="Import from Notes">📋</button>
+    <button class="imp-icon-btn" id="share-text-btn" type="button" title="Copy list as text">📤</button>
   </div>
 </div>
 
@@ -564,6 +574,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 </div>
 
 <div class="toast" id="toast"></div>
+<div class="toast-undo" id="toast-undo"><span id="toast-undo-msg"></span><button class="toast-undo-btn" id="toast-undo-btn" type="button">Undo</button></div>
 </div>
 
 <script>
@@ -1337,6 +1348,7 @@ var curChain    = CHAINS['Whole Foods'];
 var aisleIdx    = 0;
 var selCat      = 'produce';
 var showCart    = false;
+var stockReports= {};          // out-of-stock flags for current store
 var isListening = false;
 var recog       = null;
 var waveTimer   = null;
@@ -1826,6 +1838,20 @@ function makeCard(it){
   var ib=document.createElement('div'); ib.className='ib';
   var nm=document.createElement('div'); nm.className='iname'; nm.textContent=it.name;
   ib.appendChild(nm);
+  var noteEl=document.createElement('div');
+  noteEl.className=it.note?'inote':'inote-add';
+  noteEl.textContent=it.note?'📝 '+it.note:'+ add note';
+  (function(itemRef,el){
+    el.addEventListener('click',function(e){
+      e.stopPropagation();
+      var v=prompt(itemRef.note?'Edit note (clear to remove):':'Add a note for "'+itemRef.name+'":',itemRef.note||'');
+      if(v===null) return;
+      itemRef.note=v.trim()||undefined;
+      saveItems();
+      renderList();
+    });
+  })(it,noteEl);
+  ib.appendChild(noteEl);
   if(it.tag){
     var tg=document.createElement('span'); tg.className='itag '+(it.tc||'t-gy'); tg.textContent=it.tag;
     ib.appendChild(tg);
@@ -1878,9 +1904,30 @@ function adjQty(id,delta){
     var el=document.getElementById('q'+id); if(el) el.textContent=items[i].qty; return;
   }
 }
+var _lastRemoved=null, _undoTimer=null;
 function removeItem(id){
+  var idx=-1,removed=null;
+  for(var i=0;i<items.length;i++) if(items[i].id===id){ idx=i; removed=items[i]; break; }
+  if(!removed) return;
+  _lastRemoved={item:JSON.parse(JSON.stringify(removed)),idx:idx};
   items=items.filter(function(i){ return i.id!==id; });
   renderList(); renderQuickAdd();
+  // Show undo toast
+  var msg=document.getElementById('toast-undo-msg');
+  var tu=document.getElementById('toast-undo');
+  if(msg) msg.textContent='Removed "'+removed.name+'"';
+  if(tu){ tu.classList.add('show'); clearTimeout(_undoTimer); _undoTimer=setTimeout(function(){ tu.classList.remove('show'); _lastRemoved=null; },4000); }
+}
+function undoRemove(){
+  if(!_lastRemoved) return;
+  clearTimeout(_undoTimer);
+  var ins=_lastRemoved;
+  _lastRemoved=null;
+  document.getElementById('toast-undo').classList.remove('show');
+  var idx=Math.min(ins.idx,items.length);
+  items.splice(idx,0,ins.item);
+  renderList(); renderQuickAdd();
+  showToast('\u2713 Restored!');
 }
 
 /* ═══════════════════════════════════════
@@ -2155,7 +2202,18 @@ function renderSettings(){
 ═══════════════════════════════════════ */
 document.getElementById('mic-btn').addEventListener('click', goVoice);
 document.getElementById('store-btn').addEventListener('click', openStorePicker);
-document.getElementById('reset-btn').addEventListener('click', function(){ aisleIdx=0; renderChips(); renderList(); showToast('Sort reset'); });
+document.getElementById('reset-btn').addEventListener('click', function(){
+  var hasChecked=items.some(function(i){ return i.checked; });
+  if(hasChecked){
+    if(!confirm('Uncheck all items and restart from Aisle 1?')) return;
+    items.forEach(function(i){ i.checked=false; });
+  }
+  aisleIdx=0;
+  showCart=false;
+  renderChips();
+  renderList();
+  showToast(hasChecked?'\u2713 Trip reset!':'Sort reset to Aisle 1');
+});
 document.getElementById('t-list').addEventListener('click', function(){ goTab('list'); });
 document.getElementById('t-voice').addEventListener('click', goVoice);
 document.getElementById('t-shop').addEventListener('click', function(){ goTab('list'); });
@@ -2165,7 +2223,10 @@ document.getElementById('add-inline-btn').addEventListener('click', submitAddInl
 document.getElementById('add-inline').addEventListener('keydown', function(e){ if(e.key==='Enter'){ document.getElementById('ac-drop').style.display='none'; submitAddInline(); } });
 document.getElementById('add-inline').addEventListener('input', function(){ renderAutocomplete(this.value); });
 document.getElementById('add-inline').addEventListener('blur', function(){ setTimeout(function(){ document.getElementById('ac-drop').style.display='none'; },200); });
+document.getElementById('add-inline').addEventListener('focus', function(){ if(!this.value) renderAutocomplete(''); });
 document.getElementById('imp-open-btn').addEventListener('click', function(){ openOv('ov-import'); });
+document.getElementById('share-text-btn').addEventListener('click', copyListAsText);
+document.getElementById('toast-undo-btn').addEventListener('click', undoRemove);
 document.getElementById('sp-close-btn').addEventListener('click', function(){ closeOv('ov-store'); });
 document.getElementById('ov-store').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-store'); });
 document.getElementById('ov-add').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-add'); });
@@ -2583,7 +2644,7 @@ function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').r
 /* ═══════════════════════════════════════
    STOCK REPORTS
 ═══════════════════════════════════════ */
-var stockReports = {};
+stockReports = {};
 
 async function loadStockReports(){
   if(!sb || !curStore){ stockReports={}; return; }
@@ -2665,18 +2726,19 @@ function logItemHistory(name,cat){
 function renderAutocomplete(query){
   var drop=document.getElementById('ac-drop');
   if(!drop) return;
-  if(!query||query.length<1){ drop.style.display='none'; return; }
-  var q=query.toLowerCase().trim();
+  var showRecent=(!query||query.length<1);
+  if(showRecent&&!itemHistory.length){ drop.style.display='none'; return; }
+  var q=showRecent?'':query.toLowerCase().trim();
   var seen={};
   var matches=itemHistory.filter(function(h){
-    return h.item_name_lower.indexOf(q)===0 && !seen[h.item_name_lower] && (seen[h.item_name_lower]=true);
+    return (showRecent||h.item_name_lower.indexOf(q)===0) && !seen[h.item_name_lower] && (seen[h.item_name_lower]=true);
   }).slice(0,5);
   // pad with quick-add if few results
   if(matches.length<5 && curChain && curChain.quickAdd){
     curChain.quickAdd.forEach(function(qa){
       if(matches.length>=5) return;
       var lo=qa.name.toLowerCase();
-      if(lo.indexOf(q)===0 && !seen[lo]){
+      if((showRecent||lo.indexOf(q)===0) && !seen[lo]){
         seen[lo]=true;
         matches.push({item_name:qa.name,item_name_lower:lo,category:qa.cat,use_count:0});
       }
@@ -2984,6 +3046,40 @@ async function openAdminDashboard(){
   }catch(e){
     console.error('Admin stats error:',e);
     if(statsEl) statsEl.innerHTML='<p style="text-align:center;color:var(--rtx);font-size:13px;padding:16px;">Error loading stats</p>';
+  }
+}
+
+
+/* ═══════════════════════════════════════
+   COPY LIST AS TEXT
+═══════════════════════════════════════ */
+function copyListAsText(){
+  if(!items.length){ showToast('Your list is empty'); return; }
+  var unchecked=items.filter(function(i){ return !i.checked; });
+  var checked=items.filter(function(i){ return i.checked; });
+  var cats=curChain.cats;
+  var order=cats.slice(aisleIdx).concat(cats.slice(0,aisleIdx)).map(function(c){ return c.id; });
+  var sorted=unchecked.slice().sort(function(a,b){ return order.indexOf(a.cat)-order.indexOf(b.cat); });
+  var lines=[curStore.chain+' · '+curStore.name,''];
+  var lastCat=null;
+  sorted.forEach(function(it){
+    if(it.cat!==lastCat){
+      lastCat=it.cat;
+      var cat=getCat(it.cat);
+      lines.push((cat?cat.emoji+' '+cat.label:'Other'));
+    }
+    lines.push('  • '+it.name+(it.qty>1?' (×'+it.qty+')':'')+(it.note?' — '+it.note:''));
+  });
+  if(checked.length){
+    lines.push('');
+    lines.push('✓ Already in cart');
+    checked.forEach(function(it){ lines.push('  ✓ '+it.name); });
+  }
+  var text=lines.join('\n');
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ showToast('✓ List copied to clipboard!'); }).catch(function(){ prompt('Your list:',text); });
+  } else {
+    prompt('Your list:',text);
   }
 }
 
