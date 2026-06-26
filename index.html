@@ -362,6 +362,22 @@
       .jennifer-stats{gap:24px;}
       .chain-grid{grid-template-columns:1fr 1fr;}
     }
+
+    /* ── Flying bird across screen ── */
+    @keyframes birdFlyAcross {
+      /* Bird enters from right, flies left with gentle sine-wave drift */
+      0%   { transform: translateX(0px)              translateY(0px);   opacity:0; }
+      3%   { opacity:1; }
+      20%  { transform: translateX(calc(-22vw - 22px)) translateY(-22px); }
+      38%  { transform: translateX(calc(-42vw - 42px)) translateY(8px);  }
+      56%  { transform: translateX(calc(-62vw - 62px)) translateY(-16px);}
+      74%  { transform: translateX(calc(-82vw - 82px)) translateY(4px);  }
+      86%  { transform: translateX(calc(-100vw - 130px)) translateY(-6px); opacity:1; }
+      87%  { transform: translateX(calc(-100vw - 130px)) translateY(-6px); opacity:0; }
+      /* Invisible reset back to right side, then wait */
+      88%  { transform: translateX(0px) translateY(0px); opacity:0; }
+      100% { transform: translateX(0px) translateY(0px); opacity:0; }
+    }
   </style>
 </head>
 <body>
@@ -1206,5 +1222,108 @@ if(demoInp) {
 // Init demo with empty state
 renderDemoList();
 </script>
+
+<!-- FLYING BIRD across the screen -->
+<div id="flying-bird" style="
+  position:fixed;
+  top:11vh;
+  right:-110px;
+  z-index:60;
+  pointer-events:none;
+  animation:birdFlyAcross 18s linear infinite;
+  will-change:transform;
+  filter:drop-shadow(0 4px 12px rgba(255,107,53,.28));
+">
+  <!-- scaleX(-1) flips bird to face LEFT (direction of travel) -->
+  <div style="transform:scaleX(-1);">
+<svg viewBox="0 0 280 295" xmlns="http://www.w3.org/2000/svg" width="90" height="90" style="display:block;">
+<defs><style>
+.fg{animation:fbob 1.6s ease-in-out infinite}
+.fs{animation:fshd 1.6s ease-in-out infinite}
+.ft{transform-origin:140px 242px;transform-box:fill-box;animation:ftwg 1.6s ease-in-out infinite .18s}
+.fe{transform-origin:center;transform-box:fill-box;animation:fblk 5s linear infinite}
+.fe2{animation-delay:2.4s}
+@keyframes fbob{0%,100%{transform:translateY(0)}18%{transform:translateY(-11px)}55%{transform:translateY(6px)}82%{transform:translateY(1px)}}
+@keyframes fshd{0%,100%{transform:scaleX(1);opacity:.11}18%{transform:scaleX(.74);opacity:.05}55%{transform:scaleX(1.22);opacity:.16}}
+@keyframes ftwg{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-8deg)}58%{transform:rotate(6deg)}}
+@keyframes fblk{0%,87%,100%{transform:scaleY(0)}89%,96%{transform:scaleY(1)}}
+</style></defs>
+<ellipse class="fs" cx="140" cy="289" rx="52" ry="7" fill="#1a0800" opacity=".11"/>
+<g class="fg">
+  <!-- LEFT WING morphing -->
+  <path fill="#e05528">
+    <animate attributeName="d"
+      values="M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,116 16,104 -14,128 C-26,146 -20,167 2,173 C34,180 74,177 100,168;M100,168 C65,196 22,206 -2,198 C-12,190 -10,176 6,168 C32,161 74,161 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline"
+      keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+      dur="1.6s" repeatCount="indefinite"/>
+  </path>
+  <path fill="#d04818" opacity=".65">
+    <animate attributeName="d"
+      values="M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,122 34,112 8,134 C-2,150 0,168 16,173 C46,180 78,176 100,168;M100,168 C72,198 38,207 14,200 C4,193 6,179 20,170 C46,163 78,162 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline"
+      keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+      dur="1.6s" repeatCount="indefinite"/>
+  </path>
+  <path fill="#b03410" opacity=".85">
+    <animate attributeName="d"
+      values="M-2,196 C-20,210 -28,200 -12,188;M-8,162 C-28,174 -34,162 -16,152;M0,182 C-14,194 -20,186 -6,176;M-2,196 C-20,210 -28,200 -12,188;M-2,196 C-20,210 -28,200 -12,188"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline"
+      keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+      dur="1.6s" repeatCount="indefinite"/>
+  </path>
+  <!-- RIGHT WING morphing -->
+  <path fill="#e05528">
+    <animate attributeName="d"
+      values="M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,116 264,104 294,128 C306,146 300,167 278,173 C246,180 206,177 180,168;M180,168 C215,196 258,206 282,198 C292,190 290,176 274,168 C248,161 206,161 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline"
+      keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+      dur="1.6s" repeatCount="indefinite"/>
+  </path>
+  <path fill="#d04818" opacity=".65">
+    <animate attributeName="d"
+      values="M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,122 246,112 272,134 C282,150 280,168 264,173 C234,180 202,176 180,168;M180,168 C208,198 242,207 266,200 C276,193 274,179 260,170 C234,163 202,162 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline"
+      keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+      dur="1.6s" repeatCount="indefinite"/>
+  </path>
+  <path fill="#b03410" opacity=".85">
+    <animate attributeName="d"
+      values="M282,196 C300,210 308,200 292,188;M288,162 C308,174 314,162 296,152;M280,182 C294,194 300,186 286,176;M282,196 C300,210 308,200 292,188;M282,196 C300,210 308,200 292,188"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline"
+      keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1"
+      dur="1.6s" repeatCount="indefinite"/>
+  </path>
+  <!-- Body covers wing roots -->
+  <ellipse cx="140" cy="195" rx="54" ry="65" fill="#e05528"/>
+  <ellipse cx="138" cy="215" rx="37" ry="50" fill="#ffb59d" opacity=".37"/>
+  <!-- Head -->
+  <circle cx="140" cy="100" r="46" fill="#e05528"/>
+  <ellipse cx="127" cy="83" rx="21" ry="12" fill="#ff8c5a" opacity=".22"/>
+  <!-- Eyes -->
+  <circle cx="158" cy="91" r="14" fill="white"/>
+  <circle cx="160" cy="93" r="8.5" fill="#180600"/>
+  <circle cx="163" cy="89" r="3.5" fill="white"/>
+  <ellipse class="fe" cx="158" cy="85" rx="14" ry="9" fill="#e05528"/>
+  <circle cx="120" cy="93" r="12" fill="white"/>
+  <circle cx="119" cy="95" r="7.5" fill="#180600"/>
+  <circle cx="122" cy="91" r="3" fill="white"/>
+  <ellipse class="fe fe2" cx="120" cy="87" rx="12" ry="8" fill="#e05528"/>
+  <!-- Beak -->
+  <path d="M128,116 C130,105 156,104 158,114 C151,121 133,121 128,116Z" fill="#ff4500"/>
+  <path d="M128,118 C131,130 155,130 158,118 C151,131 133,129 128,118Z" fill="#cc3800"/>
+  <!-- Tail -->
+  <g class="ft">
+    <path d="M117,246 C103,272 89,294 77,312 C91,304 105,282 111,256Z" fill="#c44418"/>
+    <path d="M129,250 C121,278 115,302 111,322 C119,314 125,290 127,264Z" fill="#d45020"/>
+    <path d="M140,252 C138,280 136,304 134,324 C140,316 142,292 140,268Z" fill="#e05528"/>
+    <path d="M151,250 C159,278 161,302 159,322 C153,314 149,290 149,264Z" fill="#d45020"/>
+    <path d="M163,246 C177,270 187,292 191,310 C179,304 167,282 161,256Z" fill="#c44418"/>
+  </g>
+</g>
+</svg>
+  </div>
+</div>
+
 </body>
 </html>
