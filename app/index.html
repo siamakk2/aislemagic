@@ -282,6 +282,37 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
   }
 }
 
+
+/* AUTOCOMPLETE */
+.ac-drop{background:var(--card);border:1px solid var(--or);border-radius:14px 14px 0 0;overflow:hidden;display:none;max-height:230px;overflow-y:auto;}
+.ac-drop::-webkit-scrollbar{width:0;}
+.ac-item{padding:11px 14px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bdr);}
+.ac-item:last-child{border-bottom:none;}
+.ac-item:active{background:var(--surf);}
+.ac-cat{font-size:10px;color:var(--mut);margin-left:auto;font-weight:700;}
+/* STOCK FLAG */
+.flag-btn{width:28px;height:28px;border-radius:8px;background:none;border:1px solid var(--bdr);color:var(--dim);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Inter',sans-serif;padding:0;}
+.flag-btn.oos{background:rgba(200,35,51,.15);border-color:var(--rbg);}
+.oos-warn{display:inline-flex;align-items:center;gap:3px;background:rgba(200,35,51,.18);border:1px solid rgba(200,35,51,.35);color:var(--rtx);font-size:10px;font-weight:700;border-radius:5px;padding:2px 6px;margin-top:4px;}
+/* TEMPLATES / SHARE / ADMIN */
+.tpl-row{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:11px 13px;margin-bottom:7px;display:flex;align-items:center;gap:10px;}
+.tpl-info{flex:1;min-width:0;}
+.tpl-name{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tpl-meta{font-size:11px;color:var(--mut);margin-top:2px;}
+.tpl-apply{background:var(--or);border:none;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
+.tpl-del{background:rgba(200,35,51,.15);border:1px solid rgba(200,35,51,.3);border-radius:8px;width:28px;height:28px;color:var(--rtx);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Inter',sans-serif;padding:0;}
+.admin-stat{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:13px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.admin-stat-lbl{font-size:13px;font-weight:600;}
+.admin-stat-val{font-size:20px;font-weight:800;color:var(--or);}
+.admin-rpt{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:9px 12px;margin-bottom:6px;}
+.admin-rpt-name{font-size:12px;font-weight:700;}
+.admin-rpt-meta{font-size:10px;color:var(--mut);margin-top:2px;}
+.share-row{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:11px 13px;margin-bottom:7px;display:flex;align-items:center;gap:10px;}
+.share-info{flex:1;min-width:0;}
+.share-email-lbl{font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.share-meta-lbl{font-size:10px;color:var(--mut);margin-top:2px;}
+.share-open-btn{background:var(--or);border:none;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
+.section-hdr{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--mut);text-transform:uppercase;margin:14px 0 8px;}
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -365,7 +396,8 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
     <div id="list-body"></div>
     <div id="qa-wrap"></div>
   </div>
-  <div class="add-bar">
+  <div id="ac-drop" class="ac-drop"></div>
+<div class="add-bar">
     <input class="add-bar-inp" id="add-inline" placeholder="✏️  Tap here and type — e.g. milk, eggs, bananas" autocomplete="off"/>
     <button class="add-bar-btn" id="add-inline-btn" type="button">Add</button>
     <button class="imp-icon-btn" id="imp-open-btn" type="button" title="Import from Notes">📋</button>
@@ -487,6 +519,47 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
     </div>
     <button class="imp-submit" id="imp-submit-btn" type="button" disabled>Import to My List</button>
     <button class="imp-cancel" id="imp-cancel-btn" type="button">Cancel</button>
+  </div>
+</div>
+
+<!-- TEMPLATES OVERLAY -->
+<div class="ov" id="ov-templates">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">📋 My Templates</div>
+    <input class="add-inp" id="tpl-name-inp" placeholder="Template name — e.g. Weekly Groceries" autocomplete="off" style="margin-bottom:8px;"/>
+    <button class="sub-btn" id="tpl-save-btn" type="button" style="margin-bottom:4px;">💾 Save Current List as Template</button>
+    <div class="section-hdr" style="margin-top:16px;">Saved Templates</div>
+    <div id="tpl-list" style="max-height:280px;overflow-y:auto;"></div>
+    <button class="imp-cancel" id="tpl-close-btn" type="button" style="margin-top:12px;">Close</button>
+  </div>
+</div>
+
+<!-- SHARE OVERLAY -->
+<div class="ov" id="ov-share">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">🤝 Share List</div>
+    <p style="font-size:13px;color:var(--mut);margin-bottom:12px;">Invite someone to view and edit your <b id="share-store-lbl"></b> list.</p>
+    <input class="add-inp" id="share-email-inp" type="email" placeholder="friend@example.com" autocomplete="email" inputmode="email" style="margin-bottom:8px;"/>
+    <button class="sub-btn" id="share-send-btn" type="button">📨 Send Invite</button>
+    <div class="section-hdr">Currently Shared With</div>
+    <div id="share-current-list"></div>
+    <div class="section-hdr">Shared With Me</div>
+    <div id="shared-with-me-list"></div>
+    <button class="imp-cancel" id="share-close-btn" type="button" style="margin-top:12px;">Close</button>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD OVERLAY -->
+<div class="ov" id="ov-admin">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">🛠️ Admin Dashboard</div>
+    <div id="admin-stats"></div>
+    <div class="section-hdr">Recent Stock Reports</div>
+    <div id="admin-reports" style="max-height:220px;overflow-y:auto;"></div>
+    <button class="imp-cancel" id="admin-close-btn" type="button" style="margin-top:12px;">Close</button>
   </div>
 </div>
 
@@ -1500,7 +1573,8 @@ function applyStore(store){
   renderSettings();
   closeOv('ov-store');
   closeOv('ov-first-store');
-  showToast('✓ '+store.chain+' '+store.name);
+  showToast('\u2713 '+store.chain+' '+store.name);
+  loadStockReports();
 }
 
 /* ═══════════════════════════════════════
@@ -1756,6 +1830,10 @@ function makeCard(it){
     var tg=document.createElement('span'); tg.className='itag '+(it.tc||'t-gy'); tg.textContent=it.tag;
     ib.appendChild(tg);
   }
+  if(stockReports[it.name.toLowerCase()]){
+    var oosEl=document.createElement('div'); oosEl.className='oos-warn'; oosEl.textContent='\u26a0\ufe0f Out of stock here';
+    ib.appendChild(oosEl);
+  }
   var qc=document.createElement('div'); qc.className='qc';
   var qm=document.createElement('button'); qm.type='button'; qm.className='qb qm'; qm.textContent='−';
   qm.addEventListener('click',function(e){ e.stopPropagation(); adjQty(it.id,-1); });
@@ -1766,6 +1844,19 @@ function makeCard(it){
   var xb=document.createElement('button'); xb.type='button'; xb.className='xb'; xb.textContent='✕';
   xb.addEventListener('click',function(e){ e.stopPropagation(); removeItem(it.id); });
   d.appendChild(cb); d.appendChild(ib); d.appendChild(qc); d.appendChild(xb);
+  var fb=document.createElement('button'); fb.type='button';
+  fb.className='flag-btn'+(stockReports[it.name.toLowerCase()]?' oos':'');
+  fb.textContent=stockReports[it.name.toLowerCase()]?'\u26a0\ufe0f':'\ud83d\udea9';
+  fb.title=stockReports[it.name.toLowerCase()]?'Out of stock at this store':'Flag as out of stock here';
+  (function(itemRef,btn){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(stockReports[itemRef.name.toLowerCase()]){ showToast('\u26a0\ufe0f Already flagged OOS'); return; }
+      if(confirm('Mark \u201c'+itemRef.name+'\u201d as out of stock at '+curStore.name+'?'))
+        flagOutOfStock(itemRef.name);
+    });
+  })(it,fb);
+  d.appendChild(fb);
   return d;
 }
 
@@ -1849,7 +1940,9 @@ function addItemsFromText(v){
   var parts=v.split(',').map(function(s){ return s.trim(); }).filter(function(s){ return s.length>0; });
   if(parts.length===0) return 0;
   parts.forEach(function(p){
-    items.push({id:nid++,name:cap(p),cat:guessCat(p),qty:1,checked:false,tag:null,tc:''});
+    var _n=cap(p), _c=guessCat(p);
+    items.push({id:nid++,name:_n,cat:_c,qty:1,checked:false,tag:null,tc:''});
+    logItemHistory(_n,_c);
   });
   renderList(); renderQuickAdd();
   showToast(parts.length===1?'✓ Item added!':'✓ '+parts.length+' items added!');
@@ -2040,8 +2133,10 @@ function renderSettings(){
                 (typeof guestMode !== 'undefined' && guestMode) ? 'Guest mode (this device only)' : 'Not logged in';
       if(confirm(msg + '\n\nSign out?')) { window.aislebirdLogout(); }
     }},
+    {label:'\ud83d\udccb My Templates',   val:'Save & reuse list templates', action:openTemplates},
+    {label:'\ud83e\udd1d Share This List', val:'Invite others to collaborate', action:openShareSheet},
     {label:'Version',          val:'AisleBird 1.0'}
-  ].forEach(function(r){
+  ].concat(isAdmin?[{label:'\ud83d\udee0\ufe0f Admin Dashboard',val:'View app stats & reports',action:openAdminDashboard}]:[]).forEach(function(r){
     var d=document.createElement('div'); d.className='srow';
     if(r.tog){
       var on=r.on; d.innerHTML='<span class="srow-lbl">'+r.label+'</span><button type="button" class="tog'+(on?'':' off')+'"></button>';
@@ -2067,7 +2162,9 @@ document.getElementById('t-shop').addEventListener('click', function(){ goTab('l
 document.getElementById('t-store').addEventListener('click', openStorePicker);
 document.getElementById('t-settings').addEventListener('click', function(){ goTab('settings'); });
 document.getElementById('add-inline-btn').addEventListener('click', submitAddInline);
-document.getElementById('add-inline').addEventListener('keydown', function(e){ if(e.key==='Enter') submitAddInline(); });
+document.getElementById('add-inline').addEventListener('keydown', function(e){ if(e.key==='Enter'){ document.getElementById('ac-drop').style.display='none'; submitAddInline(); } });
+document.getElementById('add-inline').addEventListener('input', function(){ renderAutocomplete(this.value); });
+document.getElementById('add-inline').addEventListener('blur', function(){ setTimeout(function(){ document.getElementById('ac-drop').style.display='none'; },200); });
 document.getElementById('imp-open-btn').addEventListener('click', function(){ openOv('ov-import'); });
 document.getElementById('sp-close-btn').addEventListener('click', function(){ closeOv('ov-store'); });
 document.getElementById('ov-store').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-store'); });
@@ -2084,6 +2181,14 @@ document.getElementById('chain-arrow-right').addEventListener('click', function(
 document.getElementById('v-back-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
 document.getElementById('v-done-btn').addEventListener('click', function(){ stopListening(); goTab('list'); });
 document.getElementById('fs-open-picker').addEventListener('click', function(){ closeOv('ov-first-store'); openStorePicker(); });
+document.getElementById('tpl-close-btn').addEventListener('click', function(){ closeOv('ov-templates'); });
+document.getElementById('tpl-save-btn').addEventListener('click', saveAsTemplate);
+document.getElementById('share-close-btn').addEventListener('click', function(){ closeOv('ov-share'); });
+document.getElementById('share-send-btn').addEventListener('click', sendShareInvite);
+document.getElementById('admin-close-btn').addEventListener('click', function(){ closeOv('ov-admin'); });
+document.getElementById('ov-templates').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-templates'); });
+document.getElementById('ov-share').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-share'); });
+document.getElementById('ov-admin').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-admin'); });
 
 /* Search input */
 document.getElementById('sp-search').addEventListener('input', function(){
@@ -2299,6 +2404,11 @@ async function bootForUser(){
   loadItemsFromLocal();
   if(typeof renderList === 'function') renderList();
   if(typeof renderChips === 'function') renderChips();
+  // 3) Load new features
+  loadItemHistory();
+  loadStockReports();
+  loadSharedWithMe();
+  checkAdmin();
 }
 
 async function syncAllFromCloud(){
@@ -2463,6 +2573,419 @@ document.addEventListener('DOMContentLoaded', function(){
   
   initSupabase();
 });
+
+
+/* ═══════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════ */
+function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+/* ═══════════════════════════════════════
+   STOCK REPORTS
+═══════════════════════════════════════ */
+var stockReports = {};
+
+async function loadStockReports(){
+  if(!sb || !curStore){ stockReports={}; return; }
+  stockReports={};
+  try{
+    var res=await sb.from('item_stock_reports')
+      .select('item_name_lower,status')
+      .eq('store_id',curStore.id)
+      .eq('status','out_of_stock');
+    if(res.data) res.data.forEach(function(r){ stockReports[r.item_name_lower]=true; });
+  }catch(e){ console.error('Stock reports error:',e); }
+  if(typeof renderList==='function') renderList();
+}
+
+async function flagOutOfStock(itemName){
+  if(!itemName||!curStore) return;
+  var nameLower=itemName.toLowerCase().trim();
+  stockReports[nameLower]=true;
+  renderList();
+  showToast('\u26a0\ufe0f Flagged as out of stock');
+  try{
+    var userId=session?session.user.id:null;
+    await sb.from('item_stock_reports').insert({
+      store_id:curStore.id,
+      item_name_lower:nameLower,
+      status:'out_of_stock',
+      reported_by:userId
+    });
+  }catch(e){ console.error('Flag OOS error:',e); }
+}
+
+/* ═══════════════════════════════════════
+   ITEM HISTORY & AUTOCOMPLETE
+═══════════════════════════════════════ */
+var itemHistory=[];
+
+async function loadItemHistory(){
+  if(!sb||!session) return;
+  try{
+    var res=await sb.from('user_item_history')
+      .select('item_name,item_name_lower,category,use_count')
+      .eq('user_id',session.user.id)
+      .order('use_count',{ascending:false})
+      .limit(300);
+    if(res.data) itemHistory=res.data;
+  }catch(e){ console.error('History load error:',e); }
+}
+
+function logItemHistory(name,cat){
+  if(!name) return;
+  var nameLower=name.toLowerCase().trim();
+  var newCount=1;
+  var found=false;
+  for(var i=0;i<itemHistory.length;i++){
+    if(itemHistory[i].item_name_lower===nameLower){
+      itemHistory[i].use_count++;
+      newCount=itemHistory[i].use_count;
+      found=true; break;
+    }
+  }
+  if(!found) itemHistory.unshift({item_name:name,item_name_lower:nameLower,category:cat,use_count:1});
+  if(!sb||!session) return;
+  var userId=session.user.id;
+  var snapshot=newCount;
+  (async function(){
+    try{
+      await sb.from('user_item_history').upsert({
+        user_id:userId,
+        item_name:name,
+        item_name_lower:nameLower,
+        category:cat,
+        use_count:snapshot,
+        last_used:new Date().toISOString()
+      },{onConflict:'user_id,item_name_lower'});
+    }catch(e){ console.error('History upsert error:',e); }
+  })();
+}
+
+function renderAutocomplete(query){
+  var drop=document.getElementById('ac-drop');
+  if(!drop) return;
+  if(!query||query.length<1){ drop.style.display='none'; return; }
+  var q=query.toLowerCase().trim();
+  var seen={};
+  var matches=itemHistory.filter(function(h){
+    return h.item_name_lower.indexOf(q)===0 && !seen[h.item_name_lower] && (seen[h.item_name_lower]=true);
+  }).slice(0,5);
+  // pad with quick-add if few results
+  if(matches.length<5 && curChain && curChain.quickAdd){
+    curChain.quickAdd.forEach(function(qa){
+      if(matches.length>=5) return;
+      var lo=qa.name.toLowerCase();
+      if(lo.indexOf(q)===0 && !seen[lo]){
+        seen[lo]=true;
+        matches.push({item_name:qa.name,item_name_lower:lo,category:qa.cat,use_count:0});
+      }
+    });
+  }
+  if(!matches.length){ drop.style.display='none'; return; }
+  drop.innerHTML='';
+  matches.forEach(function(h){
+    var cat=getCat(h.category);
+    var d=document.createElement('div'); d.className='ac-item';
+    d.innerHTML='<span style="font-size:15px;">'+(cat?cat.emoji:'\ud83d\uded2')+'</span>'+
+      '<span style="flex:1;font-size:14px;">'+escHtml(cap(h.item_name))+'</span>'+
+      '<span class="ac-cat">'+(cat?escHtml(cat.label):'')+'</span>';
+    (function(item){
+      d.addEventListener('mousedown',function(e){ e.preventDefault(); });
+      d.addEventListener('click',function(){
+        var inp=document.getElementById('add-inline');
+        if(inp){ inp.value=item.item_name; }
+        drop.style.display='none';
+        submitAddInline();
+      });
+    })(h);
+    drop.appendChild(d);
+  });
+  drop.style.display='block';
+}
+
+/* ═══════════════════════════════════════
+   TEMPLATES
+═══════════════════════════════════════ */
+var templates=[];
+
+async function loadTemplates(){
+  if(!sb||!session) return;
+  try{
+    var res=await sb.from('user_templates')
+      .select('id,name,items,created_at')
+      .eq('user_id',session.user.id)
+      .order('created_at',{ascending:false});
+    if(res.data) templates=res.data;
+  }catch(e){ console.error('Templates load error:',e); }
+}
+
+function openTemplates(){
+  if(!session){ showToast('Sign in to use templates'); return; }
+  loadTemplates().then(renderTemplatesOverlay);
+  renderTemplatesOverlay();
+  openOv('ov-templates');
+}
+
+function renderTemplatesOverlay(){
+  var list=document.getElementById('tpl-list');
+  if(!list) return;
+  if(!session){
+    list.innerHTML='<p style="text-align:center;color:var(--mut);font-size:13px;padding:20px;">Sign in to use templates</p>';
+    return;
+  }
+  if(!templates.length){
+    list.innerHTML='<p style="text-align:center;color:var(--mut);font-size:13px;padding:20px 10px;">No templates yet.<br>Save your current list above!</p>';
+    return;
+  }
+  list.innerHTML='';
+  templates.forEach(function(tpl){
+    var d=document.createElement('div'); d.className='tpl-row';
+    var cnt=(tpl.items||[]).length;
+    d.innerHTML='<div class="tpl-info">'+
+      '<div class="tpl-name">'+escHtml(tpl.name)+'</div>'+
+      '<div class="tpl-meta">'+cnt+' item'+(cnt!==1?'s':'')+'</div></div>';
+    var applyBtn=document.createElement('button'); applyBtn.type='button'; applyBtn.className='tpl-apply'; applyBtn.textContent='Apply';
+    var delBtn=document.createElement('button'); delBtn.type='button'; delBtn.className='tpl-del'; delBtn.textContent='\u2715';
+    (function(t){
+      applyBtn.addEventListener('click',function(){ applyTemplate(t); closeOv('ov-templates'); });
+      delBtn.addEventListener('click',function(){ if(confirm('Delete "'+t.name+'"?')) deleteTemplate(t.id); });
+    })(tpl);
+    d.appendChild(applyBtn); d.appendChild(delBtn);
+    list.appendChild(d);
+  });
+}
+
+async function saveAsTemplate(){
+  if(!sb||!session){ showToast('Sign in to save templates'); return; }
+  var nameInp=document.getElementById('tpl-name-inp');
+  var name=(nameInp?nameInp.value.trim():'');
+  if(!name){ showToast('Enter a template name'); return; }
+  if(!items.length){ showToast('Your list is empty'); return; }
+  try{
+    var res=await sb.from('user_templates').insert({
+      user_id:session.user.id,
+      name:name,
+      items:JSON.parse(JSON.stringify(items))
+    }).select();
+    if(res.error) throw res.error;
+    if(nameInp) nameInp.value='';
+    showToast('\u2713 Template "'+name+'" saved!');
+    await loadTemplates();
+    renderTemplatesOverlay();
+  }catch(e){ console.error('Save template error:',e); showToast('Error saving template'); }
+}
+
+async function deleteTemplate(id){
+  if(!sb||!session) return;
+  try{
+    await sb.from('user_templates').delete().eq('id',id).eq('user_id',session.user.id);
+    templates=templates.filter(function(t){ return t.id!==id; });
+    renderTemplatesOverlay();
+    showToast('Template deleted');
+  }catch(e){ console.error('Delete template error:',e); }
+}
+
+function applyTemplate(tpl){
+  if(!tpl||!tpl.items||!tpl.items.length){ showToast('Template is empty'); return; }
+  var added=0;
+  tpl.items.forEach(function(ti){
+    var ex=null;
+    for(var i=0;i<items.length;i++) if(items[i].name.toLowerCase()===ti.name.toLowerCase()){ ex=items[i]; break; }
+    if(!ex){
+      items.push({id:nid++,name:ti.name,cat:ti.cat||guessCat(ti.name),qty:ti.qty||1,checked:false,tag:null,tc:''});
+      added++;
+    }
+  });
+  renderList(); renderQuickAdd();
+  showToast('\u2713 Applied '+added+' item'+(added!==1?'s':'')+' from template!');
+}
+
+/* ═══════════════════════════════════════
+   SHARED LISTS
+═══════════════════════════════════════ */
+var sharedWithMe=[];
+
+function openShareSheet(){
+  if(!session){ showToast('Sign in to share lists'); return; }
+  var lbl=document.getElementById('share-store-lbl');
+  if(lbl) lbl.textContent=curStore?(curStore.chain+' \u00b7 '+curStore.name):'current list';
+  document.getElementById('share-email-inp').value='';
+  renderCurrentShares();
+  renderSharedWithMe();
+  openOv('ov-share');
+}
+
+async function renderCurrentShares(){
+  var el=document.getElementById('share-current-list');
+  if(!el||!sb||!session||!curStore) return;
+  el.innerHTML='<p style="font-size:11px;color:var(--dim);">Loading\u2026</p>';
+  try{
+    var res=await sb.from('list_shares')
+      .select('id,shared_with_email')
+      .eq('owner_id',session.user.id)
+      .eq('list_id',curStore.id);
+    if(!res.data||!res.data.length){
+      el.innerHTML='<p style="font-size:12px;color:var(--mut);padding:4px 0;">Not shared with anyone yet</p>';
+      return;
+    }
+    el.innerHTML='';
+    res.data.forEach(function(s){
+      var d=document.createElement('div'); d.className='share-row';
+      d.innerHTML='<div class="share-info">'+
+        '<div class="share-email-lbl">'+escHtml(s.shared_with_email)+'</div>'+
+        '<div class="share-meta-lbl">Can view \u0026 edit</div></div>';
+      var rm=document.createElement('button'); rm.type='button'; rm.className='tpl-del'; rm.textContent='\u2715'; rm.title='Remove';
+      (function(sid){ rm.addEventListener('click',async function(){ await sb.from('list_shares').delete().eq('id',sid); renderCurrentShares(); }); })(s.id);
+      d.appendChild(rm);
+      el.appendChild(d);
+    });
+  }catch(e){ el.innerHTML=''; }
+}
+
+async function sendShareInvite(){
+  if(!sb||!session||!curStore) return;
+  var inp=document.getElementById('share-email-inp');
+  var email=(inp?inp.value.trim().toLowerCase():'');
+  if(!email||email.indexOf('@')===-1){ showToast('Enter a valid email'); return; }
+  if(email===session.user.email.toLowerCase()){ showToast("That's your own email!"); return; }
+  try{
+    var res=await sb.from('list_shares').insert({
+      list_id:curStore.id,
+      owner_id:session.user.id,
+      shared_with_email:email,
+      shared_with_user_id:null
+    });
+    if(res.error){
+      if(res.error.code==='23505'){ showToast('Already shared with this person'); return; }
+      throw res.error;
+    }
+    if(inp) inp.value='';
+    showToast('\u2713 Invited '+email+'!');
+    renderCurrentShares();
+  }catch(e){ console.error('Share error:',e); showToast('Error sending invite'); }
+}
+
+async function loadSharedWithMe(){
+  if(!sb||!session) return;
+  sharedWithMe=[];
+  try{
+    var email=session.user.email.toLowerCase();
+    var res=await sb.from('list_shares')
+      .select('list_id,owner_id,shared_with_email')
+      .eq('shared_with_email',email);
+    if(res.data) sharedWithMe=res.data;
+  }catch(e){ console.error('Shared with me error:',e); }
+}
+
+function renderSharedWithMe(){
+  var el=document.getElementById('shared-with-me-list');
+  if(!el) return;
+  if(!sharedWithMe.length){
+    el.innerHTML='<p style="font-size:12px;color:var(--mut);padding:4px 0;">No lists shared with you yet</p>';
+    return;
+  }
+  el.innerHTML='';
+  sharedWithMe.forEach(function(s){
+    var store=null;
+    for(var i=0;i<STORES.length;i++) if(STORES[i].id===s.list_id){ store=STORES[i]; break; }
+    var d=document.createElement('div'); d.className='share-row';
+    d.innerHTML='<div class="share-info">'+
+      '<div class="share-email-lbl">'+(store?escHtml(store.chain+' \u00b7 '+store.name):escHtml(s.list_id))+'</div>'+
+      '<div class="share-meta-lbl">Shared with you</div></div>';
+    var openBtn=document.createElement('button'); openBtn.type='button'; openBtn.className='share-open-btn'; openBtn.textContent='Open';
+    (function(sh){ openBtn.addEventListener('click',function(){ openSharedList(sh); closeOv('ov-share'); }); })(s);
+    d.appendChild(openBtn);
+    el.appendChild(d);
+  });
+}
+
+async function openSharedList(share){
+  var storeId=share.list_id, ownerId=share.owner_id;
+  var store=null;
+  for(var i=0;i<STORES.length;i++) if(STORES[i].id===storeId){ store=STORES[i]; break; }
+  if(!store){ showToast('Store not found'); return; }
+  try{
+    var res=await sb.from('shopping_lists')
+      .select('items').eq('user_id',ownerId).eq('store_id',storeId).maybeSingle();
+    if(res.data&&res.data.items){
+      applyStoreSilent(store);
+      items=res.data.items;
+      nid=1;
+      for(var j=0;j<items.length;j++){
+        if(typeof items[j].id!=='number') items[j].id=nid;
+        if(items[j].id>=nid) nid=items[j].id+1;
+      }
+      renderList(); renderChips(); renderQuickAdd();
+      showToast('\u2713 Opened shared list: '+store.name);
+      goTab('list');
+    } else { showToast('Shared list is empty'); }
+  }catch(e){ console.error('Open shared list error:',e); showToast('Error opening shared list'); }
+}
+
+/* ═══════════════════════════════════════
+   ADMIN DASHBOARD
+═══════════════════════════════════════ */
+var isAdmin=false;
+
+async function checkAdmin(){
+  if(!sb||!session) return;
+  try{
+    var res=await sb.from('app_admins')
+      .select('user_id').eq('user_id',session.user.id).maybeSingle();
+    isAdmin=!!(res.data);
+    if(isAdmin) renderSettings();
+  }catch(e){ console.error('Admin check error:',e); }
+}
+
+async function openAdminDashboard(){
+  openOv('ov-admin');
+  var statsEl=document.getElementById('admin-stats');
+  var rptEl=document.getElementById('admin-reports');
+  if(statsEl) statsEl.innerHTML='<p style="text-align:center;color:var(--mut);font-size:13px;padding:16px;">Loading\u2026</p>';
+  if(rptEl) rptEl.innerHTML='';
+  try{
+    var listsRes=await sb.from('shopping_lists').select('user_id',{count:'exact',head:true});
+    var totalLists=listsRes.count||0;
+    var usersRes=await sb.from('user_preferences').select('user_id',{count:'exact',head:true});
+    var totalUsers=usersRes.count||0;
+    var histRes=await sb.from('user_item_history').select('user_id',{count:'exact',head:true});
+    var totalItems=histRes.count||0;
+    // Signups this week: users_preferences created in last 7 days (if created_at exists)
+    var weekAgo=new Date(Date.now()-7*24*60*60*1000).toISOString();
+    var weekRes=await sb.from('user_preferences').select('user_id',{count:'exact',head:true}).gte('created_at',weekAgo);
+    var weekSignups=weekRes.count||0;
+    if(statsEl){
+      statsEl.innerHTML=[
+        {label:'Total Users',val:totalUsers},
+        {label:'New This Week',val:weekSignups},
+        {label:'Total Lists',val:totalLists},
+        {label:'Items Tracked',val:totalItems}
+      ].map(function(s){
+        return '<div class="admin-stat"><span class="admin-stat-lbl">'+s.label+'</span><span class="admin-stat-val">'+s.val+'</span></div>';
+      }).join('');
+    }
+    var rptRes=await sb.from('item_stock_reports')
+      .select('store_id,item_name_lower,reported_by,status')
+      .order('id',{ascending:false}).limit(15);
+    if(rptEl){
+      if(!rptRes.data||!rptRes.data.length){
+        rptEl.innerHTML='<p style="font-size:12px;color:var(--mut);">No stock reports yet</p>';
+      } else {
+        rptEl.innerHTML='';
+        rptRes.data.forEach(function(r){
+          var d=document.createElement('div'); d.className='admin-rpt';
+          d.innerHTML='<div class="admin-rpt-name">\u26a0\ufe0f '+escHtml(r.item_name_lower)+'</div>'+
+            '<div class="admin-rpt-meta">'+escHtml(r.store_id)+'</div>';
+          rptEl.appendChild(d);
+        });
+      }
+    }
+  }catch(e){
+    console.error('Admin stats error:',e);
+    if(statsEl) statsEl.innerHTML='<p style="text-align:center;color:var(--rtx);font-size:13px;padding:16px;">Error loading stats</p>';
+  }
+}
 
 // Expose logout for the sign-out button
 window.aislebirdLogout = doLogout;
