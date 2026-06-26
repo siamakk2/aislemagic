@@ -368,89 +368,78 @@
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="nav-logo"><svg viewBox="0 0 280 290" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+  <a href="/" class="nav-logo"><svg viewBox="0 0 280 295" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
 <defs><style>
-.nwl{animation:nlf 2.1s cubic-bezier(.55,0,.45,1) infinite;transform-origin:97px 162px;transform-box:fill-box}
-.nwr{animation:nrf 2.1s cubic-bezier(.55,0,.45,1) infinite .16s;transform-origin:183px 162px;transform-box:fill-box}
-.nbd{animation:nbb 2.1s ease-in-out infinite}
-.ntl{animation:ntw 2.1s ease-in-out infinite .24s;transform-origin:140px 235px;transform-box:fill-box}
-.nsh{animation:nsd 2.1s ease-in-out infinite}
-.nli{transform-origin:center;transform-box:fill-box}
-.nlr{animation:nbk 5s linear infinite 2.2s}
-.nll{animation:nbk 5s linear infinite 2.4s}
-@keyframes nlf{0%{transform:rotate(0deg)}16%{transform:rotate(-52deg)}46%{transform:rotate(28deg)}70%{transform:rotate(10deg)}100%{transform:rotate(0deg)}}
-@keyframes nrf{0%{transform:rotate(0deg)}20%{transform:rotate(-48deg)}50%{transform:rotate(25deg)}73%{transform:rotate(8deg)}100%{transform:rotate(0deg)}}
-@keyframes nbb{0%,100%{transform:translateY(0)}16%{transform:translateY(-10px)}46%{transform:translateY(5px)}70%{transform:translateY(1px)}}
-@keyframes ntw{0%,100%{transform:rotate(0deg)}22%{transform:rotate(-7deg)}56%{transform:rotate(5deg)}}
-@keyframes nsd{0%,100%{transform:scaleX(1);opacity:.1}16%{transform:scaleX(.78);opacity:.05}46%{transform:scaleX(1.18);opacity:.15}}
-@keyframes nbk{0%,90%,100%{transform:scaleY(0)}92%,97%{transform:scaleY(1)}}
+.ng{animation:nbob 2s ease-in-out infinite}
+.ns{animation:nshd 2s ease-in-out infinite}
+.nt{transform-origin:140px 242px;transform-box:fill-box;animation:ntwg 2s ease-in-out infinite .2s}
+.ne{transform-origin:center;transform-box:fill-box;animation:nblk 5s linear infinite}
+.ne2{animation-delay:2.3s}
+@keyframes nbob{0%,100%{transform:translateY(0)}18%{transform:translateY(-13px)}55%{transform:translateY(7px)}82%{transform:translateY(1px)}}
+@keyframes nshd{0%,100%{transform:scaleX(1);opacity:.11}18%{transform:scaleX(.74);opacity:.05}55%{transform:scaleX(1.22);opacity:.16}}
+@keyframes ntwg{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-8deg)}58%{transform:rotate(6deg)}}
+@keyframes nblk{0%,87%,100%{transform:scaleY(0)}89%,96%{transform:scaleY(1)}}
 </style></defs>
 
-<!-- Shadow -->
-<ellipse class="nsh" cx="140" cy="276" rx="48" ry="7" fill="#1a0800" opacity=".1"/>
+<ellipse class="ns" cx="140" cy="289" rx="52" ry="7" fill="#1a0800" opacity=".11"/>
 
-<!-- BACK WING — path starts inside body (x=120), body draws on top covering join.
-     Pivot at left body edge (97,162). Wing only visible outside body boundary. -->
-<g class="nwl">
-  <path d="M120 158 C88 138 50 128 16 146 C4 156 2 170 14 180 C38 192 80 184 112 170 Z" fill="#c44b1f"/>
-  <path d="M120 158 C92 142 58 134 26 150 C16 160 16 172 26 178 C50 188 88 180 114 168 Z" fill="#d95422"/>
-  <path d="M120 158 C98 146 72 140 48 153 C40 161 42 171 50 176 C70 184 100 177 116 167 Z" fill="#ff7a44" opacity=".75"/>
-  <!-- Primary feather tips -->
-  <path d="M36 178 C20 188 6 204 -6 222 C6 224 18 215 30 204 C42 193 42 183 36 178 Z" fill="#b83d12"/>
-  <path d="M18 167 C0 180 -14 196 -26 218 C-12 218 2 208 16 197 C28 186 28 173 18 167 Z" fill="#b83d12" opacity=".85"/>
-</g>
+<g class="ng">
+  <!-- LEFT WING — shoulder fixed at (100,168), body covers root -->
+  <path fill="#e05528"><animate attributeName="d" values="M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,116 16,104 -14,128 C-26,146 -20,167 2,173 C34,180 74,177 100,168;M100,168 C65,196 22,206 -2,198 C-12,190 -10,176 6,168 C32,161 74,161 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/></path>
+  <!-- secondary feather layer -->
+  <path fill="#d04818" opacity=".65">
+    <animate attributeName="d"
+      values="M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,122 34,112 8,134 C-2,150 0,168 16,173 C46,180 78,176 100,168;M100,168 C72,198 38,207 14,200 C4,193 6,179 20,170 C46,163 78,162 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/>
+  </path>
+  <!-- primary feather tips -->
+  <path fill="#b03410" opacity=".85"><animate attributeName="d" values="M-2,196 C-20,210 -28,200 -12,188;M-8,162 C-28,174 -34,162 -16,152;M0,182 C-14,194 -20,186 -6,176;M-2,196 C-20,210 -28,200 -12,188;M-2,196 C-20,210 -28,200 -12,188" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/></path>
 
-<!-- FRONT WING — pivot at right body edge (183,162). Same approach. -->
-<g class="nwr">
-  <path d="M160 158 C192 138 230 128 264 146 C276 156 278 170 266 180 C242 192 200 184 168 170 Z" fill="#c44b1f"/>
-  <path d="M160 158 C188 142 222 134 254 150 C264 160 264 172 254 178 C230 188 192 180 166 168 Z" fill="#d95422"/>
-  <path d="M160 158 C182 146 208 140 232 153 C240 161 238 171 230 176 C210 184 180 177 164 167 Z" fill="#ff7a44" opacity=".75"/>
-  <!-- Primary feather tips -->
-  <path d="M244 178 C260 188 274 204 286 222 C274 224 262 215 250 204 C238 193 238 183 244 178 Z" fill="#b83d12"/>
-  <path d="M262 167 C280 180 294 196 306 218 C292 218 278 208 264 197 C252 186 252 173 262 167 Z" fill="#b83d12" opacity=".85"/>
-</g>
+  <!-- RIGHT WING — shoulder fixed at (180,168) -->
+  <path fill="#e05528"><animate attributeName="d" values="M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,116 264,104 294,128 C306,146 300,167 278,173 C246,180 206,177 180,168;M180,168 C215,196 258,206 282,198 C292,190 290,176 274,168 C248,161 206,161 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/></path>
+  <path fill="#d04818" opacity=".65">
+    <animate attributeName="d"
+      values="M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,122 246,112 272,134 C282,150 280,168 264,173 C234,180 202,176 180,168;M180,168 C208,198 242,207 266,200 C276,193 274,179 260,170 C234,163 202,162 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/>
+  </path>
+  <path fill="#b03410" opacity=".85"><animate attributeName="d" values="M282,196 C300,210 308,200 292,188;M288,162 C308,174 314,162 296,152;M280,182 C294,194 300,186 286,176;M282,196 C300,210 308,200 292,188;M282,196 C300,210 308,200 292,188" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2s" repeatCount="indefinite"/></path>
 
-<!-- BODY — drawn ON TOP of both wings, always covers the attachment seamlessly -->
-<g class="nbd">
-  <ellipse cx="140" cy="192" rx="52" ry="62" fill="#e05528"/>
-  <ellipse cx="138" cy="208" rx="36" ry="47" fill="#ffb59d" opacity=".42"/>
-  <!-- Head -->
-  <circle cx="140" cy="100" r="44" fill="#e05528"/>
-  <ellipse cx="129" cy="84" rx="20" ry="12" fill="#ff8c5a" opacity=".26"/>
+  <!-- BODY — drawn after wings, ellipse covers shoulder (100,168)+(180,168) -->
+  <!-- Body edge at y=168: x = 140 ± 54×√(1−((168−195)/65)²) ≈ 140 ± 49 → 91 to 189 -->
+  <!-- Both shoulders (100 and 180) are inside that range ✓ -->
+  <ellipse cx="140" cy="195" rx="54" ry="65" fill="#e05528"/>
+  <ellipse cx="138" cy="215" rx="37" ry="50" fill="#ffb59d" opacity=".37"/>
+
+  <!-- HEAD -->
+  <circle cx="140" cy="100" r="46" fill="#e05528"/>
+  <ellipse cx="127" cy="83" rx="21" ry="12" fill="#ff8c5a" opacity=".22"/>
+
   <!-- Right eye -->
-  <circle cx="156" cy="89" r="13" fill="white"/>
-  <circle cx="158" cy="91" r="8" fill="#1a0800"/>
-  <circle cx="161" cy="87" r="3.5" fill="white"/>
-  <ellipse class="nli nlr" cx="156" cy="83" rx="13" ry="8" fill="#e05528"/>
+  <circle cx="158" cy="91" r="14" fill="white"/>
+  <circle cx="160" cy="93" r="8.5" fill="#180600"/>
+  <circle cx="163" cy="89" r="3.5" fill="white"/>
+  <ellipse class="ne" cx="158" cy="85" rx="14" ry="9" fill="#e05528"/>
+
   <!-- Left eye -->
-  <circle cx="122" cy="91" r="11.5" fill="white"/>
-  <circle cx="121" cy="93" r="7" fill="#1a0800"/>
-  <circle cx="124" cy="89" r="3" fill="white"/>
-  <ellipse class="nli nll" cx="122" cy="85" rx="11.5" ry="7.5" fill="#e05528"/>
-  <!-- Beak -->
-  <path d="M130 110 C132 100 152 99 154 108 C148 115 133 115 130 110 Z" fill="#ff4500"/>
-  <path d="M130 112 C132 122 151 122 153 112 C148 124 133 122 130 112 Z" fill="#cc3800"/>
-</g>
+  <circle cx="120" cy="93" r="12" fill="white"/>
+  <circle cx="119" cy="95" r="7.5" fill="#180600"/>
+  <circle cx="122" cy="91" r="3" fill="white"/>
+  <ellipse class="ne ne2" cx="120" cy="87" rx="12" ry="8" fill="#e05528"/>
 
-<!-- TAIL -->
-<g class="ntl">
-  <path d="M118 236 C106 262 92 284 80 302 C94 294 106 272 112 250 Z" fill="#c44418"/>
-  <path d="M128 240 C120 268 114 292 110 312 C118 304 124 282 126 258 Z" fill="#d95422"/>
-  <path d="M140 242 C138 270 136 294 134 314 C140 306 142 284 140 260 Z" fill="#e05528"/>
-  <path d="M152 240 C158 268 160 292 160 312 C154 304 150 282 150 258 Z" fill="#d95422"/>
-  <path d="M162 236 C174 260 184 282 188 300 C176 294 166 272 160 250 Z" fill="#c44418"/>
-</g>
+  <!-- Beak upper -->
+  <path d="M128,116 C130,105 156,104 158,114 C151,121 133,121 128,116Z" fill="#ff4500"/>
+  <!-- Beak lower -->
+  <path d="M128,118 C131,130 155,130 158,118 C151,131 133,129 128,118Z" fill="#cc3800"/>
 
-<!-- Feet -->
-<g class="nbd">
-  <line x1="126" y1="250" x2="112" y2="268" stroke="#ff4500" stroke-width="3" stroke-linecap="round"/>
-  <line x1="112" y1="268" x2="98" y2="270" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="112" y1="268" x2="108" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="112" y1="268" x2="118" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="154" y1="250" x2="168" y2="268" stroke="#ff4500" stroke-width="3" stroke-linecap="round"/>
-  <line x1="168" y1="268" x2="182" y2="270" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="168" y1="268" x2="172" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="168" y1="268" x2="162" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Tail -->
+  <g class="nt">
+    <path d="M117,246 C103,272 89,294 77,312 C91,304 105,282 111,256Z" fill="#c44418"/>
+    <path d="M129,250 C121,278 115,302 111,322 C119,314 125,290 127,264Z" fill="#d45020"/>
+    <path d="M140,252 C138,280 136,304 134,324 C140,316 142,292 140,268Z" fill="#e05528"/>
+    <path d="M151,250 C159,278 161,302 159,322 C153,314 149,290 149,264Z" fill="#d45020"/>
+    <path d="M163,246 C177,270 187,292 191,310 C179,304 167,282 161,256Z" fill="#c44418"/>
+  </g>
+
 </g>
 </svg> AisleBird</a>
   <div class="nav-links">
@@ -493,90 +482,79 @@
   <div class="hero-right" style="position:relative;">
     
     <!-- Animated flying bird hero element -->
-    <div style="position:absolute;top:-60px;right:-20px;animation:heroBirdFloat 3.2s ease-in-out infinite;pointer-events:none;z-index:2;filter:drop-shadow(0 8px 22px rgba(255,107,53,.32));">
-      <svg viewBox="0 0 280 290" xmlns="http://www.w3.org/2000/svg" width="110" height="110">
+    <div style="position:absolute;top:-55px;right:-10px;animation:heroBirdFloat 3.2s ease-in-out infinite;pointer-events:none;z-index:2;filter:drop-shadow(0 8px 24px rgba(255,107,53,.32));">
+      <svg viewBox="0 0 280 295" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
 <defs><style>
-.hwl{animation:hlf 2s cubic-bezier(.55,0,.45,1) infinite;transform-origin:97px 162px;transform-box:fill-box}
-.hwr{animation:hrf 2s cubic-bezier(.55,0,.45,1) infinite .16s;transform-origin:183px 162px;transform-box:fill-box}
-.hbd{animation:hbb 2s ease-in-out infinite}
-.htl{animation:htw 2s ease-in-out infinite .24s;transform-origin:140px 235px;transform-box:fill-box}
-.hsh{animation:hsd 2s ease-in-out infinite}
-.hli{transform-origin:center;transform-box:fill-box}
-.hlr{animation:hbk 5s linear infinite 2.2s}
-.hll{animation:hbk 5s linear infinite 2.4s}
-@keyframes hlf{0%{transform:rotate(0deg)}16%{transform:rotate(-52deg)}46%{transform:rotate(28deg)}70%{transform:rotate(10deg)}100%{transform:rotate(0deg)}}
-@keyframes hrf{0%{transform:rotate(0deg)}20%{transform:rotate(-48deg)}50%{transform:rotate(25deg)}73%{transform:rotate(8deg)}100%{transform:rotate(0deg)}}
-@keyframes hbb{0%,100%{transform:translateY(0)}16%{transform:translateY(-10px)}46%{transform:translateY(5px)}70%{transform:translateY(1px)}}
-@keyframes htw{0%,100%{transform:rotate(0deg)}22%{transform:rotate(-7deg)}56%{transform:rotate(5deg)}}
-@keyframes hsd{0%,100%{transform:scaleX(1);opacity:.1}16%{transform:scaleX(.78);opacity:.05}46%{transform:scaleX(1.18);opacity:.15}}
-@keyframes hbk{0%,90%,100%{transform:scaleY(0)}92%,97%{transform:scaleY(1)}}
+.hg{animation:hbob 1.85s ease-in-out infinite}
+.hs{animation:hshd 1.85s ease-in-out infinite}
+.ht{transform-origin:140px 242px;transform-box:fill-box;animation:htwg 1.85s ease-in-out infinite .2s}
+.he{transform-origin:center;transform-box:fill-box;animation:hblk 5s linear infinite}
+.he2{animation-delay:2.3s}
+@keyframes hbob{0%,100%{transform:translateY(0)}18%{transform:translateY(-13px)}55%{transform:translateY(7px)}82%{transform:translateY(1px)}}
+@keyframes hshd{0%,100%{transform:scaleX(1);opacity:.11}18%{transform:scaleX(.74);opacity:.05}55%{transform:scaleX(1.22);opacity:.16}}
+@keyframes htwg{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-8deg)}58%{transform:rotate(6deg)}}
+@keyframes hblk{0%,87%,100%{transform:scaleY(0)}89%,96%{transform:scaleY(1)}}
 </style></defs>
 
-<!-- Shadow -->
-<ellipse class="hsh" cx="140" cy="276" rx="48" ry="7" fill="#1a0800" opacity=".1"/>
+<ellipse class="hs" cx="140" cy="289" rx="52" ry="7" fill="#1a0800" opacity=".11"/>
 
-<!-- BACK WING — path starts inside body (x=120), body draws on top covering join.
-     Pivot at left body edge (97,162). Wing only visible outside body boundary. -->
-<g class="hwl">
-  <path d="M120 158 C88 138 50 128 16 146 C4 156 2 170 14 180 C38 192 80 184 112 170 Z" fill="#c44b1f"/>
-  <path d="M120 158 C92 142 58 134 26 150 C16 160 16 172 26 178 C50 188 88 180 114 168 Z" fill="#d95422"/>
-  <path d="M120 158 C98 146 72 140 48 153 C40 161 42 171 50 176 C70 184 100 177 116 167 Z" fill="#ff7a44" opacity=".75"/>
-  <!-- Primary feather tips -->
-  <path d="M36 178 C20 188 6 204 -6 222 C6 224 18 215 30 204 C42 193 42 183 36 178 Z" fill="#b83d12"/>
-  <path d="M18 167 C0 180 -14 196 -26 218 C-12 218 2 208 16 197 C28 186 28 173 18 167 Z" fill="#b83d12" opacity=".85"/>
-</g>
+<g class="hg">
+  <!-- LEFT WING — shoulder fixed at (100,168), body covers root -->
+  <path fill="#e05528"><animate attributeName="d" values="M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,116 16,104 -14,128 C-26,146 -20,167 2,173 C34,180 74,177 100,168;M100,168 C65,196 22,206 -2,198 C-12,190 -10,176 6,168 C32,161 74,161 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="1.85s" repeatCount="indefinite"/></path>
+  <!-- secondary feather layer -->
+  <path fill="#d04818" opacity=".65">
+    <animate attributeName="d"
+      values="M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,122 34,112 8,134 C-2,150 0,168 16,173 C46,180 78,176 100,168;M100,168 C72,198 38,207 14,200 C4,193 6,179 20,170 C46,163 78,162 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="1.85s" repeatCount="indefinite"/>
+  </path>
+  <!-- primary feather tips -->
+  <path fill="#b03410" opacity=".85"><animate attributeName="d" values="M-2,196 C-20,210 -28,200 -12,188;M-8,162 C-28,174 -34,162 -16,152;M0,182 C-14,194 -20,186 -6,176;M-2,196 C-20,210 -28,200 -12,188;M-2,196 C-20,210 -28,200 -12,188" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="1.85s" repeatCount="indefinite"/></path>
 
-<!-- FRONT WING — pivot at right body edge (183,162). Same approach. -->
-<g class="hwr">
-  <path d="M160 158 C192 138 230 128 264 146 C276 156 278 170 266 180 C242 192 200 184 168 170 Z" fill="#c44b1f"/>
-  <path d="M160 158 C188 142 222 134 254 150 C264 160 264 172 254 178 C230 188 192 180 166 168 Z" fill="#d95422"/>
-  <path d="M160 158 C182 146 208 140 232 153 C240 161 238 171 230 176 C210 184 180 177 164 167 Z" fill="#ff7a44" opacity=".75"/>
-  <!-- Primary feather tips -->
-  <path d="M244 178 C260 188 274 204 286 222 C274 224 262 215 250 204 C238 193 238 183 244 178 Z" fill="#b83d12"/>
-  <path d="M262 167 C280 180 294 196 306 218 C292 218 278 208 264 197 C252 186 252 173 262 167 Z" fill="#b83d12" opacity=".85"/>
-</g>
+  <!-- RIGHT WING — shoulder fixed at (180,168) -->
+  <path fill="#e05528"><animate attributeName="d" values="M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,116 264,104 294,128 C306,146 300,167 278,173 C246,180 206,177 180,168;M180,168 C215,196 258,206 282,198 C292,190 290,176 274,168 C248,161 206,161 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="1.85s" repeatCount="indefinite"/></path>
+  <path fill="#d04818" opacity=".65">
+    <animate attributeName="d"
+      values="M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,122 246,112 272,134 C282,150 280,168 264,173 C234,180 202,176 180,168;M180,168 C208,198 242,207 266,200 C276,193 274,179 260,170 C234,163 202,162 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="1.85s" repeatCount="indefinite"/>
+  </path>
+  <path fill="#b03410" opacity=".85"><animate attributeName="d" values="M282,196 C300,210 308,200 292,188;M288,162 C308,174 314,162 296,152;M280,182 C294,194 300,186 286,176;M282,196 C300,210 308,200 292,188;M282,196 C300,210 308,200 292,188" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="1.85s" repeatCount="indefinite"/></path>
 
-<!-- BODY — drawn ON TOP of both wings, always covers the attachment seamlessly -->
-<g class="hbd">
-  <ellipse cx="140" cy="192" rx="52" ry="62" fill="#e05528"/>
-  <ellipse cx="138" cy="208" rx="36" ry="47" fill="#ffb59d" opacity=".42"/>
-  <!-- Head -->
-  <circle cx="140" cy="100" r="44" fill="#e05528"/>
-  <ellipse cx="129" cy="84" rx="20" ry="12" fill="#ff8c5a" opacity=".26"/>
+  <!-- BODY — drawn after wings, ellipse covers shoulder (100,168)+(180,168) -->
+  <!-- Body edge at y=168: x = 140 ± 54×√(1−((168−195)/65)²) ≈ 140 ± 49 → 91 to 189 -->
+  <!-- Both shoulders (100 and 180) are inside that range ✓ -->
+  <ellipse cx="140" cy="195" rx="54" ry="65" fill="#e05528"/>
+  <ellipse cx="138" cy="215" rx="37" ry="50" fill="#ffb59d" opacity=".37"/>
+
+  <!-- HEAD -->
+  <circle cx="140" cy="100" r="46" fill="#e05528"/>
+  <ellipse cx="127" cy="83" rx="21" ry="12" fill="#ff8c5a" opacity=".22"/>
+
   <!-- Right eye -->
-  <circle cx="156" cy="89" r="13" fill="white"/>
-  <circle cx="158" cy="91" r="8" fill="#1a0800"/>
-  <circle cx="161" cy="87" r="3.5" fill="white"/>
-  <ellipse class="hli hlr" cx="156" cy="83" rx="13" ry="8" fill="#e05528"/>
+  <circle cx="158" cy="91" r="14" fill="white"/>
+  <circle cx="160" cy="93" r="8.5" fill="#180600"/>
+  <circle cx="163" cy="89" r="3.5" fill="white"/>
+  <ellipse class="he" cx="158" cy="85" rx="14" ry="9" fill="#e05528"/>
+
   <!-- Left eye -->
-  <circle cx="122" cy="91" r="11.5" fill="white"/>
-  <circle cx="121" cy="93" r="7" fill="#1a0800"/>
-  <circle cx="124" cy="89" r="3" fill="white"/>
-  <ellipse class="hli hll" cx="122" cy="85" rx="11.5" ry="7.5" fill="#e05528"/>
-  <!-- Beak -->
-  <path d="M130 110 C132 100 152 99 154 108 C148 115 133 115 130 110 Z" fill="#ff4500"/>
-  <path d="M130 112 C132 122 151 122 153 112 C148 124 133 122 130 112 Z" fill="#cc3800"/>
-</g>
+  <circle cx="120" cy="93" r="12" fill="white"/>
+  <circle cx="119" cy="95" r="7.5" fill="#180600"/>
+  <circle cx="122" cy="91" r="3" fill="white"/>
+  <ellipse class="he he2" cx="120" cy="87" rx="12" ry="8" fill="#e05528"/>
 
-<!-- TAIL -->
-<g class="htl">
-  <path d="M118 236 C106 262 92 284 80 302 C94 294 106 272 112 250 Z" fill="#c44418"/>
-  <path d="M128 240 C120 268 114 292 110 312 C118 304 124 282 126 258 Z" fill="#d95422"/>
-  <path d="M140 242 C138 270 136 294 134 314 C140 306 142 284 140 260 Z" fill="#e05528"/>
-  <path d="M152 240 C158 268 160 292 160 312 C154 304 150 282 150 258 Z" fill="#d95422"/>
-  <path d="M162 236 C174 260 184 282 188 300 C176 294 166 272 160 250 Z" fill="#c44418"/>
-</g>
+  <!-- Beak upper -->
+  <path d="M128,116 C130,105 156,104 158,114 C151,121 133,121 128,116Z" fill="#ff4500"/>
+  <!-- Beak lower -->
+  <path d="M128,118 C131,130 155,130 158,118 C151,131 133,129 128,118Z" fill="#cc3800"/>
 
-<!-- Feet -->
-<g class="hbd">
-  <line x1="126" y1="250" x2="112" y2="268" stroke="#ff4500" stroke-width="3" stroke-linecap="round"/>
-  <line x1="112" y1="268" x2="98" y2="270" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="112" y1="268" x2="108" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="112" y1="268" x2="118" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="154" y1="250" x2="168" y2="268" stroke="#ff4500" stroke-width="3" stroke-linecap="round"/>
-  <line x1="168" y1="268" x2="182" y2="270" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="168" y1="268" x2="172" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="168" y1="268" x2="162" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Tail -->
+  <g class="ht">
+    <path d="M117,246 C103,272 89,294 77,312 C91,304 105,282 111,256Z" fill="#c44418"/>
+    <path d="M129,250 C121,278 115,302 111,322 C119,314 125,290 127,264Z" fill="#d45020"/>
+    <path d="M140,252 C138,280 136,304 134,324 C140,316 142,292 140,268Z" fill="#e05528"/>
+    <path d="M151,250 C159,278 161,302 159,322 C153,314 149,290 149,264Z" fill="#d45020"/>
+    <path d="M163,246 C177,270 187,292 191,310 C179,304 167,282 161,256Z" fill="#c44418"/>
+  </g>
+
 </g>
 </svg>
     </div>
@@ -823,89 +801,78 @@
     </div>
     <div class="jennifer-visual">
       <div class="bird-svg-wrap">
-        <svg viewBox="0 0 280 290" xmlns="http://www.w3.org/2000/svg" width="240" height="240">
+        <svg viewBox="0 0 280 295" xmlns="http://www.w3.org/2000/svg" width="250" height="250">
 <defs><style>
-.jwl{animation:jlf 2.2s cubic-bezier(.55,0,.45,1) infinite;transform-origin:97px 162px;transform-box:fill-box}
-.jwr{animation:jrf 2.2s cubic-bezier(.55,0,.45,1) infinite .16s;transform-origin:183px 162px;transform-box:fill-box}
-.jbd{animation:jbb 2.2s ease-in-out infinite}
-.jtl{animation:jtw 2.2s ease-in-out infinite .24s;transform-origin:140px 235px;transform-box:fill-box}
-.jsh{animation:jsd 2.2s ease-in-out infinite}
-.jli{transform-origin:center;transform-box:fill-box}
-.jlr{animation:jbk 5s linear infinite 2.2s}
-.jll{animation:jbk 5s linear infinite 2.4s}
-@keyframes jlf{0%{transform:rotate(0deg)}16%{transform:rotate(-52deg)}46%{transform:rotate(28deg)}70%{transform:rotate(10deg)}100%{transform:rotate(0deg)}}
-@keyframes jrf{0%{transform:rotate(0deg)}20%{transform:rotate(-48deg)}50%{transform:rotate(25deg)}73%{transform:rotate(8deg)}100%{transform:rotate(0deg)}}
-@keyframes jbb{0%,100%{transform:translateY(0)}16%{transform:translateY(-10px)}46%{transform:translateY(5px)}70%{transform:translateY(1px)}}
-@keyframes jtw{0%,100%{transform:rotate(0deg)}22%{transform:rotate(-7deg)}56%{transform:rotate(5deg)}}
-@keyframes jsd{0%,100%{transform:scaleX(1);opacity:.1}16%{transform:scaleX(.78);opacity:.05}46%{transform:scaleX(1.18);opacity:.15}}
-@keyframes jbk{0%,90%,100%{transform:scaleY(0)}92%,97%{transform:scaleY(1)}}
+.jg{animation:jbob 2.1s ease-in-out infinite}
+.js{animation:jshd 2.1s ease-in-out infinite}
+.jt{transform-origin:140px 242px;transform-box:fill-box;animation:jtwg 2.1s ease-in-out infinite .2s}
+.je{transform-origin:center;transform-box:fill-box;animation:jblk 5s linear infinite}
+.je2{animation-delay:2.3s}
+@keyframes jbob{0%,100%{transform:translateY(0)}18%{transform:translateY(-13px)}55%{transform:translateY(7px)}82%{transform:translateY(1px)}}
+@keyframes jshd{0%,100%{transform:scaleX(1);opacity:.11}18%{transform:scaleX(.74);opacity:.05}55%{transform:scaleX(1.22);opacity:.16}}
+@keyframes jtwg{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-8deg)}58%{transform:rotate(6deg)}}
+@keyframes jblk{0%,87%,100%{transform:scaleY(0)}89%,96%{transform:scaleY(1)}}
 </style></defs>
 
-<!-- Shadow -->
-<ellipse class="jsh" cx="140" cy="276" rx="48" ry="7" fill="#1a0800" opacity=".1"/>
+<ellipse class="js" cx="140" cy="289" rx="52" ry="7" fill="#1a0800" opacity=".11"/>
 
-<!-- BACK WING — path starts inside body (x=120), body draws on top covering join.
-     Pivot at left body edge (97,162). Wing only visible outside body boundary. -->
-<g class="jwl">
-  <path d="M120 158 C88 138 50 128 16 146 C4 156 2 170 14 180 C38 192 80 184 112 170 Z" fill="#c44b1f"/>
-  <path d="M120 158 C92 142 58 134 26 150 C16 160 16 172 26 178 C50 188 88 180 114 168 Z" fill="#d95422"/>
-  <path d="M120 158 C98 146 72 140 48 153 C40 161 42 171 50 176 C70 184 100 177 116 167 Z" fill="#ff7a44" opacity=".75"/>
-  <!-- Primary feather tips -->
-  <path d="M36 178 C20 188 6 204 -6 222 C6 224 18 215 30 204 C42 193 42 183 36 178 Z" fill="#b83d12"/>
-  <path d="M18 167 C0 180 -14 196 -26 218 C-12 218 2 208 16 197 C28 186 28 173 18 167 Z" fill="#b83d12" opacity=".85"/>
-</g>
+<g class="jg">
+  <!-- LEFT WING — shoulder fixed at (100,168), body covers root -->
+  <path fill="#e05528"><animate attributeName="d" values="M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,116 16,104 -14,128 C-26,146 -20,167 2,173 C34,180 74,177 100,168;M100,168 C65,196 22,206 -2,198 C-12,190 -10,176 6,168 C32,161 74,161 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168;M100,168 C65,150 22,146 -8,166 C-18,180 -14,196 6,202 C38,210 78,198 100,168" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2.1s" repeatCount="indefinite"/></path>
+  <!-- secondary feather layer -->
+  <path fill="#d04818" opacity=".65">
+    <animate attributeName="d"
+      values="M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,122 34,112 8,134 C-2,150 0,168 16,173 C46,180 78,176 100,168;M100,168 C72,198 38,207 14,200 C4,193 6,179 20,170 C46,163 78,162 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168;M100,168 C72,152 38,149 12,168 C4,180 6,193 22,198 C52,206 82,196 100,168"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2.1s" repeatCount="indefinite"/>
+  </path>
+  <!-- primary feather tips -->
+  <path fill="#b03410" opacity=".85"><animate attributeName="d" values="M-2,196 C-20,210 -28,200 -12,188;M-8,162 C-28,174 -34,162 -16,152;M0,182 C-14,194 -20,186 -6,176;M-2,196 C-20,210 -28,200 -12,188;M-2,196 C-20,210 -28,200 -12,188" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2.1s" repeatCount="indefinite"/></path>
 
-<!-- FRONT WING — pivot at right body edge (183,162). Same approach. -->
-<g class="jwr">
-  <path d="M160 158 C192 138 230 128 264 146 C276 156 278 170 266 180 C242 192 200 184 168 170 Z" fill="#c44b1f"/>
-  <path d="M160 158 C188 142 222 134 254 150 C264 160 264 172 254 178 C230 188 192 180 166 168 Z" fill="#d95422"/>
-  <path d="M160 158 C182 146 208 140 232 153 C240 161 238 171 230 176 C210 184 180 177 164 167 Z" fill="#ff7a44" opacity=".75"/>
-  <!-- Primary feather tips -->
-  <path d="M244 178 C260 188 274 204 286 222 C274 224 262 215 250 204 C238 193 238 183 244 178 Z" fill="#b83d12"/>
-  <path d="M262 167 C280 180 294 196 306 218 C292 218 278 208 264 197 C252 186 252 173 262 167 Z" fill="#b83d12" opacity=".85"/>
-</g>
+  <!-- RIGHT WING — shoulder fixed at (180,168) -->
+  <path fill="#e05528"><animate attributeName="d" values="M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,116 264,104 294,128 C306,146 300,167 278,173 C246,180 206,177 180,168;M180,168 C215,196 258,206 282,198 C292,190 290,176 274,168 C248,161 206,161 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168;M180,168 C215,150 258,146 288,166 C298,180 294,196 274,202 C242,210 202,198 180,168" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2.1s" repeatCount="indefinite"/></path>
+  <path fill="#d04818" opacity=".65">
+    <animate attributeName="d"
+      values="M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,122 246,112 272,134 C282,150 280,168 264,173 C234,180 202,176 180,168;M180,168 C208,198 242,207 266,200 C276,193 274,179 260,170 C234,163 202,162 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168;M180,168 C208,152 242,149 268,168 C276,180 274,193 258,198 C228,206 198,196 180,168"
+      keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2.1s" repeatCount="indefinite"/>
+  </path>
+  <path fill="#b03410" opacity=".85"><animate attributeName="d" values="M282,196 C300,210 308,200 292,188;M288,162 C308,174 314,162 296,152;M280,182 C294,194 300,186 286,176;M282,196 C300,210 308,200 292,188;M282,196 C300,210 308,200 292,188" keyTimes="0;0.18;0.62;0.85;1" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.6 1;0.4 0 0.2 1;0.4 0 0.6 1" dur="2.1s" repeatCount="indefinite"/></path>
 
-<!-- BODY — drawn ON TOP of both wings, always covers the attachment seamlessly -->
-<g class="jbd">
-  <ellipse cx="140" cy="192" rx="52" ry="62" fill="#e05528"/>
-  <ellipse cx="138" cy="208" rx="36" ry="47" fill="#ffb59d" opacity=".42"/>
-  <!-- Head -->
-  <circle cx="140" cy="100" r="44" fill="#e05528"/>
-  <ellipse cx="129" cy="84" rx="20" ry="12" fill="#ff8c5a" opacity=".26"/>
+  <!-- BODY — drawn after wings, ellipse covers shoulder (100,168)+(180,168) -->
+  <!-- Body edge at y=168: x = 140 ± 54×√(1−((168−195)/65)²) ≈ 140 ± 49 → 91 to 189 -->
+  <!-- Both shoulders (100 and 180) are inside that range ✓ -->
+  <ellipse cx="140" cy="195" rx="54" ry="65" fill="#e05528"/>
+  <ellipse cx="138" cy="215" rx="37" ry="50" fill="#ffb59d" opacity=".37"/>
+
+  <!-- HEAD -->
+  <circle cx="140" cy="100" r="46" fill="#e05528"/>
+  <ellipse cx="127" cy="83" rx="21" ry="12" fill="#ff8c5a" opacity=".22"/>
+
   <!-- Right eye -->
-  <circle cx="156" cy="89" r="13" fill="white"/>
-  <circle cx="158" cy="91" r="8" fill="#1a0800"/>
-  <circle cx="161" cy="87" r="3.5" fill="white"/>
-  <ellipse class="jli jlr" cx="156" cy="83" rx="13" ry="8" fill="#e05528"/>
+  <circle cx="158" cy="91" r="14" fill="white"/>
+  <circle cx="160" cy="93" r="8.5" fill="#180600"/>
+  <circle cx="163" cy="89" r="3.5" fill="white"/>
+  <ellipse class="je" cx="158" cy="85" rx="14" ry="9" fill="#e05528"/>
+
   <!-- Left eye -->
-  <circle cx="122" cy="91" r="11.5" fill="white"/>
-  <circle cx="121" cy="93" r="7" fill="#1a0800"/>
-  <circle cx="124" cy="89" r="3" fill="white"/>
-  <ellipse class="jli jll" cx="122" cy="85" rx="11.5" ry="7.5" fill="#e05528"/>
-  <!-- Beak -->
-  <path d="M130 110 C132 100 152 99 154 108 C148 115 133 115 130 110 Z" fill="#ff4500"/>
-  <path d="M130 112 C132 122 151 122 153 112 C148 124 133 122 130 112 Z" fill="#cc3800"/>
-</g>
+  <circle cx="120" cy="93" r="12" fill="white"/>
+  <circle cx="119" cy="95" r="7.5" fill="#180600"/>
+  <circle cx="122" cy="91" r="3" fill="white"/>
+  <ellipse class="je je2" cx="120" cy="87" rx="12" ry="8" fill="#e05528"/>
 
-<!-- TAIL -->
-<g class="jtl">
-  <path d="M118 236 C106 262 92 284 80 302 C94 294 106 272 112 250 Z" fill="#c44418"/>
-  <path d="M128 240 C120 268 114 292 110 312 C118 304 124 282 126 258 Z" fill="#d95422"/>
-  <path d="M140 242 C138 270 136 294 134 314 C140 306 142 284 140 260 Z" fill="#e05528"/>
-  <path d="M152 240 C158 268 160 292 160 312 C154 304 150 282 150 258 Z" fill="#d95422"/>
-  <path d="M162 236 C174 260 184 282 188 300 C176 294 166 272 160 250 Z" fill="#c44418"/>
-</g>
+  <!-- Beak upper -->
+  <path d="M128,116 C130,105 156,104 158,114 C151,121 133,121 128,116Z" fill="#ff4500"/>
+  <!-- Beak lower -->
+  <path d="M128,118 C131,130 155,130 158,118 C151,131 133,129 128,118Z" fill="#cc3800"/>
 
-<!-- Feet -->
-<g class="jbd">
-  <line x1="126" y1="250" x2="112" y2="268" stroke="#ff4500" stroke-width="3" stroke-linecap="round"/>
-  <line x1="112" y1="268" x2="98" y2="270" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="112" y1="268" x2="108" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="112" y1="268" x2="118" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="154" y1="250" x2="168" y2="268" stroke="#ff4500" stroke-width="3" stroke-linecap="round"/>
-  <line x1="168" y1="268" x2="182" y2="270" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="168" y1="268" x2="172" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="168" y1="268" x2="162" y2="278" stroke="#ff4500" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Tail -->
+  <g class="jt">
+    <path d="M117,246 C103,272 89,294 77,312 C91,304 105,282 111,256Z" fill="#c44418"/>
+    <path d="M129,250 C121,278 115,302 111,322 C119,314 125,290 127,264Z" fill="#d45020"/>
+    <path d="M140,252 C138,280 136,304 134,324 C140,316 142,292 140,268Z" fill="#e05528"/>
+    <path d="M151,250 C159,278 161,302 159,322 C153,314 149,290 149,264Z" fill="#d45020"/>
+    <path d="M163,246 C177,270 187,292 191,310 C179,304 167,282 161,256Z" fill="#c44418"/>
+  </g>
+
 </g>
 </svg>
       </div>
