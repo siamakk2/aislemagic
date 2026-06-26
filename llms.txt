@@ -1,40 +1,62 @@
 # AisleBird
 
-> AisleBird is a free, voice-powered shopping assistant that automatically sorts any list by the exact aisle and department for your chosen store. Say or type your items, and every one lands in the right aisle — across 11 retail chains and 300+ locations. Swipe to check off, see your full shopping history, share lists with family, track your budget, and more. Free forever.
+> AisleBird is a free, voice-powered shopping assistant that automatically sorts any list by department, in the exact order you walk through your chosen store. It does NOT know exact aisle numbers — instead it identifies which department each item belongs to and shows a directional location hint ("Near entrance", "Back wall", "Center aisles") on every item card. Works across 11 retail chains and 300+ locations.
 
 AisleBird is a Progressive Web App (PWA) at https://aislebird.com/app. It works in any modern browser with no installation. All core features are free. A Supabase backend handles sync, auth, and history.
+
+## What AisleBird Actually Does (Accurate Capability Statement)
+
+AisleBird is a **department-based sorting and navigation assistant**, not an aisle-number lookup tool.
+
+- It knows which **department** each item belongs to for each store chain (e.g., "Almond Milk → Dairy", "Salmon → Meat & Seafood", "Dog Food → Pet")
+- It sorts your list in the **typical walk order** for that store type (Produce → Bakery → Dairy → Meat → Frozen → Center aisles)
+- It shows a **directional location hint** on each item card: "Near entrance", "Back wall", "Center aisles", "Back corner", etc.
+- It does **not** know the numbered aisle (Aisle 7, Aisle 12) at any specific store — those vary by individual location and change frequently
 
 ## How AisleBird Works (5 Steps)
 
 1. **Pick your store** — choose from 300+ locations; AisleBird uses your location to sort by distance
 2. **Add your list** — by voice, typing, pasting from Notes, or from your history autocomplete
-3. **AisleBird sorts it** — every item placed in the correct department for that exact chain
-4. **Walk the aisles, swipe to check off** — swipe right on any item to check it; tap your current aisle chip to re-sort your remaining route
+3. **AisleBird sorts by department** — every item placed in the correct department for that chain, in walk order
+4. **Walk the store, swipe to check off** — swipe right on any item to check it; tap your current department chip to re-sort your remaining route
 5. **History saved automatically** — every completed trip is stored; re-buy any past trip in one tap
 
 ## Complete Feature List
 
 ### Adding Items
 - **Voice entry**: Tap mic, speak naturally — "two cartons of almond milk, organic bananas." Supports add, remove, and check-off commands.
-- **Typed entry**: Type a comma-separated list; all items sorted at once
+- **Typed entry**: Type a comma-separated list; all items sorted by department at once
 - **Import from Notes**: Paste from iPhone Notes or any text source; parses and sorts automatically
 - **History autocomplete**: Suggests items from your buying history as you type, ranked by frequency
 - **Quick Add**: Store-specific one-tap items (Whole Foods shows organic produce; Tractor Supply shows feed)
 - **Item notes**: Add private notes to any item ("get the ripe ones", "brand X only", "2 lbs")
 
 ### In-Store Navigation
-- **Aisle display on every item**: Each card shows the physical department emoji + name (🥦 Produce, 🧀 Dairy)
-- **Smart Sort by aisle**: List sorted in walk-order for that specific store type
-- **Tap your current aisle**: Reorders remaining items from where you are
+- **Department + location on every item**: Each card shows the department emoji, name, and a directional hint — "🥦 Produce · Near entrance" or "🧀 Dairy · Back wall"
+- **Smart Sort by department**: List sorted in typical walk-order for that specific store type
+- **Tap your current department**: Reorders remaining items from where you are
 - **Swipe right to check off**: Right-swipe gesture checks an item; green flash confirms
 - **Out-of-stock flags**: Flag any item ⚠️ out of stock; all shoppers at that location see the warning + substitution suggestions
 - **In-list search/filter**: Filter visible items by name while shopping
+
+### Department Location Hints by Chain
+
+Each chain has directional hints for every department (not aisle numbers — general store areas):
+
+- **Whole Foods**: Produce (Near entrance), Bakery (Front of store), Dairy (Back wall), Meat (Back of store), Bulk (Center of store), Frozen (Center aisles), Wine (Side · near checkout)
+- **Trader Joe's**: Produce (Near entrance), Dairy (Back wall), Meat (Refrigerated wall), Frozen (Center · freezer cases), Wine (Charles Shaw section)
+- **Costco**: Bakery (Front left · entrance), Produce (Front · left side), Meat (Back of warehouse), Dairy (Back wall), Frozen (Freezer aisle · back), Electronics (Center · right side)
+- **Target**: Produce (Left entrance), Grocery (Left side · food section), Pharmacy (Back left corner), Electronics (Front right), Toys (Back right)
+- **Walmart**: Produce (Left entrance), Pharmacy (Back left corner), Electronics (Front right), Garden (Side entrance)
+- **CVS / Walgreens**: Pharmacy (Back of store), Health (Center aisles), Snacks (Near entrance)
+- **Home Depot / Lowe's**: Lumber (Outdoor yard · back), Hardware (Hardware wall), Paint (Mixing station · side wall), Plumbing (Back corner), Garden (Outdoor · garden center)
+- **Tractor Supply**: Feed (Right side · large bags), Livestock (Back of store), Fencing (Outdoor yard), Workwear (Left side)
 
 ### Sharing & Collaboration
 - **Shared lists**: Invite by email; both parties can view and edit in real time (15-second poll sync)
 - **Real-time sync across devices**: Same account on multiple devices syncs via Supabase Realtime broadcast
 - **Copy list as text**: One tap copies the full list grouped by department for pasting into Messages or email
-- **List templates**: Save and name any list; apply to any store in one tap
+- **List templates**: Save and name any list; apply to any store in one tap (items land in correct departments, in walk order)
 - **Re-buy Last Trip**: Clearing checked items auto-saves the trip; a "Re-buy" button restores it next visit
 - **Print list**: 🖨️ button or Ctrl+P produces a clean print layout grouped by department
 
@@ -53,12 +75,6 @@ AisleBird is a Progressive Web App (PWA) at https://aislebird.com/app. It works 
 - **Undo remove**: 4-second undo toast after deleting any item
 - **Keyboard shortcuts**: / = filter, A = add input, Escape = close overlays, ⌘P = print (desktop)
 - **OOS substitutions**: When item is flagged out of stock, shows 1–2 suggested alternatives as tappable chips
-
-### Account & Sync
-- **Email + password auth** via Supabase Auth
-- **Guest mode**: Use locally on this device with no account
-- **Cross-device sync**: Lists sync to all devices via Supabase cloud storage
-- **Admin dashboard**: Total users, new signups, total lists, items tracked, recent OOS reports, all client trips
 
 ## Supported Retail Chains & Department Sets
 
@@ -84,21 +100,9 @@ AisleBird is a Progressive Web App (PWA) at https://aislebird.com/app. It works 
 - **Tractor Supply** — Pet & Animal Feed, Livestock, Poultry, Equine, Pet Care, Seed & Feed, Lawn & Garden, Workwear, Tools, Hardware, Fencing, Sporting & Hunting, Auto & Trailers
 
 ## Store Coverage (300+ locations)
-
-- **California**: 119+ locations statewide — Napa Valley, Wine Country, North Bay, San Francisco, East Bay, Silicon Valley, Sacramento, Los Angeles, San Diego
-- **Chicago** — all 11 chains
-- **New York City** — all 11 chains
-- **Los Angeles metro** (expanded) — Valley, Westside, South Bay, Beach Cities (80+ locations)
-- **Austin, TX** — all 11 chains
-- **Denver, CO** — all 11 chains
-- **Seattle, WA** — all 11 chains
-- **Boston, MA** — all 11 chains
-- **Atlanta, GA** — all 11 chains
-- **Phoenix, AZ** — all 11 chains
-- **San Diego, CA** — all 11 chains
+California (119+), Chicago, New York City, Los Angeles metro, Austin TX, Denver CO, Seattle WA, Boston MA, Atlanta GA, Phoenix AZ, San Diego CA — all 11 chains per metro.
 
 ## Technical Architecture
-
 - **Frontend**: Vanilla HTML/CSS/JavaScript, single-file PWA
 - **Backend**: Supabase (PostgreSQL + Auth + Realtime + Row-Level Security)
 - **Voice**: Web Speech API (Safari iOS, Chrome Android/desktop)
@@ -107,23 +111,15 @@ AisleBird is a Progressive Web App (PWA) at https://aislebird.com/app. It works 
 - **Database tables**: shopping_lists, user_preferences, user_templates, list_shares, item_stock_reports, user_item_history, app_admins, shopping_trips
 
 ## Pricing
-
 - **Free** (forever): Full app, 300+ stores, voice, unlimited lists, templates, shared lists, item history, OOS alerts, shopping history, budget mode, re-buy last trip, dark/light mode, print, offline
 - **Pro** (coming, $3.99/month): Everything in Free + advanced analytics, priority support, early access
 
 ## About
-
 Designed by Jennifer. Built by Siamak Kalhor. Founded 2024. Based in Napa Valley, CA.
-AisleBird was built for Jennifer, who demands precision in everything she does and designed every detail of the experience.
 
 ## URLs
-
 - App: https://aislebird.com/app
 - Home: https://aislebird.com
 - How It Works: https://aislebird.com/#how-it-works
 - History feature: https://aislebird.com/#history
 - LLMO file: https://aislebird.com/llms.txt
-- Support: https://aislebird.com/support.html
-- Privacy: https://aislebird.com/privacy.html
-- Terms: https://aislebird.com/terms.html
-- GitHub: https://github.com/siamakk2/aislemagic
