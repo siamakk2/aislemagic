@@ -1692,10 +1692,14 @@ function applyStore(store){
   selCat=curChain.cats[0].id;
   document.getElementById('store-icon').textContent=curChain.icon;
   document.getElementById('store-name').textContent=store.chain+' · '+store.name;
+  filterQuery='';
+  var _fb=document.getElementById('filter-bar'); if(_fb) _fb.style.display='none';
+  var _fi=document.getElementById('filter-inp'); if(_fi) _fi.value='';
   buildCatGrid();
   renderChips();
   renderList();
   renderSettings();
+  loadLastTrip();
   closeOv('ov-store');
   closeOv('ov-first-store');
   showToast('\u2713 '+store.chain+' '+store.name);
@@ -2698,6 +2702,7 @@ function bootForGuest(){
   loadItemsFromLocal();
   if(typeof renderList === 'function') renderList();
   if(typeof renderChips === 'function') renderChips();
+  loadLastTrip();
 }
 
 function applyStoreSilent(store){
