@@ -1725,21 +1725,55 @@
   <section class="jennifer-section" id="story">
     <div class="jennifer-inner">
       <div class="jennifer-bird">
-        <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
-          <g class="wing-back"><path d="M 70 140 Q 45 110 35 155 Q 48 175 85 170 Z" fill="#ff6b35" opacity="0.8"/><path d="M 60 135 Q 40 100 25 145 Q 42 170 75 165 Z" fill="#ff8c5a" opacity="0.9"/></g>
-          <ellipse cx="140" cy="145" rx="55" ry="65" fill="#ff6b35"/>
-          <ellipse cx="140" cy="160" rx="40" ry="50" fill="#ffb59d" opacity="0.7"/>
-          <circle cx="140" cy="75" r="42" fill="#ff6b35"/>
-          <circle cx="150" cy="65" r="10" fill="#fff"/><circle cx="150" cy="65" r="6" fill="#000"/>
-          <circle cx="127" cy="65" r="10" fill="#fff"/><circle cx="127" cy="65" r="6" fill="#000"/>
-          <circle cx="152" cy="62" r="3" fill="#fff"/><circle cx="129" cy="62" r="3" fill="#fff"/>
-          <ellipse cx="140" cy="85" rx="14" ry="11" fill="#ff4500"/>
-          <path d="M 154 82 L 165 78 L 154 88 Z" fill="#ff4500"/>
-          <ellipse cx="140" cy="150" rx="28" ry="40" fill="#ffb59d" opacity="0.5"/>
-          <g class="wing-front"><path d="M 185 100 Q 230 75 250 95 Q 230 125 190 130 Z" fill="#ff8c5a"/><path d="M 190 115 Q 235 100 260 120 Q 240 145 195 140 Z" fill="#ff6b35" opacity="0.9"/><path d="M 195 130 Q 240 120 265 145 Q 245 160 200 155 Z" fill="#ff4500" opacity="0.8"/></g>
-          <path d="M 95 160 Q 55 145 40 185 Q 65 205 105 185 Z" fill="#ff4500" opacity="0.9"/>
-          <path d="M 92 180 Q 55 170 35 220 Q 65 230 100 200 Z" fill="#ff6b35" opacity="0.8"/>
-        </svg>
+        <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" width="180" height="180" style="filter:drop-shadow(0 12px 30px rgba(255,107,53,.3))">
+<defs><style>
+.wb{transform-origin:140px 148px;animation:wfb 2s cubic-bezier(.6,0,.4,1) infinite}
+.wf{transform-origin:155px 148px;animation:wff 2s cubic-bezier(.6,0,.4,1) infinite .14s}
+.bd{animation:bob 2s ease-in-out infinite}
+.tl{transform-origin:140px 222px;animation:tail 2s ease-in-out infinite .22s}
+.sh{animation:shad 2s ease-in-out infinite}
+.el{animation:blink 5s linear infinite 1.8s;transform-origin:center}
+@keyframes wfb{0%{transform:rotate(0deg)}18%{transform:rotate(-46deg)}52%{transform:rotate(25deg)}74%{transform:rotate(8deg)}100%{transform:rotate(0deg)}}
+@keyframes wff{0%{transform:rotate(0deg)}22%{transform:rotate(-42deg)}55%{transform:rotate(23deg)}76%{transform:rotate(6deg)}100%{transform:rotate(0deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}18%{transform:translateY(-9px)}52%{transform:translateY(4px)}74%{transform:translateY(1px)}}
+@keyframes tail{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-7deg)}60%{transform:rotate(5deg)}}
+@keyframes shad{0%,100%{transform:scaleX(1);opacity:.13}18%{transform:scaleX(.78);opacity:.07}52%{transform:scaleX(1.18);opacity:.18}}
+@keyframes blink{0%,88%,100%{transform:scaleY(0)}90%,97%{transform:scaleY(1)}}
+</style></defs>
+<ellipse class="sh" cx="140" cy="270" rx="48" ry="8" fill="#1a0800" opacity=".13"/>
+<g class="wb">
+  <path d="M140 148 C106 130 66 123 32 146 C50 174 94 171 132 160Z" fill="#c44b1f"/>
+  <path d="M140 148 C112 136 76 130 48 148 C66 172 106 169 134 158Z" fill="#e05528"/>
+  <path d="M140 148 C118 140 88 136 64 150 C80 170 112 167 136 156Z" fill="#ff8c5a" opacity=".65"/>
+</g>
+<g class="bd">
+  <ellipse cx="140" cy="175" rx="50" ry="62" fill="#e05528"/>
+  <ellipse cx="138" cy="190" rx="36" ry="46" fill="#ffb59d" opacity=".48"/>
+  <circle cx="140" cy="82" r="44" fill="#e05528"/>
+  <circle cx="154" cy="70" r="12" fill="white"/>
+  <circle cx="156" cy="72" r="7" fill="#1a0800"/>
+  <circle cx="159" cy="68" r="3" fill="white"/>
+  <rect class="el" x="142" y="58" width="24" height="13" rx="6.5" fill="#e05528"/>
+  <circle cx="124" cy="72" r="11" fill="white"/>
+  <circle cx="123" cy="73" r="6.5" fill="#1a0800"/>
+  <circle cx="126" cy="70" r="2.5" fill="white"/>
+  <rect class="el" x="113" y="60" width="22" height="13" rx="6.5" fill="#e05528" style="animation-delay:1.95s"/>
+  <path d="M136 96 C138 88 154 87 157 95 C151 101 138 101 136 96Z" fill="#ff4500"/>
+  <path d="M136 98 C138 106 153 106 156 98 C150 108 138 106 136 98Z" fill="#c83800"/>
+</g>
+<g class="wf">
+  <path d="M155 148 C190 128 232 120 264 142 C246 170 204 168 164 158Z" fill="#c44b1f"/>
+  <path d="M155 148 C186 134 224 127 252 146 C234 172 196 170 160 160Z" fill="#e05528"/>
+  <path d="M155 148 C182 138 214 132 238 148 C222 168 190 166 158 156Z" fill="#ff8c5a" opacity=".7"/>
+</g>
+<g class="tl">
+  <path d="M122 222 C110 248 98 268 88 285 C100 276 112 256 118 234Z" fill="#c44b1f"/>
+  <path d="M133 226 C128 252 122 274 118 292 C126 282 132 260 134 240Z" fill="#e05528"/>
+  <path d="M145 228 C147 254 145 276 142 294 C138 284 138 262 140 244Z" fill="#e05528"/>
+  <path d="M157 226 C162 252 162 274 160 292 C154 282 152 260 152 240Z" fill="#e05528"/>
+  <path d="M168 222 C180 246 188 266 192 283 C182 276 172 256 164 234Z" fill="#c44b1f"/>
+</g>
+</svg>
       </div>
       <div class="jennifer-quote">
         <blockquote>I shouldn't have to wander. I just want to get in, get everything, and get out.</blockquote>
