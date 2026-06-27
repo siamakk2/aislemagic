@@ -307,7 +307,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .inote-add{font-size:13px;margin-top:5px;color:var(--dim);}
 
 /* OOS */
-.oos-warn{font-size:12px;padding:4px 10px;margin-top:6px;}
+.oos-warn{font-size:12px;padding:4px 10px;margin-top:6px;background:rgba(224,82,82,.12);border-radius:6px;color:#e05252;font-weight:600;display:inline-block;}
 .sub-chip{font-size:12px;padding:5px 13px;}
 
 /* Progress total */
@@ -2215,7 +2215,7 @@ function updateProg(){
   var t=items.length,d=0;
   for(var i=0;i<items.length;i++) if(items[i].checked) d++;
   var p=t?Math.round(d/t*100):0;
-  document.getElementById('prog-txt').textContent=d+' of '+t+' items';
+  document.getElementById('prog-txt').textContent=d+' of '+t+(t===1?' item':' items');
   document.getElementById('prog-pct').textContent=p+'%';
   document.getElementById('prog-fill').style.width=p+'%';
   var bRow=document.getElementById('budget-row'), bVal=document.getElementById('budget-total');
@@ -2642,8 +2642,12 @@ function addVoiceItem(raw){
   var ex=null; for(var i=0;i<items.length;i++) if(items[i].name.toLowerCase()===name.toLowerCase()){ ex=items[i]; break; }
   if(ex){ ex.qty+=qty; } else { items.push({id:nid++,name:name,cat:cat,qty:qty,checked:false,tag:null,tc:''}); }
   var catObj=getCat(cat);
-  d.innerHTML='<div class="va-dot"></div><div><div class="va-name">'+name+'</div><div class="va-meta">'+catObj.label+' · Qty '+qty+'</div></div><div class="va-ok">✓</div>';
+  d.innerHTML='<div class="va-dot"></div><div><div class="va-name">'+name+'</div><div class="va-meta">'+catObj.label+'</div></div><div class="va-ok">✓</div>';
   list.insertBefore(d,list.firstChild);
+  renderList();
+  // Update subtitle to show total list count
+  var vsub=document.getElementById('v-sub');
+  if(vsub) vsub.textContent=items.length+(items.length===1?' item on your list':' items on your list — keep going');
 }
 
 function startWave(){
@@ -3359,14 +3363,14 @@ function renderAutocomplete(query){
   var q=showRecent?'':query.toLowerCase().trim();
   var seen={};
   var matches=itemHistory.filter(function(h){
-    return (showRecent||h.item_name_lower.indexOf(q)===0) && !seen[h.item_name_lower] && (seen[h.item_name_lower]=true);
+    return (showRecent||h.item_name_lower.indexOf(q)!==-1) && !seen[h.item_name_lower] && (seen[h.item_name_lower]=true);
   }).slice(0,5);
   // pad with quick-add if few results
   if(matches.length<5 && curChain && curChain.quickAdd){
     curChain.quickAdd.forEach(function(qa){
       if(matches.length>=5) return;
       var lo=qa.name.toLowerCase();
-      if((showRecent||lo.indexOf(q)===0) && !seen[lo]){
+      if((showRecent||lo.indexOf(q)!==-1) && !seen[lo]){
         seen[lo]=true;
         matches.push({item_name:qa.name,item_name_lower:lo,category:qa.cat,use_count:0});
       }
@@ -3377,8 +3381,9 @@ function renderAutocomplete(query){
   matches.forEach(function(h){
     var cat=getCat(h.category);
     var d=document.createElement('div'); d.className='ac-item';
+    var isOos=stockReports&&stockReports[h.item_name_lower];
     d.innerHTML='<span style="font-size:15px;">'+(cat?cat.emoji:'\ud83d\uded2')+'</span>'+
-      '<span style="flex:1;font-size:14px;">'+escHtml(cap(h.item_name))+'</span>'+
+      '<span style="flex:1;font-size:14px;">'+escHtml(cap(h.item_name))+(isOos?' <span style="font-size:11px;color:#e05252;font-weight:700;background:rgba(224,82,82,.12);padding:2px 6px;border-radius:4px;">OOS</span>':'')+'</span>'+
       '<span class="ac-cat">'+(cat?escHtml(cat.label):'')+'</span>';
     (function(item){
       d.addEventListener('mousedown',function(e){ e.preventDefault(); });
