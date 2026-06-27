@@ -152,6 +152,14 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .va-name{font-size:13px;font-weight:700;}
 .va-meta{font-size:11px;color:var(--mut);margin-top:1px;}
 .va-ok{margin-left:auto;font-size:11px;font-weight:800;color:var(--or);}
+.v-tip-group{display:flex;flex-direction:column;gap:9px;margin-bottom:10px;}
+.v-tip-row{display:flex;align-items:center;gap:10px;}
+.v-tip-pill{font-size:9px;font-weight:800;letter-spacing:.07em;border-radius:6px;padding:3px 7px;flex-shrink:0;min-width:52px;text-align:center;}
+.v-tip-add{background:rgba(124,179,66,.18);color:#7cb342;border:1px solid rgba(124,179,66,.3);}
+.v-tip-check{background:rgba(255,107,53,.12);color:var(--or);border:1px solid rgba(255,107,53,.25);}
+.v-tip-remove{background:rgba(200,35,51,.12);color:#e55;border:1px solid rgba(200,35,51,.2);}
+.v-tip-ex{font-size:13px;color:var(--tx);font-style:italic;}
+.v-tip-hint{font-size:11px;color:var(--dim);text-align:center;padding-top:4px;border-top:1px solid var(--bdr);margin-top:2px;}
 .v-done{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:999px;padding:13px;font-size:14px;font-weight:700;color:var(--tx);cursor:pointer;font-family:'Inter',sans-serif;}
 
 /* SETTINGS */
@@ -511,26 +519,28 @@ if('serviceWorker' in navigator){
 
 <!-- VOICE -->
 <div class="scr" id="s-voice">
-  <button class="v-back" id="v-back-btn" type="button">← Back to List</button>
+  <button class="v-back" id="v-back-btn" type="button">← Back</button>
   <div class="v-body">
     <div class="orb-wrap">
       <div class="orb-ring" id="orb-ring"></div>
       <button class="orb" id="orb" type="button">🎤</button>
     </div>
-    <div class="v-state" id="v-state">Tap the mic to start</div>
-    <div class="v-sub" id="v-sub">Voice adds items to your list instantly</div>
+    <div class="v-state" id="v-state">Tap to speak</div>
+    <div class="v-sub" id="v-sub">Say your items — sorted by aisle automatically</div>
     <div class="wave"><div class="wb" id="w1"></div><div class="wb" id="w2"></div><div class="wb" id="w3"></div><div class="wb" id="w4"></div><div class="wb" id="w5"></div></div>
     <div class="v-err" id="v-err"></div>
     <div class="v-tips">
-      <div class="v-tips-t">What to say</div>
-      <div class="v-tip">🥦 "Add organic bananas"</div>
-      <div class="v-tip">🧀 "Two cartons of almond milk"</div>
-      <div class="v-tip">🍞 "Get sourdough bread"</div>
-      <div class="v-tip">❌ "Remove milk" — removes from list</div>
-      <div class="v-tip">✓ "Got the eggs" — checks off</div>
+      <div class="v-tips-t">💬 Try saying…</div>
+      <div class="v-tip-group">
+        <div class="v-tip-row"><span class="v-tip-pill v-tip-add">ADD</span><span class="v-tip-ex">"Bananas, almond milk, sourdough"</span></div>
+        <div class="v-tip-row"><span class="v-tip-pill v-tip-add">ADD</span><span class="v-tip-ex">"Two cartons of orange juice"</span></div>
+        <div class="v-tip-row"><span class="v-tip-pill v-tip-check">CHECK</span><span class="v-tip-ex">"Got the eggs" or "Check off milk"</span></div>
+        <div class="v-tip-row"><span class="v-tip-pill v-tip-remove">REMOVE</span><span class="v-tip-ex">"Remove butter" or "Delete chips"</span></div>
+      </div>
+      <div class="v-tip-hint">Speak naturally — quantities, brands, anything</div>
     </div>
     <div class="v-added" id="v-added"></div>
-    <button class="v-done" id="v-done-btn" type="button">✓ Done — View My List</button>
+    <button class="v-done" id="v-done-btn" type="button">Done — back to list</button>
   </div>
 </div>
 
@@ -2595,8 +2605,8 @@ function startListening(){
   document.getElementById('v-err').style.display='none';
   recog=new SR(); recog.continuous=true; recog.interimResults=true; recog.lang='en-US';
   recog.onstart=function(){
-    document.getElementById('v-state').textContent='🔴 Listening…';
-    document.getElementById('v-sub').textContent='Say what you need to buy';
+    document.getElementById('v-state').textContent='🟠 Listening…';
+    document.getElementById('v-sub').textContent='Say items one at a time, or rattle them all off';
     startWave();
   };
   recog.onresult=function(e){
@@ -2631,8 +2641,8 @@ function stopListening(){
   document.getElementById('orb').classList.remove('go');
   document.getElementById('orb-ring').classList.remove('go');
   var vc=document.getElementById('voice-circle'); if(vc) vc.classList.remove('recording');
-  document.getElementById('v-state').textContent='Tap the mic to start';
-  document.getElementById('v-sub').textContent='Voice adds items to your list instantly';
+  document.getElementById('v-state').textContent='Tap to speak';
+  document.getElementById('v-sub').textContent='Say your items — sorted by aisle automatically';
   stopWave();
 }
 
