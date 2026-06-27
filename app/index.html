@@ -127,40 +127,61 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .fab:active{transform:scale(.9);}
 
 /* VOICE */
-.v-back{padding:10px 14px 0;font-size:13px;font-weight:700;color:var(--mut);cursor:pointer;background:none;border:none;text-align:left;font-family:'Inter',sans-serif;flex-shrink:0;}
-.v-body{flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 20px;overflow-y:auto;}
+/* ── VOICE SCREEN ── */
+.v-back{padding:12px 16px 0;font-size:13px;font-weight:600;color:var(--dim);cursor:pointer;background:none;border:none;text-align:left;font-family:'Inter',sans-serif;flex-shrink:0;letter-spacing:.01em;}
+.v-body{flex:1;display:flex;flex-direction:column;align-items:center;padding:0 20px 20px;overflow-y:auto;gap:0;}
 .v-body::-webkit-scrollbar{width:0;}
-.orb-wrap{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
-.orb-ring{position:absolute;width:128px;height:128px;border-radius:50%;border:2px solid var(--or);opacity:0;pointer-events:none;}
-.orb-ring.go{animation:rexp 1.3s ease-out infinite;}
-@keyframes rexp{0%{transform:scale(.8);opacity:.6;}100%{transform:scale(1.45);opacity:0;}}
-.orb{width:108px;height:108px;border-radius:50%;background:var(--or);border:none;font-size:42px;cursor:pointer;-webkit-appearance:none;display:flex;align-items:center;justify-content:center;position:relative;z-index:10;}
+
+/* Orb */
+.orb-wrap{position:relative;display:flex;align-items:center;justify-content:center;margin:28px 0 24px;flex-shrink:0;}
+.orb-glow{position:absolute;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,.35) 0%,transparent 70%);pointer-events:none;transition:opacity .4s;}
+.orb-ring{position:absolute;width:134px;height:134px;border-radius:50%;border:1.5px solid rgba(255,107,53,.5);opacity:0;pointer-events:none;}
+.orb-ring.go{animation:rexp 1.4s ease-out infinite;}
+.orb-ring2{position:absolute;width:158px;height:158px;border-radius:50%;border:1px solid rgba(255,107,53,.2);opacity:0;pointer-events:none;}
+.orb-ring2.go{animation:rexp 1.4s ease-out infinite .35s;}
+@keyframes rexp{0%{transform:scale(.85);opacity:.7;}100%{transform:scale(1.1);opacity:0;}}
+.orb{width:112px;height:112px;border-radius:50%;background:linear-gradient(145deg,#ff8c5a,#ff5a1f);border:none;cursor:pointer;-webkit-appearance:none;display:flex;align-items:center;justify-content:center;position:relative;z-index:10;box-shadow:0 8px 32px rgba(255,107,53,.45),0 2px 8px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.15);}
 .orb:active{transform:scale(.93);}
-.orb.go{animation:opls 1.3s ease-in-out infinite;}
-@keyframes opls{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
-.v-state{font-size:16px;font-weight:700;text-align:center;color:var(--tx);min-height:22px;padding:0 10px;}
-.v-sub{font-size:13px;color:var(--mut);text-align:center;margin-top:5px;}
-.wave{display:flex;gap:5px;align-items:center;margin:14px 0;height:24px;pointer-events:none;}
-.wb{width:26px;height:4px;background:var(--or);border-radius:2px;transition:height .12s;}
-.v-err{width:100%;background:var(--rbg);border-radius:12px;padding:13px;font-size:13px;color:var(--rtx);line-height:1.7;display:none;margin-bottom:12px;}
-.v-tips{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:13px;margin-bottom:14px;}
-.v-tips-t{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--mut);text-transform:uppercase;margin-bottom:8px;}
-.v-tip{font-size:13px;color:var(--tx);padding:3px 0;}
-.v-added{width:100%;display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
-.va{background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:9px;}
-.va-dot{width:8px;height:8px;border-radius:50%;background:var(--or);flex-shrink:0;}
-.va-name{font-size:13px;font-weight:700;}
-.va-meta{font-size:11px;color:var(--mut);margin-top:1px;}
-.va-ok{margin-left:auto;font-size:11px;font-weight:800;color:var(--or);}
-.v-tip-group{display:flex;flex-direction:column;gap:9px;margin-bottom:10px;}
+.orb.go{animation:opls 1.6s ease-in-out infinite;}
+@keyframes opls{0%,100%{box-shadow:0 8px 32px rgba(255,107,53,.45),0 2px 8px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.15);}50%{box-shadow:0 8px 48px rgba(255,107,53,.7),0 2px 8px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.15);}}
+.orb-icon{width:44px;height:44px;flex-shrink:0;}
+
+/* State text */
+.v-state{font-size:22px;font-weight:800;text-align:center;color:var(--tx);letter-spacing:-.4px;line-height:1.2;}
+.v-sub{font-size:14px;color:var(--dim);text-align:center;margin-top:6px;margin-bottom:20px;line-height:1.5;max-width:280px;}
+
+/* Waveform */
+.wave{display:flex;gap:4px;align-items:center;height:36px;margin-bottom:20px;pointer-events:none;}
+.wb{width:4px;height:4px;background:var(--or);border-radius:2px;transition:height .1s ease;opacity:.7;}
+.wb.wb-tall{width:5px;opacity:1;}
+
+/* Error */
+.v-err{width:100%;background:rgba(200,35,51,.12);border:1px solid rgba(200,35,51,.25);border-radius:14px;padding:14px 16px;font-size:13px;color:#ff8080;line-height:1.7;display:none;margin-bottom:16px;}
+
+/* Tips card */
+.v-tips{width:100%;background:var(--card);border:1px solid var(--bdr);border-radius:18px;padding:16px;margin-bottom:16px;}
+.v-tips-t{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--dim);text-transform:uppercase;margin-bottom:14px;}
+.v-tip-group{display:flex;flex-direction:column;gap:10px;margin-bottom:12px;}
 .v-tip-row{display:flex;align-items:center;gap:10px;}
-.v-tip-pill{font-size:9px;font-weight:800;letter-spacing:.07em;border-radius:6px;padding:3px 7px;flex-shrink:0;min-width:52px;text-align:center;}
-.v-tip-add{background:rgba(124,179,66,.18);color:#7cb342;border:1px solid rgba(124,179,66,.3);}
-.v-tip-check{background:rgba(255,107,53,.12);color:var(--or);border:1px solid rgba(255,107,53,.25);}
-.v-tip-remove{background:rgba(200,35,51,.12);color:#e55;border:1px solid rgba(200,35,51,.2);}
-.v-tip-ex{font-size:13px;color:var(--tx);font-style:italic;}
-.v-tip-hint{font-size:11px;color:var(--dim);text-align:center;padding-top:4px;border-top:1px solid var(--bdr);margin-top:2px;}
-.v-done{width:100%;background:var(--surf);border:1px solid var(--bdr);border-radius:999px;padding:13px;font-size:14px;font-weight:700;color:var(--tx);cursor:pointer;font-family:'Inter',sans-serif;}
+.v-tip-pill{font-size:9px;font-weight:800;letter-spacing:.08em;border-radius:6px;padding:4px 8px;flex-shrink:0;width:54px;text-align:center;}
+.v-tip-add{background:rgba(124,179,66,.15);color:#8bc34a;border:1px solid rgba(124,179,66,.25);}
+.v-tip-check{background:rgba(255,107,53,.12);color:var(--or);border:1px solid rgba(255,107,53,.22);}
+.v-tip-remove{background:rgba(200,35,51,.1);color:#e57373;border:1px solid rgba(200,35,51,.18);}
+.v-tip-ex{font-size:13px;color:var(--mut);line-height:1.4;}
+.v-tip-hint{font-size:11px;color:var(--dim);text-align:center;padding-top:10px;border-top:1px solid var(--bdr);letter-spacing:.01em;}
+
+/* Added items */
+.v-added{width:100%;display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+.va{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:10px;animation:vaIn .2s ease;}
+@keyframes vaIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+.va-dot{width:7px;height:7px;border-radius:50%;background:var(--or);flex-shrink:0;}
+.va-name{font-size:14px;font-weight:700;}
+.va-meta{font-size:11px;color:var(--mut);margin-top:2px;}
+.va-ok{margin-left:auto;font-size:12px;font-weight:800;color:var(--or);}
+
+/* Done button */
+.v-done{width:100%;background:var(--or);border:none;border-radius:999px;padding:15px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:.01em;box-shadow:0 4px 16px rgba(255,107,53,.3);}
+.v-done:active{transform:scale(.97);}
 
 /* SETTINGS */
 .set-body{padding:14px;}
@@ -320,7 +341,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .toast-undo-btn{font-size:13px;padding:6px 16px;}
 
 /* Voice */
-.v-state{font-size:19px;}
+.v-state{font-size:24px;}
 .v-sub{font-size:15px;}
 .v-tip{font-size:15px;padding:5px 0;}
 .v-tips-t{font-size:12px;}
@@ -521,26 +542,70 @@ if('serviceWorker' in navigator){
 <div class="scr" id="s-voice">
   <button class="v-back" id="v-back-btn" type="button">← Back</button>
   <div class="v-body">
+
+    <!-- Orb -->
     <div class="orb-wrap">
+      <div class="orb-glow" id="orb-glow"></div>
+      <div class="orb-ring2" id="orb-ring2"></div>
       <div class="orb-ring" id="orb-ring"></div>
-      <button class="orb" id="orb" type="button">🎤</button>
+      <button class="orb" id="orb" type="button" aria-label="Start voice input">
+        <!-- Clean SVG mic -->
+        <svg class="orb-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="15" y="4" width="14" height="22" rx="7" fill="white" fill-opacity="0.95"/>
+          <path d="M8 22c0 7.732 6.268 14 14 14s14-6.268 14-14" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <line x1="22" y1="36" x2="22" y2="42" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="16" y1="42" x2="28" y2="42" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
+
+    <!-- State -->
     <div class="v-state" id="v-state">Tap to speak</div>
-    <div class="v-sub" id="v-sub">Say your items — sorted by aisle automatically</div>
-    <div class="wave"><div class="wb" id="w1"></div><div class="wb" id="w2"></div><div class="wb" id="w3"></div><div class="wb" id="w4"></div><div class="wb" id="w5"></div></div>
-    <div class="v-err" id="v-err"></div>
-    <div class="v-tips">
-      <div class="v-tips-t">💬 Try saying…</div>
-      <div class="v-tip-group">
-        <div class="v-tip-row"><span class="v-tip-pill v-tip-add">ADD</span><span class="v-tip-ex">"Bananas, almond milk, sourdough"</span></div>
-        <div class="v-tip-row"><span class="v-tip-pill v-tip-add">ADD</span><span class="v-tip-ex">"Two cartons of orange juice"</span></div>
-        <div class="v-tip-row"><span class="v-tip-pill v-tip-check">CHECK</span><span class="v-tip-ex">"Got the eggs" or "Check off milk"</span></div>
-        <div class="v-tip-row"><span class="v-tip-pill v-tip-remove">REMOVE</span><span class="v-tip-ex">"Remove butter" or "Delete chips"</span></div>
-      </div>
-      <div class="v-tip-hint">Speak naturally — quantities, brands, anything</div>
+    <div class="v-sub" id="v-sub">Your list sorts itself by aisle automatically</div>
+
+    <!-- Waveform — hidden until listening -->
+    <div class="wave" id="wave-bars" style="opacity:0;transition:opacity .3s;">
+      <div class="wb" id="w1"></div>
+      <div class="wb wb-tall" id="w2"></div>
+      <div class="wb" id="w3"></div>
+      <div class="wb wb-tall" id="w4"></div>
+      <div class="wb" id="w5"></div>
+      <div class="wb" id="w6"></div>
+      <div class="wb wb-tall" id="w7"></div>
     </div>
+
+    <!-- Error -->
+    <div class="v-err" id="v-err"></div>
+
+    <!-- Tips card -->
+    <div class="v-tips" id="v-tips-card">
+      <div class="v-tips-t">Try saying</div>
+      <div class="v-tip-group">
+        <div class="v-tip-row">
+          <span class="v-tip-pill v-tip-add">ADD</span>
+          <span class="v-tip-ex">"Bananas, almond milk, sourdough"</span>
+        </div>
+        <div class="v-tip-row">
+          <span class="v-tip-pill v-tip-add">ADD</span>
+          <span class="v-tip-ex">"Two cartons of orange juice"</span>
+        </div>
+        <div class="v-tip-row">
+          <span class="v-tip-pill v-tip-check">CHECK</span>
+          <span class="v-tip-ex">"Got the eggs" · "Check off milk"</span>
+        </div>
+        <div class="v-tip-row">
+          <span class="v-tip-pill v-tip-remove">REMOVE</span>
+          <span class="v-tip-ex">"Remove butter" · "Delete chips"</span>
+        </div>
+      </div>
+      <div class="v-tip-hint">Speak naturally — quantities, brands, anything works</div>
+    </div>
+
+    <!-- Added items feed -->
     <div class="v-added" id="v-added"></div>
-    <button class="v-done" id="v-done-btn" type="button">Done — back to list</button>
+
+    <!-- Done -->
+    <button class="v-done" id="v-done-btn" type="button">Done — view my list</button>
   </div>
 </div>
 
@@ -2582,12 +2647,12 @@ function addVoiceItem(raw){
 }
 
 function startWave(){
-  var bars=[1,2,3,4,5].map(function(n){ return document.getElementById('w'+n); });
-  waveTimer=setInterval(function(){ bars.forEach(function(b){ if(b) b.style.height=(4+Math.random()*20)+'px'; }); },130);
+  var bars=[1,2,3,4,5,6,7].map(function(n){ return document.getElementById('w'+n); });
+  waveTimer=setInterval(function(){ bars.forEach(function(b,i){ if(b) b.style.height=(3+Math.random()*28)+'px'; }); },110);
 }
 function stopWave(){
   clearInterval(waveTimer);
-  for(var i=1;i<=5;i++){ var b=document.getElementById('w'+i); if(b) b.style.height='4px'; }
+  for(var i=1;i<=7;i++){ var b=document.getElementById('w'+i); if(b) b.style.height='4px'; }
 }
 
 function startListening(){
@@ -2605,8 +2670,10 @@ function startListening(){
   document.getElementById('v-err').style.display='none';
   recog=new SR(); recog.continuous=true; recog.interimResults=true; recog.lang='en-US';
   recog.onstart=function(){
-    document.getElementById('v-state').textContent='🟠 Listening…';
-    document.getElementById('v-sub').textContent='Say items one at a time, or rattle them all off';
+    document.getElementById('v-state').textContent='Listening…';
+    document.getElementById('v-sub').textContent='Say anything — I’ll sort it by aisle';
+    var wb=document.getElementById('wave-bars'); if(wb) wb.style.opacity='1';
+    var tc=document.getElementById('v-tips-card'); if(tc) tc.style.display='none';
     startWave();
   };
   recog.onresult=function(e){
@@ -2642,7 +2709,9 @@ function stopListening(){
   document.getElementById('orb-ring').classList.remove('go');
   var vc=document.getElementById('voice-circle'); if(vc) vc.classList.remove('recording');
   document.getElementById('v-state').textContent='Tap to speak';
-  document.getElementById('v-sub').textContent='Say your items — sorted by aisle automatically';
+  document.getElementById('v-sub').textContent='Your list sorts itself by aisle automatically';
+  var wb=document.getElementById('wave-bars'); if(wb) wb.style.opacity='0';
+  var tc=document.getElementById('v-tips-card'); if(tc) tc.style.display='';
   stopWave();
 }
 
