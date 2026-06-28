@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) - AisleBird -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G5XQSL76T2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-G5XQSL76T2');
+</script>
+
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -1234,6 +1243,24 @@ renderDemoList();
   }, 2000);
 })();
 </script>
+
+<!-- GA4 Event Tracking — AisleBird -->
+<script>
+(function(){
+  function track(n,p){ if(typeof gtag==='function') gtag('event',n,p||{}); }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a,button'); if(!a) return;
+    var href=(a.getAttribute('href')||'').toLowerCase();
+    var txt=(a.textContent||'').trim().toLowerCase();
+    if(href.indexOf('/app')!==-1 || txt.indexOf('open app')!==-1 || txt.indexOf('get started')!==-1 || txt.indexOf('try')!==-1 || txt.indexOf('start')!==-1){
+      track('open_app',{event_category:'conversion',event_label:txt.slice(0,40),value:5});
+    }
+    else if(href.indexOf('orchamind.com')!==-1){ track('product_click',{event_label:'Orchamind'}); }
+    else if(href.indexOf('resbizai.com')!==-1){ track('product_click',{event_label:'ResBizAI'}); }
+  },true);
+})();
+</script>
+
 </body>
 </html>
 // ── DEMO (matches real AisleBird app) ──
