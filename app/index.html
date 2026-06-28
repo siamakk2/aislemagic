@@ -1918,6 +1918,15 @@ var GCAT_PHRASES=[
 ];
 /* Whole-word keywords -> concept (first match wins) */
 var GCAT_WORDS=[
+  ['produce',['banana','apple','orange','lemon','lime','avocado','tomato','potato','onion','garlic','carrot','celery','lettuce','spinach','kale','broccoli','cucumber','pepper','peppers','mushroom','mushrooms','zucchini','grape','grapes','strawberry','strawberries','blueberry','blueberries','raspberry','raspberries','berry','berries','melon','watermelon','pineapple','mango','peach','pear','plum','cherry','cherries','cilantro','parsley','basil','ginger','cabbage','cauliflower','asparagus','corn','squash','sweetpotato','greens','herbs','scallion','scallions','radish','beet','beets']],
+  ['dairy',['milk','butter','cheese','yogurt','yoghurt','cream','eggs','egg','sourcream','creamcheese','mozzarella','cheddar','parmesan','feta','halfandhalf','buttermilk','cottage']],
+  ['meat',['chicken','beef','pork','steak','bacon','sausage','turkey','ham','lamb','ribs','ribeye','groundbeef','mince','chops','brisket','wings','drumstick','drumsticks']],
+  ['seafood',['salmon','shrimp','tuna','fish','crab','lobster','tilapia','cod','scallop','scallops','clam','clams','mussel','mussels','oyster','oysters','halibut','prawns','prawn']],
+  ['bakery',['bread','bagel','bagels','baguette','croissant','croissants','muffin','muffins','tortilla','tortillas','bun','buns','roll','rolls','pita','sourdough','cake','donut','donuts']],
+  ['pantry',['rice','pasta','flour','sugar','salt','oil','oliveoil','vinegar','beans','lentils','quinoa','oats','oatmeal','cereal','honey','peanutbutter','jam','jelly','ketchup','mustard','mayo','mayonnaise','sauce','soup','broth','stock','canned','noodles','spaghetti','cornstarch','bakingsoda','yeast','spice','spices','cumin','paprika','cinnamon']],
+  ['frozen',['icecream','frozen','pizza','popsicle','popsicles','fries','peas','frozenfruit']],
+  ['beverages',['water','juice','soda','coffee','tea','lemonade','sparkling','cola','seltzer','kombucha','gatorade','smoothie']],
+  ['snacks',['chips','crackers','cookies','candy','chocolate','popcorn','pretzels','nuts','almonds','peanuts','cashews','granola','barssnack','trailmix','raisins']],
   ['petfood',['kibble','dogfood','catfood']],
   ['pets',['leash','catnip','aquarium']],
   ['baby',['formula','pacifier','onesie']],
@@ -1983,9 +1992,17 @@ function guessCat(text){
   }
   if(!hit){
     var words=n.split(/[^a-zà-ÿ0-9]+/).filter(Boolean);
+    // also build singular variants so "bananas"->"banana", "tomatoes"->"tomato", "berries"->"berry"
+    var variants=[];
+    words.forEach(function(wd){
+      variants.push(wd);
+      if(wd.length>4 && /ies$/.test(wd)) variants.push(wd.slice(0,-3)+'y');
+      else if(wd.length>4 && /(ches|shes|ses|xes|zes)$/.test(wd)) variants.push(wd.slice(0,-2));
+      else if(wd.length>3 && /s$/.test(wd) && !/ss$/.test(wd)) variants.push(wd.slice(0,-1));
+    });
     for(var w=0;w<GCAT_WORDS.length && !hit;w++){
       var set=GCAT_WORDS[w][1];
-      for(var x=0;x<words.length && !hit;x++){ if(set.indexOf(words[x])!==-1) hit=GCAT_WORDS[w][0]; }
+      for(var x=0;x<variants.length && !hit;x++){ if(set.indexOf(variants[x])!==-1) hit=GCAT_WORDS[w][0]; }
     }
   }
   return resolveCat(hit);
@@ -2564,12 +2581,15 @@ function addItemsFromText(v){
   var parts=v.split(',').map(function(s){ return s.trim(); }).filter(function(s){ return s.length>0; });
   if(parts.length===0) return 0;
   parts.forEach(function(p){
-    var _n=cap(p), _c=guessCat(p);
+    var _n=cap(p), _c='other';
+    try{ _c=guessCat(p)||'other'; }catch(e){ _c='other'; }
     items.push({id:nid++,name:_n,cat:_c,qty:1,checked:false,tag:null,tc:''});
-    logItemHistory(_n,_c);
+    try{ logItemHistory(_n,_c); }catch(e){}
   });
-  haptic('add'); renderList(); renderQuickAdd();
-  showToast(parts.length===1?'✓ Item added!':'✓ '+parts.length+' items added!');
+  try{ haptic('add'); }catch(e){}
+  try{ renderList(); }catch(e){}
+  try{ renderQuickAdd(); }catch(e){}
+  try{ showToast(parts.length===1?'✓ Item added!':'✓ '+parts.length+' items added!'); }catch(e){}
   return parts.length;
 }
 function submitAdd(){
