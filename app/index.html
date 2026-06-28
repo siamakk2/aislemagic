@@ -106,6 +106,17 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .empty-title{font-size:18px;font-weight:800;margin-bottom:8px;}
 .empty-sub{font-size:14px;color:var(--mut);line-height:1.6;margin-bottom:22px;max-width:260px;}
 .empty-btns{display:flex;flex-direction:column;gap:9px;width:100%;}
+.empty-add{display:flex;gap:8px;width:100%;max-width:340px;margin-bottom:8px;}
+.empty-add-inp{flex:1;min-width:0;background:var(--bg2);border:2px solid var(--or);border-radius:14px;padding:15px 18px;font-size:16px;color:var(--tx);font-family:'Inter',sans-serif;outline:none;box-shadow:0 0 0 4px rgba(255,107,53,.12);}
+.empty-add-inp::placeholder{color:var(--dim);}
+.empty-add-btn{flex-shrink:0;background:var(--or);border:none;border-radius:14px;padding:0 22px;font-size:16px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;}
+.empty-add-btn:active{transform:scale(.96);}
+.empty-hint{font-size:12px;color:var(--dim);margin-bottom:20px;}
+.empty-or{display:flex;align-items:center;gap:12px;width:100%;max-width:280px;margin:4px 0 16px;color:var(--dim);font-size:12px;}
+.empty-or::before,.empty-or::after{content:"";flex:1;height:1px;background:var(--bdr);}
+/* Make the persistent bottom add bar obviously an input */
+.add-bar-inp{flex:1;min-width:0;background:var(--bg);border:2px solid var(--or)!important;border-radius:999px;padding:15px 20px;font-size:17px;color:var(--tx);font-family:'Inter',sans-serif;outline:none;box-shadow:0 0 0 3px rgba(255,107,53,.1);}
+
 .btn-or{background:var(--or);border:none;border-radius:999px;padding:13px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;width:100%;}
 .btn-gy{background:var(--surf);border:1px solid var(--bdr);border-radius:999px;padding:11px;font-size:14px;font-weight:700;color:var(--tx);cursor:pointer;font-family:'Inter',sans-serif;width:100%;}
 .btn-lnk{background:none;border:none;font-size:13px;font-weight:700;color:var(--mut);cursor:pointer;font-family:'Inter',sans-serif;padding:6px;}
@@ -537,7 +548,7 @@ if('serviceWorker' in navigator){
   </div>
   <div id="ac-drop" class="ac-drop"></div>
 <div class="add-bar">
-    <input class="add-bar-inp" id="add-inline" placeholder="✏️  Tap here and type — e.g. milk, eggs, bananas" autocomplete="off"/>
+    <input class="add-bar-inp" id="add-inline" placeholder="✏️  Add an item — type here…" autocomplete="off"/>
     <button class="add-bar-btn" id="add-inline-btn" type="button">Add</button>
     <button class="imp-icon-btn" id="imp-open-btn" type="button" title="Import from Notes">📋</button>
     <button class="imp-icon-btn" id="share-text-btn" type="button" title="Copy list as text">📤</button>
@@ -2252,17 +2263,28 @@ function renderList(){
     body.innerHTML=
       '<div class="empty">'+
         '<div class="empty-icon">'+curChain.icon+'</div>'+
-        '<div class="empty-title">Your list is empty</div>'+
-        '<div class="empty-sub">Add items by voice, quick add, or import from Notes!</div>'+
+        '<div class="empty-title">Start your grocery list</div>'+
+        '<div class="empty-sub">Type what you need and tap Add — AisleBird sorts it by aisle for you.</div>'+
+        '<div class="empty-add">'+
+          '<input class="empty-add-inp" id="empty-add-inp" type="text" placeholder="Type an item — e.g. milk, eggs, bananas" autocomplete="off" autocapitalize="off"/>'+
+          '<button class="empty-add-btn" id="empty-add-btn" type="button">Add</button>'+
+        '</div>'+
+        '<div class="empty-hint">↑ Type as many items as you like, one at a time</div>'+
+        '<div class="empty-or"><span>or</span></div>'+
         '<div class="empty-btns">'+
           '<button class="btn-or" id="ev-btn" type="button">🎤 Add by Voice</button>'+
-          '<button class="btn-gy" id="et-btn" type="button">+ Type an Item</button>'+
           (lastTripItems.length?'<button class="btn-rebuy" id="rebuy-btn" type="button">🔄 Re-buy Last Trip ('+lastTripItems.length+' items)</button>':'')+
           '<button class="btn-lnk" id="ei-btn" type="button">📋 Import from iPhone Notes</button>'+
         '</div>'+
       '</div>';
+    (function(){
+      var ei=document.getElementById('empty-add-inp'), eb=document.getElementById('empty-add-btn');
+      function go(){ if(ei && addItemsFromText(ei.value)>0){ ei.value=''; setTimeout(function(){ var n=document.getElementById('empty-add-inp'); if(n) n.focus(); },50); } }
+      if(eb) eb.addEventListener('click',go);
+      if(ei){ ei.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); go(); } }); }
+      setTimeout(function(){ try{ if(ei) ei.focus(); }catch(e){} },120);
+    })();
     document.getElementById('ev-btn').addEventListener('click',goVoice);
-    document.getElementById('et-btn').addEventListener('click',function(){ var i=document.getElementById('add-inline'); if(i) i.focus(); });
     document.getElementById('ei-btn').addEventListener('click',function(){ openOv('ov-import'); });
     var _rb=document.getElementById('rebuy-btn'); if(_rb) _rb.addEventListener('click',rebuyLastTrip);
     renderQuickAdd(); updateProg(); return;
