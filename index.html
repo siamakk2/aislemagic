@@ -1476,33 +1476,57 @@ renderDemoList();
   }, 2000);
 })();
 </script>
-<!-- AI Assistant: loads only on click — no auto-open box on page load -->
-<style>elevenlabs-convai{z-index:2147483000!important;}</style>
-<button id="talkBtn" aria-label="Talk to the AI assistant"
-  style="position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:9998;display:inline-flex;align-items:center;gap:9px;background:#ff6b35;color:#fff;border:none;border-radius:999px;padding:15px 26px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(255,107,53,.45);-webkit-tap-highlight-color:transparent">
-  🎙️ Talk to AI
-</button>
+<!-- AisleBird Voice — chat with the Bird (loads on click; no auto-open box) -->
+<style>
+elevenlabs-convai{z-index:2147483000!important;}
+#birdBtn{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:9998;display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#ff6b35,#ff8c5a);color:#fff;border:none;border-radius:999px;padding:15px 26px;
+  font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 10px 34px rgba(255,107,53,.5);
+  -webkit-tap-highlight-color:transparent;animation:birdBob 2.6s ease-in-out infinite}
+#birdBtn .bird{font-size:20px;display:inline-block;animation:birdTilt 2.6s ease-in-out infinite;transform-origin:center}
+#birdBtn:hover{box-shadow:0 12px 46px rgba(255,107,53,.75)}
+@keyframes birdBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-5px)}}
+@keyframes birdTilt{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}50%{transform:rotate(0)}75%{transform:rotate(12deg)}}
+@media(prefers-reduced-motion:reduce){#birdBtn,#birdBtn .bird{animation:none}}
+</style>
+<button id="birdBtn" aria-label="Talk to the AisleBird assistant"><span class="bird">🐦</span> Ask the Bird</button>
 <script>
 (function(){
   var loaded=false;
-  function openAdvisor(){
+  // Make the hang-up / end-call button obvious (red) inside the widget shadow DOM
+  function enhanceHangup(){
+    function inject(root){
+      try{
+        if(root.getElementById && root.getElementById('ab-hangup-style')) return;
+        var st=document.createElement('style'); st.id='ab-hangup-style';
+        st.textContent='button[aria-label*="end" i],button[aria-label*="hang" i],button[aria-label*="leave" i],button[aria-label*="stop" i],button[aria-label*="disconnect" i],button[title*="end" i],button[title*="hang" i]{background:#e53935 !important;color:#fff !important;border-color:#e53935 !important;border-radius:14px !important;box-shadow:0 3px 16px rgba(229,57,53,.55) !important;}';
+        root.appendChild(st);
+      }catch(e){}
+    }
+    var tries=0, iv=setInterval(function(){
+      tries++; var w=document.querySelector('elevenlabs-convai');
+      if(w&&w.shadowRoot){ inject(w.shadowRoot); try{ new MutationObserver(function(){inject(w.shadowRoot);}).observe(w.shadowRoot,{childList:true,subtree:true}); }catch(e){} clearInterval(iv); }
+      if(tries>60) clearInterval(iv);
+    },200);
+  }
+  function openBird(){
     if(!loaded){
       loaded=true;
       var el=document.createElement('elevenlabs-convai');
-      el.setAttribute('agent-id','agent_1501ksnmsv1dea1rmb2ed6t8rzwe');
+      el.setAttribute('agent-id','agent_4101kw7vymebf3p98bgw9b67qk94');
       document.body.appendChild(el);
-      var s=document.createElement('script');
-      s.src='https://unpkg.com/@elevenlabs/convai-widget-embed';
-      s.async=true; s.type='text/javascript';
+      var s=document.createElement('script'); s.src='https://unpkg.com/@elevenlabs/convai-widget-embed'; s.async=true; s.type='text/javascript';
       document.body.appendChild(s);
-      var b=document.getElementById('talkBtn'); if(b) b.style.display='none';
+      var b=document.getElementById('birdBtn'); if(b) b.style.display='none';
+      enhanceHangup();
+      try{ gtag('event','open_bird_assistant',{event_category:'engagement'}); }catch(e){}
     } else {
       var w=document.querySelector('elevenlabs-convai');
-      if(w && w.shadowRoot){ var btn=w.shadowRoot.querySelector('button,[role="button"]'); if(btn){ try{ btn.click(); }catch(e){} } }
+      if(w&&w.shadowRoot){ var btn=w.shadowRoot.querySelector('button,[role="button"]'); if(btn){ try{btn.click();}catch(e){} } }
     }
   }
-  var tb=document.getElementById('talkBtn');
-  if(tb) tb.addEventListener('click', openAdvisor);
+  var bb=document.getElementById('birdBtn');
+  if(bb) bb.addEventListener('click', openBird);
 })();
 </script>
 </body>
