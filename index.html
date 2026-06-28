@@ -1509,6 +1509,26 @@ elevenlabs-convai{z-index:2147483000!important;}
       if(tries>60) clearInterval(iv);
     },200);
   }
+  // Auto-start the call so the bird greets ("tweet tweet") on the very first tap
+  function autoStart(){
+    var tries=0, started=false;
+    var iv=setInterval(function(){
+      tries++;
+      var w=document.querySelector('elevenlabs-convai');
+      if(w && w.shadowRoot){
+        var nodes=w.shadowRoot.querySelectorAll('button,[role="button"]');
+        for(var i=0;i<nodes.length;i++){
+          var n=nodes[i];
+          var lbl=(((n.getAttribute&&(n.getAttribute('aria-label')||n.getAttribute('title')))||'')+' '+(n.textContent||'')).toLowerCase();
+          if(/start|call|talk|begin|tap to|chat/.test(lbl) && !/end|hang|stop|leave|disconnect|mute|close|minim/.test(lbl)){
+            try{ n.click(); started=true; }catch(e){}
+            break;
+          }
+        }
+      }
+      if(started || tries>40) clearInterval(iv);
+    },120);
+  }
   function openBird(){
     if(!loaded){
       loaded=true;
@@ -1519,6 +1539,7 @@ elevenlabs-convai{z-index:2147483000!important;}
       document.body.appendChild(s);
       var b=document.getElementById('birdBtn'); if(b) b.style.display='none';
       enhanceHangup();
+      autoStart();
       try{ gtag('event','open_bird_assistant',{event_category:'engagement'}); }catch(e){}
     } else {
       var w=document.querySelector('elevenlabs-convai');
