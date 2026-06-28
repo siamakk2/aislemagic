@@ -267,13 +267,13 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 .sheet{background:var(--card);border-radius:24px 24px 0 0;width:100%;padding:14px 14px 44px;border-top:1px solid var(--bdr);animation:sup .22s ease;max-height:88vh;overflow-y:auto;}
 .sheet::-webkit-scrollbar{width:0;}
 .sh-handle{width:36px;height:4px;background:var(--hi);border-radius:2px;margin:0 auto 14px;}
-.sh-title{font-size:16px;font-weight:800;margin-bottom:14px;}
-.add-inp{width:100%;background:var(--bg);border:1px solid var(--bdr);border-radius:11px;padding:13px;font-size:15px;color:var(--tx);font-family:'Inter',sans-serif;outline:none;margin-bottom:11px;}
+.sh-title{font-size:20px;font-weight:800;margin-bottom:16px;}
+.add-inp{width:100%;background:var(--bg);border:2.5px solid var(--or);border-radius:14px;padding:20px;font-size:20px;line-height:1.3;color:var(--tx);font-family:'Inter',sans-serif;outline:none;margin-bottom:12px;min-height:64px;box-shadow:0 0 0 4px rgba(255,107,53,.12);}
 .add-inp:focus{border-color:var(--or);}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px;}
 .cat-btn{background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:10px 11px;font-size:12px;font-weight:700;color:var(--mut);cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;}
 .cat-btn.sel{background:var(--ordm);border-color:var(--or);color:var(--orl);}
-.sub-btn{width:100%;background:var(--or);border:none;border-radius:11px;padding:14px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;}
+.sub-btn{width:100%;background:var(--or);border:none;border-radius:14px;padding:18px;font-size:18px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;min-height:58px;}
 .imp-step{display:flex;align-items:flex-start;gap:11px;background:var(--surf);border-radius:11px;padding:11px 12px;margin-bottom:8px;}
 .imp-num{width:24px;height:24px;border-radius:50%;background:var(--or);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .imp-text{font-size:13px;color:var(--tx);line-height:1.55;}
@@ -701,9 +701,10 @@ if('serviceWorker' in navigator){
 <div class="ov" id="ov-add">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title">Add Item</div>
-    <input class="add-inp" id="add-inp" placeholder="Type item name — e.g. avocados, chicken, oat milk" autocomplete="off"/>
+    <div class="sh-title">Add items to your list</div>
+    <input class="add-inp" id="add-inp" placeholder="Type an item — e.g. milk, eggs, bananas" autocomplete="off" autocapitalize="off"/>
     <button class="sub-btn" id="add-submit-btn" type="button">Add to List</button>
+    <button type="button" id="add-done-btn" style="width:100%;background:transparent;border:none;color:var(--dim);font-size:15px;font-weight:600;padding:14px;margin-top:4px;cursor:pointer;font-family:'Inter',sans-serif;">Done</button>
   </div>
 </div>
 
@@ -2282,7 +2283,7 @@ function renderList(){
     body.innerHTML=
       '<div class="empty">'+
         '<div class="empty-icon">'+curChain.icon+'</div>'+
-        '<div class="empty-title">Start your grocery list</div>'+
+        '<div class="empty-title">Start your grocery list</div>'+'<div style="font-size:11px;color:var(--dim);margin:-4px 0 10px;">app v2.2 · type below 👇</div>'+
         '<div class="empty-sub">Type what you need and tap Add — AisleBird sorts it by aisle for you.</div>'+
         '<div class="empty-add">'+
           '<input class="empty-add-inp" id="empty-add-inp" type="text" placeholder="Type an item — e.g. milk, eggs, bananas" autocomplete="off" autocapitalize="off"/>'+
@@ -2596,7 +2597,7 @@ function addItemsFromText(v){
 }
 function submitAdd(){
   var inp=document.getElementById('add-inp');
-  if(addItemsFromText(inp.value)>0){ inp.value=''; closeOv('ov-add'); }
+  if(inp && addItemsFromText(inp.value)>0){ inp.value=''; try{ inp.focus(); }catch(e){} }
 }
 function submitAddInline(){
   var inp=document.getElementById('add-inline');
@@ -2840,6 +2841,8 @@ document.getElementById('ov-add').addEventListener('click', function(e){ if(e.ta
 document.getElementById('ov-import').addEventListener('click', function(e){ if(e.target===this) closeOv('ov-import'); });
 document.getElementById('add-submit-btn').addEventListener('click', submitAdd);
 document.getElementById('add-inp').addEventListener('keydown', function(e){ if(e.key==='Enter') submitAdd(); });
+var _adb=document.getElementById('add-done-btn'); if(_adb) _adb.addEventListener('click', function(){ closeOv('ov-add'); });
+var _ova=document.getElementById('ov-add'); if(_ova) _ova.addEventListener('click', function(e){ if(e.target===_ova) closeOv('ov-add'); });
 document.getElementById('imp-ta').addEventListener('input', previewImport);
 document.getElementById('imp-submit-btn').addEventListener('click', doImport);
 document.getElementById('imp-cancel-btn').addEventListener('click', function(){ closeOv('ov-import'); });
