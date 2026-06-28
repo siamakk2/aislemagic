@@ -822,36 +822,65 @@
     <div class="demo-header">
       <div class="section-eyebrow">Live Demo</div>
       <h2 class="section-title">Try it right now</h2>
-      <p class="section-sub" style="margin:0 auto;">Type any grocery item below and watch AisleBird sort it by department instantly — just like the real app.</p>
+      <p class="section-sub" style="margin:0 auto;">Add items below and watch AisleBird sort them by aisle — exactly like the real app.</p>
     </div>
-    <div class="demo-shell">
-      <div class="demo-left">
-        <h3>Add items</h3>
-        <div class="demo-input-row">
-          <input id="demo-inp" type="text" placeholder="e.g. milk, salmon, bread…" autocomplete="off"/>
-          <button id="demo-add-btn" onclick="demoAdd()">Add</button>
-        </div>
-        <p style="font-size:12px;color:var(--dim);margin-bottom:10px;">Or tap a suggestion:</p>
-        <div class="demo-suggestions" id="demo-sugs"></div>
-        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
-          <p style="font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;">Quick add a full trip:</p>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <button onclick="demoLoadTrip('wf')" style="background:var(--surf);border:1px solid var(--border2);border-radius:10px;padding:9px 14px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;text-align:left;font-family:inherit;">🌿 Whole Foods weekly run (12 items)</button>
-            <button onclick="demoLoadTrip('target')" style="background:var(--surf);border:1px solid var(--border2);border-radius:10px;padding:9px 14px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;text-align:left;font-family:inherit;">🎯 Target household run (10 items)</button>
-            <button onclick="demoLoadTrip('hw')" style="background:var(--surf);border:1px solid var(--border2);border-radius:10px;padding:9px 14px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;text-align:left;font-family:inherit;">🔨 Home Depot project run (8 items)</button>
+
+    <!-- App mockup that matches real app -->
+    <div style="max-width:420px;margin:0 auto;background:#0f0d0a;border-radius:28px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);border:1px solid #2e2a22;">
+
+      <!-- Phone top bar -->
+      <div style="background:#0f0d0a;padding:14px 20px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #2e2a22;">
+        <div style="font-size:15px;font-weight:800;color:#f5f0e8;">🐦 AisleBird</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div id="demo-prog-txt" style="font-size:12px;color:#9a8f7e;">0 of 0 items</div>
+          <div style="background:#2e2a22;border-radius:999px;width:80px;height:6px;overflow:hidden;">
+            <div id="demo-prog-fill" style="height:100%;background:#c9973a;border-radius:999px;width:0%;transition:width .3s;"></div>
           </div>
         </div>
-        <span class="demo-clear" onclick="demoClear()">✕ Clear list</span>
-        <div class="demo-stats" id="demo-stats" style="display:none;">
-          <div class="demo-stat"><div class="demo-stat-n" id="ds-total">0</div><div class="demo-stat-l">Items</div></div>
-          <div class="demo-stat"><div class="demo-stat-n" id="ds-done">0</div><div class="demo-stat-l">Done</div></div>
-          <div class="demo-stat"><div class="demo-stat-n" id="ds-depts">0</div><div class="demo-stat-l">Depts</div></div>
-        </div>
       </div>
-      <div class="demo-right">
-        <h3>Sorted by aisle <span id="demo-store-label" style="color:var(--accent);font-weight:900;text-transform:none;">— Whole Foods</span></h3>
-        <div id="demo-list"></div>
+
+      <!-- Store selector -->
+      <div style="padding:10px 16px;border-bottom:1px solid #2e2a22;display:flex;gap:6px;overflow-x:auto;">
+        <button onclick="demoSetStore('Whole Foods')" id="ds-wf" class="demo-store-btn active" style="background:#c9973a;color:#fff;border:none;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;">🌿 Whole Foods</button>
+        <button onclick="demoSetStore('Trader Joe\'s')" id="ds-tj" class="demo-store-btn" style="background:#2e2a22;color:#9a8f7e;border:1px solid #2e2a22;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;">🍺 Trader Joe's</button>
+        <button onclick="demoSetStore('Target')" id="ds-tg" class="demo-store-btn" style="background:#2e2a22;color:#9a8f7e;border:1px solid #2e2a22;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;">🎯 Target</button>
+        <button onclick="demoSetStore('Costco')" id="ds-co" class="demo-store-btn" style="background:#2e2a22;color:#9a8f7e;border:1px solid #2e2a22;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;">🏢 Costco</button>
       </div>
+
+      <!-- Add bar -->
+      <div style="padding:12px 16px;border-bottom:1px solid #2e2a22;display:flex;gap:8px;">
+        <input id="demo-inp" type="text" placeholder="✏️ Add item — e.g. milk, salmon, bread"
+          autocomplete="off"
+          style="flex:1;background:#211e18;border:1px solid #2e2a22;border-radius:10px;padding:10px 14px;font-size:13px;color:#f5f0e8;outline:none;font-family:inherit;"
+          onkeydown="if(event.key==='Enter')demoAdd()"
+          oninput="demoAutocomplete(this.value)"/>
+        <button onclick="demoAdd()" style="background:#c9973a;border:none;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;">Add</button>
+      </div>
+
+      <!-- Autocomplete -->
+      <div id="demo-ac" style="display:none;background:#211e18;border-bottom:1px solid #2e2a22;"></div>
+
+      <!-- Quick-add chips -->
+      <div style="padding:10px 16px;border-bottom:1px solid #2e2a22;display:flex;gap:6px;flex-wrap:wrap;">
+        <span style="font-size:10px;font-weight:700;color:#5a5248;text-transform:uppercase;letter-spacing:.08em;width:100%;margin-bottom:2px;">Quick add a full trip:</span>
+        <button onclick="demoLoadTrip('wf')" style="background:#211e18;border:1px solid #2e2a22;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:#9a8f7e;cursor:pointer;font-family:inherit;">🌿 Whole Foods weekly</button>
+        <button onclick="demoLoadTrip('tj')" style="background:#211e18;border:1px solid #2e2a22;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:#9a8f7e;cursor:pointer;font-family:inherit;">🍺 Trader Joe's haul</button>
+        <button onclick="demoLoadTrip('target')" style="background:#211e18;border:1px solid #2e2a22;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:#9a8f7e;cursor:pointer;font-family:inherit;">🎯 Target run</button>
+        <button onclick="demoClear()" style="background:none;border:none;color:#5a5248;font-size:11px;cursor:pointer;font-family:inherit;margin-left:auto;">✕ Clear</button>
+      </div>
+
+      <!-- List body -->
+      <div id="demo-list" style="min-height:200px;max-height:320px;overflow-y:auto;padding:8px 0;"></div>
+
+      <!-- Bottom hint -->
+      <div style="padding:12px 16px;text-align:center;font-size:11px;color:#5a5248;border-top:1px solid #2e2a22;">
+        Tap any item to check it off · items sort by aisle automatically
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:32px;">
+      <a href="/app" style="display:inline-flex;align-items:center;gap:8px;background:#c9973a;color:#fff;font-weight:700;font-size:15px;padding:14px 32px;border-radius:999px;text-decoration:none;">Open Free App →</a>
+      <div style="font-size:12px;color:var(--dim);margin-top:10px;">No account needed to start</div>
     </div>
   </div>
 </section>
@@ -1155,7 +1184,31 @@
   </div>
 </section>
 
-<!-- FOOTER --><footer>
+<!-- FOOTER -->
+<!-- TableOps AI Cross-Promo -->
+<section style="background:linear-gradient(135deg,#0f0d0a 0%,#1a1710 100%);padding:56px 0;border-top:1px solid #2e2a22;border-bottom:1px solid #2e2a22;">
+  <div style="max-width:960px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:260px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#c9973a;margin-bottom:8px;">Also by Siamak Kalhor</div>
+      <div style="font-size:22px;font-weight:800;color:#f5f0e8;margin-bottom:8px;">🍽️ TableOps AI — For Restaurant Owners</div>
+      <div style="font-size:14px;color:#9a8f7e;line-height:1.6;max-width:480px;">
+        The AI brain behind successful restaurants. Manage staff, inventory, daily P&L, menus, and suppliers — just by talking to it. Voice-activated. Works for any cuisine.
+      </div>
+      <div style="display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;">
+        <span style="font-size:13px;color:#9a8f7e;display:flex;align-items:center;gap:6px;"><span style="color:#c9973a;">✓</span> Staff & payroll</span>
+        <span style="font-size:13px;color:#9a8f7e;display:flex;align-items:center;gap:6px;"><span style="color:#c9973a;">✓</span> Real-time P&L</span>
+        <span style="font-size:13px;color:#9a8f7e;display:flex;align-items:center;gap:6px;"><span style="color:#c9973a;">✓</span> AI recipes & menus</span>
+        <span style="font-size:13px;color:#9a8f7e;display:flex;align-items:center;gap:6px;"><span style="color:#c9973a;">✓</span> Voice activated</span>
+      </div>
+    </div>
+    <a href="https://tableopsai.com" target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:8px;background:#c9973a;color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:999px;text-decoration:none;white-space:nowrap;box-shadow:0 4px 20px rgba(201,151,58,.3);">
+      See TableOps AI &rarr;
+    </a>
+  </div>
+</section>
+
+<footer>
   <div class="footer-inner">
     <div class="footer-brand">
       <a href="/" style="font-size:18px;font-weight:800;color:var(--accent);">🐦 AisleBird</a>
@@ -1393,6 +1446,249 @@ if(demoInp) {
 
 // Init demo with empty state
 renderDemoList();
+</script>
+
+</div>
+
+
+<script>
+(function(){
+  var items=['pi2','pi3','pi4','pi5'];
+  var idx=0;
+  setInterval(function(){
+    if(idx>=items.length){idx=0;
+      items.forEach(function(id){
+        var e=document.getElementById(id);
+        if(e){var cb=e.querySelector('.phone-cb');if(cb){cb.classList.remove('on');cb.textContent='';} e.classList.remove('checked');}
+      });
+      return;
+    }
+    var el=document.getElementById(items[idx]);
+    if(!el)return;
+    var cb=el.querySelector('.phone-cb');
+    if(cb){cb.classList.add('on');cb.textContent='✓';}
+    el.classList.add('checked');
+    idx++;
+  },2000);
+})();
+</script>
+
+<script>
+(function(){
+  /* ── Bird entrance: rises from behind phone ── */
+  var bird = document.getElementById('hero-bird');
+  if(bird){
+    /* Short wait, then rise with spring easing */
+    setTimeout(function(){
+      bird.style.transition = 'transform 2.8s cubic-bezier(0.22, 0.61, 0.36, 1)';
+      bird.style.transform  = 'translateX(-50%) translateY(-99px)';
+
+      /* Head clears phone top at ~62% of 2.8s = 1.74s → flip z-index */
+      setTimeout(function(){ bird.style.zIndex = '6'; }, 1740);
+
+      /* After rise completes (2.9s), switch to CSS sway animation */
+      setTimeout(function(){
+        bird.style.transition = 'none';
+        bird.style.top        = '-99px';          /* anchor Y position */
+        bird.style.transform  = 'translateX(-50%)';
+        /* A tiny settle bounce */
+        bird.style.animation  = 'perchSway 5s ease-in-out infinite, perchOpacity 7s ease-in-out infinite';
+      }, 2950);
+    }, 550);
+  }
+
+  /* ── Phone list: check off items on a loop ── */
+  var items=["pi2","pi3","pi4","pi5"], idx=0;
+  setInterval(function(){
+    if(idx>=items.length){
+      idx=0;
+      items.forEach(function(id){
+        var e=document.getElementById(id);
+        if(!e)return;
+        var c=e.querySelector('.phone-cb');
+        if(c){c.classList.remove('on');c.textContent='';}
+        e.classList.remove('checked');
+      });
+      return;
+    }
+    var el=document.getElementById(items[idx]);
+    if(!el)return;
+    var c=el.querySelector('.phone-cb');
+    if(c){c.classList.add('on');c.textContent='✓';}
+    el.classList.add('checked');
+    idx++;
+  }, 2000);
+})();
+</script>
+</body>
+</html>
+// ── DEMO (matches real AisleBird app) ──
+var demoItems = [];
+var demoId = 1;
+var demoStore = "Whole Foods";
+var demoChecked = 0;
+
+var DEMO_CATS = {
+  'produce':   {label:'🥦 Produce',     aisle:'Produce · entrance',  emoji:'🥦', items:['avocado','banana','apple','lemon','lime','kale','spinach','lettuce','tomato','cucumber','broccoli','carrot','onion','garlic','ginger','mushroom','strawberry','blueberry','grape','mango','peach','pear','orange','celery','bell pepper','zucchini','asparagus','corn','herbs','basil','cilantro','parsley','mint']},
+  'dairy':     {label:'🥛 Dairy',        aisle:'Dairy · back wall',   emoji:'🥛', items:['milk','butter','cream','cheese','yogurt','eggs','cream cheese','sour cream','half and half','oat milk','almond milk','parmesan','mozzarella','cheddar','brie','gouda','feta','ricotta']},
+  'meat':      {label:'🥩 Meat & Fish',  aisle:'Meat · back right',   emoji:'🥩', items:['chicken','beef','salmon','tuna','shrimp','turkey','pork','lamb','bacon','sausage','steak','ground beef','tilapia','cod','halibut','scallop','crab','lobster','duck','veal']},
+  'bakery':    {label:'🍞 Bakery',       aisle:'Bakery · left side',  emoji:'🍞', items:['bread','sourdough','baguette','muffin','croissant','bagel','pita','tortilla','rolls','cake','pie','cookies','biscotti']},
+  'pantry':    {label:'🥫 Pantry',       aisle:'Center aisles',       emoji:'🥫', items:['pasta','rice','quinoa','oats','cereal','flour','sugar','salt','pepper','olive oil','vinegar','soy sauce','tomato sauce','canned tomato','beans','lentils','chickpeas','peanut butter','almond butter','honey','maple syrup','coffee','tea','chips','crackers','popcorn','nuts','almonds','walnuts','granola','protein bar']},
+  'frozen':    {label:'🧊 Frozen',       aisle:'Frozen · back left',  emoji:'🧊', items:['frozen pizza','ice cream','frozen vegetables','frozen fruit','edamame','frozen shrimp','frozen chicken','waffles','frozen burrito']},
+  'beverages': {label:'🧃 Beverages',    aisle:'Beverages · aisle 8', emoji:'🧃', items:['water','sparkling water','juice','soda','kombucha','wine','beer','coconut water','energy drink','sports drink','lemonade']},
+  'household': {label:'🧴 Household',    aisle:'Household · aisle 12',emoji:'🧴', items:['dish soap','laundry detergent','paper towels','toilet paper','trash bags','sponge','cleaning spray','hand soap','shampoo','conditioner','body wash','toothpaste','deodorant','lotion','candles','flowers']},
+};
+
+function guessDemoCat(name) {
+  var n = name.toLowerCase();
+  for (var cat in DEMO_CATS) {
+    var items = DEMO_CATS[cat].items;
+    for (var i = 0; i < items.length; i++) {
+      if (n.indexOf(items[i]) >= 0 || items[i].indexOf(n) >= 0) return cat;
+    }
+  }
+  return 'pantry';
+}
+
+function demoSetStore(name) {
+  demoStore = name;
+  // Update button styles
+  var map = {'Whole Foods':'ds-wf',"Trader Joe's":'ds-tj','Target':'ds-tg','Costco':'ds-co'};
+  Object.keys(map).forEach(function(s) {
+    var btn = document.getElementById(map[s]);
+    if (!btn) return;
+    if (s === name) {
+      btn.style.background = '#c9973a'; btn.style.color = '#fff'; btn.style.borderColor = '#c9973a';
+    } else {
+      btn.style.background = '#2e2a22'; btn.style.color = '#9a8f7e'; btn.style.borderColor = '#2e2a22';
+    }
+  });
+  renderDemoList();
+}
+
+function demoAutocomplete(q) {
+  var drop = document.getElementById('demo-ac');
+  if (!drop) return;
+  if (!q || q.length < 1) { drop.style.display = 'none'; return; }
+  var ql = q.toLowerCase();
+  var hits = [];
+  for (var cat in DEMO_CATS) {
+    DEMO_CATS[cat].items.forEach(function(item) {
+      if (item.indexOf(ql) >= 0 && hits.length < 6) {
+        hits.push({name: item.charAt(0).toUpperCase()+item.slice(1), cat: cat});
+      }
+    });
+  }
+  if (!hits.length) { drop.style.display = 'none'; return; }
+  drop.innerHTML = hits.map(function(h) {
+    return '<div onclick="demoAdd('' + h.name.replace(/'/g,"\'") + '')" style="padding:9px 16px;font-size:13px;color:#f5f0e8;cursor:pointer;display:flex;align-items:center;gap:10px;border-bottom:1px solid #2e2a22;" onmouseover="this.style.background='#2e2a22'" onmouseout="this.style.background=''">' +
+      '<span>' + DEMO_CATS[h.cat].emoji + '</span>' +
+      '<span>' + h.name + '</span>' +
+      '<span style="margin-left:auto;font-size:11px;color:#5a5248;">' + DEMO_CATS[h.cat].label + '</span>' +
+      '</div>';
+  }).join('');
+  drop.style.display = 'block';
+}
+
+function demoAdd(name) {
+  var inp = document.getElementById('demo-inp');
+  var raw = name || (inp ? inp.value.trim() : '');
+  if (!raw) return;
+  var parts = raw.split(',').map(function(p){ return p.trim(); }).filter(Boolean);
+  parts.forEach(function(p) {
+    var n = p.charAt(0).toUpperCase()+p.slice(1);
+    var existing = demoItems.find(function(x){ return x.name.toLowerCase()===n.toLowerCase(); });
+    if (!existing) demoItems.push({id:demoId++, name:n, cat:guessDemoCat(p), done:false});
+  });
+  if (inp) { inp.value = ''; }
+  var drop = document.getElementById('demo-ac');
+  if (drop) drop.style.display = 'none';
+  renderDemoList();
+}
+
+function demoCheck(id) {
+  var item = demoItems.find(function(x){ return x.id===id; });
+  if (item) { item.done = !item.done; renderDemoList(); }
+}
+
+function demoClear() {
+  demoItems = []; renderDemoList();
+}
+
+function demoLoadTrip(type) {
+  demoClear();
+  var trips = {
+    wf: ['Avocado','Organic baby spinach','Salmon fillet','Sourdough bread','Oat milk','Eggs','Parmesan','Pasta','Olive oil','Blueberries','Almond butter','Kombucha'],
+    tj: ['Everything Bagel Seasoning','Mandarin oranges','Cauliflower gnocchi','Turkish figs','Unexpected Cheddar','Fancy mixed nuts','Dark chocolate','Frozen palak paneer','Speculoos cookies','Joe Joe\'s cookies','Scented candles','Frozen mango'],
+    target: ['Paper towels','Laundry detergent','Shampoo','Greek yogurt','Orange juice','Cereal','Trash bags','Chicken breast','Cheddar cheese','Body wash'],
+  };
+  var list = trips[type] || trips.wf;
+  list.forEach(function(item){ demoAdd(item); });
+}
+
+function renderDemoList() {
+  var body = document.getElementById('demo-list');
+  if (!body) return;
+  var total = demoItems.length;
+  var done = demoItems.filter(function(x){ return x.done; }).length;
+
+  // Update progress
+  var pct = total ? Math.round(done/total*100) : 0;
+  var ptxt = document.getElementById('demo-prog-txt');
+  var pfill = document.getElementById('demo-prog-fill');
+  if (ptxt) ptxt.textContent = done + ' of ' + total + (total===1?' item':' items');
+  if (pfill) pfill.style.width = pct + '%';
+
+  if (!total) {
+    body.innerHTML = '<div style="padding:32px 20px;text-align:center;color:#5a5248;font-size:13px;">Add items above to see them sorted by aisle ✨</div>';
+    return;
+  }
+
+  // Group by category
+  var groups = {};
+  demoItems.forEach(function(item) {
+    if (!groups[item.cat]) groups[item.cat] = [];
+    groups[item.cat].push(item);
+  });
+
+  // Sort categories by aisle order
+  var catOrder = ['produce','meat','dairy','bakery','frozen','pantry','beverages','household'];
+  var html = '';
+  catOrder.forEach(function(cat) {
+    if (!groups[cat]) return;
+    var catInfo = DEMO_CATS[cat];
+    html += '<div style="padding:6px 16px 2px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5a5248;">' +
+      catInfo.emoji + ' ' + catInfo.label.replace(/^.+? /,'') +
+      ' <span style="font-weight:400;color:#3a3530;">· ' + catInfo.aisle + '</span>' +
+      '</div>';
+    groups[cat].forEach(function(item) {
+      html += '<div onclick="demoCheck(' + item.id + ')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;border-bottom:1px solid #1a1710;transition:background .1s;" onmouseover="this.style.background='#1a1710'" onmouseout="this.style.background=''">' +
+        '<div style="width:22px;height:22px;border-radius:50%;border:2px solid ' + (item.done?'#4caf72':'#2e2a22') + ';background:' + (item.done?'#4caf72':'transparent') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#fff;">' + (item.done?'✓':'') + '</div>' +
+        '<span style="flex:1;font-size:14px;color:' + (item.done?'#5a5248':'#f5f0e8') + ';text-decoration:' + (item.done?'line-through':'none') + ';">' + item.name + '</span>' +
+        '</div>';
+    });
+  });
+
+  // Other category
+  if (groups['other']) {
+    html += '<div style="padding:6px 16px 2px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5a5248;">🛒 Other</div>';
+    groups['other'].forEach(function(item) {
+      html += '<div onclick="demoCheck(' + item.id + ')" style="display:flex;align-items:center;gap:12px;padding:10px 16px;cursor:pointer;border-bottom:1px solid #1a1710;" onmouseover="this.style.background='#1a1710'" onmouseout="this.style.background=''">' +
+        '<div style="width:22px;height:22px;border-radius:50%;border:2px solid ' + (item.done?'#4caf72':'#2e2a22') + ';background:' + (item.done?'#4caf72':'transparent') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:#fff;">' + (item.done?'✓':'') + '</div>' +
+        '<span style="flex:1;font-size:14px;color:' + (item.done?'#5a5248':'#f5f0e8') + ';text-decoration:' + (item.done?'line-through':'none') + ';">' + item.name + '</span>' +
+        '</div>';
+    });
+  }
+
+  body.innerHTML = html;
+}
+
+// Init demo with a small starter list
+(function(){
+  setTimeout(function(){
+    ['Avocado', 'Salmon fillet', 'Oat milk', 'Sourdough bread', 'Eggs'].forEach(function(i){ demoAdd(i); });
+  }, 300);
+})();
 </script>
 
 </div>
