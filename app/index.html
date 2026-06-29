@@ -500,6 +500,7 @@ if('serviceWorker' in navigator){
     
     <input id="login-password" type="password" placeholder="Password (4+ characters)" autocomplete="current-password" style="width:100%;padding:14px;background:#0a0a0a;border:1px solid #333;border-radius:10px;color:#fff;font-size:15px;margin-bottom:16px;box-sizing:border-box;font-family:inherit;outline:none;">
     
+    <div style="text-align:right;margin:-6px 0 14px;"><span onclick="aibForgot()" style="color:#ff6b35;font-size:13px;cursor:pointer;font-weight:600;">Forgot password?</span></div>
     <button id="login-action-btn" type="button" style="width:100%;padding:15px;background:#ff6b35;color:#000;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px;font-family:inherit;transition:all 0.2s;">Log In</button>
     
     <button id="continue-guest-btn" type="button" style="width:100%;padding:10px;background:transparent;color:#888;border:none;font-size:12.5px;cursor:pointer;font-family:inherit;text-decoration:underline;">Use without account (this device only)</button>
@@ -3012,6 +3013,17 @@ function hideLoginOverlay(){
   if(ov) ov.style.display = 'none';
 }
 
+async function aibForgot(){
+  hideMsg();
+  var email=(document.getElementById('login-email').value||'').trim().toLowerCase();
+  if(!email||email.indexOf('@')<0){ showError('Enter your email above first, then tap \u201cForgot password?\u201d'); return; }
+  if(!sb){ showError('Still loading \u2014 try again in a second.'); return; }
+  try{
+    var res=await sb.auth.resetPasswordForEmail(email,{ redirectTo: location.origin + '/reset.html' });
+    if(res && res.error){ showError(res.error.message||'Could not send the reset email.'); return; }
+    showSuccess('\u2713 Check your email \u2014 we sent a password reset link to '+email+'.');
+  }catch(e){ showError('Could not send the reset email. Please try again.'); }
+}
 async function doAuthAction(){
   hideMsg();
   var email = document.getElementById('login-email').value.trim().toLowerCase();
