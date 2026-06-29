@@ -1,0 +1,57 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reset password · AisleBird</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
+body{margin:0;background:#0a0a0a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.card{background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:32px 24px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.logo{font-size:48px;text-align:center;line-height:1;}
+h1{margin:6px 0 0;text-align:center;font-size:26px;font-weight:800;letter-spacing:-.5px;}
+#sub{margin:6px 0 20px;text-align:center;color:#999;font-size:13px;}
+input{width:100%;padding:14px;background:#0a0a0a;border:1px solid #333;border-radius:10px;color:#fff;font-size:15px;margin-bottom:12px;outline:none;}
+button{width:100%;padding:15px;background:#ff6b35;color:#000;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;}
+button:disabled{opacity:.6;cursor:default;}
+#msg{display:none;border-radius:8px;padding:11px 13px;font-size:13px;margin-bottom:12px;line-height:1.4;}
+#msg.err{background:#2a1416;border:1px solid #5c2a2a;color:#ff9b9b;}
+#msg.ok{background:#10241a;border:1px solid #225c3a;color:#86e0a8;}
+a{color:#ff6b35;font-weight:700;text-decoration:none;}
+#done{display:none;text-align:center;margin-top:6px;}
+</style></head><body>
+<div class="card">
+  <div class="logo">🐦</div><h1>AisleBird</h1>
+  <p id="sub">Set a new password</p>
+  <div id="msg"></div>
+  <div id="form">
+    <input id="pw" type="password" placeholder="New password (4+ characters)" autocomplete="new-password">
+    <input id="pw2" type="password" placeholder="Confirm new password" autocomplete="new-password">
+    <button id="btn" onclick="doReset()">Update password</button>
+  </div>
+  <div id="done"><a href="/app/">Go to AisleBird &rarr;</a></div>
+</div>
+<script>
+var SUPABASE_URL='https://rlvibtvyaunuiwizqigj.supabase.co';
+var SUPABASE_KEY='sb_publishable_Q3Amu8Xs1UN2xH0fVPrngQ_BGZy3aye';
+var sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{detectSessionInUrl:true,persistSession:false}});
+function msg(t,err){var m=document.getElementById('msg');m.textContent=t;m.className=err?'err':'ok';m.style.display='block';}
+sb.auth.onAuthStateChange(function(evt){ if(evt==='PASSWORD_RECOVERY'){ msg('Enter your new password below.',false); } });
+window.addEventListener('load',function(){
+  var h=location.hash||'';
+  if(h.indexOf('access_token')<0 && h.indexOf('type=recovery')<0){
+    setTimeout(function(){ sb.auth.getSession().then(function(r){ if(!(r&&r.data&&r.data.session)){ msg('Open this page from the password-reset link in your email.',true); } }); },700);
+  }
+});
+async function doReset(){
+  var pw=document.getElementById('pw').value, pw2=document.getElementById('pw2').value;
+  if(!pw||pw.length<4){ msg('Password must be at least 4 characters.',true); return; }
+  if(pw!==pw2){ msg('Passwords do not match.',true); return; }
+  var btn=document.getElementById('btn'); btn.disabled=true; btn.textContent='Updating\u2026';
+  try{
+    var res=await sb.auth.updateUser({password:pw});
+    if(res&&res.error){ msg(res.error.message||'Could not update password. The link may have expired \u2014 request a new one.',true); btn.disabled=false; btn.textContent='Update password'; return; }
+    document.getElementById('form').style.display='none';
+    document.getElementById('done').style.display='block';
+    msg('\u2713 Password updated. You can sign in now.',false);
+  }catch(e){ msg('Could not update password. Request a new link.',true); btn.disabled=false; btn.textContent='Update password'; }
+}
+</script></body></html>
