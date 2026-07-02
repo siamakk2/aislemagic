@@ -414,7 +414,7 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 
 
 /* DEPARTMENT LOCATION HINTS */
-.aisle-loc{font-size:11px;color:var(--dim);font-weight:600;}
+.aisle-loc{font-size:12px;color:#fff;font-weight:600;}
 .sec-loc{font-size:9px;font-weight:600;color:var(--dim);letter-spacing:.03em;text-transform:none;margin-left:3px;}
 
 /* ── ALL 7 FEATURES ── */
@@ -1991,6 +1991,8 @@ function resolveCat(concept){
   for(var i=0;i<ch.length;i++) if(ids.indexOf(ch[i])!==-1) return ch[i];
   return 'other';
 }
+function _isCheese(n){ n=(n||'').toLowerCase(); if(/cream cheese|cheesecake|cottage cheese/.test(n)) return false; return /\bcheese\b|feta|brie|gouda|mozzarella|cheddar|parmesan|parmigiano|ricotta|gruyere|manchego|halloumi|provolone|havarti|blue cheese|gorgonzola|goat cheese|burrata|camembert|pecorino|asiago|mascarpone|swiss/.test(n); }
+function _cheeseLoc(store){ var c=store&&store.chain; var M={'Whole Foods':'Cheese \u00b7 near deli',"Trader Joe's":'Cheese \u00b7 refrigerated wall','Costco':'Refrigerated \u00b7 cheese section','Safeway':'Cheese \u00b7 deli area','Kroger':'Cheese \u00b7 deli area'}; return (c&&M[c])||'Cheese section'; }
 function guessCat(text){
   var n=(text||'').toLowerCase().trim();
   var hit=null;
@@ -2393,6 +2395,7 @@ function makeCard(it){
     var _aTag=document.createElement('div'); _aTag.className='aisle-tag';
     var _aisleLabel=_aCat.aisle||_aCat.label;
     var _aLocHint=curStore&&DEPT_LOCS[curStore.chain]?DEPT_LOCS[curStore.chain][it.cat]||'':'';
+    if(it.cat==='dairy'&&_isCheese(it.name)){ _aLocHint=_cheeseLoc(curStore); }
     _aTag.innerHTML='<span class="aisle-tag-icon">'+_aCat.emoji+'</span>'+'<span>'+escHtml(_aisleLabel)+'</span>'+
     (_aLocHint?'<span class="aisle-loc"> · '+escHtml(_aLocHint)+'</span>':'');
     ib.appendChild(_aTag);
