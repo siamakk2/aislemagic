@@ -95,6 +95,8 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 
 /* CART */
 .cart-bar{margin:8px 12px 0;padding:16px 18px;background:var(--gbg);border:1px solid var(--gbg);border-radius:16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+.finish-btn{margin:12px 0 4px;padding:15px;text-align:center;background:var(--or);color:#fff;font-weight:800;font-size:15px;border-radius:14px;cursor:pointer;box-shadow:0 6px 18px -6px rgba(255,117,24,.55);}
+.finish-btn:active{transform:scale(.99);}
 .cart-lbl{font-size:17px;font-weight:700;color:var(--gtx);}
 .cart-tog{font-size:14px;font-weight:700;color:var(--gtx);}
 .clear-btn{margin:8px 12px 0;padding:16px;background:var(--rbg);border-radius:14px;text-align:center;font-size:15px;font-weight:700;color:var(--rtx);cursor:pointer;}
@@ -2349,13 +2351,22 @@ function renderList(){
                   '<span class="cart-tog">'+(showCart?'Hide ▲':'Show ▼')+'</span>';
     bar.addEventListener('click',function(){ showCart=!showCart; renderList(); });
     body.appendChild(bar);
+    var _fin=document.createElement('div'); _fin.className='finish-btn';
+    _fin.textContent='\u2713 Finish trip & save to history';
+    _fin.addEventListener('click',function(){
+      var _chk=items.filter(function(i){ return i.checked; });
+      if(_chk.length){ autoSaveLastTrip(_chk); saveTrip(_chk); showToast('\u2713 Trip saved to history'); }
+      items=items.filter(function(i){ return !i.checked; });
+      showCart=false; renderList(); renderQuickAdd();
+    });
+    body.appendChild(_fin);
     if(showCart){
       checked.forEach(function(it){ body.appendChild(makeCard(it)); });
       var clr=document.createElement('div'); clr.className='clear-btn';
       clr.textContent='🗑 Remove all checked items';
       clr.addEventListener('click',function(){
         var _chk=items.filter(function(i){ return i.checked; });
-        if(_chk.length){ autoSaveLastTrip(_chk); saveTrip(_chk); }
+        if(_chk.length){ autoSaveLastTrip(_chk); saveTrip(_chk); showToast('\u2713 Trip saved to history'); }
         items=items.filter(function(i){ return !i.checked; });
         showCart=false; renderList(); renderQuickAdd();
       });
