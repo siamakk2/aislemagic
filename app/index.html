@@ -136,7 +136,10 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 
 /* FAB */
 .fab-row{padding:8px 12px 4px;display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-shrink:0;}
-.add-bar{padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;background:var(--bg2);border-top:1px solid var(--bdr);}
+.add-bar{padding:12px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;flex-shrink:0;background:var(--bg2);border-top:1px solid var(--bdr);}
+.add-bar-break{flex-basis:100%;height:0;margin:0;}
+.add-bar-inp{min-width:150px;}
+.add-bar .imp-icon-btn{flex-shrink:0;}
 .add-bar-inp{flex:1;min-width:0;background:var(--bg);border:1px solid var(--bdr);border-radius:999px;padding:15px 20px;font-size:17px;color:var(--tx);font-family:'Inter',sans-serif;outline:none;}
 .add-bar-inp:focus{border-color:var(--or);}
 .add-bar-btn{background:var(--or);border:none;border-radius:999px;padding:15px 24px;font-size:16px;font-weight:800;color:#fff;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
@@ -553,6 +556,7 @@ if('serviceWorker' in navigator){
 <div class="add-bar">
     <input class="add-bar-inp" id="add-inline" placeholder="✏️  Add an item — type here…" autocomplete="off"/>
     <button class="add-bar-btn" id="add-inline-btn" type="button">Add</button>
+    <div class="add-bar-break"></div>
     <button class="imp-icon-btn" id="imp-open-btn" type="button" title="Import from Notes">📋</button>
     <button class="imp-icon-btn" id="share-text-btn" type="button" title="Copy list as text">📤</button>
     <button class="imp-icon-btn" id="recipe-btn" type="button" title="Import recipe" onclick="openOv('ov-recipe')">🍽️</button>
