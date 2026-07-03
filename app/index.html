@@ -2375,7 +2375,7 @@ function renderList(){
     _fin.textContent='\u2713 Finish trip & save to history';
     _fin.addEventListener('click',function(){
       var _chk=items.filter(function(i){ return i.checked; });
-      if(_chk.length){ autoSaveLastTrip(_chk); saveTrip(_chk); showToast('\u2713 Trip saved to history'); }
+      if(_chk.length){ autoSaveLastTrip(_chk); saveTrip(_chk); showCelebrate(_chk); }
       items=items.filter(function(i){ return !i.checked; });
       showCart=false; renderList(); renderQuickAdd();
     });
@@ -2386,7 +2386,7 @@ function renderList(){
       clr.textContent='🗑 Remove all checked items';
       clr.addEventListener('click',function(){
         var _chk=items.filter(function(i){ return i.checked; });
-        if(_chk.length){ autoSaveLastTrip(_chk); saveTrip(_chk); showToast('\u2713 Trip saved to history'); }
+        if(_chk.length){ autoSaveLastTrip(_chk); saveTrip(_chk); showCelebrate(_chk); }
         items=items.filter(function(i){ return !i.checked; });
         showCart=false; renderList(); renderQuickAdd();
       });
@@ -4410,6 +4410,90 @@ function getStoreNote(itemName){
 // Expose logout for the sign-out button
 window.aislebirdLogout = doLogout;
 
+</script>
+<style>
+@keyframes abCeleFall{0%{transform:translateY(-30px) rotate(0);opacity:1}100%{transform:translateY(108vh) rotate(560deg);opacity:.85}}
+#celebrateCard{animation:abCelePop .45s cubic-bezier(.2,1.5,.4,1);}
+@keyframes abCelePop{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
+</style>
+<div id="celebrateOv" style="position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.78);display:none;align-items:center;justify-content:center;padding:20px;overflow:hidden;">
+  <div id="celebrateCard" style="position:relative;z-index:2;width:100%;max-width:360px;background:linear-gradient(160deg,#1c1c1c,#0d0d0d);border:1px solid rgba(255,107,53,.4);border-radius:28px;padding:32px 24px;text-align:center;box-shadow:0 26px 80px rgba(0,0,0,.65);">
+    <div style="font-size:66px;line-height:1;">&#128038;</div>
+    <div id="celeHeadline" style="font-family:'Inter',sans-serif;font-size:27px;font-weight:900;color:#fff;margin:8px 0 4px;">Trip crushed!</div>
+    <div id="celeSub" style="color:#ff8a5c;font-size:14px;font-weight:700;margin-bottom:22px;">zero backtracking &#127881;</div>
+    <div style="display:flex;gap:10px;justify-content:center;margin-bottom:18px;">
+      <div style="flex:1;background:rgba(255,255,255,.06);border-radius:16px;padding:16px 6px;"><div id="celeItems" style="font-size:34px;font-weight:900;color:#ff6b35;">0</div><div style="font-size:11px;color:#9aa1a9;font-weight:800;text-transform:uppercase;letter-spacing:.06em;">items</div></div>
+      <div style="flex:1;background:rgba(255,255,255,.06);border-radius:16px;padding:16px 6px;"><div id="celeAisles" style="font-size:34px;font-weight:900;color:#7cb342;">0</div><div style="font-size:11px;color:#9aa1a9;font-weight:800;text-transform:uppercase;letter-spacing:.06em;">aisles</div></div>
+    </div>
+    <div id="celeStore" style="color:#c8ccd0;font-size:14px;margin-bottom:22px;font-weight:600;min-height:18px;"></div>
+    <button onclick="shareTrip()" style="width:100%;background:#ff6b35;color:#fff;border:none;border-radius:14px;padding:16px;font-size:16px;font-weight:800;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:8px;">&#128241; Share my trip</button>
+    <button onclick="closeCelebrate()" style="width:100%;background:transparent;color:#9aa1a9;border:none;padding:10px;font-size:14px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;">Done</button>
+    <div style="margin-top:12px;color:#6a6f75;font-size:11px;font-weight:600;">AisleBird &middot; aislebird.com</div>
+  </div>
+</div>
+<script>
+function showCelebrate(chk){
+  try{
+    var n=(chk||[]).length; var cats={}; (chk||[]).forEach(function(i){ if(i&&i.cat) cats[i.cat]=1; });
+    var aisles=Object.keys(cats).length||1;
+    document.getElementById('celeItems').textContent=n;
+    document.getElementById('celeAisles').textContent=aisles;
+    var store=''; try{ if(typeof curStore!=='undefined'&&curStore){ store=(curStore.chain||'')+(curStore.name?(' \u00b7 '+curStore.name):''); } }catch(e){}
+    document.getElementById('celeStore').textContent=store?('at '+store):'';
+    var heads=['Trip crushed!','Aisle by aisle. Done.','Smooth run! \ud83c\udf89','Nailed it!','In and out! \ud83d\udca8'];
+    document.getElementById('celeHeadline').textContent=heads[Math.floor(Math.random()*heads.length)];
+    window._celeStats={n:n,aisles:aisles,store:store};
+    var ov=document.getElementById('celebrateOv'); ov.style.display='flex';
+    celeConfetti();
+    try{ if(navigator.vibrate) navigator.vibrate([14,40,14]); }catch(e){}
+  }catch(e){ try{ showToast('\u2713 Trip saved to history'); }catch(x){} }
+}
+function closeCelebrate(){ var o=document.getElementById('celebrateOv'); if(o) o.style.display='none'; }
+function celeConfetti(){
+  var host=document.getElementById('celebrateOv'); if(!host) return;
+  var colors=['#ff6b35','#7cb342','#ffd23f','#ff8a5c','#ffffff'];
+  for(var i=0;i<64;i++){ (function(i){
+    var p=document.createElement('div'); var sz=6+Math.random()*8;
+    p.style.cssText='position:absolute;top:-30px;z-index:1;left:'+(Math.random()*100)+'%;width:'+sz+'px;height:'+(sz*1.7)+'px;background:'+colors[i%colors.length]+';border-radius:2px;pointer-events:none;animation:abCeleFall '+(1.7+Math.random()*1.7)+'s linear '+(Math.random()*0.5)+'s forwards;';
+    host.appendChild(p); setTimeout(function(){ if(p.parentNode)p.parentNode.removeChild(p); },4200);
+  })(i); }
+}
+function _celeText(){ var s=window._celeStats||{n:0,aisles:1,store:''}; return '\ud83d\udc26 Just crushed my grocery run with AisleBird \u2014 '+s.n+' items across '+s.aisles+' aisle'+(s.aisles>1?'s':'')+', zero backtracking. Grab it free at aislebird.com'; }
+function copyShare(){ try{ navigator.clipboard.writeText(_celeText()); showToast('Copied! Paste it anywhere \ud83d\udc26'); }catch(e){ showToast('Screenshot this card to share!'); } }
+function shareTrip(){
+  var text=_celeText();
+  celeCanvas().then(function(blob){
+    try{
+      if(blob && navigator.canShare){
+        var file=new File([blob],'aislebird-trip.png',{type:'image/png'});
+        if(navigator.canShare({files:[file]})){ navigator.share({files:[file],text:text}).catch(function(){}); return; }
+      }
+    }catch(e){}
+    if(navigator.share){ navigator.share({title:'AisleBird',text:text,url:'https://aislebird.com'}).catch(function(){ copyShare(); }); }
+    else copyShare();
+  }).catch(function(){ if(navigator.share){ navigator.share({title:'AisleBird',text:text,url:'https://aislebird.com'}).catch(function(){copyShare();}); } else copyShare(); });
+}
+function celeCanvas(){
+  return new Promise(function(resolve){
+    try{
+      var s=window._celeStats||{n:0,aisles:1,store:''}; var W=1080,H=1350;
+      var c=document.createElement('canvas'); c.width=W; c.height=H; var x=c.getContext('2d');
+      var g=x.createLinearGradient(0,0,W,H); g.addColorStop(0,'#181818'); g.addColorStop(1,'#0d0d0d'); x.fillStyle=g; x.fillRect(0,0,W,H);
+      var rg=x.createRadialGradient(W/2,320,40,W/2,320,720); rg.addColorStop(0,'rgba(255,107,53,.38)'); rg.addColorStop(1,'rgba(255,107,53,0)'); x.fillStyle=rg; x.fillRect(0,0,W,H);
+      x.textAlign='center';
+      x.font='150px sans-serif'; x.fillText('\ud83d\udc26',W/2,320);
+      x.fillStyle='#ffffff'; x.font='900 92px Inter, Arial, sans-serif'; x.fillText('Trip crushed!',W/2,480);
+      x.fillStyle='#ff8a5c'; x.font='700 42px Inter, Arial, sans-serif'; x.fillText('zero backtracking',W/2,552);
+      x.fillStyle='#ff6b35'; x.font='900 180px Inter, Arial, sans-serif'; x.fillText(String(s.n),W/2-235,830);
+      x.fillStyle='#7cb342'; x.fillText(String(s.aisles),W/2+235,830);
+      x.fillStyle='#9aa1a9'; x.font='800 42px Inter, Arial, sans-serif'; x.fillText('ITEMS',W/2-235,905); x.fillText('AISLES',W/2+235,905);
+      if(s.store){ x.fillStyle='#c8ccd0'; x.font='600 44px Inter, Arial, sans-serif'; x.fillText('at '+s.store,W/2,1035); }
+      x.fillStyle='#ff6b35'; x.font='800 58px Inter, Arial, sans-serif'; x.fillText('AisleBird',W/2,1235);
+      x.fillStyle='#6a6f75'; x.font='600 40px Inter, Arial, sans-serif'; x.fillText('aislebird.com',W/2,1298);
+      c.toBlob(function(b){ resolve(b); },'image/png');
+    }catch(e){ resolve(null); }
+  });
+}
 </script>
 </body>
 </html>
