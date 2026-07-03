@@ -4495,6 +4495,34 @@ function celeCanvas(){
   });
 }
 </script>
+<style>
+@keyframes obBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+@keyframes obFade{from{opacity:0}to{opacity:1}}
+#obOv{position:fixed;inset:0;z-index:100001;background:radial-gradient(circle at 50% 28%,#26190f,#0d0d0d 72%);display:none;flex-direction:column;align-items:center;justify-content:center;padding:34px 26px;text-align:center;animation:obFade .35s ease;}
+#obOv .ob-step{display:flex;flex-direction:column;align-items:center;gap:2px;}
+</style>
+<div id="obOv">
+  <div style="font-size:90px;line-height:1;animation:obBob 2.4s ease-in-out infinite;">&#128038;</div>
+  <h1 style="font-family:'Inter',sans-serif;font-size:31px;font-weight:900;color:#fff;margin:6px 0 10px;">Welcome to AisleBird</h1>
+  <p style="color:#c3c8cd;font-size:16px;line-height:1.55;max-width:340px;margin:0 0 28px;">Say your whole grocery list in one breath. I sort it <b style="color:#ff8a5c;">aisle by aisle</b> so you fly through the store &mdash; never backtracking again.</p>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:32px;color:#9aa1a9;font-size:12px;font-weight:800;">
+    <div class="ob-step"><span style="font-size:28px;">&#127908;</span>Say it</div>
+    <span style="color:#4a4f55;font-size:18px;">&rarr;</span>
+    <div class="ob-step"><span style="font-size:28px;">&#129517;</span>Sorted</div>
+    <span style="color:#4a4f55;font-size:18px;">&rarr;</span>
+    <div class="ob-step"><span style="font-size:28px;">&#128722;</span>Shop fast</div>
+  </div>
+  <button onclick="obVoice()" style="width:100%;max-width:320px;background:#ff6b35;color:#fff;border:none;border-radius:16px;padding:18px;font-size:17px;font-weight:800;font-family:'Inter',sans-serif;cursor:pointer;margin-bottom:12px;box-shadow:0 12px 32px rgba(255,107,53,.42);">&#127908; Say your first items</button>
+  <button onclick="obClose()" style="background:transparent;color:#9aa1a9;border:none;font-size:15px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;padding:8px;">I&rsquo;ll type instead</button>
+  <div style="margin-top:20px;color:#6a6f75;font-size:12px;font-weight:600;">Free &middot; works at your store</div>
+</div>
+<script>
+function _obDone(){ try{ localStorage.setItem('ab_onboarded','1'); }catch(e){} var o=document.getElementById('obOv'); if(o) o.style.display='none'; }
+function obClose(){ _obDone(); try{ var inp=document.querySelector('.add-bar-inp'); if(inp){ inp.focus(); } }catch(e){} }
+function obVoice(){ _obDone(); try{ if(typeof goVoice==='function') goVoice(); }catch(e){} }
+function maybeOnboard(){ try{ if(localStorage.getItem('ab_onboarded')) return; }catch(e){ return; } var o=document.getElementById('obOv'); if(o){ o.style.display='flex'; } }
+window.addEventListener('load', function(){ setTimeout(maybeOnboard, 550); });
+</script>
 </body>
 </html>
 
