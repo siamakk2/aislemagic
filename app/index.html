@@ -469,6 +469,14 @@ if('serviceWorker' in navigator){
 }
 </script>
 <meta name="robots" content="noindex, nofollow"/>
+<style id="mobile-ux-pass">
+@media (max-width:768px){
+  /* Stop iOS auto-zoom on tap: fields must be >=16px */
+  input, select, textarea { font-size:16px !important; }
+  /* Thumb-friendly tap targets on form controls */
+  .btn, select, textarea, input:not([type=checkbox]):not([type=radio]) { min-height:46px; }
+}
+</style>
 </head>
 <body>
 <!-- LOGIN OVERLAY (cross-device accounts via Supabase) -->
