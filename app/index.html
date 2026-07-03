@@ -4519,9 +4519,10 @@ function celeCanvas(){
 <script>
 function _obDone(){ try{ localStorage.setItem('ab_onboarded','1'); }catch(e){} var o=document.getElementById('obOv'); if(o) o.style.display='none'; }
 function obClose(){ _obDone(); try{ var inp=document.querySelector('.add-bar-inp'); if(inp){ inp.focus(); } }catch(e){} }
-function obVoice(){ _obDone(); try{ if(typeof goVoice==='function') goVoice(); }catch(e){} }
+function obVoice(){ _obDone(); try{ if(typeof goVoice==='function') goVoice(); setTimeout(function(){ try{ if(typeof startListening==='function') startListening(); }catch(e){} }, 250); }catch(e){} }
 function maybeOnboard(){ try{ if(localStorage.getItem('ab_onboarded')) return; }catch(e){ return; } var o=document.getElementById('obOv'); if(o){ o.style.display='flex'; } }
-window.addEventListener('load', function(){ setTimeout(maybeOnboard, 550); });
+function _obInit(){ setTimeout(maybeOnboard, 550); }
+if(document.readyState==='complete'){ _obInit(); } else { window.addEventListener('load', _obInit); }
 </script>
 </body>
 </html>
