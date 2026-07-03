@@ -477,6 +477,17 @@ if('serviceWorker' in navigator){
   .btn, select, textarea, input:not([type=checkbox]):not([type=radio]) { min-height:46px; }
 }
 </style>
+<style id="ab-delight">
+/* Tactile press feedback — every tap feels responsive & premium */
+button, .cb, .btn-or, .btn-gy, .chip, .imp-icon-btn { transition: transform .12s cubic-bezier(.34,1.56,.5,1), filter .12s ease, box-shadow .18s ease; }
+button:active, .cb:active, .btn-or:active, .btn-gy:active, .chip:active, .imp-icon-btn:active { transform: scale(.93); }
+.btn-or:active { filter: brightness(.92); }
+/* Subtle depth so item cards feel crafted, not flat */
+.ic { box-shadow: 0 3px 12px rgba(0,0,0,.22); transition: opacity .25s ease, box-shadow .2s ease, border-color .2s ease; }
+.ic:not(.done):hover { border-color: rgba(255,107,53,.35); }
+/* Checkbox feels satisfying when it lights up */
+.cb.on { box-shadow: 0 0 0 4px rgba(255,107,53,.18); }
+</style>
 </head>
 <body>
 <!-- LOGIN OVERLAY (cross-device accounts via Supabase) -->
