@@ -3148,10 +3148,57 @@ async function doLogout(){
   document.getElementById('login-password').value = '';
 }
 
+/* ─── Migrate any guest-built lists into the account on sign-in (so lists are never lost) ─── */
+async function migrateGuestLists(){
+  if(!session) return;
+  try {
+    // collect guest keys first (don't mutate localStorage while iterating)
+    var guestKeys = [];
+    for(var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i);
+      if(k && k.indexOf('ab_guest_') === 0 && k.indexOf('_ts') === -1) guestKeys.push(k);
+    }
+    var migrated = 0;
+    for(var gi = 0; gi < guestKeys.length; gi++){
+      var gk = guestKeys[gi];
+      var storeId = gk.substring('ab_guest_'.length);
+      var guestItems = [];
+      try { guestItems = JSON.parse(localStorage.getItem(gk) || '[]'); } catch(e){ guestItems = []; }
+      if(!Array.isArray(guestItems) || !guestItems.length){ continue; }
+      var acctKey = 'ab_cache_' + session.user.id + '_' + storeId;
+      var acctItems = [];
+      try { acctItems = JSON.parse(localStorage.getItem(acctKey) || '[]'); } catch(e){ acctItems = []; }
+      if(!Array.isArray(acctItems)) acctItems = [];
+      // merge: keep everything the account already has, add any guest items not already present (by name)
+      var seen = {}; acctItems.forEach(function(it){ if(it && it.name) seen[String(it.name).toLowerCase().trim()] = true; });
+      var maxId = 0; acctItems.forEach(function(it){ if(typeof it.id === 'number' && it.id > maxId) maxId = it.id; });
+      guestItems.forEach(function(it){
+        if(!it || !it.name) return;
+        var nk = String(it.name).toLowerCase().trim();
+        if(!seen[nk]){ maxId++; it.id = maxId; acctItems.push(it); seen[nk] = true; }
+      });
+      // persist merged list to local cache + cloud
+      localStorage.setItem(acctKey, JSON.stringify(acctItems));
+      localStorage.setItem(acctKey + '_ts', String(Date.now()));
+      if(sb){
+        try {
+          await sb.from('shopping_lists').upsert({ user_id: session.user.id, store_id: storeId, items: acctItems, updated_at: new Date().toISOString() }, { onConflict: 'user_id,store_id' });
+        } catch(e){ console.error('guest migrate upsert failed', e); }
+      }
+      // clear the guest copy so it won't migrate again
+      localStorage.removeItem(gk); localStorage.removeItem(gk + '_ts');
+      migrated++;
+    }
+    if(migrated > 0 && typeof showToast === 'function'){ showToast('\u2713 Your list is saved to your account'); }
+  } catch(e){ console.error('migrateGuestLists error', e); }
+}
+
 /* ─── Boot for cloud user (logged in) ─── */
 async function bootForUser(){
   // 1) Pull everything from cloud into local cache (one-shot)
   await syncAllFromCloud();
+  // 1b) Rescue any list built while signed out — merge it into the account + cloud
+  await migrateGuestLists();
   // 2) Load current store items from local cache (fast)
   loadItemsFromLocal();
   if(typeof renderList === 'function') renderList();
