@@ -117,9 +117,9 @@ California (119+), Chicago, New York City, Los Angeles metro, Austin TX, Denver 
 ## About
 Designed by Jennifer. Built by Siamak Kalhor. Founded 2024. Based in Napa Valley, CA.
 
-## URLs
-- App: https://aislebird.com/app
-- Home: https://aislebird.com
-- How It Works: https://aislebird.com/#how-it-works
-- History feature: https://aislebird.com/#history
-- LLMO file: https://aislebird.com/llms.txt
+## Links
+- [AisleBird App](https://aislebird.com/app): The free PWA — pick a store, add your list, and get it sorted by department in walk order.
+- [AisleBird Home](https://aislebird.com): What AisleBird is, who it's for, and how it works.
+- [How It Works](https://aislebird.com/#how-it-works): The five-step shopping flow, explained.
+- [Shopping History](https://aislebird.com/#history): Auto-saved trips and one-tap re-buy of any past trip.
+- [llms.txt](https://aislebird.com/llms.txt): This file.
