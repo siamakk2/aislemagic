@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8"/>
+<!-- Consent Mode v2 defaults — must load ahead of gtag.js. Keep it directly after the charset meta tag. -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+(function(){var d='denied',g='granted',B={ad_storage:d,ad_user_data:d,ad_personalization:d,functionality_storage:d,personalization_storage:d,security_storage:g,wait_for_update:500},m=function(o){var r={},k;for(k in B)r[k]=B[k];for(k in o)r[k]=o[k];return r};
+gtag('consent','default',m({analytics_storage:g}));
+gtag('consent','default',m({analytics_storage:d,region:'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO GB CH'.split(' ')}));
+try{var c=JSON.parse(localStorage.getItem('sk_consent_v1'));if(c&&c.v===1&&Date.now()-c.ts<15552e6){var a=c.ads?g:d,n=c.analytics?g:d,f=c.functional?g:d;gtag('consent','update',{ad_storage:a,ad_user_data:a,ad_personalization:a,analytics_storage:n,functionality_storage:f,personalization_storage:f,security_storage:g});}}catch(e){}})();</script>
 <!-- Google tag (gtag.js) - AisleBird -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-G5XQSL76T2"></script>
 <script>
@@ -13,7 +20,6 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>AisleBird</title>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -4571,6 +4577,7 @@ function maybeOnboard(){ try{ if(localStorage.getItem('ab_onboarded')) return; }
 function _obInit(){ setTimeout(maybeOnboard, 550); }
 if(document.readyState==='complete'){ _obInit(); } else { window.addEventListener('load', _obInit); }
 </script>
+<script defer src="/consent.js"></script>
 </body>
 </html>
 
