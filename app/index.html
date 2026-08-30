@@ -461,6 +461,47 @@ body{font-family:'Inter',sans-serif;color:var(--tx);-webkit-font-smoothing:antia
 
 
 
+
+/* ── Onboarding overlay ─────────────────────────── */
+.ob-dot{width:8px;height:8px;border-radius:50%;background:var(--bdr);transition:background .3s,transform .3s;}
+.ob-dot.on{background:var(--or);transform:scale(1.3);}
+.ob-step{flex:0 0 33.333%;padding:24px 28px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.ob-icon{font-size:52px;margin-bottom:14px;}
+.ob-title{font-size:22px;font-weight:900;color:var(--txt);margin-bottom:10px;line-height:1.25;}
+.ob-body{font-size:14px;color:var(--mut);line-height:1.7;margin-bottom:16px;}
+.ob-next{width:100%;background:var(--or);color:#fff;border:none;border-radius:14px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;margin-bottom:10px;transition:opacity .2s;}
+.ob-next:hover{opacity:.88;}
+.ob-skip{background:none;border:none;color:var(--mut);font-size:13px;cursor:pointer;font-family:inherit;padding:4px;}
+.ob-demo-list{width:100%;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.ob-demo-item{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:700;color:var(--txt);text-align:left;animation:obItemSlide .5s ease both;}
+.ob-demo-item span{color:var(--or);}
+.ob-feature-card{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:12px 16px;text-align:left;}
+.ob-chain-pill{background:var(--card);border:1px solid var(--bdr);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--txt);}
+@keyframes obItemSlide{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+
+/* ── Smart empty state ──────────────────────────── */
+.empty-state{display:flex;flex-direction:column;align-items:center;padding:32px 24px;text-align:center;}
+.empty-state-icon{font-size:48px;margin-bottom:12px;animation:esBob 2.5s ease-in-out infinite;}
+.empty-state-title{font-size:18px;font-weight:800;color:var(--txt);margin-bottom:8px;}
+.empty-state-sub{font-size:13px;color:var(--mut);line-height:1.65;margin-bottom:20px;max-width:280px;}
+.empty-action-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;}
+.empty-action-btn{background:var(--card);border:1.5px solid var(--bdr);border-radius:999px;padding:9px 18px;font-size:13px;font-weight:700;color:var(--txt);cursor:pointer;font-family:inherit;transition:border-color .2s;}
+.empty-action-btn:hover,.empty-action-btn.primary{border-color:var(--or);color:var(--or);}
+.empty-demo-list{width:100%;display:flex;flex-direction:column;gap:6px;}
+.empty-demo-row{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:600;color:var(--mut);text-align:left;opacity:0;animation:obItemSlide .5s ease both;}
+@keyframes esBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ── Feature discovery strip ───────────────────── */
+.feat-strip{display:flex;gap:8px;padding:8px 14px;overflow-x:auto;border-bottom:1px solid var(--bdr);}
+.feat-strip::-webkit-scrollbar{height:0;}
+.feat-chip{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--bdr);border-radius:999px;padding:7px 14px;font-size:12px;font-weight:700;color:var(--txt);white-space:nowrap;cursor:pointer;flex-shrink:0;transition:all .2s;}
+.feat-chip:hover{border-color:var(--or);color:var(--or);}
+.feat-chip.new::after{content:"NEW";font-size:9px;background:var(--or);color:#fff;border-radius:4px;padding:1px 4px;margin-left:2px;font-weight:900;}
+
+/* ── Trip summary ───────────────────────────────── */
+#ts-dept-breakdown .ts-dept-row{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--txt);}
+#ts-dept-breakdown .ts-dept-count{margin-left:auto;color:var(--mut);font-weight:400;}
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -4216,7 +4257,7 @@ function renderHistoryOverlay(){
 /* =====================================
    FEATURE 1: CELEBRATION ANIMATION
 ===================================== */
-function showCelebration(){
+function showCelebration(){ if(typeof showTripSummary==="function") showTripSummary();
   var ov=document.getElementById('celebrate-ov');
   if(!ov||ov.classList.contains('on')) return;
   ov.classList.add('on');
@@ -4577,7 +4618,333 @@ function maybeOnboard(){ try{ if(localStorage.getItem('ab_onboarded')) return; }
 function _obInit(){ setTimeout(maybeOnboard, 550); }
 if(document.readyState==='complete'){ _obInit(); } else { window.addEventListener('load', _obInit); }
 </script>
-<script defer src="/consent.js"></script>
+<script defer src="/consent.js">
+
+/* ════════════════════════════════════════════════════════
+   ONBOARDING — shown once per user (localStorage flag)
+════════════════════════════════════════════════════════ */
+var _obStep = 0;
+function obCheckShow(){
+  var seen = localStorage.getItem('ab_ob_seen');
+  if(!seen){
+    // Delay slightly so app has time to render
+    setTimeout(function(){ openOv('ov-welcome'); }, 800);
+  }
+}
+function obNext(){
+  _obStep = Math.min(_obStep + 1, 2);
+  document.getElementById('ob-steps').style.transform = 'translateX(-' + (_obStep * 33.333) + '%)';
+  [0,1,2].forEach(function(i){
+    var d = document.getElementById('ob-d'+i);
+    if(d) d.classList.toggle('on', i === _obStep);
+  });
+}
+function obFinish(){
+  localStorage.setItem('ab_ob_seen','1');
+  closeOv('ov-welcome');
+}
+function obSkip(){
+  localStorage.setItem('ab_ob_seen','1');
+  closeOv('ov-welcome');
+}
+
+/* ════════════════════════════════════════════════════════
+   SMART EMPTY STATE
+   Called from renderList when items array is empty
+════════════════════════════════════════════════════════ */
+function renderEmptyState(container){
+  var demoItems = [
+    {e:'🥦', d:'Produce', n:'Near entrance', items:'Bananas · Spinach · Avocados'},
+    {e:'🧀', d:'Dairy',   n:'Back wall',     items:'Almond Milk · Greek Yogurt'},
+    {e:'🥩', d:'Meat',    n:'Back of store', items:'Wild Salmon · Chicken'},
+    {e:'🍞', d:'Bakery',  n:'Front of store',items:'Sourdough Bread'},
+  ];
+  var delayMap = ['.1s','.3s','.5s','.7s'];
+  var demoHTML = demoItems.map(function(it, i){
+    return '<div class="empty-demo-row" style="animation-delay:'+delayMap[i]+'">'
+      + it.e + ' <strong style="color:var(--or)">' + it.d + '</strong>'
+      + ' <span style="color:var(--mut);font-size:11px;">· '+it.n+'</span><br/>'
+      + '<span style="font-size:11px;color:var(--mut)">'+it.items+'</span></div>';
+  }).join('');
+
+  container.innerHTML =
+    '<div class="empty-state">'
+    + '<div class="empty-state-icon">🐦</div>'
+    + '<div class="empty-state-title">Your list, sorted by aisle</div>'
+    + '<div class="empty-state-sub">Add anything — AisleBird puts each item in the right department for your store, in the order you\'ll walk through it.</div>'
+    + '<div class="empty-action-row">'
+    + '<button class="empty-action-btn primary" onclick="openOv(\'ov-quickadd\');initQuickAdd()">⚡ Quick add</button>'
+    + '<button class="empty-action-btn" onclick="focusAddInput()">✏️ Type items</button>'
+    + '<button class="empty-action-btn" onclick="startVoice&&startVoice()">🎤 Speak list</button>'
+    + '</div>'
+    + '<div class="empty-demo-list">'
+    + '<div style="font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--mut);text-transform:uppercase;margin-bottom:6px;">How your list will look:</div>'
+    + demoHTML
+    + '</div>'
+    + '</div>';
+}
+function focusAddInput(){
+  var inp = document.getElementById('add-inp') || document.querySelector('.add-inp');
+  if(inp){ inp.focus(); inp.scrollIntoView({behavior:'smooth'}); }
+}
+
+/* ════════════════════════════════════════════════════════
+   QUICK-ADD CATEGORY GRID
+════════════════════════════════════════════════════════ */
+var QA_DATA = {
+  '🥦 Produce':  ['Bananas','Apples','Avocados','Baby Spinach','Romaine Lettuce','Broccoli','Carrots','Tomatoes','Lemons','Garlic','Onions','Strawberries','Blueberries','Grapes'],
+  '🧀 Dairy':    ['Milk','Almond Milk','Eggs','Greek Yogurt','Butter','Cream Cheese','Cheddar Cheese','Mozzarella','Half & Half','Sour Cream'],
+  '🥩 Meat':     ['Chicken Breast','Ground Beef','Wild Salmon','Shrimp','Turkey','Bacon','Steak','Tilapia','Pork Chops'],
+  '🍞 Bakery':   ['Sourdough Bread','Bagels','Croissants','English Muffins','Tortillas','Pita Bread','Baguette'],
+  '🥫 Pantry':   ['Olive Oil','Pasta','Rice','Canned Tomatoes','Chicken Broth','Black Beans','Oats','Peanut Butter','Honey','Soy Sauce','Coffee'],
+  '🧊 Frozen':   ['Frozen Pizza','Ice Cream','Edamame','Frozen Vegetables','Waffles','Fish Sticks','Frozen Fruit'],
+  '🍿 Snacks':   ['Tortilla Chips','Crackers','Popcorn','Trail Mix','Granola Bars','Pretzels','Dark Chocolate'],
+  '🧴 Health':   ['Ibuprofen','Vitamins','Sunscreen','Band-Aids','Allergy Medicine','Hand Sanitizer'],
+  '🧹 Home':     ['Paper Towels','Toilet Paper','Dish Soap','Laundry Detergent','Trash Bags','Sponges','Ziploc Bags'],
+};
+var _qaActiveCat = null;
+function initQuickAdd(){
+  var cats = document.getElementById('qa-cats');
+  if(!cats || cats.children.length > 0) return;
+  Object.keys(QA_DATA).forEach(function(cat){
+    var btn = document.createElement('button');
+    btn.className = 'empty-action-btn';
+    btn.style.cssText = 'font-size:13px;padding:8px 14px;';
+    btn.textContent = cat;
+    btn.onclick = function(){ showQaCat(cat, btn); };
+    cats.appendChild(btn);
+  });
+}
+function showQaCat(cat, btnEl){
+  // Highlight selected cat
+  document.querySelectorAll('#qa-cats button').forEach(function(b){ b.classList.remove('primary'); });
+  if(btnEl) btnEl.classList.add('primary');
+
+  var itemsEl = document.getElementById('qa-items');
+  itemsEl.innerHTML = '';
+  itemsEl.style.display = 'flex';
+
+  var currentNames = (typeof items !== 'undefined' ? items : []).map(function(i){ return i.name.toLowerCase(); });
+
+  QA_DATA[cat].forEach(function(name){
+    var already = currentNames.indexOf(name.toLowerCase()) >= 0;
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:11px 14px;cursor:pointer;';
+    row.innerHTML = '<span style="font-size:14px;font-weight:700;color:var(--txt)">'+name+'</span>'
+      + '<span style="font-size:18px;color:'+(already?'var(--or)':'var(--mut)')+';">'+(already?'✓':'+'+'')+'</span>';
+    if(!already){
+      row.onclick = function(){
+        // Add item via existing addItem function or directly
+        if(typeof addItem === 'function'){ addItem(name); }
+        else if(typeof items !== 'undefined'){
+          var cat2 = guessCat ? guessCat(name) : 'pantry';
+          items.push({id: Date.now(), name: name, checked: false, tag: cat2, qty:1, note:''});
+          if(typeof renderList === 'function') renderList();
+          if(typeof saveItems === 'function') saveItems();
+        }
+        row.querySelector('span:last-child').textContent = '✓';
+        row.querySelector('span:last-child').style.color = 'var(--or)';
+      };
+    }
+    itemsEl.appendChild(row);
+  });
+}
+
+/* ════════════════════════════════════════════════════════
+   FEATURE DISCOVERY STRIP
+   Rendered above the add input
+════════════════════════════════════════════════════════ */
+function renderFeatureStrip(){
+  var strip = document.getElementById('feat-strip');
+  if(!strip) return;
+  strip.innerHTML = [
+    {e:'⚡', label:'Quick Add', cls:'', fn:"openOv('ov-quickadd');initQuickAdd()"},
+    {e:'🎤', label:'Voice',     cls:'', fn:'startVoice&&startVoice()'},
+    {e:'🍽️', label:'Import Recipe', cls:'new', fn:"openOv('ov-recipe')"},
+    {e:'📊', label:'My History',cls:'new', fn:"openOv('ov-history')"},
+    {e:'🔗', label:'Share List', cls:'', fn:'generateShareLink&&generateShareLink()'},
+    {e:'💰', label:'Budget Mode',cls:'', fn:"openOv('ov-settings')"},
+  ].map(function(f){
+    return '<button class="feat-chip '+f.cls+'" onclick="'+f.fn+'">'
+      + f.e + ' ' + f.label
+      + '</button>';
+  }).join('');
+}
+
+/* ════════════════════════════════════════════════════════
+   TRIP COMPLETION PAYOFF
+   Called after celebration animation
+════════════════════════════════════════════════════════ */
+function showTripSummary(){
+  if(typeof items === 'undefined' || !items.length) return;
+  var checked = items.filter(function(i){ return i.checked||i.done; });
+  if(!checked.length) return;
+
+  // Build dept breakdown
+  var depts = {};
+  checked.forEach(function(it){
+    var d = it.tag || it.cat || 'other';
+    depts[d] = (depts[d]||0)+1;
+  });
+
+  var stats = document.getElementById('ts-stats');
+  if(stats) stats.textContent = checked.length + ' items · ' + Object.keys(depts).length + ' departments · ' + (curStore ? curStore.name : 'your store');
+
+  var breakdown = document.getElementById('ts-dept-breakdown');
+  if(breakdown){
+    var DEPT_ICONS = {produce:'🥦',dairy:'🧀',meat:'🥩',bakery:'🍞',pantry:'🥫',frozen:'🧊',snacks:'🍿',beverages:'🧃',household:'🧹',health:'💊',tools:'🔧'};
+    breakdown.innerHTML = Object.keys(depts).map(function(d){
+      var icon = DEPT_ICONS[d] || '🛒';
+      return '<div class="ts-dept-row">'+icon+' <span style="text-transform:capitalize">'+d+'</span>'
+        +'<span class="ts-dept-count">'+depts[d]+' item'+(depts[d]>1?'s':'')+'</span></div>';
+    }).join('');
+  }
+
+  setTimeout(function(){ openOv('ov-trip-summary'); }, 2200); // after celebration
+}
+function tsSaveAndClear(){
+  closeOv('ov-trip-summary');
+  if(typeof clearChecked === 'function') clearChecked();
+  else if(typeof items !== 'undefined'){
+    items = items.filter(function(i){ return !i.checked && !i.done; });
+    if(typeof renderList==='function') renderList();
+    if(typeof saveItems==='function') saveItems();
+  }
+}
+function tsShareTrip(){
+  closeOv('ov-trip-summary');
+  if(typeof generateShareLink==='function') generateShareLink();
+}
+
+/* ═══ INIT all new features on boot ════════════════════ */
+document.addEventListener('DOMContentLoaded', function(){
+  setTimeout(function(){
+    obCheckShow();
+    renderFeatureStrip();
+  }, 300);
+});
+
+</script>
+
+<!-- ═══════════════════════════════════════════════════════
+     ONBOARDING OVERLAY — shown once to first-time users
+     3 steps: store select → add items → see sort magic
+═══════════════════════════════════════════════════════ -->
+<div class="ov" id="ov-welcome" style="z-index:9999;">
+  <div class="sheet" style="padding:0;border-radius:28px 28px 0 0;overflow:hidden;max-height:88vh;">
+    <!-- progress dots -->
+    <div style="display:flex;justify-content:center;gap:8px;padding:18px 0 0;">
+      <div class="ob-dot on" id="ob-d0"></div>
+      <div class="ob-dot" id="ob-d1"></div>
+      <div class="ob-dot" id="ob-d2"></div>
+    </div>
+
+    <!-- Step panels -->
+    <div id="ob-steps" style="display:flex;transition:transform .4s cubic-bezier(.4,0,.2,1);width:300%;">
+
+      <!-- STEP 1: What AisleBird does -->
+      <div class="ob-step">
+        <div class="ob-icon">🐦</div>
+        <h2 class="ob-title">Shop smarter, not harder</h2>
+        <p class="ob-body">AisleBird automatically sorts your grocery list by aisle — in the order you walk through <em>your</em> exact store. No more backtracking.</p>
+        <div class="ob-demo-list">
+          <div class="ob-demo-item" style="animation-delay:.1s">🥦 <span>Produce</span> · Bananas, Spinach</div>
+          <div class="ob-demo-item" style="animation-delay:.3s">🧀 <span>Dairy</span> · Almond Milk</div>
+          <div class="ob-demo-item" style="animation-delay:.5s">🥩 <span>Meat</span> · Wild Salmon</div>
+          <div class="ob-demo-item" style="animation-delay:.7s">🍞 <span>Bakery</span> · Sourdough</div>
+        </div>
+        <button class="ob-next" onclick="obNext()">Got it — show me how →</button>
+        <button class="ob-skip" onclick="obSkip()">Skip intro</button>
+      </div>
+
+      <!-- STEP 2: Voice + Recipe -->
+      <div class="ob-step">
+        <div class="ob-icon">🎤</div>
+        <h2 class="ob-title">Add items your way</h2>
+        <p class="ob-body">Speak your whole list at once, type and comma-separate, or paste a recipe. Everything gets sorted automatically.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin:20px 0;">
+          <div class="ob-feature-card">
+            <span style="font-size:22px;">🎤</span>
+            <div>
+              <div style="font-weight:800;font-size:14px;">Voice input</div>
+              <div style="font-size:12px;color:var(--mut);">"Add milk, eggs, and sourdough"</div>
+            </div>
+          </div>
+          <div class="ob-feature-card">
+            <span style="font-size:22px;">🍽️</span>
+            <div>
+              <div style="font-weight:800;font-size:14px;">Recipe import</div>
+              <div style="font-size:12px;color:var(--mut);">Paste ingredients — we sort them</div>
+            </div>
+          </div>
+          <div class="ob-feature-card">
+            <span style="font-size:22px;">📊</span>
+            <div>
+              <div style="font-weight:800;font-size:14px;">Shopping history</div>
+              <div style="font-size:12px;color:var(--mut);">Every trip saved — rebuild in one tap</div>
+            </div>
+          </div>
+        </div>
+        <button class="ob-next" onclick="obNext()">Next →</button>
+        <button class="ob-skip" onclick="obSkip()">Skip</button>
+      </div>
+
+      <!-- STEP 3: Pick your store -->
+      <div class="ob-step">
+        <div class="ob-icon">🏪</div>
+        <h2 class="ob-title">Pick your store, start shopping</h2>
+        <p class="ob-body">AisleBird knows the layout of 11 chains across 300+ locations. Your list re-sorts every time you switch stores.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0 20px;">
+          <span class="ob-chain-pill">🌿 Whole Foods</span>
+          <span class="ob-chain-pill">🎯 Target</span>
+          <span class="ob-chain-pill">🛒 Walmart</span>
+          <span class="ob-chain-pill">🏪 Costco</span>
+          <span class="ob-chain-pill">🛵 Trader Joe's</span>
+          <span class="ob-chain-pill">💊 CVS</span>
+          <span class="ob-chain-pill">🔨 Home Depot</span>
+          <span class="ob-chain-pill">+4 more</span>
+        </div>
+        <button class="ob-next" onclick="obFinish()" style="background:var(--or);font-size:17px;padding:16px 32px;">
+          Start shopping — it's free 🐦
+        </button>
+      </div>
+
+    </div><!-- end ob-steps -->
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     QUICK-ADD CATEGORY GRID
+     Shown when list is empty OR when user taps the grid toggle
+═══════════════════════════════════════════════════════ -->
+<div id="ov-quickadd" class="ov" style="z-index:888;">
+  <div class="sheet" style="padding:16px 16px 32px;">
+    <div class="sh-handle"></div>
+    <div style="font-size:16px;font-weight:800;margin:8px 0 16px;color:var(--txt);">Quick Add by Category</div>
+    <div id="qa-cats" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div>
+    <div id="qa-items" style="display:none;flex-direction:column;gap:6px;"></div>
+    <button class="imp-cancel" onclick="closeOv('ov-quickadd')" style="margin-top:12px;width:100%;">Done</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TRIP SUMMARY OVERLAY
+     Shown after celebration when all items are checked
+═══════════════════════════════════════════════════════ -->
+<div id="ov-trip-summary" class="ov" style="z-index:8888;">
+  <div class="sheet" style="padding:28px 24px 40px;text-align:center;">
+    <div style="font-size:52px;margin-bottom:8px;">🎉</div>
+    <div style="font-size:22px;font-weight:900;color:var(--txt);margin-bottom:6px;">Trip Complete!</div>
+    <div id="ts-stats" style="font-size:14px;color:var(--mut);margin-bottom:20px;"></div>
+    <div id="ts-dept-breakdown" style="background:var(--card);border-radius:14px;padding:14px;margin-bottom:20px;text-align:left;display:flex;flex-direction:column;gap:8px;"></div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <button class="sub-btn" onclick="tsSaveAndClear()" style="background:var(--or);">Save trip &amp; clear list</button>
+      <button class="sub-btn" onclick="tsShareTrip()" style="background:var(--card);color:var(--txt);border:1px solid var(--bdr);">📤 Share this trip</button>
+      <button class="imp-cancel" onclick="closeOv('ov-trip-summary')">Keep shopping</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
 
