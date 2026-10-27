@@ -363,17 +363,29 @@ try{var c=JSON.parse(localStorage.getItem('sk_consent_v1'));if(c&&c.v===1&&Date.
     .video-section{padding:100px 0;background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);}
     .video-inner{max-width:960px;margin:0 auto;padding:0 40px;}
     .video-header{text-align:center;margin-bottom:48px;}
-    .video-wrap{position:relative;border-radius:20px;overflow:hidden;background:#000;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 1px var(--border);}
-    .video-wrap video{width:100%;display:block;max-height:540px;object-fit:contain;}
-    .video-play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);cursor:pointer;transition:background .2s;}
-    .video-play-btn:hover{background:rgba(0,0,0,.2);}
-    .video-play-icon{width:80px;height:80px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(255,107,53,.5);transition:transform .2s;}
-    .video-play-btn:hover .video-play-icon{transform:scale(1.1);}
-    .video-play-icon svg{width:32px;height:32px;fill:#fff;margin-left:4px;}
-    .video-caption{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:24px;flex-wrap:wrap;}
-    .video-cap-chip{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--muted);}
-    .video-cap-chip span{font-size:16px;}
-    @media(max-width:600px){.video-inner{padding:0 20px;}.video-section{padding:60px 0;}}
+    .video-stage{display:flex;align-items:flex-start;justify-content:center;gap:48px;}
+    /* Portrait phone frame for the vertical clip */
+    .video-phone{flex-shrink:0;width:320px;border-radius:40px;overflow:hidden;background:#000;box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 0 8px #1a1a1a,0 0 0 9px #333;position:relative;}
+    .video-phone video{width:100%;display:block;aspect-ratio:9/16;object-fit:cover;}
+    .video-play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);cursor:pointer;transition:background .2s;border-radius:32px;}
+    .video-play-btn:hover{background:rgba(0,0,0,.15);}
+    .video-play-icon{width:72px;height:72px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(255,107,53,.6);transition:transform .2s;}
+    .video-play-btn:hover .video-play-icon{transform:scale(1.08);}
+    .video-play-icon svg{width:28px;height:28px;fill:#fff;margin-left:4px;}
+    /* Side callouts */
+    .video-callouts{display:flex;flex-direction:column;justify-content:center;gap:20px;padding-top:16px;}
+    .video-callout{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 18px;}
+    .video-callout-icon{font-size:22px;flex-shrink:0;}
+    .video-callout-text{font-size:13px;font-weight:700;color:var(--text);line-height:1.4;}
+    .video-callout-sub{font-size:12px;color:var(--muted);font-weight:400;margin-top:2px;}
+    @media(max-width:760px){
+      .video-inner{padding:0 20px;}
+      .video-section{padding:60px 0;}
+      .video-stage{flex-direction:column;align-items:center;gap:32px;}
+      .video-phone{width:min(300px,85vw);}
+      .video-callouts{flex-direction:row;flex-wrap:wrap;justify-content:center;}
+      .video-callout{flex:1;min-width:140px;}
+    }
     .llmo-section{padding:60px 40px;background:var(--bg2);border-top:1px solid var(--border);}
     .llmo-inner{max-width:900px;margin:0 auto;text-align:center;}
     .llmo-title{font-size:18px;font-weight:800;margin-bottom:12px;color:var(--muted);}
@@ -899,28 +911,43 @@ try{var c=JSON.parse(localStorage.getItem('sk_consent_v1'));if(c&&c.v===1&&Date.
       <h2 class="section-title">Watch AisleBird sort your groceries</h2>
       <p class="section-sub" style="margin:0 auto;">Voice or type — every item lands in the right department, in the order you walk the store.</p>
     </div>
-    <div class="video-wrap" id="video-wrap">
-      <video
-        id="promo-video"
-        preload="metadata"
-        playsinline
-        poster="/og-image.png"
-        aria-label="AisleBird grocery list app demo showing items being sorted by store department"
-      >
-        <source src="/video/aislebird-promo-v2.mp4" type="video/mp4"/>
-        Your browser does not support HTML5 video.
-      </video>
-      <div class="video-play-btn" id="video-play-btn" role="button" aria-label="Play AisleBird demo video">
-        <div class="video-play-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+    <div class="video-stage">
+      <!-- Portrait phone frame -->
+      <div class="video-phone" id="video-wrap">
+        <video
+          id="promo-video"
+          preload="auto"
+          playsinline
+          aria-label="AisleBird grocery list app demo showing items being sorted by store department"
+        >
+          <source src="/video/aislebird-promo-v2.mp4" type="video/mp4"/>
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="video-play-btn" id="video-play-btn" role="button" aria-label="Play AisleBird demo video">
+          <div class="video-play-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="video-caption">
-      <div class="video-cap-chip"><span>🎙️</span> Voice input demo</div>
-      <div class="video-cap-chip"><span>🛒</span> Live aisle sorting</div>
-      <div class="video-cap-chip"><span>⚡</span> Instant department view</div>
-      <div class="video-cap-chip"><span>📍</span> 300+ store locations</div>
+      <!-- Side callouts -->
+      <div class="video-callouts">
+        <div class="video-callout">
+          <div class="video-callout-icon">🎙️</div>
+          <div><div class="video-callout-text">Voice Input</div><div class="video-callout-sub">Just say it, it's added</div></div>
+        </div>
+        <div class="video-callout">
+          <div class="video-callout-icon">🛒</div>
+          <div><div class="video-callout-text">Aisle Sorting</div><div class="video-callout-sub">Auto-sorted by department</div></div>
+        </div>
+        <div class="video-callout">
+          <div class="video-callout-icon">⚡</div>
+          <div><div class="video-callout-text">Instant Results</div><div class="video-callout-sub">No waiting, no setup</div></div>
+        </div>
+        <div class="video-callout">
+          <div class="video-callout-icon">📍</div>
+          <div><div class="video-callout-text">300+ Stores</div><div class="video-callout-sub">Whole Foods, Target & more</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
