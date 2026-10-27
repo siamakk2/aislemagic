@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://aislebird.com/#watch</loc>
+    <video:video>
+      <video:thumbnail_loc>https://aislebird.com/og-image.png</video:thumbnail_loc>
+      <video:title>AisleBird — Grocery List App Demo: Sort Your Shopping List by Aisle</video:title>
+      <video:description>See AisleBird in action: add groceries by voice or text, and watch every item instantly sort into the correct department in the order you walk through the store. Works at Whole Foods, Target, Costco, Walmart and 7 more chains across 300+ locations.</video:description>
+      <video:content_loc>https://aislebird.com/video/aislebird-promo-v2.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2026-10-01T00:00:00+00:00</video:publication_date>
+      <video:tag>grocery list app</video:tag>
+      <video:tag>shopping list sorted by aisle</video:tag>
+      <video:tag>AI grocery organizer</video:tag>
+      <video:tag>voice grocery list</video:tag>
+      <video:tag>Whole Foods app</video:tag>
+      <video:tag>department sorted shopping</video:tag>
+      <video:category>Shopping</video:category>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+    </video:video>
+  </url>
+</urlset>

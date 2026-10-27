@@ -71,6 +71,36 @@ try{var c=JSON.parse(localStorage.getItem('sk_consent_v1'));if(c&&c.v===1&&Date.
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "AisleBird — Grocery List App Demo: Sort Your Shopping List by Aisle",
+    "description": "See AisleBird in action: add groceries by voice or text, and watch every item instantly sort into the correct department in the order you walk through the store. Works at Whole Foods, Target, Costco, Walmart and 7 more chains across 300+ locations.",
+    "thumbnailUrl": "https://aislebird.com/og-image.png",
+    "uploadDate": "2026-10-01T00:00:00+00:00",
+    "duration": "PT1M30S",
+    "contentUrl": "https://aislebird.com/video/aislebird-promo-v2.mp4",
+    "embedUrl": "https://aislebird.com/#watch",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AisleBird",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://aislebird.com/icon-192.png"
+      }
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "AisleBird",
+      "url": "https://aislebird.com"
+    },
+    "keywords": "grocery list app, shopping list sorted by aisle, AI grocery organizer, voice shopping list, Whole Foods app, aisle navigation",
+    "inLanguage": "en-US",
+    "isFamilyFriendly": true,
+    "url": "https://aislebird.com/#watch"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
@@ -329,6 +359,21 @@ try{var c=JSON.parse(localStorage.getItem('sk_consent_v1'));if(c&&c.v===1&&Date.
     .cta-section p{font-size:18px;color:var(--muted);max-width:500px;margin:0 auto 36px;}
 
     /* ── LLMO ── */
+    /* ── VIDEO ── */
+    .video-section{padding:100px 0;background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);}
+    .video-inner{max-width:960px;margin:0 auto;padding:0 40px;}
+    .video-header{text-align:center;margin-bottom:48px;}
+    .video-wrap{position:relative;border-radius:20px;overflow:hidden;background:#000;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 0 1px var(--border);}
+    .video-wrap video{width:100%;display:block;max-height:540px;object-fit:contain;}
+    .video-play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);cursor:pointer;transition:background .2s;}
+    .video-play-btn:hover{background:rgba(0,0,0,.2);}
+    .video-play-icon{width:80px;height:80px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(255,107,53,.5);transition:transform .2s;}
+    .video-play-btn:hover .video-play-icon{transform:scale(1.1);}
+    .video-play-icon svg{width:32px;height:32px;fill:#fff;margin-left:4px;}
+    .video-caption{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:24px;flex-wrap:wrap;}
+    .video-cap-chip{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--muted);}
+    .video-cap-chip span{font-size:16px;}
+    @media(max-width:600px){.video-inner{padding:0 20px;}.video-section{padding:60px 0;}}
     .llmo-section{padding:60px 40px;background:var(--bg2);border-top:1px solid var(--border);}
     .llmo-inner{max-width:900px;margin:0 auto;text-align:center;}
     .llmo-title{font-size:18px;font-weight:800;margin-bottom:12px;color:var(--muted);}
@@ -522,6 +567,7 @@ try{var c=JSON.parse(localStorage.getItem('sk_consent_v1'));if(c&&c.v===1&&Date.
 </svg> AisleBird</a>
   <div class="nav-links">
     <a href="#how-it-works">How It Works</a>
+    <a href="#watch">▶ Watch</a>
     <a href="#demo">Try Demo</a>
     <a href="#features">Features</a>
     <a href="#coverage">Stores</a>
@@ -842,6 +888,59 @@ try{var c=JSON.parse(localStorage.getItem('sk_consent_v1'));if(c&&c.v===1&&Date.
     </div>
   </div>
 </section>
+
+<hr class="section-divider"/>
+
+<!-- VIDEO SECTION -->
+<section class="video-section" id="watch">
+  <div class="video-inner">
+    <div class="video-header">
+      <div class="section-eyebrow">See It In Action</div>
+      <h2 class="section-title">Watch AisleBird sort your groceries</h2>
+      <p class="section-sub" style="margin:0 auto;">Voice or type — every item lands in the right department, in the order you walk the store.</p>
+    </div>
+    <div class="video-wrap" id="video-wrap">
+      <video
+        id="promo-video"
+        preload="metadata"
+        playsinline
+        poster="/og-image.png"
+        aria-label="AisleBird grocery list app demo showing items being sorted by store department"
+      >
+        <source src="/video/aislebird-promo-v2.mp4" type="video/mp4"/>
+        Your browser does not support HTML5 video.
+      </video>
+      <div class="video-play-btn" id="video-play-btn" role="button" aria-label="Play AisleBird demo video">
+        <div class="video-play-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+    </div>
+    <div class="video-caption">
+      <div class="video-cap-chip"><span>🎙️</span> Voice input demo</div>
+      <div class="video-cap-chip"><span>🛒</span> Live aisle sorting</div>
+      <div class="video-cap-chip"><span>⚡</span> Instant department view</div>
+      <div class="video-cap-chip"><span>📍</span> 300+ store locations</div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var btn = document.getElementById('video-play-btn');
+  var vid = document.getElementById('promo-video');
+  if(!btn || !vid) return;
+  btn.addEventListener('click', function(){
+    btn.style.display = 'none';
+    vid.controls = true;
+    vid.play().catch(function(){});
+  });
+  vid.addEventListener('play', function(){ btn.style.display = 'none'; });
+  vid.addEventListener('pause', function(){
+    if(vid.ended || vid.currentTime === 0) btn.style.display = 'flex';
+  });
+})();
+</script>
 
 <hr class="section-divider"/>
 
